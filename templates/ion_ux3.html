@@ -5,36 +5,20 @@ last edited 04-13 04-09 03-05 2014-03-02
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="/static/bootstrap/less/bootstrap.min.css" type="text/css" />
-    <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/black-tie/jquery-ui.css' />
-    <link rel="stylesheet" href="/static/css/jscrollpane.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/static/css/ooinetLayout04.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/ooinetAppearance04.css"/>
-    <link href='http://fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'/>
-    <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700' rel='stylesheet' type='text/css' />
 
     <title>OOINet</title>
 
-    <!-- Vendor JavaScripts -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
-    <script src="/static/js/jquery-1.9.1.min.js"> </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script type='text/javascript' src='http://www.google.com/jsapi'> </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1'}]}"> </script>
-    <script src="/static/visualization/js/markerclusterer.js"> </script>
-            
-    <script src="/static/js/underscore-1.4.4.min.js "> </script>
-    <script src="/static/js/backbone-1.0.min.js"> </script>
-    <script src="/static/js/bootstrap.min.js"> </script>
-    <script src="/static/js/backbone.bootstrap-modal.js"> </script>
-    <script src="/static/js/jquery.jscrollpane.min.js"> </script>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="stylesheet" href="/static/bootstrap/less/bootstrap.min.css" type="text/css" />
+    <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/black-tie/jquery-ui.css' />
+    <link rel="stylesheet" href="/static/css/jscrollpane.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700' rel='stylesheet' type='text/css' />
 
-    <!-- UX JavaScripts --> 
-    <script src="/static/js/ion_ux2.js"> </script>
-    <script src="/static/js/ux_bootstrap_models2.js"> </script>
-    <script src="/static/js/ux_bootstrap_views2.js"> </script>
-    <script src="/static/js/ux-models-map2.js"> </script>
-    <script src="/static/js/ux-views-map2.js"> </script>
+    {% block extra_css %}{% endblock %}
+
+    <link rel="stylesheet" type="text/css" href="/static/css/ooinetLayout04.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/ooinetAppearance04.css"/>
 </head>
 
 <body>
@@ -60,6 +44,33 @@ last edited 04-13 04-09 03-05 2014-03-02
 	   </div>
 	</div>
 
+    {% block extra_templates %} {% endblock %}
+    
+    {% block extra_vendor_js %}
+    <!-- Vendor JavaScripts -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
+    <script src="/static/js/jquery-1.9.1.min.js"> </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script type='text/javascript' src='http://www.google.com/jsapi'> </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1'}]}"> </script>
+    <script src="/static/visualization/js/markerclusterer.js"> </script>
+            
+    <script src="/static/js/underscore-1.4.4.min.js "> </script>
+    <script src="/static/js/backbone-1.0.min.js"> </script>
+    <script src="/static/js/bootstrap.min.js"> </script>
+    <script src="/static/js/backbone.bootstrap-modal.js"> </script>
+    <script src="/static/js/jquery.jscrollpane.min.js"> </script>
+    {% endblock %}
+
+    <!-- UX JavaScripts --> 
+    <script src="/static/js/ion_ux2.js"> </script>
+    
+    {% block extra_ionux_js %} {% endblock %}
+        
+    <script src="/static/js/ux_bootstrap_models2.js"> </script>
+    <script src="/static/js/ux_bootstrap_views2.js"> </script>
+    <script src="/static/js/ux-models-map2.js"> </script>
+    <script src="/static/js/ux-views-map2.js"> </script>
     <script>
       $(function(){
         IONUX.init();
