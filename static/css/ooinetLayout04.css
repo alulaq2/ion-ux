@@ -83,9 +83,9 @@ body {
  padding:0px;
  width:calc(100% - 275px);
  height:32px;
- z-index:0;
- display:block;
- background-color: #ddd;
+ /*z-index:0;*/
+ z-index: 1;
+ 'outline:1px solid #000; /* temp */
 }
 
 #main {
@@ -530,6 +530,10 @@ input.no_placeholder_radius {
 
 .miles_kilos_menu {
   display: none;
+}
+
+.lat_long_menu option {
+  background-color: #384d68;
 }
 
 .spatial_details h5 {
