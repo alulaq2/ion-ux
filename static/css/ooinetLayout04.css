@@ -89,13 +89,13 @@ body {
 
 #main {
  position:absolute;
- /*top:104px;*/
- top:141px;
+ top:104px;
+ /*top:141px;*/
  left:275px;
  padding:0px;
  margin:0px;
- /*height:calc(100% - 104px);*/
- height:calc(100% - 141px);
+ height:calc(100% - 104px);
+ /*height:calc(100% - 141px);*/
  width:calc(100% - 275px);
  z-index:0;
  display:block;
@@ -220,6 +220,7 @@ body {
   z-index:4;
   overflow:auto;
 }
+
 .innerLeft {
   position:relative;
   margin:0px;
@@ -227,6 +228,12 @@ body {
   width:100%;
   z-index:4;
   overflow:auto;
+}
+
+#searchBar {
+  position: absolute;
+  top: 20px;
+  left: 0px;
 }
 
 #login {
