@@ -9,11 +9,15 @@ last edited 04-13 04-09 03-05 2014-03-02
     <title>OOINet</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    {% block inherit_css %}
+
     <link rel="stylesheet" href="/static/bootstrap/less/bootstrap.min.css" type="text/css" />
     <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/black-tie/jquery-ui.css' />
     <link rel="stylesheet" href="/static/css/jscrollpane.css" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'/>
     <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700' rel='stylesheet' type='text/css' />
+
+    {% endblock %}
 
     {% block extra_css %}{% endblock %}
 
@@ -22,31 +26,36 @@ last edited 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header" align="left">header</div>
-	<div id="leftSubheader" align="left">
+	<div id="header2">header</div>
+	<div id="leftSubheader">.</div>
+	<div id="mainSubheader">
+        <div class="mapButtonFull" title="Full Map View">.</div>
+        <div class="mapButtonSplit" title="Split View">.</div>
+        <div class="mapButtonHidden" title="Hidden Map View">.</div>
     </div>
-	<div id="mainSubheader" align="left">
-        <div id="search-production"> 
-            <div class="mapButtonFull" title="Full Map View"></div>
-            <div class="mapButtonSplit" title="Split View"></div>
-            <div class="mapButtonHidden" title="Hidden Map View"></div>
-        </div></div>
 
-    <div id="left">
-        <div id="searchTabContent"></div>
-        <div id="mySearchesTabContent" style="display:none;"></div>
-        <div id="legacyTabContent" style="display:none;"></div>
+    <div id="left2">
+        <div id="searchTabContent">.</div>
+        <div id="mySearchesTabContent" style="display:none;">.</div>
+        <div id="legacyTabContent" style="display:none;">.</div>
     </div>
     <div id="main">
-       <div id="upperMain">
-	   </div>
-	   <div id="lowerMain">
-	   </div>
+        <div id="mainNewTab">
+           <div id="upperMain">
+    	   </div>
+    	   <div id="lowerMain">
+    	   </div>
+        </div>
+        <div id="mainLegacyTab" style="display:none;">
+            <div id="dynamic-container" style="display:none;height:100%"> </div>
+        </div>
 	</div>
+
+    {% block inherit_templates %} {% endblock %}
 
     {% block extra_templates %} {% endblock %}
     
-    {% block extra_vendor_js %}
+    {% block inherit_vendor_js %}
     <!-- Vendor JavaScripts -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
     <script src="/static/js/jquery-1.9.1.min.js"> </script>
@@ -62,15 +71,19 @@ last edited 04-13 04-09 03-05 2014-03-02
     <script src="/static/js/jquery.jscrollpane.min.js"> </script>
     {% endblock %}
 
+    {% block extra_vendor_js %}{% endblock %}
+
     <!-- UX JavaScripts --> 
-    <script src="/static/js/ion_ux2.js"> </script>
-    
-    {% block extra_ionux_js %} {% endblock %}
-        
+    {% block inherit_ionux_js %} {% endblock %}
+
+    <script src="/static/js/ion_ux2.js"> </script>    
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
     <script src="/static/js/ux-views-map2.js"> </script>
+
+    {% block extra_ionux_js %} {% endblock %}
+        
     <script>
       $(function(){
         IONUX2.init();
@@ -103,6 +116,9 @@ last edited 04-13 04-09 03-05 2014-03-02
         });
         
       });
+      {% block document_ready %}
+      {% endblock %}
+      $('#legacyTabContent').hide();
     </script>
 </body>
 </html>

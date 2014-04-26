@@ -101,8 +101,8 @@ def login_required(f):
 
 @app.route('/')
 def index():
-    return render_template('ion_ux4.html')
-    # return render_app_template(request.path)
+    # return render_template('ion_ux3.html')
+    return render_app_template(request.path)
 
 @app.route('/failed')
 def failed_login():

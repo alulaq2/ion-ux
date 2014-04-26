@@ -1,7 +1,14 @@
 {% extends "ion_ux3.html" %}
 
-{% block extra_css %}
+{% block inherit_css %}
+        <!-- <link rel="stylesheet" href="/static/css/jquery-ui-1.8.6.custom.css" type="text/css" /> -->
+        <link rel="stylesheet" href="/static/css/jscrollpane.css" type="text/css" />
         <link rel="stylesheet" href="/static/css/bootstrap-datepicker.css" type="text/css" />
+        <link rel="stylesheet" href="/static/bootstrap/less/bootstrap.min.css" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700' rel='stylesheet' type='text/css' />
+
+
         <link rel="stylesheet" href="/static/css/common.css" type="text/css" />
 
         {% if static_assets %}
@@ -15,9 +22,23 @@
         <link rel="stylesheet" class="pepper" href="/static/css/pepper.css" type="text/css" disabled="true" />
         <link rel="stylesheet" class="salt" href="/static/css/salt.css" type="text/css"/>
         
+        
 {% endblock %}
     
-{% block extra_templates %} 
+{% block inherit_templates %} 
+        <!-- <div id="footer"> </div> -->
+        <script type="text/template" id="dashboard-map-tmpl">
+          <div id="map_canvas" style="display:none;"> </div>
+          <div id="map_bounds"></div>
+          <div id="2163993" style="display:none;"> </div>
+        </script>
+        <script type="text/template" id="dashboard-resources-tmpl">
+          <div id="2163993">
+            <p id="select-facility">Select a Facility</p>
+          </div>
+        </script>
+        
+        
         <script type="text/template" id="dashboard-content-tmpl"><![CDATA[{% include 'partials/dashboard_content.html' %}]]></script>
         <script type="text/template" id="dashboard-observatory-list-tmpl"><![CDATA[{% include 'partials/dashboard_observatory_list.html' %}]]></script>
         <script type="text/template" id="dashboard-org-list-tmpl"><![CDATA[{% include 'partials/dashboard_org_list.html' %}]]></script>
@@ -73,7 +94,7 @@
 
 {% endblock %}
 
-{% block extra_vendor_js %} 
+{% block inherit_vendor_js %} 
         <!-- Vendor JavaScripts -->
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
         <script src="/static/visualization/js/markerclusterer.js"> </script>
@@ -82,6 +103,7 @@
         <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1'}]}"> </script>
                 
         <script src="/static/js/jquery-1.9.1.min.js"> </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
         <script src="/static/js/bootstrap-datepicker.js"> </script>
         <script src="/static/js/jquery.cookie.js"> </script>
         
@@ -111,8 +133,9 @@
 
 {% endblock %}
 
-{% block extra_ionux_js %} 
-        <!-- UX JavaScripts -->	
+{% block inherit_ionux_js %} 
+        <!-- UX JavaScripts --> 
+        <script src="/static/js/ion-ux.js"> </script>
         <script src="/static/js/ux-templates.js"> </script>
         <script src="/static/js/ux-interactions.js"> </script>
         <script src="/static/js/ux-models.js"> </script>
@@ -121,6 +144,7 @@
         <script src="/static/js/ux-views-errors.js"> </script>
         <script src="/static/js/ux-renders.js"> </script>
         <script src="/static/js/ux-router.js"> </script>
+        <script src="/static/js/init.js"> </script>
         <script src="/static/js/ux-views-datatable.js"> </script>
         <script src="/static/js/ux-views-actionmenu.js"> </script>
         <script src="/static/js/ux-views-helpmenu.js"> </script>
@@ -133,6 +157,9 @@
         <script src="/static/js/ux-views-dashboard.js"> </script>
         <script src="/static/js/ux-views-thumbnail-chart.js"> </script>
         <script src="/static/js/ux-views-negotiations.js"> </script>
-        <script src="/static/js/ux-editform.js"> </script>
+        <script src="/static/js/ux-editform.js"> </script>        
         
 {% endblock %}
+
+      {% block document_ready %}
+      {% endblock %}
