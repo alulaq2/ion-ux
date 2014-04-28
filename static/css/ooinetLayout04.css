@@ -126,6 +126,11 @@ body {
  		background-color:#dbdee5
 }
 
+/* FIX for left creeping in width with legacy in new architecture */
+#left {
+  float: none;
+}
+
 #left2 {
  background-color: #384d68;
  position:absolute;
