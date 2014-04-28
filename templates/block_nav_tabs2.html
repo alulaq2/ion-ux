@@ -18,6 +18,8 @@
 				$('#mainLegacyTab').show();
 				$('#mainNewTab').hide();
 				$(window).trigger('resize');
+	            IONUX.Dashboard.MapView.draw_map();
+	            IONUX.Dashboard.MapView.draw_markers();
 			} else {
 				$('#mainLegacyTab').hide();
 				$('#mainNewTab').show();
