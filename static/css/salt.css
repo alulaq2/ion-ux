@@ -880,6 +880,7 @@ a.btn-black:hover, a.btn-advanced-search:hover {
 }
 .btn-view.active:hover, .btn-view:hover {text-decoration:underline; background-color:transparent;}
 
+resources-view { background-color:#FF0004}
 
 /* Google map */
 
@@ -921,16 +922,14 @@ a.btn-black:hover, a.btn-advanced-search:hover {
 }
 
 .heading {
-	background-color:#dbdee5;
-
-/*  border-left: 1px solid #fff;*/
+  background-color:#dbdee5;
   border-right: none;
   border-top: none;
   border-bottom: none;
-  padding: 32px 0 10px 15px;
+  padding: 6px 0px 16px 12px;
   overflow: visible;
   color: #000;
-  height: 44px;
+  height: 32px;
 }
 
 .heading h1, h2 {
@@ -2468,13 +2467,13 @@ table.table tr.odd td {
   background-color: #efefef;
 }
 
-.datatable-container {
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  background: none;
-}
+.datatable-container {}
 
+.tab-content{
+  border: 2px #293a4e solid;
+  background: #FFFFFF;
+}
+	
 .dataTables_wrapper {}
 
 .dataTables_wrapper label {
