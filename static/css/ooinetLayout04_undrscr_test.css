@@ -46,7 +46,7 @@ body {
  width: 100%;
 }
 
-#header_links {
+#headerLinks {
   color: white;
   position: absolute;
   top: 72px;
@@ -312,17 +312,17 @@ ul.dropdown-menu li:hover {
 --------------------------------------------------------------- */
 
 /* left sidebar accordion */
-#accordion_container {
+#accordionContainer {
   background-color: #384d68;
   padding-top:20px;
   color: #9ecdf9;
 }
 
-.accordion_control {
+.accordionControl {
   position: relative;
 }
 
-.accordion_label {
+.accordionLabel {
   color: #FFF;
   margin: 0px;
   padding: 0px;
@@ -333,7 +333,7 @@ ul.dropdown-menu li:hover {
   margin-left: 80px;
 }
 
-.left_accordion {
+.leftAccordion {
   background-color: #3b5e7e;
   background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
   background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
@@ -353,21 +353,21 @@ input[type="text"].keyword {
   height: 16px;
 }
 
-.spatial_duration {
+.spatialDuration {
   width: 23px;
   height: 13px !important;
   color: #969fa6;
 }
 
-.expand-hide {
+.expandHide {
   display:inline-block;
 }
 
-.accordion_title {
+.accordionTitle {
   cursor: pointer;
 }
 
-.left_navi_select_container {
+.leftNaviSelectContainer {
   position: relative;
   width: 160px;
   height: 16px;
@@ -377,7 +377,7 @@ input[type="text"].keyword {
   margin-bottom: 10px;
 }
 
-.left_navi_select_arrow {
+.leftNaviSelectArrow {
   pointer-events:none;
   position: absolute;
   left: 0px;
@@ -388,7 +388,7 @@ input[type="text"].keyword {
   background: url('../img/left_select_arrow.png') no-repeat right;
 }
 
-.left_navi_select_container select {
+.leftNaviSelectContainer select {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -405,7 +405,7 @@ input[type="text"].keyword {
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
-.spatial_details select {
+.spatialDetails select {
   background-color: #88a9cc;
   width: 160px;
   color: #fff;
@@ -416,11 +416,11 @@ input[type="text"].keyword {
   padding: 0px;
 }
 
-.spatial_details h5 {
+.spatialDetails h5 {
   line-height: 8px;
 }
 
-.arrow_down {
+.arrowDown {
   cursor: pointer;
   width: 0px;
   height: 2px;
@@ -433,7 +433,7 @@ input[type="text"].keyword {
   border-top: 5px solid #fff;
 }
 
-.arrow_right {
+.arrowRight {
   cursor: pointer;
   width: 0px;
   height: 0px;
@@ -447,7 +447,7 @@ input[type="text"].keyword {
   border-left: 5px solid #fff;
 }
 
-.spatial_details select.date_menu {
+.spatialDetails select.dateMenu {
   width: 70px;
   font-size: 0.8em;
   background-color: #fff;

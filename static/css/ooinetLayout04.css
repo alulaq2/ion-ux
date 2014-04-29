@@ -45,7 +45,7 @@ body {
  width: 100%;
 }
 
-#header_links {
+#headerLinks {
   color: white;
   position: absolute;
   bottom: 3px;
@@ -61,14 +61,14 @@ body {
   font-size: 12px;
 }
 
-#header_links a {
+#headerLinks a {
   text-decoration: none;
   color: #FFFFFF;
   border: none;
   margin-right: 5px;
 }
 
-#header_links a:after {
+#headerLinks a:after {
   margin-left: 5px;
   color: #004972;
   content: "|";
@@ -255,7 +255,7 @@ body {
  'outline:1px solid #000; /* temp */
 }
 
-.current-user {margin-right:6px}
+.currentUser {margin-right:6px}
 
 /* ---------------------------------------------------------------
  TEMP USER-NAV - ALL BLUE BUTTONS TO GET THIS STYLE EVENTUALLY
@@ -322,7 +322,7 @@ ul.dropdown-menu li:hover {
 --------------------------------------------------------------- */
 
 /* left sidebar accordion */
-#accordion_container {
+#accordionContainer {
   position: absolute;
   top: 21px;
   left: 0px;
@@ -336,11 +336,11 @@ ul.dropdown-menu li:hover {
   overflow: auto;
 }
 
-.accordion_control {
+.accordionControl {
   position: relative;
 }
 
-.accordion_label {
+.accordionLabel {
   color: #FFF;
   padding: 0px;
   display: inline-block;
@@ -358,7 +358,7 @@ ul.dropdown-menu li:hover {
   overflow: none;
 }
 
-.left_accordion {
+.leftAccordion {
   background-color: #3b5e7e;
   background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
   background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
@@ -374,12 +374,12 @@ ul.dropdown-menu li:hover {
   border-radius: 7px;
 }
 
-.spatial_duration, .latlong {
+.spatialDuration, .latlong {
   height: 13px !important;
   color: #969fa6;
 }
 
-.spatial_duration {
+.spatialDuration {
   width: 23px;
 }
 
@@ -395,11 +395,11 @@ input.latlong {
 	font-size: 12px;
 }
 
-.expand-hide {
+.expandHide {
   display:inline-block;
 }
 
-.accordion_title {
+.accordionTitle {
   cursor: pointer;
 }
 
@@ -413,11 +413,11 @@ input.latlong {
   width: 40px;
 }
 
-select.date_menu {
+select.dateMenu {
   width: 54px;
 }
 
-#accordion_container input {
+#accordionContainer input {
   height: 16px;
   line-height: 16px;
   padding: 0px 2px;
@@ -426,7 +426,7 @@ select.date_menu {
   font-size: 12px; 
 }
 
-#accordion_container select {
+#accordionContainer select {
   height: 16px;
   line-height: 16px;
   padding: 0px;
@@ -435,7 +435,7 @@ select.date_menu {
   font-size: 12px; 
 }
 
-.left_navi_select_container {
+.leftNaviSelectContainer {
   position: relative;
   width: 160px;
   height: 16px;
@@ -445,7 +445,7 @@ select.date_menu {
   margin-bottom: 4px;
 }
 
-.left_navi_narrow_select_container {
+.leftNaviNarSelectContainer {
 position: relative;
 height: 16px;
 padding: 0px;
@@ -455,21 +455,21 @@ margin-bottom: 4px;
 display: inline-block;
 }
 
-.left_navi_narrow_select_container {
+.leftNaviNarSelectContainer {
   width: 60px;
   top: 9px;
   height:16px;
 }
 
-.left_navi_narrow_select_arrow {
+.leftNaviSelectContainerArrow {
   width: 60px;
 }
 
-.left_navi_select_arrow {
+.leftNaviSelectArrow {
    width: 160px;
 }
 
-.left_navi_select_arrow, .left_navi_narrow_select_arrow {
+.leftNaviSelectArrow, .leftNaviSelectContainerArrow {
   pointer-events:none;
   position: absolute;
   left: 0px;
@@ -479,15 +479,15 @@ display: inline-block;
   background: url('../img/left_select_arrow.png') no-repeat right;
 }
 
-.left_navi_select_container select {
+.leftNaviSelectContainer select {
   width: 160px;
 }
 
-.left_navi_narrow_select_container select {
+.leftNaviNarSelectContainer select {
   width: 60px;
 }
 
-.left_navi_select_container select, .left_navi_narrow_select_container select {
+.leftNaviSelectContainer select, .leftNaviNarSelectContainer select {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -505,33 +505,33 @@ display: inline-block;
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
-.top_search_radius {
+.twoSearchRadius {
   display: none;
 }
 
-input.no_placeholder_radius {
+input.noPlacehoderRadius {
   display: none;
 }
 
-.miles_kilos_menu {
+.milesKilosMenu {
   display: none;
 }
 
-select.lat_long_menu option {
+select.latLongMenu option {
   background-color: #384d68;
 }
 
-.spatial_details h5 {
+.spatialDetails h5 {
   line-height: 8px;
   font-size: 12px;
 }
 
-.label_through {
+.labelThrough {
   height: 10px;
   display: block;
 }
 
-.arrow_down {
+.arrowDown {
   cursor: pointer;
   width: 0px;
   height: 2px;
@@ -544,7 +544,7 @@ select.lat_long_menu option {
   border-top: 5px solid #fff;
 }
 
-.arrow_right {
+.arrowRight {
   cursor: pointer;
   width: 0px;
   height: 0px;
@@ -557,13 +557,13 @@ select.lat_long_menu option {
   border-bottom: 3px solid transparent;
   border-left: 5px solid #fff;
 }
-#search_bar_container {
+#searchBarContainer {
   background-color: #3b5e7e;
   padding-left: 10px;
   border-radius: 3px;
 }
 
-#search_bar_container h5 {
+#searchBarContainer h5 {
   color: #FFF;
   margin: 0px;
   padding: 0px;
@@ -571,14 +571,14 @@ select.lat_long_menu option {
   font-size:12px;
 }
 
-.two_nav_tabs {
+.twoNavTabs {
   position: absolute;
   left: 0px;
   bottom: 0px;
   width: 100%;
 }
 
-.two_nav_tab {
+.twoNavTab {
   cursor: pointer;
   display: inline-block;
   padding-left: 12px;
@@ -590,7 +590,7 @@ select.lat_long_menu option {
   border-top-left-radius: 5px;
 }
 
-.two_nav_tabs .active {
+.twoNavTabs .active {
   background-color: #384d68;
   color: #fff;
 }
@@ -635,11 +635,11 @@ select.lat_long_menu option {
   right: 4px;
 }
 
-.jspTrack {
+#accordionContainer .jspTrack {
   background: none;
 }
 
-.jspDrag {
+#accordionContainer .jspDrag {
   background: #88A9CC;
 }
 
@@ -669,11 +669,11 @@ select.lat_long_menu option {
   background: url('../img/tack2.png');
 }
 
-.icon-chevron {
+.iconChevron {
   background-position: -288px -120px;
 }
 
-.collapsed .icon-chevron {
+.collapsed .iconChevron {
   background-position: -313px -119px;
 }
 
