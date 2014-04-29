@@ -255,7 +255,7 @@ body {
  'outline:1px solid #000; /* temp */
 }
 
-.currentUser {margin-right:6px}
+.current-user {margin-right:6px}
 
 /* ---------------------------------------------------------------
  TEMP USER-NAV - ALL BLUE BUTTONS TO GET THIS STYLE EVENTUALLY
@@ -336,15 +336,9 @@ ul.dropdown-menu li:hover {
   overflow: auto;
 }
 
-.accordionControl {
-  position: relative;
-}
+.accordionControl {position: relative; /* class not called in javascript, html */}
 
-.accordionLabel {
-  color: #FFF;
-  padding: 0px;
-  display: inline-block;
-}
+.accordionLabel {color: #FFF;padding: 0px;display: inline-block;}
 
 .textRight {
   height: 16px;
@@ -399,9 +393,7 @@ input.latlong {
   display:inline-block;
 }
 
-.accordionTitle {
-  cursor: pointer;
-}
+.accordionTitle {cursor: pointer;}
 
  input.keyword {
   width: calc(100% - 58px);
@@ -413,7 +405,7 @@ input.latlong {
   width: 40px;
 }
 
-select.dateMenu {
+select.date_menu {
   width: 54px;
 }
 
@@ -445,7 +437,7 @@ select.dateMenu {
   margin-bottom: 4px;
 }
 
-.leftNaviNarSelectContainer {
+.leftNaviNarrowSelectContainer {
 position: relative;
 height: 16px;
 padding: 0px;
@@ -455,13 +447,13 @@ margin-bottom: 4px;
 display: inline-block;
 }
 
-.leftNaviNarSelectContainer {
+.leftNaviNarrowSelectContainer {
   width: 60px;
   top: 9px;
   height:16px;
 }
 
-.leftNaviSelectContainerArrow {
+.leftNaviNarrowSelectArrow {
   width: 60px;
 }
 
@@ -469,7 +461,7 @@ display: inline-block;
    width: 160px;
 }
 
-.leftNaviSelectArrow, .leftNaviSelectContainerArrow {
+.leftNaviSelectArrow, .leftNaviNarrowSelectArrow {
   pointer-events:none;
   position: absolute;
   left: 0px;
@@ -483,11 +475,11 @@ display: inline-block;
   width: 160px;
 }
 
-.leftNaviNarSelectContainer select {
+.leftNaviNarrowSelectContainer select {
   width: 60px;
 }
 
-.leftNaviSelectContainer select, .leftNaviNarSelectContainer select {
+.leftNaviSelectContainer select, .leftNaviNarrowSelectContainer select {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -505,11 +497,11 @@ display: inline-block;
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
-.twoSearchRadius {
+.topSearchRadius {
   display: none;
 }
 
-input.noPlacehoderRadius {
+input.noPlaceholderRadius {
   display: none;
 }
 
@@ -531,7 +523,7 @@ select.latLongMenu option {
   display: block;
 }
 
-.arrowDown {
+.arrowDown { /* not called in another file */
   cursor: pointer;
   width: 0px;
   height: 2px;
@@ -635,11 +627,11 @@ select.latLongMenu option {
   right: 4px;
 }
 
-#accordionContainer .jspTrack {
+.jspTrack {
   background: none;
 }
 
-#accordionContainer .jspDrag {
+.jspDrag {
   background: #88A9CC;
 }
 
@@ -669,11 +661,11 @@ select.latLongMenu option {
   background: url('../img/tack2.png');
 }
 
-.iconChevron {
+.icon-chevron { /* bootstrap */
   background-position: -288px -120px;
 }
 
-.collapsed .iconChevron {
+.collapsed .icon-chevron { /* bootstrap */
   background-position: -313px -119px;
 }
 

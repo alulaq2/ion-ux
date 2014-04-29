@@ -1,5 +1,5 @@
 <span class="accordionTitle">
-   <div class="expand_hide arrowRight"></div>
+   <div class="expandHide arrowRight"></div>
    <div class="accordionLabel">Spatial</div>
 </span>
 <section class="spatialDetails">
@@ -12,26 +12,26 @@
   </div>
   <span class="labelThrough">From:</span>
   <input class="spatialDuration latlong" type="text" placeholder="Lat" />
-  <div class="leftNavSelectContainer">
+  <div class="leftNaviNarrowSelectContainer">
     <select>
       <option>N</option>
       <option>S</option>
     </select>
-    <div class="leftNaviSelectContainerArrow"></div>
+    <div class="leftNaviNarrowSelectArrow"></div>
   </div>
   <input class="spatialDuration latlong" type="text" placeholder="Long" />
-  <div class="leftNavSelectContainer">
+  <div class="leftNaviNarrowSelectContainer">
     <select>
       <option>E</option>
       <option>W</option>
     </select>
-    <div class="leftNaviSelectContainerArrow"></div>
+    <div class="leftNaviNarrowSelectArrow"></div>
   </div>
   <span class="labelThrough top_search_to">To:</span>
-  <span class="accordionLabel twoSearchRadius">Radius:</span>
+  <span class="accordionLabel topSearchRadius">Radius:</span>
   <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" />
-  <input class="spatialDuration latlong noPlacehoderRadius" type="text" />
-  <div class="leftNavSelectContainer">
+  <input class="spatialDuration latlong noPlaceholderRadius" type="text" />
+  <div class="leftNaviNarrowSelectContainer">
     <select class="north_south_menu">
         <option>N</option>
         <option>S</option>
@@ -40,27 +40,27 @@
       <option>Mi</option>
       <option>Km</option>
     </select>
-    <div class="leftNaviSelectContainerArrow"></div>
+    <div class="leftNaviNarrowSelectArrow"></div>
   </div>
   <input class="latlong show_hide_longitude" type="text" placeholder="Long" />
-  <div class="leftNavSelectContainer show_hide_longitude">
+  <div class="leftNaviNarrowSelectContainer show_hide_longitude">
     <select>
       <option>E</option>
       <option>W</option>
     </select>
-    <div class="leftNaviSelectContainerArrow"></div>
+    <div class="leftNaviNarrowSelectArrow"></div>
   </div>
   <h5>Vertical Extents</h5>
   <div class="accordionLabel">From:</div>
   <input class="latlong" type="text" />
   <div class="accordionLabel">To:</div>
   <input class="latlong" type="text" placeholder="Depth" />
-  <div class="leftNavSelectContainer">
+  <div class="leftNaviNarrowSelectContainer">
       <select>
         <option>FS</option>
         <option>M</option>
       </select>
-      <div class="leftNaviSelectContainerArrow"></div>
+      <div class="leftNaviNarrowSelectArrow"></div>
     </div>
 </section>
 
@@ -73,10 +73,10 @@
           console.log('changed option ' + $(this).find('option:selected').attr('value'));
           if ($(this).find('option:selected').attr('value') == "2") {
             $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-            $('.twoSearchRadius, .noPlacehoderRadius, .milesKilosMenu').show();
+            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
           }
           else {
-            $('.twoSearchRadius, .noPlacehoderRadius, .milesKilosMenu').hide();
+            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
             $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
           }
         });

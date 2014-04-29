@@ -161,10 +161,7 @@ h2 {
   line-height: 20px;
   font-weight: 600;
   padding: 0 0 0 10px;
-  border-top: solid 1px #fff;
-  border-bottom: solid 1px #7d7d7d;
   letter-spacing: 1px;
-  text-shadow: -1px -1px 1px #fff;
 }
 
 #select-facility {
@@ -178,7 +175,7 @@ h2 {
 }
 
 .panelize {
-  background-color: #e1e1e1;
+  background-color: #384D68;
   border-top: #fff 1px solid;
   border-left: #fff 1px solid;
   border-bottom: #7d7d7d 1px solid;
@@ -206,14 +203,39 @@ h2 {
 #dataproduct-filter .even,
 #lcstate-filter .even,
 #asset-filter .even {
-  background-color: #F4F4F4;
+  background-color: #3b5e7e;
+  background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
+  background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
+  background: -moz-linear-gradient(left, #5687AF, #3B5E7E);
+  background: -o-linear-gradient(left, #5687AF, #3B5E7E);
+  padding: 2px;
+  /*width: 217px;*/
+  margin-bottom: 5px;
+  margin-right: 3px;
+  margin-left: 6px;
+  border: 1px solid #5687AF;
+  border-left: 0px;
+  border-radius: 7px;
 }
 
 #dataproduct-filter .odd,
 #lcstate-filter .odd,
 #asset-filter .odd {
-  background-color: #EAEAEA;
+  background-color: #3b5e7e;
+  background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
+  background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
+  background: -moz-linear-gradient(left, #5687AF, #3B5E7E);
+  background: -o-linear-gradient(left, #5687AF, #3B5E7E);
+  padding: 2px;
+  /*width: 217px;*/
+  margin-bottom: 5px;
+  margin-right: 3px;
+  margin-left: 6px;
+  border: 1px solid #5687AF;
+  border-left: 0px;
+  border-radius: 7px;
 }
+.filter-option span {margin-left:15px}
 
 #dataproduct-filter .filter-option {
   margin-right: 0;
@@ -257,7 +279,7 @@ h2 {
 }
 
 .filter-option {
-  color: #000;
+  color: #FFFFFF;
   padding-left: 30px;
   line-height: 20px;
   font-size: 13px;
@@ -407,7 +429,7 @@ td.filter-option {
 ul.map-ul {
   padding: 0;
   margin: 0;
-  list-style: none; 
+  list-style: none;
 }
 
 .map-ul > li {
@@ -666,7 +688,7 @@ ul.resource-ul {
 }
 
 .primary-link:link, .primary-link:visited {
-  color: #000;
+  color: #FFF;
   font-weight: 300;
   text-decoration: none;
 }
@@ -1718,7 +1740,7 @@ a.btn-footer {
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0px;
-  color: #fff;
+  
 }
 
 .user-nav {

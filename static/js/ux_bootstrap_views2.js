@@ -52,9 +52,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 		var $link = $(e.currentTarget);
 		$link.parent().find('.spatialDetails').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
-            	$link.find('.expand_hide').removeClass('arrowRight').addClass('arrowDown');              
+            	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
-        		$link.find('.expand_hide').removeClass('arrowDown').addClass('arrowRight');
+        		$link.find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
        		}        
 		});
 	},
