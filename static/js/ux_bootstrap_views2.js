@@ -123,14 +123,48 @@ IONUX2.Views.Sites = Backbone.View.extend({
   },
 
   get_instrument: function(e) {
-    var resourceId = $(e.currentTarget).data('id');
-    IONUX2.Collections.instruments = new IONUX2.Collections.Instruments([], {resource_id: resourceId});
-    IONUX2.Views.instruments = new IONUX2.Views.Instruments({collection: IONUX2.Collections.instruments});
-    IONUX2.Collections.instruments.fetch({
-      success : function(collection) {
-        $('#instrument .spatial_details').html(IONUX2.Views.instruments.render().el);
-      }
+    var resource_id = $(e.currentTarget).data('id');
+    IONUX2.Models.instruments.set({'id': resource_id});
+    $.getJSON('/find_site_data_products/'+ resource_id +'/', function(data) {
+      $.extend(IONUX2.siteDataObj, data);
+      IONUX2.Collections.instruments = data;
+      collection = IONUX2.Collections.instruments;
+      IONUX2.Views.instruments = new IONUX2.Views.Instruments({data: collection});
+      
+      //IONUX2.Collections.instruments.add(IONUX2.siteDataObj);
+      //console.log(data);
+      /*for (var item in data) {
+        //console.log(data[item].site_resources);
+        var site_resource = data[item].site_resources;
+        for (var resource in site_resource) {
+          //console.log(site_resource[resource]);
+          if (site_resource[resource] !== null) {
+            //IONUX2.Collections.instruments.add({'id': resource_id, 'name': site_resource[resource].name});
+            //$.extend(IONUX2.siteDataObj, {'id': resource_id, 'name': site_resource[resource].name});
+            //IONUX2.Models.instruments.set({'id': resource_id, 'name': site_resource[resource].name});
+            //console.log("models are " + IONUX2.Models.instruments);
+            //IONUX2.Collections.instruments.add(IONUX2.Models.instruments);
+            IONUX2.siteData.push({'id': resource_id, 'name': site_resource[resource].name});
+            //instrument_list.add(IONUX2.Models.instruments);
+            //IONUX2.Collections.instruments.add(IONUX2.Models.instruments);
+            console.log(site_resource[resource].name);
+          }
+        }
+      }*/
+      /*IONUX2.Collections.instruments = new IONUX2.Collections.Instruments({
+        model: IONUX2.Models.instruments
+      });*/
+    //console.log(IONUX2.siteDataObj);
     });
+    //IONUX2.Collections.instruments.reset(IONUX2.siteData);
+    //console.log(IONUX2.Collections.instruments.toJSON());
+    console.log(IONUX2.Collections.instruments);
+    /*IONUX2.Collections.instruments = _.map(IONUX2.siteData, function(items) {
+      return {
+        id: items[0],
+        name: items[1]
+      }
+    });*/
   },
 
   render: function() {
@@ -167,11 +201,16 @@ IONUX2.Views.Facility = Backbone.View.extend({
   el: '#facility',
   template: _.template(IONUX2.getTemplate('templates/facility.html')),
   initialize: function() {
+    console.log('initializing instruments view ' + this.collection);
     this.render();
   },
   render: function() {
-    this.$el.html(this.template(this.collection.toJSON()));
-    return this;
+    console.log('rendering instruments');
+    this.$el.html(this.template(this.collection));
+     //this.$el.removeClass('placeholder');
+     //this.$el.html(this.template({resources: this.build_menu(), title: this.title}));
+       //this.$el.find('#list').jScrollPane({autoReinitialise: true});
+       return this;
   }
 
 });
