@@ -374,6 +374,11 @@ ul.dropdown-menu li:hover {
   color: #fff;
 }
 
+#saveButtons {
+  position: absolute;
+  top: 0;
+}
+
 .textRight {
   height: 18px;
   line-height: 12px;
@@ -384,12 +389,19 @@ ul.dropdown-menu li:hover {
   font-family: Arial;
   font-size: 12px; 
   overflow: none;
-  float: right;
+  /*float: right;*/
   border-radius: 5px;
   border: none;
 }
 
-.left_accordion {
+#customSearchName {
+  position: absolute;
+  z-index: 100;
+  top: -2px;
+  display: none;
+}
+
+.leftAccordion {
   background-color: #3b5e7e;
   background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
   background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);

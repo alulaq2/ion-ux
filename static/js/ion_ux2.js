@@ -62,6 +62,11 @@ IONUX2 = {
 			dataType: 'html'
 		});
 
+		/*IONUX2.Models.saveCustomName.fetch({
+			async: false,
+			dataType: 'html'
+		});*/
+
 		IONUX2.Models.SearchTabContentInstance = new IONUX2.Models.SearchTabContent();
 		IONUX2.Views.SearchTabContentInstance = new IONUX2.Views.SearchTabContent({model: IONUX2.Models.SearchTabContentInstance});
 		IONUX2.Models.SearchTabContentInstance.fetch({
