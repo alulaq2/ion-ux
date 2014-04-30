@@ -23,7 +23,7 @@ IONUX2.Views.MySearches = Backbone.View.extend({
   },
   render: function() {
     console.log('rendering my searches view');
-    this.$el.html(this.template(this.model.attributes));
+    this.$el.append(this.template(this.model.attributes));
     return this;
   }
 });
