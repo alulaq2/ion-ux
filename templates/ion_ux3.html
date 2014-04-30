@@ -179,10 +179,10 @@ last edited 04-13 04-09 03-05 2014-03-02
             //}
             
             $('.list_mysearches a').each(function(index) {
-                var searchModel = IONUX2.Collections.saveNames.at(index);
-                var body = JSON.stringify(searchModel);
+                //var searchModel = IONUX2.Collections.saveNames.at(index);
+                //var body = JSON.stringify(searchModel);
 
-                $.ajax({
+                /*$.ajax({
                     async: false,
                     type: "POST",
                     url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
@@ -192,30 +192,18 @@ last edited 04-13 04-09 03-05 2014-03-02
                         },
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded'
-                });
+                });*/
                 $(this).on('click', function(e) {
 
                     e.preventDefault();
-                    /*var searchModel = IONUX2.Collections.saveNames.at(index);
-                    var body = JSON.stringify(searchModel);
-
-                     $.ajax({
-                        async: false,
-                        type: "POST",
-                        url: '/profile/14710562c82e4631ba1bdffb2139d568/',
-                        data: {data: body},
-                        success: function(data) {
-                            console.log(data);
-                        },
-                        dataType: 'json',
-                        contentType: 'application/x-www-form-urlencoded'
-                    });*/
+                    var searchModel = IONUX2.Collections.saveNames.at(index);
+                    //var body = JSON.stringify(searchModel);
 
                     //var searches = JSON.stringify(searchModel);
                     //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
 
 
-                     $.ajax({
+                     /*$.ajax({
                         async: false,
                         type: "GET",
                         url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
@@ -226,34 +214,29 @@ last edited 04-13 04-09 03-05 2014-03-02
                         },
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded'
-                    });
+                    });*/
 
 
-                    function populateSearch(search_info) {
+                    //function populateSearch(search_info) {
                         //console.log(search_info[index].data);
-                        var searchModel = JSON.parse(search_info.data);
-                        var spatialModel = searchModel.spatial;
-                        console.log("retrieving spatial data");
-                        console.log(spatialModel);
+                        //var searchModel = JSON.parse(search_info.data);
+                        /*var spatialModel = searchModel.spatial;
                         var temporalModel = searchModel.temporal,
                             facilitiesModel = searchModel.facilities,
                             regionsModel = searchModel.regions,
                             sitesModel = searchModel.sites,
                             dataTypesModel = searchModel.dataTypes;
-                            var sortableOrder = searchModel.sortableOrder;
-                            console.log("parsing sortableOrder");
-                            console.log(sortableOrder);
-                            //sortableOrder = searchModel.sortableOrder;
+                            var sortableOrder = searchModel.sortableOrder;*/
 
                         var $accordion_container = $('.jspPane');
                     
-                    /*var spatialModel = searchModel.attributes.spatial,
+                    var spatialModel = searchModel.attributes.spatial,
                         temporalModel = searchModel.attributes.temporal,
                         facilitiesModel = searchModel.attributes.facilities,
                         regionsModel = searchModel.attributes.regions,
                         sitesModel = searchModel.attributes.sites,
                         dataTypesModel = searchModel.attributes.dataTypes,
-                        sortableOrder = searchModel.attributes.sortableOrder*/
+                        sortableOrder = searchModel.attributes.sortableOrder
 
                         reorder(sortableOrder.sortable_order, $accordion_container);
                     
@@ -358,7 +341,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                     })();
 
                 $('#searchTab').trigger('click');
-                }
+                //}
                 });
             });
             
