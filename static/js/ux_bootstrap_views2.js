@@ -61,7 +61,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	},
   saveSearch: function() {
     (function() {
-      var spatial_dropdown = $('.lat_long_menu option:selected').attr('value'),
+      // store spatial input values and set to model
+      var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
+        spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
         from_ns = $('.from_ns option:selected').val(),
         from_longitude = $('#west').val(),
@@ -71,13 +73,14 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         to_longitude = $('.show_hide_longitude').val(),
         to_ew = $('.to_ew option:selected').val(),
         radius = $('.no_placeholder_radius').val(),
-        miles_kilos = $('.miles_kilos_menu').val(),
+        miles_kilos = $('.milesKilosMenu').val(),
         vertical_from = $('[data-verticalfrom]').val(),
         vertical_to = $('[data-verticalto]').val(),
         feet_miles = $('.feet_miles option:selected').val();
 
 
       IONUX2.Models.saveSpatialSearch.set({
+        'accordion_visible': accordion_visible,
         'spatial_dropdown': spatial_dropdown,
         'from_latitude': from_latitude,
         'from_ns': from_ns,
@@ -96,7 +99,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     })();
 
     (function() {
-      var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
+      // save temporal input values and set to model
+      var accordion_visible = $('#temporal .spatialDetails').is(':visible'),
+        temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
         from_year = $('.from_date_menu .year').val(),
         from_month = $('.from_date_menu .month').val(),
         from_day = $('.from_date_menu .day').val(),
@@ -107,6 +112,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         to_hour = $('.to_date_menu .hour').val();
 
       IONUX2.Models.saveTemporalSearch.set({
+        'accordion_visible': accordion_visible,
         'temporal_dropdown': temporal_dropdown,
         'from_year': from_year,
         'from_month': from_month,
@@ -119,6 +125,39 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       });
     })();
 
+    (function() {
+      // get facility checkbox values
+      var facilities_checked = [];
+      $('.list_facilities input').each(function(data) {
+        var facility_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        facilities_checked.push({'value' : facility_value, 'is_checked' : is_checked });
+      });
+      
+      console.log(facilities_checked);
+    })();
+
+    (function() {
+      // get region checkbox values
+      var regions_checked = [];
+      $('.list_regions input').each(function(data) {
+        var region_name = $(this).data('spatial');
+        var is_checked = $(this).prop('checked');
+        regions_checked.push({'name' : region_name, 'is_checked' : is_checked });
+      });
+      console.log(regions_checked);
+    })();
+
+    (function() {
+      // get sites checkbox values
+      var sites_checked = [];
+      $('.list_sites input').each(function(data) {
+        var site_id = $(this).data('id');
+        var is_checked = $(this).prop('checked');
+        sites_checked.push({'id' : site_id, 'is_checked' : is_checked });
+      });
+      console.log(sites_checked);
+    })();
   },
 	render: function() {
 		console.log('rendering left side view');
