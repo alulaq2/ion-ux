@@ -33,10 +33,14 @@ last edited 04-13 04-09 03-05 2014-03-02
 	<div id="leftSubheader" align="left">
     </div>
 	<div id="mainSubheader" align="left">
-        <div id="search-production"> 
-            <div class="mapButtonFull" title="Full Map View"></div>
-            <div class="mapButtonSplit" title="Split View"></div>
-            <div class="mapButtonHidden" title="Hidden Map View"></div>
+        <div id="saveConfiguration">
+            <button class="textRight" id="saveConfigBtn">Save Configuration</button>
+            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
+        </div>
+        <div id="searchProduction"> 
+            <div class="mapButtonFull" title="Full Map View"> </div>
+            <div class="mapButtonSplit" title="Split View"> </div>
+            <div class="mapButtonHidden" title="Hidden Map View"> </div>
         </div></div>
 
     <div id="left2">
@@ -205,6 +209,43 @@ last edited 04-13 04-09 03-05 2014-03-02
                 });
             });
             
+        });
+
+        $('#saveConfigBtn').on('click', function(e) {
+            e.preventDefault();
+
+            var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+            var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
+                temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
+                facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible'),
+                region_accordion_visible = $('#region .spatialDetails').is(':visible'),
+                sites_accordion_visible = $('#sites .spatialDetails').is(':visible'),
+                datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
+
+            var user_profile = {
+                'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+                'name': IONUX2.Models.SessionInstance.attributes.name,
+                'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+                'spatial_open': spatial_accordion_visible,
+                'temporal_open': temporal_accordion_visible,
+                'facility_open': facility_accordion_visible,
+                'region_open': region_accordion_visible,
+                'site_open': sites_accordion_visible,
+                'datatype_open': datatype_accordion_visible,
+                'sortable_order': sortable_order
+            };
+
+            IONUX2.Models.saveConfiguration.set(user_profile);
+            console.log("configuration model");
+            console.log(IONUX2.Models.saveConfiguration);
+            
+            var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
+            UINAV.postUserProfile(userConfiguration);
+        });
+        
+        $('#loadConfigBtn').on('click', function(e) {
+            e.preventDefault();
+            UINAV.getUserProfile();
         });
 
       });

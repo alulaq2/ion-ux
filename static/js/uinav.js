@@ -121,20 +121,64 @@ var UINAV = {
             success: function(data) {
                 console.log("getting json saved search data from server");
                 console.log(data);
-                //this.populateSearch(data);
+                UINAV.loadConfiguration(data);
             },
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded'
         });
     },
-    populateSearch: function(search_info) {
-        var searchModel = JSON.parse(search_info.data);
-        var spatialModel = searchModel.spatial,
-       		temporalModel = searchModel.temporal,
-            facilitiesModel = searchModel.facilities,
-            regionsModel = searchModel.regions,
-            sitesModel = searchModel.sites,
-            dataTypesModel = searchModel.dataTypes,
-        	sortableOrder = searchModel.sortableOrder;
+    loadConfiguration: function(configuration) {
+        var configurationModel = JSON.parse(configuration.data);
+        var $accordion_container = $('.jspPane');
+        var sortableOrder = configurationModel.sortable_order;
+        this.reorder(sortableOrder, $accordion_container);
+
+        if (configurationModel.spatial_open) {
+        	$('#spatial .spatialDetails').show();
+        }
+        else {
+            $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#spatial .spatialDetails').hide();
+        }
+
+        if (configurationModel.temporal_open) {
+        	$('#temporal .spatialDetails').show();
+        }
+        else {
+        	$('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#temporal .spatialDetails').hide();
+        }
+
+        if (configurationModel.facility_open) {
+            $('#orgSelector .spatialDetails').show();
+        }
+        else {
+            $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#orgSelector .spatialDetails').hide();
+        }
+
+        if (configurationModel.region_open) {
+            $('#region .spatialDetails').show();
+        }
+        else {
+            $('#region .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#region .spatialDetails').hide();
+        }
+
+        if (configurationModel.site_open) {
+            $('#site .spatialDetails').show();
+        }
+        else {
+            $('#site .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#site .spatialDetails').hide();
+        }
+
+        if (configurationModel.datatype_open) {
+            $('#dataTypesList .spatialDetails').show();
+        }
+        else {
+            $('#dataTypesList .expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('#dataTypesList .spatialDetails').hide();
+        }
     }
 };
