@@ -92,5 +92,9 @@ var UINAV = {
         console.log(configurationList);
         this.reorder(sortableOrder, configurationList, $accordion_container);
         this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
+        //IONUX2.Collections.saveNames.set(configurationModel);
+        //IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({collection: IONUX2.Collections.saveNames});
+        console.log("load configuration");
+        console.log(IONUX2.Collections.saveNames);
     }
 };

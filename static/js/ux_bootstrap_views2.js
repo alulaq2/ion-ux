@@ -26,6 +26,18 @@ IONUX2.Views.MySearches = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.LoadSearches = Backbone.View.extend({
+  el: '.list_mysearches',
+  template: _.template(IONUX2.getTemplate('templates/load_searches.html')),
+  initialize: function() {
+  },
+  render: function() {
+    console.log('rendering load searches view');
+    this.$el.html(this.template(this.collection.toJSON()));
+    return this;
+  }
+});
+
 // responds to model in two ways.  Captures fetched template
 // and renders with loaded template when data (session) is
 // fetched.

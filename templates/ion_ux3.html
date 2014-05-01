@@ -174,13 +174,15 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
         });
 
-        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
+        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
+        //IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({collection: IONUX2.Collections.saveNames});      
         
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
             // render my searches view
             IONUX2.Views.mySearches.render();
+            //IONUX2.Views.loadSearches.render();
             
             // loop through list of saved searches
             $('.list_mysearches a').each(function(index) {
@@ -190,6 +192,9 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 
                     // retrieve model at current index from collection
                     var searchModel = IONUX2.Collections.saveNames.at(index);
+                    //var searchModel = IONUX2.Collections.saveNames;
+                    console.log("search model");
+                    console.log(searchModel);
 
                     // convert search model into string to pass to ajax call
                     var body = JSON.stringify(searchModel);
@@ -212,6 +217,17 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
                         sitesModel = searchModel.attributes.sites,
                         dataTypesModel = searchModel.attributes.dataTypes,
                         sortableOrder = searchModel.attributes.sortableOrder;
+
+                    /*var spatialModel = searchModel.models[0].attributes.saved_searches[index].spatial,
+                        temporalModel = searchModel.models[0].attributes.saved_searches[index].temporal,
+                        facilitiesModel = searchModel.models[0].attributes.saved_searches[index].facilities,
+                        regionsModel = searchModel.models[0].attributes.saved_searches[index].regions,
+                        sitesModel = searchModel.models[0].attributes.saved_searches[index].sites,
+                        dataTypesModel = searchModel.models[0].attributes.saved_searches[index].dataTypes,
+                        sortableOrder = searchModel.models[0].attributes.saved_searches[index].sortableOrder;
+
+                        console.log("spatial model index is " + index);
+                        console.log(spatialModel);*/
 
                     // trigger saved jquery sort order
                     //var $accordion_container = $('.jspPane');
@@ -362,8 +378,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
                     'accordionDataType': datatype2_accordion_visible
                 },
                 'sortable_order': sortable_order,
-                'bottom_sortable': bottom_sortable
-                //'saved_searches': IONUX2.Collections.saveNames.toJSON()
+                'bottom_sortable': bottom_sortable,
+                'saved_searches': IONUX2.Collections.saveNames.toJSON()
             };
 
             IONUX2.Models.saveConfiguration.set(user_profile);

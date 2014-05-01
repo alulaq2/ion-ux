@@ -121,6 +121,8 @@ IONUX2 = {
 			dataType: 'html'
 		});
 
+		
+
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
 		$("#lowerMain").html(IONUX2.getTemplate('templates/block_accordion_white2.html')).show();
 
@@ -145,6 +147,7 @@ IONUX2 = {
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
 	    	$('#saveConfiguration').show();
+	    	//UINAV.getUserProfile();
 	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;
