@@ -154,14 +154,14 @@ h2 {
 #left h3 {
   margin: 0;
   padding: 0;
-  background: #cdcdcd;
-  color: #000;
+  color: #FFFFFF;
   font-size: 11px;
   text-transform: uppercase;
   line-height: 20px;
   font-weight: 600;
   padding: 0 0 0 10px;
   letter-spacing: 1px;
+  background: #497498;
 }
 
 #select-facility {
@@ -176,14 +176,12 @@ h2 {
 
 .panelize {
   background-color: #384D68;
-  border-top: #fff 1px solid;
-  border-left: #fff 1px solid;
-  border-bottom: #7d7d7d 1px solid;
+  border: none;
 }
 
 
 #observatory-selector {
-  background: #e1e1e1;
+  background: #497498;
 }
 
 #observatory-selector #list {
@@ -725,26 +723,19 @@ ul.resource-ul {
 #map-asset-data-menu {
   margin: 0;
   padding: 5px 0;
-  background: #E1E1E1;
-  color: #000;
+  color: #FFF;
   font-size: 10px;
   text-transform: uppercase;
-  line-height: 10px;
+  line-height: 5px;
   font-weight: 400;
-  border-top: solid 1px #fff;
-  border-right: solid 1px #7d7d7d;
-  border-bottom: solid 1px #7d7d7d;
-  border-left: solid 1px #fff;
   letter-spacing: 1px;
-  text-shadow: -1px -1px 1px #fff;
   width: 100%;
 }
 
 #map-asset-data-menu span {
-  background: #e1e1e1;
   width: 40%;
   display: inline-block;
-  line-height: 38px;
+  line-height: 16px;
   cursor: pointer;
   padding-left: 10%;
   position: relative;
@@ -773,7 +764,7 @@ ul.resource-ul {
 /* nsf & ocean leadership logos  */
 
 .nsf-ol {
-  background-color: #d7d7d7;
+  background-color: transparent;
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
@@ -811,9 +802,11 @@ ul.resource-ul {
   clear: both;
   font-size: 11px;
   font-weight: 300;
-  color: #7099A6;
+  color: #FFFFFF;
   padding: 10px;
 }
+
+.about a:link {color:#49aaff; font-weight:bold}
 
 /* map/resource/searchbar */
 
