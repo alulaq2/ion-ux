@@ -1,8 +1,16 @@
 var UINAV = {
-	reorder: function(orderArray, elementContainer) {
+	reorder: function(orderArray, configurationList, elementContainer) {
         $.each(orderArray, function(key, val){
             console.log("value is " + val);
             elementContainer.append($("#"+val));
+            for (item in configurationList) {
+            	if (configurationList[item]) {
+            		$('#'+item + ' .spatialDetails').show();
+            	}
+            	else {
+            		$('#'+item + ' .spatialDetails').hide();
+            	}
+            }
      	});
     },
     loadSpatial: function(spatialModel) {
@@ -131,54 +139,9 @@ var UINAV = {
         var configurationModel = JSON.parse(configuration.data);
         var $accordion_container = $('.jspPane');
         var sortableOrder = configurationModel.sortable_order;
-        this.reorder(sortableOrder, $accordion_container);
-
-        if (configurationModel.spatial_open) {
-        	$('#spatial .spatialDetails').show();
-        }
-        else {
-            $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#spatial .spatialDetails').hide();
-        }
-
-        if (configurationModel.temporal_open) {
-        	$('#temporal .spatialDetails').show();
-        }
-        else {
-        	$('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#temporal .spatialDetails').hide();
-        }
-
-        if (configurationModel.facility_open) {
-            $('#orgSelector .spatialDetails').show();
-        }
-        else {
-            $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#orgSelector .spatialDetails').hide();
-        }
-
-        if (configurationModel.region_open) {
-            $('#region .spatialDetails').show();
-        }
-        else {
-            $('#region .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#region .spatialDetails').hide();
-        }
-
-        if (configurationModel.site_open) {
-            $('#site .spatialDetails').show();
-        }
-        else {
-            $('#site .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#site .spatialDetails').hide();
-        }
-
-        if (configurationModel.datatype_open) {
-            $('#dataTypesList .spatialDetails').show();
-        }
-        else {
-            $('#dataTypesList .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#dataTypesList .spatialDetails').hide();
-        }
+        var configurationList = configurationModel.configuration;
+        console.log("configuration list");
+        console.log(configurationList);
+        this.reorder(sortableOrder, configurationList, $accordion_container);
     }
 };

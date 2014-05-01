@@ -225,13 +225,18 @@ IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
     userId: '',
     name: '',
     validUntil: '',
-    spatial_open: '',
-    temporal_open: '',
-    facility_open: '',
-    region_open: '',
-    site_open: '',
-    datatype_open: '',
-    order: ''
+    configuration: {
+      spatial: '',
+      temporal: '',
+      orgSelector: '',
+      region: '',
+      site: '',
+      dataTypesList: '',
+      boolean_expression: '',
+      platform: '',
+      instrument: ''
+    },
+    sortable_order: ''
   }
 });
 IONUX2.Models.saveConfiguration = new IONUX2.Models.SaveConfiguration();

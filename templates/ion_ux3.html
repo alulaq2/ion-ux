@@ -222,19 +222,27 @@ last edited 04-13 04-09 03-05 2014-03-02
                 temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
                 facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible'),
                 region_accordion_visible = $('#region .spatialDetails').is(':visible'),
-                sites_accordion_visible = $('#sites .spatialDetails').is(':visible'),
-                datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
+                site_accordion_visible = $('#site .spatialDetails').is(':visible'),
+                datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible'),
+                boolean_accordion_visible = $('#boolean_expression .spatialDetails').is(':visible'),
+                platform_accordion_visible = $('#platform .spatialDetails').is(':visible'),
+                instrument_accordion_visible = $('#instrument .spatialDetails').is(':visible');
 
             var user_profile = {
                 'userId': IONUX2.Models.SessionInstance.attributes.user_id,
                 'name': IONUX2.Models.SessionInstance.attributes.name,
                 'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-                'spatial_open': spatial_accordion_visible,
-                'temporal_open': temporal_accordion_visible,
-                'facility_open': facility_accordion_visible,
-                'region_open': region_accordion_visible,
-                'site_open': sites_accordion_visible,
-                'datatype_open': datatype_accordion_visible,
+                'configuration': {
+                    'spatial': spatial_accordion_visible,
+                    'temporal': temporal_accordion_visible,
+                    'orgSelector': facility_accordion_visible,
+                    'region': region_accordion_visible,
+                    'site': site_accordion_visible,
+                    'dataTypesList': datatype_accordion_visible,
+                    'boolean_expression': boolean_accordion_visible,
+                    'platform': platform_accordion_visible,
+                    'instrument': instrument_accordion_visible
+                },
                 'sortable_order': sortable_order
             };
 
