@@ -9,9 +9,21 @@
   </article>
 </div>
 
-
+<form id="searchForm">
+  <input type="hidden" name="north" id="northFm"/>
+  <input type="hidden" name="south" id="southFm"/>
+  <input type="hidden" name="east" id="eastFm"/>
+  <input type="hidden" name="west" id="westFm"/>
+  <input type="hidden" name="vertical-lower-bound" id="lowerFm"/>
+  <input type="hidden" name="vertical-upper-bound" id="upperFm"/>
+  <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm"/>
+  <input type="hidden" name="temporal-to-ctrl" id="tempToFm"/>
+  <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm"/>
+  <input type="hidden" name="radius" id="radiusFm"/>
+</form>
 
 <script type="text/template" id="block_data_type_list_tmpl">{% include 'block_data_type_list2.html' %}</script>
+<script type="text/template" id="filter-item-tmpl">{% include 'block_boolean2.html' %}</script>
     
     <script>
 		IONUX2.Views.DataTypesList = Backbone.View.extend({
@@ -88,6 +100,7 @@
         IONUX2.Views.temporal = new IONUX2.Views.Temporal({model: IONUX2.Models.temporalModelInstance});
         IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories });
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
+        IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
 		    IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
 		    IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
 		    IONUX2.Models.DataTypeListInstance.fetch();

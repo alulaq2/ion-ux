@@ -9,7 +9,7 @@
   <input class="spatialDuration latlong" type="text" placeholder="Lat" id="south" fieldName="from_latitude"/>
   <div class="leftNaviNarrowSelectContainer">
     <select class="from_ns" fieldName="from_ns">
-      <option value="1">N</option>
+      <option value="1">N</option>ß
       <option value="2">S</option>
     </select>
     <div class="leftNaviNarrowSelectArrow"></div>
@@ -91,4 +91,19 @@ $(function(){
       }
   });
 });
+function updateUpLow(){
+
+  if($('#upper').val() == "0"){
+    $('#upperFm').val('');
+  }  else {
+    $('#upperFm').val($('#upper').val());
+  }
+
+  if($('#lower').val() == 'Depth'){
+    $('#lowerFm').val('');
+  } else {
+    $('#lowerFm').val($('#lower').val());
+  }
+
+}
 </script>
