@@ -180,29 +180,6 @@ IONUX2.Collections.Orgs = Backbone.Collection.extend({
   }
 });
 
-/*IONUX2.Collections.MapDataProducts = Backbone.Collection.extend({
-  initialize: function(models, options){
-    this.resource_id = options.resource_id;
-    console.log("resource id is " + this.resource_id);
-  },
-  url: function() {
-   return '/find_site_data_products/'+this.resource_id+'/';
-  },
-  parse: function(resp) {
-    var data_products = [];
-    if (!_.isEmpty(resp.data.data_product_resources)) {
-      data_products = _.filter(resp.data.data_product_resources, function(v,k) {
-        return !_.isEmpty(v.ooi_product_name); // Only display those with ooi_product_name
-      });
-      make_iso_timestamps(data_products);
-    };
-    
-    return data_products;
-  }
-});*/
-
-
-
 IONUX2.Models.Instruments = Backbone.Model.extend({
   defaults: {
     name: 'glider'
@@ -243,9 +220,23 @@ IONUX2.Models.SaveCustomName = Backbone.Model.extend({
 
 IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();
 
-IONUX2.Collections.SaveNames = Backbone.Collection.extend({
-  // model: IONUX2.Models.saveCustomName
+IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
+  defaults: {
+    userId: '',
+    name: '',
+    validUntil: '',
+    spatial_open: '',
+    temporal_open: '',
+    facility_open: '',
+    region_open: '',
+    site_open: '',
+    datatype_open: '',
+    order: ''
+  }
 });
+IONUX2.Models.saveConfiguration = new IONUX2.Models.SaveConfiguration();
+
+IONUX2.Collections.SaveNames = Backbone.Collection.extend({});
 
 IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
 
@@ -285,5 +276,3 @@ IONUX2.Models.facilities = new IONUX2.Models.Facilities();
 
 IONUX2.siteData = [];
 IONUX2.siteDataObj = {};
-
-//IONUX2.Collections.mapDataProducts = new IONUX2.Collections.MapDataProducts();
