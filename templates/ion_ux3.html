@@ -91,7 +91,8 @@ last edited 04-13 04-09 03-05 2014-03-02
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
     <script src="/static/js/ux-views-map2.js"> </script>
-    <script src="/static/js/ux-views-datatable2.js"></script>
+    <script src="/static/js/ux-views-datatable2.js"> </script>
+    <script src="/static/js/uinav.js"> </script>
 
     {% block extra_ionux_js %}
     {% endblock %}
@@ -157,12 +158,12 @@ last edited 04-13 04-09 03-05 2014-03-02
 
         // update accordion views with saved data
         
-         function reorder(orderArray, elementContainer) {
+        /*function reorder(orderArray, elementContainer) {
             $.each(orderArray, function(key, val){
                 console.log("value is " + val);
                 elementContainer.append($("#"+val));
             });
-        }
+        }*/
 
         console.log("user id is " + IONUX2.Models.SessionInstance.attributes.user_id);        
         
@@ -170,7 +171,7 @@ last edited 04-13 04-09 03-05 2014-03-02
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
             //if (IONUX2.Models.saveCustomName.attributes.name !== "") {
-                IONUX2.Views.mySearches.render();
+            IONUX2.Views.mySearches.render();
                 //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
                 //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
             //}
@@ -190,11 +191,11 @@ last edited 04-13 04-09 03-05 2014-03-02
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded'
                 });*/
-                $(this).on('click', function(e) {
+              $(this).on('click', function(e) {
 
                     e.preventDefault();
                     var searchModel = IONUX2.Collections.saveNames.at(index);
-                    //var body = JSON.stringify(searchModel);
+                    var body = JSON.stringify(searchModel);
 
                     //var searches = JSON.stringify(searchModel);
                     //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
@@ -225,7 +226,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                             dataTypesModel = searchModel.dataTypes;
                             var sortableOrder = searchModel.sortableOrder;*/
 
-                        var $accordion_container = $('.jspPane');
+                    var $accordion_container = $('.jspPane');
                     
                     var spatialModel = searchModel.attributes.spatial,
                         temporalModel = searchModel.attributes.temporal,
@@ -235,11 +236,19 @@ last edited 04-13 04-09 03-05 2014-03-02
                         dataTypesModel = searchModel.attributes.dataTypes,
                         sortableOrder = searchModel.attributes.sortableOrder
 
-                        reorder(sortableOrder.sortable_order, $accordion_container);
+                    UINAV.reorder(sortableOrder.sortable_order, $accordion_container);
+                    
+                    // populate accordion modules with saved data
+                    UINAV.loadSpatial(spatialModel);
+                    UINAV.loadTemporal(temporalModel);
+                    UINAV.loadFacilities(facilitiesModel);
+                    UINAV.loadRegions(regionsModel);
+                    UINAV.loadSites(sitesModel);
+                    UINAV.loadDataTypes(dataTypesModel);
                     
 
                     // populate spatial module with saved data
-                        (function() {
+                    /*    (function() {
                             if (spatialModel.spatial_accordion_visible) {
                                 $('#spatial .spatialDetails').show();
                             }
@@ -293,7 +302,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                             $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
                             $('#orgSelector .spatialDetails').hide();
                         }*/
-                        $('.list_facilities input').each(function(index) {
+               /*         $('.list_facilities input').each(function(index) {
                             $(this).prop('checked', facilitiesModel[index].is_checked);
                         });
                     })();
@@ -336,7 +345,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                             $(this).prop('checked', sitesModel[index].is_checked);
                         });
                     })();
-
+                */
                 $('#searchTab').trigger('click');
                 //}
                 });
