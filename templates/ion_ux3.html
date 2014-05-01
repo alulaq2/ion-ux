@@ -43,9 +43,6 @@ last edited 04-13 04-09 03-05 2014-03-02
         <div id="searchTabContent"></div>
         <div id="mySearchesTabContent" style="display:none;">
         <ul class="list_mysearches">
-            <!--<li><a href="#">Search 1 <span class="date_mysearches">04/28/2014</span></a></li>
-            <li><a href="#">Search 2 <span class="date_mysearches">04/27/2014</span></a></li>
-            <li><a href="#">Search 3 <span class="date_mysearches">04/26/2014</span></a></li>-->
         </ul>
         </div>
     </div>
@@ -151,91 +148,47 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.markerClusterer.setMap(IONUX2.Dashboard.MapView.map);*/
         });
 
-
-        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
-
+        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
         
-
-        // update accordion views with saved data
-        
-        /*function reorder(orderArray, elementContainer) {
-            $.each(orderArray, function(key, val){
-                console.log("value is " + val);
-                elementContainer.append($("#"+val));
-            });
-        }*/
-
-        console.log("user id is " + IONUX2.Models.SessionInstance.attributes.user_id);        
-        
-        // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
-            //if (IONUX2.Models.saveCustomName.attributes.name !== "") {
+
+            // render my searches view
             IONUX2.Views.mySearches.render();
-                //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
-                //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
-            //}
             
+            // loop through list of saved searches
             $('.list_mysearches a').each(function(index) {
-                //var searchModel = IONUX2.Collections.saveNames.at(index);
-                //var body = JSON.stringify(searchModel);
-
-                /*$.ajax({
-                    async: false,
-                    type: "POST",
-                    url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
-                    data: {data: body},
-                        success: function(data) {
-                            console.log(data);
-                        },
-                        dataType: 'json',
-                        contentType: 'application/x-www-form-urlencoded'
-                });*/
+                
               $(this).on('click', function(e) {
-
                     e.preventDefault();
+
+                    // retrieve model at current index from collection
                     var searchModel = IONUX2.Collections.saveNames.at(index);
+
+                    // convert search model into string to pass to ajax call
                     var body = JSON.stringify(searchModel);
+
+                    // post user profile to server
+                    //UINAV.postUserProfile(body);
+
+                    // get user profile from server
+                    //UINAV.getUserProfile();
 
                     //var searches = JSON.stringify(searchModel);
                     //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
 
-
-                     /*$.ajax({
-                        async: false,
-                        type: "GET",
-                        url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
-                        success: function(data) {
-                            console.log("getting json saved search data from server");
-                            console.log(data);
-                            populateSearch(data);
-                        },
-                        dataType: 'json',
-                        contentType: 'application/x-www-form-urlencoded'
-                    });*/
-
-
-                    //function populateSearch(search_info) {
-                        //console.log(search_info[index].data);
-                        //var searchModel = JSON.parse(search_info.data);
-                        /*var spatialModel = searchModel.spatial;
-                        var temporalModel = searchModel.temporal,
-                            facilitiesModel = searchModel.facilities,
-                            regionsModel = searchModel.regions,
-                            sitesModel = searchModel.sites,
-                            dataTypesModel = searchModel.dataTypes;
-                            var sortableOrder = searchModel.sortableOrder;*/
-
-                    var $accordion_container = $('.jspPane');
                     
+                    // separate accordion modules into their own models
                     var spatialModel = searchModel.attributes.spatial,
                         temporalModel = searchModel.attributes.temporal,
                         facilitiesModel = searchModel.attributes.facilities,
                         regionsModel = searchModel.attributes.regions,
                         sitesModel = searchModel.attributes.sites,
                         dataTypesModel = searchModel.attributes.dataTypes,
-                        sortableOrder = searchModel.attributes.sortableOrder
+                        sortableOrder = searchModel.attributes.sortableOrder;
 
+                    // trigger saved jquery sort order
+                    var $accordion_container = $('.jspPane');
                     UINAV.reorder(sortableOrder.sortable_order, $accordion_container);
                     
                     // populate accordion modules with saved data
@@ -245,116 +198,15 @@ last edited 04-13 04-09 03-05 2014-03-02
                     UINAV.loadRegions(regionsModel);
                     UINAV.loadSites(sitesModel);
                     UINAV.loadDataTypes(dataTypesModel);
-                    
 
-                    // populate spatial module with saved data
-                    /*    (function() {
-                            if (spatialModel.spatial_accordion_visible) {
-                                $('#spatial .spatialDetails').show();
-                            }
-                            else {
-                                $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                                $('#spatial .spatialDetails').hide();
-                            }
-            
-                            $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
-                            $('#south').val(spatialModel.from_latitude),
-                            $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
-                        $('#west').val(spatialModel.from_longitude),
-                        $('.from_ew option[value="' + spatialModel.from_ew + '"]').attr('selected', 'selected');
-                        $('.placeholder_lat').val(spatialModel.to_latitude),
-                        $('.north_south_menu option[value="' + spatialModel.to_ns + '"]').attr('selected', 'selected');
-                        $('.show_hide_longitude').val(spatialModel.to_longitude),
-                        $('.to_ew option[value="'+ spatialModel.to_ew + '"]').attr('selected', 'selected');
-                        $('.no_placeholder_radius').val(spatialModel.radius),
-                        $('.milesKilosMenu').val(spatialModel.miles_kilos),
-                        $('[data-verticalfrom]').val(spatialModel.vertical_from),
-                        $('[data-verticalto]').val(spatialModel.vertical_to),
-                        $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
-                        })();
-
-                    // populate temporal module with saved data
-                        (function() {
-                        if (temporalModel.temporal_accordion_visible) {
-                            $('#temporal .spatialDetails').show();
-                        }
-                        else {
-                            $('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#temporal .spatialDetails').hide();
-                        }
-                
-                    $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
-                    $('.from_date_menu .year option[value="' + temporalModel.from_year + '"]').attr('selected', 'selected');
-                    $('.from_date_menu .month option[value="' + temporalModel.from_month + '"]').attr('selected', 'selected');
-                    $('.from_date_menu .day option[value="' + temporalModel.from_day + '"]').attr('selected', 'selected');
-                    $('.from_date_menu .hour option[value="' + temporalModel.from_hour + '"]').attr('selected', 'selected');
-                    $('.to_date_menu .year option[value="' + temporalModel.to_year + '"]').attr('selected', 'selected');
-                    $('.to_date_menu .month option[value="' + temporalModel.to_month + '"]').attr('selected', 'selected');
-                    $('.to_date_menu .day option[value="' + temporalModel.to_day + '"]').attr('selected', 'selected');
-                    $('.to_date_menu .hour option[value="' + temporalModel.to_hour + '"]').attr('selected', 'selected');
-                    })();
-
-                    (function() {
-                        /*if (facilitiesModel[0].facility_accordion_visible) {
-                            $('#orgSelector .spatialDetails').show();
-                        }
-                        else {
-                            $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#orgSelector .spatialDetails').hide();
-                        }*/
-               /*         $('.list_facilities input').each(function(index) {
-                            $(this).prop('checked', facilitiesModel[index].is_checked);
-                        });
-                    })();
-
-                    (function() {
-                        if (regionsModel[0].region_accordion_visible) {
-                            $('#region .spatialDetails').show();
-                        }
-                        else {
-                            $('#region .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#region .spatialDetails').hide();
-                        }
-                        $('.list_regions input').each(function(index) {
-                            $(this).prop('checked', regionsModel[index].is_checked);
-                        });
-                    })();
-
-                    (function() {
-                        if (sitesModel[0].sites_accordion_visible) {
-                            $('#site .spatialDetails').show();
-                        }
-                        else {
-                            $('#site .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#site .spatialDetails').hide();
-                        }
-                        $('.list_sites input').each(function(index) {
-                            $(this).prop('checked', sitesModel[index].is_checked);
-                        });
-                    })();
-
-                    (function() {
-                        if (dataTypesModel[0].datatype_accordion_visible) {
-                            $('#dataTypesList .spatialDetails').show();
-                        }
-                        else {
-                            $('#dataTypesList .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#dataTypesList .spatialDetails').hide();
-                        }
-                        $('.listDataTypes input').each(function(index) {
-                            $(this).prop('checked', sitesModel[index].is_checked);
-                        });
-                    })();
-                */
+                // open Search tab
                 $('#searchTab').trigger('click');
-                //}
+            
                 });
             });
             
         });
 
-        
-        
       });
       {% block document_ready %}
       {% endblock %}
