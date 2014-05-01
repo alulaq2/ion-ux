@@ -23,6 +23,14 @@ var UINAV = {
         }*/
             
         $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+        if (spatialModel.spatial_dropdown == 2) {
+        	$('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+    	}
+   	 	else {
+            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
+      		$('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+    	}
         $('#south').val(spatialModel.from_latitude),
         $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
         $('#west').val(spatialModel.from_longitude),
