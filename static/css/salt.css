@@ -152,16 +152,17 @@ h2 {
 }
 
 #left h3 {
-  margin: 0;
+  margin: 0px 0px 5px 0px;
   padding: 0;
   color: #FFFFFF;
   font-size: 11px;
   text-transform: uppercase;
-  line-height: 20px;
+  line-height: 25px;
   font-weight: 600;
   padding: 0 0 0 10px;
   letter-spacing: 1px;
-  background: #497498;
+  border-top: 3px #384d68 solid;
+  background: -moz-linear-gradient(left center , #00aedb, #3B5E7E) repeat scroll 0% 0% transparent
 }
 
 #select-facility {
@@ -180,9 +181,7 @@ h2 {
 }
 
 
-#observatory-selector {
-  background: #497498;
-}
+#observatory-selector {}
 
 #observatory-selector #list {
   height: 250px;
@@ -197,6 +196,8 @@ h2 {
   width: 100% !important;
   outline: 0;
 }
+
+#dataproduct-filter .even, #dataproduct-filter .odd{width:232px}
 
 #dataproduct-filter .even,
 #lcstate-filter .even,
@@ -233,7 +234,7 @@ h2 {
   border-left: 0px;
   border-radius: 7px;
 }
-.filter-option span {margin-left:15px}
+.filter-option span {margin-left:18px; display:block}
 
 #dataproduct-filter .filter-option {
   margin-right: 0;
@@ -269,7 +270,7 @@ h2 {
 
 .filter-option:before {
   content: '';
-  width: 16px;
+  width: 14px;
   height: 20px;
   left: 11px;
   display:block;
@@ -312,32 +313,32 @@ td.filter-option {
 
 .instrumentportal-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -416px;
+  background-position: -89px -416px;
 }
 
 .platformportal-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -536px;
+  background-position: -89px -536px;
 }
 
 .deployment-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -296px;
+  background-position: -89px -296px;
 }
 
 .station-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: 0px -716px;
+  background-position: -29px -716px;
 }
 
 .platformdevice-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -956px;
+  background-position: -148px -956px;
 }
 
 .platformmodel-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -536px;
+  background-position: -148px -536px;
 }
 
 .platformagent-option:before {
@@ -352,7 +353,7 @@ td.filter-option {
 
 .instrumentdevice-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -956px;
+  background-position: -89px -956px;
 }
 
 .instrumentmodel-option:before {
@@ -372,12 +373,12 @@ td.filter-option {
 
 .dataproduct-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -176px;
+  background-position: -90px -176px;
 }
 
 .dataprocess-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -116px;
+  background-position: -90px -116px;
 }
 
 .datatransform-option:before {
@@ -417,7 +418,7 @@ td.filter-option {
 
 .lcstate-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -836px;
+  background-position: -88px -836px;
 }
 
 
@@ -458,7 +459,7 @@ ul.map-ul {
   display:inline-block;
   position: absolute;
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -476px;
+  background-position: -90px -476px;
 }
 
 .map-ul ul {
@@ -521,7 +522,7 @@ ul.map-nested-ul {
 .map-nested-ul > li:hover:before {
   background: #607B8B;
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -90px -716px;
+  background-position: -88px -716px;
 }
 
 .map-nested-ul > li:before {
@@ -532,7 +533,7 @@ ul.map-nested-ul {
   display:inline-block;
   position: absolute;
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -716px;
+  background-position: -88px -716px;
 }
 
 .map-nested-ul .really-nested:before,
@@ -883,7 +884,7 @@ a.btn-black:hover, a.btn-advanced-search:hover {
 
 /* map/resources toggle buttons */
 
-.btn-view, .btn-view.active, .btn-view.active:hover, .btn-view:hover {
+.btn-view, .btn-view.active, .btn-view:hover {
   border:none;
   background-color:transparent;
   margin: 0px;
@@ -893,9 +894,10 @@ a.btn-black:hover, a.btn-advanced-search:hover {
   font-weight: 400;
 
 }
+.btn-view.active, .btn-view.active:hover{font-weight: bold; text-decoration:underline; }
 .btn-view.active:hover, .btn-view:hover {text-decoration:underline; background-color:transparent;}
 
-resources-view { background-color:#FF0004}
+resources-view {background-color:#FF0004}
 
 /* Google map */
 
@@ -2841,7 +2843,7 @@ input.textfield_geo{
   cursor: pointer;
   border-radius: 2px;
 }
-
+#dataproduct-filter .jspContainer.jspPane {width: 245px; max-width:245px;}
 .jspTrack {
   background: #e1e1e1;
   position: relative;

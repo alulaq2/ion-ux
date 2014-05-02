@@ -676,6 +676,7 @@ select.latLongMenu option {
   margin-bottom: 3px;
   border: 1px solid #dddddd;
   border-radius: 5px;
+  background-color:#FFFFFF;
 }
 
 .accordionWhiteLabel {

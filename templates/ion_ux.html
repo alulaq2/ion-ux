@@ -17,14 +17,14 @@
         <link rel="stylesheet" href="/static/css/common.css" type="text/css" />
 
         {% if static_assets %}
-            <link rel="stylesheet" class="pepper" href="/static/css/pepper_images.css" disabled="true" />
+            <link rel="stylesheet" class="pepper" href="/static/css/pepper_images.css" disabled />
             <link rel="stylesheet" class="salt" href="/static/css/salt_images.css" />
         {% else %}
-            <link rel="stylesheet/less" class="pepper" href="/static/css/pepper_images.less" disabled="true" />
+            <link rel="stylesheet/less" class="pepper" href="/static/css/pepper_images.less" disabled />
             <link rel="stylesheet/less" class="salt" href="/static/css/salt_images.less" />
         {% endif %}
 
-        <link rel="stylesheet" class="pepper" href="/static/css/pepper.css" type="text/css" disabled="true" />
+        <link rel="stylesheet" class="pepper" href="/static/css/pepper.css" type="text/css" disabled />
         <link rel="stylesheet" class="salt" href="/static/css/salt.css" type="text/css"/>
         
         {% block extra_css %}{% endblock %}
