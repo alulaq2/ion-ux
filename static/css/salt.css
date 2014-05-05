@@ -144,7 +144,6 @@ h2 {
 /* lefthand sidebar/select  */
 
 #left {
-  border-right: solid 1px #e1e1e1;
   height: 100%;
   min-height: 100%;
   z-index: 1;
@@ -338,17 +337,17 @@ td.filter-option {
 
 .platformmodel-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -148px -536px;
+  background-position: -149px -536px;
 }
 
 .platformagent-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -596px;
+  background-position: -149px -596px;
 }
 
 .platformagentdef-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -656px;
+  background-position: -149px -656px;
 }
 
 .instrumentdevice-option:before {
@@ -358,52 +357,52 @@ td.filter-option {
 
 .instrumentmodel-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -356px;
+  background-position: -149px -356px;
 }
 
 .instrumentagent-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -476px;
+  background-position: -149px -476px;
 }
 
 .instrumentagentdef-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -416px;
+  background-position: -149px -416px;
 }
 
 .dataproduct-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -90px -176px;
+  background-position: -89px -176px;
 }
 
 .dataprocess-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -90px -116px;
+  background-position: -89px -116px;
 }
 
 .datatransform-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -236px;
+  background-position: -149px -236px;
 }
 
 .attachment-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -60px -56px;
+  background-position: -89px -56px;
 }
 
 .role-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -776px;
+  background-position: -149px -776px;
 }
 
 .externaldataagent-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -120px -1016px;
+  background-position: -149px -1016px;
 }
 
 .externaldataagentinstance-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: 0px -236px;
+  background-position: -29px -236px;
 }
 
 .resource-option:before {
@@ -418,7 +417,7 @@ td.filter-option {
 
 .lcstate-option:before {
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -88px -836px;
+  background-position: -89px -836px;
 }
 
 
@@ -806,7 +805,7 @@ ul.resource-ul {
   padding: 10px;
 }
 
-.about a:link {color:#49aaff; font-weight:bold}
+.about a:link, .about a:visited {color:#49aaff; font-weight:bold}
 
 /* map/resource/searchbar */
 
