@@ -326,7 +326,9 @@ dashboard_map_resource: function(resource_id) {
         // Pull back recent events as a 2nd request.
         fetch_events(window.MODEL_DATA['resource_type'], resource_id);
       });
-  },
+    $('#mainNewTab').hide();
+    $('#mainLegacyTab').show();
+},
   
   command: function(resource_type, resource_id){
     $('#dynamic-container').html('<div id="spinner"></div>').show();
