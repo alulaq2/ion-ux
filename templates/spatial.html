@@ -13,7 +13,7 @@
   <span class="labelThrough">From:</span>
   <input class="spatialDuration latlong" type="text" placeholder="Lat" id="south"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ns">
+    <select class="from_ns" id="sw_ns">
       <option value="1">N</option>
       <option value="2">S</option>
     </select>
@@ -21,7 +21,7 @@
   </div>
   <input class="spatialDuration latlong" type="text" placeholder="Long" id="west"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ew">
+    <select class="from_ew" id="sw_ew">
       <option value="1">E</option>
       <option value="2">W</option>
     </select>
@@ -30,9 +30,9 @@
   <span class="labelThrough top_search_to">To:</span>
   <span class="accordionLabel topSearchRadius">Radius:</span>
   <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" id="north"/>
-  <input class="spatialDuration latlong no_placeholder_radius" type="text" id="radius"/>
+  <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="north_south_menu">
+    <select class="north_south_menu" id="ne_ns">
         <option value="1">N</option>
         <option value="2">S</option>
       </select>
@@ -44,14 +44,14 @@
   </div>
   <input class="spatialDuration latlong show_hide_longitude" type="text" placeholder="Long" id="east"/>
   <div class="leftNaviNarrowSelectContainer show_hide_longitude">
-    <select class="to_ew">
+    <select class="to_ew" id="ne_ew">
       <option value="1">E</option>
       <option value="2">W</option>
     </select>
     <div class="leftNaviNarrowSelectArrow"></div>
   </div>
   <span class="vertical_extents">Vertical Extents (positive downward)</span>
-  <div class="accordion_detail_container">
+  <div class="accordionDetailContainer">
   <div class="accordionLabel">From:</div>
     <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from" />
   <div class="accordionLabel">To:</div>

@@ -267,7 +267,7 @@ IONUX2.Views.Map = Backbone.View.extend({
         self.draw_markers();
       },
       complete: function(){
-        $('#loading-status').remove();
+        $('#loadingStatus2').remove();
       },
     });
   },
@@ -451,7 +451,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
     var self = this;
 
-    if($(".lat_long_menu").val() == "1"){
+    if($(".latLongMenu").val() == "1"){
 
         var n = $('#north').val();
         var s = $('#south').val();
@@ -473,7 +473,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
         self.create_rectangle(n, s, e, w);
 
-      } else if($(".lat_long_menu").val() == "2"){
+      } else if($(".latLongMenu").val() == "2"){
 
         var s = $('#south').val();
         var w = $('#west').val();
@@ -635,55 +635,10 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
+
     //Input to drawing manager mapping
-    $('#west, #east, #north, #south, #radius').on('change', function(){
-      
-      if($(".latLongMenu").val() == "1"){
-       
-        var bounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng($('#south').val(), $('#west').val()),
-          new google.maps.LatLng($('#north').val(), $('#east').val())
-        );
-
-        if (!self.rectangle) {
-          // make a rectangle if a user hasn't drawn one
-          self.rectangle = new google.maps.Rectangle();
-          self.rectangle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.rectangle, 'bounds_changed', function(e) {
-            self.update_latlon(self.rectangle.getBounds().getNorthEast(), self.rectangle.getBounds().getSouthWest());
-          });
-          self.rectangle.setMap(self.map);
-        }
-
-        self.rectangle.setBounds(bounds);
-        self.drawingManager.setDrawingMode(null);
-
-      } else if($(".latLongMenu").val() == "2"){
-     
-        var point = new google.maps.LatLng($('#south').val(), $('#west').val());
-        var radius = parseInt($("#radius").val())*1000;
-
-        if (!self.circle) {
-          // make a rectangle if a user hasn't drawn one
-          self.circle = new google.maps.Circle();
-          self.circle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.circle, 'radius_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-          google.maps.event.addListener(self.circle, 'center_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-
-          self.circle.setMap(self.map);
-        }
-
-        self.circle.setCenter(point);
-        self.circle.setRadius(radius);
-        self.drawingManager.setDrawingMode(null);
-
-      }
+    $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
+      self.update_inputs();
     });
 
     var self = this;

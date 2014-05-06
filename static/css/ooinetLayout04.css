@@ -663,7 +663,7 @@ input.noPlaceholderRadius {
   margin-left: 0;
 }
 
-.accordion_detail_container {
+.accordionDetailContainer {
   margin-top: -5px;
 }
 
@@ -737,7 +737,7 @@ input.noPlaceholderRadius {
   background: url('../img/map-button-03-03.png');
 }
 
-#map_bounds {
+#mapBounds2 {
   background: transparent;
 }
 
