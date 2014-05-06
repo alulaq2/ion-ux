@@ -215,41 +215,26 @@ last edited 04-13 04-09 03-05 2014-03-02
         $('#saveConfigBtn').on('click', function(e) {
             e.preventDefault();
 
-            var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
-            var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
-                temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
-                facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible'),
-                region_accordion_visible = $('#region .spatialDetails').is(':visible'),
-                site_accordion_visible = $('#site .spatialDetails').is(':visible'),
-                datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible'),
-                boolean_accordion_visible = $('#boolean_expression .spatialDetails').is(':visible'),
-                platform_accordion_visible = $('#platform .spatialDetails').is(':visible'),
-                instrument_accordion_visible = $('#instrument .spatialDetails').is(':visible');
-
-            var user_profile = {
-                'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-                'name': IONUX2.Models.SessionInstance.attributes.name,
-                'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-                'configuration': {
-                    'spatial': spatial_accordion_visible,
-                    'temporal': temporal_accordion_visible,
-                    'orgSelector': facility_accordion_visible,
-                    'region': region_accordion_visible,
-                    'site': site_accordion_visible,
-                    'dataTypesList': datatype_accordion_visible,
-                    'boolean_expression': boolean_accordion_visible,
-                    'platform': platform_accordion_visible,
-                    'instrument': instrument_accordion_visible
-                },
-                'sortable_order': sortable_order
-            };
-
-            IONUX2.Models.saveConfiguration.set(user_profile);
-            console.log("configuration model");
-            console.log(IONUX2.Models.saveConfiguration);
-            
-            var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
-            UINAV.postUserProfile(userConfiguration);
+            /*$(".lat_long_menu").find('option').each(function( i, opt ) {
+                if ( opt.value === IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown ) {
+                    console.log('found menu match');
+                    $(opt).attr('selected', 'selected');
+                }
+            });*/
+            $('.lat_long_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
+            $('#south').val(IONUX2.Models.saveSpatialSearch.attributes.from_latitude),
+            $('.from_ns option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ns + '"]').attr('selected', 'selected');
+            $('#west').val(IONUX2.Models.saveSpatialSearch.attributes.from_longitude),
+            $('.from_ew option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ew + '"]').attr('selected', 'selected');
+            $('.placeholder_lat').val(IONUX2.Models.saveSpatialSearch.attributes.to_latitude),
+            $('.north_south_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.to_ns + '"]').attr('selected', 'selected');
+            $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
+            $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
+            $('.no_placeholder_radius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
+            $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
+            $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
+            $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
+            $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
         });
         
         $('#loadConfigBtn').on('click', function(e) {
