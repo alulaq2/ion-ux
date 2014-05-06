@@ -51,10 +51,15 @@ last edited 04-13 04-09 03-05 2014-03-02
         </div>
     </div>
     <div id="main">
-       <div id="upperMain">
-	   </div>
-	   <div id="lowerMain">
-	   </div>
+        <div id="mainNewTab">
+           <div id="upperMain">
+           </div>
+           <div id="lowerMain">
+           </div>
+        </div>
+        <div id="mainLegacyTab" style="display:none;">
+            <div id="dynamic-container" style="display:none;height:100%"> </div>
+        </div>
 	</div>
 
     {% block inherit_templates %} {% endblock %}
@@ -114,6 +119,8 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
         });
 
         $(".mapButtonSplit").click(function(){
@@ -127,11 +134,8 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
-            /*IONUX2.Dashboard.MapView.map.checkResize();
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
-            IONUX2.Dashboard.MapView.markerClusterer.setMap(null);
-            IONUX2.Dashboard.MapView.markerClusterer.setMap(IONUX2.Dashboard.MapView.map);*/
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
         });
         
         $(".mapButtonHidden").click(function(){
@@ -145,11 +149,8 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
-            /*IONUX2.Dashboard.MapView.map.checkResize();
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
-            IONUX2.Dashboard.MapView.markerClusterer.setMap(null);
-            IONUX2.Dashboard.MapView.markerClusterer.setMap(IONUX2.Dashboard.MapView.map);*/
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
         });
 
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
