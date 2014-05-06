@@ -29,14 +29,10 @@ last edited 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header2" align="left"></div>
+	<div id="header2" align="left"> </div>
 	<div id="leftSubheader" align="left">
     </div>
 	<div id="mainSubheader" align="left">
-        <div id="saveConfiguration">
-            <button class="textRight" id="saveConfigBtn">Save Configuration</button>
-            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
-        </div>
         <div id="searchProduction"> 
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
@@ -44,11 +40,12 @@ last edited 04-13 04-09 03-05 2014-03-02
         </div></div>
 
     <div id="left2">
-        <div id="searchTabContent"></div>
+        <div id="searchTabContent">.</div>
         <div id="mySearchesTabContent" style="display:none;">
         <ul class="list_mysearches">
         </ul>
         </div>
+        <div id="legacyTabContent" style="z-index:0; display:none;"> </div>
     </div>
     <div id="main">
         <div id="mainNewTab">
@@ -72,7 +69,7 @@ last edited 04-13 04-09 03-05 2014-03-02
     <!-- Vendor JavaScripts -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
     <script src="/static/js/jquery-1.9.1.min.js"> </script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"> </script>
     <script type='text/javascript' src='http://www.google.com/jsapi'> </script>
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1'}]}"> </script>
     <script src="/static/visualization/js/markerclusterer.js"> </script>
@@ -92,13 +89,13 @@ last edited 04-13 04-09 03-05 2014-03-02
     <!-- UX JavaScripts --> 
     {% block inherit_ionux_js %} {% endblock %}
 
-    <script src="/static/js/ion_ux2.js"> </script>    
+    <script src="/static/js/ion_ux2.js"> </script>
+    <!-- <script src="/static/js/ux-router2.js"> </script> -->
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
     <script src="/static/js/ux-views-map2.js"> </script>
     <script src="/static/js/ux-views-datatable2.js"> </script>
-    <script src="/static/js/uinav.js"> </script>
 
     {% block extra_ionux_js %}
     {% endblock %}
@@ -109,6 +106,8 @@ last edited 04-13 04-09 03-05 2014-03-02
         IONUX2.init();
 
         $(".mapButtonFull").click(function(){
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
             var center = IONUX2.Dashboard.MapView.map.getCenter();
             var zoom = IONUX2.Dashboard.MapView.map.getZoom();
             $("#upperMain").css("height", "100%");
@@ -119,11 +118,11 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
         });
 
         $(".mapButtonSplit").click(function(){
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
             var center = IONUX2.Dashboard.MapView.map.getCenter();
             var zoom = IONUX2.Dashboard.MapView.map.getZoom();
             $("#upperMain").css("height", "60%");
@@ -134,11 +133,11 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
         });
         
         $(".mapButtonHidden").click(function(){
+            $("#mainLegacyTab").hide();
+            $("#mainNewTab").show();
             var center = IONUX2.Dashboard.MapView.map.getCenter();
             var zoom = IONUX2.Dashboard.MapView.map.getZoom();
             $("#upperMain").css("height", "0%");
@@ -149,8 +148,6 @@ last edited 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setCenter(center);
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
             IONUX2.Dashboard.MapView.draw_markers();
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
         });
 
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      

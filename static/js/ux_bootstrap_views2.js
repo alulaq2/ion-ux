@@ -466,7 +466,7 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
 	}
 });	
 
-IONUX2.Views.AccordionWhite = Backbone.View.extend({
+/*IONUX2.Views.AccordionWhite = Backbone.View.extend({
   el: '#accordionSearch',
   template: _.template(IONUX2.getTemplate('templates/block_accordion_white2.html')),
   accordionTemplate: _.template(IONUX2.getTemplate('templates/partials/block_accordion_container2.html')),
@@ -479,4 +479,4 @@ IONUX2.Views.AccordionWhite = Backbone.View.extend({
     return this;
   },
 
-});
+});*/
