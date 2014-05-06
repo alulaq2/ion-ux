@@ -57,8 +57,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	el: '#searchTabContent',
 	events: {
 		'click .accordionTitle': 'expandHide',
-    'click #saveSearch': 'saveSearch',
-    'click #saveName': 'saveName'
+    'click .textRight': 'saveSearch',
 	},
 	initialize: function() {
 		this.model.on('change:html', this.render, this);
@@ -66,11 +65,11 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().find('.spatial_details').slideToggle('fast', function() {
+		$link.parent().find('.spatialDetails').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
-            	$link.find('.expand_hide').removeClass('arrow_right').addClass('arrow_down');              
+            	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
-        		$link.find('.expand_hide').removeClass('arrow_down').addClass('arrow_right');
+        		$link.find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
        		}        
 		});
 	},
