@@ -697,6 +697,17 @@ input.noPlaceholderRadius {
   color: #fff;
 }
 
+.resourceLink {
+  cursor: pointer;
+  display:inline-block;
+  margin-left: 3px;
+  font-weight: normal;
+}
+
+.resourceLink:hover{
+  font-weight: bold;
+}
+
 .mapButtonSplit {
   cursor: pointer;
   width: 39px;
