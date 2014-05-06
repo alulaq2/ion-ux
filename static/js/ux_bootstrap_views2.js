@@ -64,7 +64,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
   saveSearch: function() {
     (function() {
       // store spatial input values and set to model
-      var spatial_dropdown = $('.lat_long_menu option:selected').attr('value'),
+      var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
+        spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
         from_ns = $('.from_ns option:selected').val(),
         from_longitude = $('#west').val(),
@@ -81,6 +82,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
 
       IONUX2.Models.saveSpatialSearch.set({
+        'accordion_visible': accordion_visible,
         'spatial_dropdown': spatial_dropdown,
         'from_latitude': from_latitude,
         'from_ns': from_ns,
@@ -100,7 +102,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
     (function() {
       // save temporal input values and set to model
-      var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
+      var accordion_visible = $('#temporal .spatialDetails').is(':visible'),
+        temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
         from_year = $('.from_date_menu .year').val(),
         from_month = $('.from_date_menu .month').val(),
         from_day = $('.from_date_menu .day').val(),
@@ -111,6 +114,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         to_hour = $('.to_date_menu .hour').val();
 
       IONUX2.Models.saveTemporalSearch.set({
+        'accordion_visible': accordion_visible,
         'temporal_dropdown': temporal_dropdown,
         'from_year': from_year,
         'from_month': from_month,
@@ -124,36 +128,55 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     })();
 
     (function() {
-      // get facility checkbox values
+      // get facility checkbox values and add to collection
+      var accordion_visible = $('#orgSelector .spatialDetails').is(':visible');
       var facilities_checked = [];
       $('.list_facilities input').each(function(data) {
         var facility_value = $(this).val();
         var is_checked = $(this).prop('checked');
-        facilities_checked.push({'value' : facility_value, 'is_checked' : is_checked });
+        facilities_checked.push({'accordion_visible' : accordion_visible, 'value' : facility_value, 'is_checked' : is_checked });
       });
-      console.log(facilities_checked);
+      IONUX2.Collections.saveFacilitySearch.add(facilities_checked);
+      console.log(IONUX2.Collections.saveFacilitySearch);
     })();
 
     (function() {
-      // get region checkbox values
+      // get region checkbox values and add to collection
+      var accordion_visible = $('#region .spatialDetails').is(':visible');
       var regions_checked = [];
       $('.list_regions input').each(function(data) {
         var region_name = $(this).data('spatial');
         var is_checked = $(this).prop('checked');
-        regions_checked.push({'name' : region_name, 'is_checked' : is_checked });
+        regions_checked.push({'accordion_visible' : accordion_visible, 'name' : region_name, 'is_checked' : is_checked });
       });
-      console.log(regions_checked);
+      IONUX2.Collections.saveRegionSearch.add(regions_checked);
+      console.log(IONUX2.Collections.saveRegionSearch);
     })();
 
     (function() {
-      // get sites checkbox values
+      // get sites checkbox values and add to collection
+      var accordion_visible = $('#sites .spatialDetails').is(':visible');
       var sites_checked = [];
       $('.list_sites input').each(function(data) {
         var site_id = $(this).data('id');
         var is_checked = $(this).prop('checked');
-        sites_checked.push({'id' : site_id, 'is_checked' : is_checked });
+        sites_checked.push({'accordion_visible' : accordion_visible, 'id' : site_id, 'is_checked' : is_checked });
       });
-      console.log(sites_checked);
+      IONUX2.Collections.saveSiteSearch.add(sites_checked);
+      console.log(IONUX2.Collections.saveSiteSearch);
+    })();
+
+    (function() {
+      // get data type checkbox values and add to collection
+      var accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
+      var datatype_checked = [];
+      $('.listDataTypes input').each(function(data) {
+        var datatype_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        datatype_checked.push({'accordion_visible' : accordion_visible, 'datatype_value' : datatype_value, 'is_checked' : is_checked });
+      });
+      IONUX2.Collections.saveDataTypeSearch.add(datatype_checked);
+      console.log(IONUX2.Collections.saveDataTypeSearch);
     })();
 
 
