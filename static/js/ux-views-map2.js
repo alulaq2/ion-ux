@@ -470,11 +470,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       self.clear_inputs();
       if ($(this).find('option:selected').attr('value') == "2") {
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.top_search_radius, .no_placeholder_radius, .milesKilosMenu').show();
+        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
       } else {
-        $('.top_search_radius, .no_placeholder_radius, .milesKilosMenu').hide();
+        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').hide();
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
