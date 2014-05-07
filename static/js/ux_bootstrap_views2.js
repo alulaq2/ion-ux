@@ -65,7 +65,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().find('.spatialDetails').slideToggle('fast', function() {
+		$link.parent().children('.spatialDetails').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
             	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
