@@ -230,6 +230,27 @@ IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   }
 });
 
+IONUX2.Models.SaveCustomName = Backbone.Model.extend({
+  defaults: {
+    name: '',
+    month: '',
+    day: '',
+    year: '',
+    hour: '',
+    minute: ''
+  }
+  /*url: '/templates/my_searches.html',
+  html: '',
+  parse: function(resp){
+    console.log('got response from /bootstrap/mySearches.html');
+    this.html = resp;
+    this.trigger('change:html');
+    return resp;
+  }*/
+});
+
+IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();
+
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();
 

@@ -14,6 +14,20 @@ IONUX2.Views.Header = Backbone.View.extend({
 	}
 });
 
+IONUX2.Views.MySearches = Backbone.View.extend({
+  el: '.list_mysearches',
+  template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
+  initialize: function() {
+    this.render();
+    //this.model.on('change:html', this.render, this);
+  },
+  render: function() {
+    console.log('rendering my searches view');
+    this.$el.append(this.template(this.model.attributes));
+    return this;
+  }
+});
+
 // responds to model in two ways.  Captures fetched template
 // and renders with loaded template when data (session) is
 // fetched.
@@ -45,7 +59,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	el: '#searchTabContent',
 	events: {
 		'click .accordionTitle': 'expandHide',
-    'click .textRight': 'saveSearch',
+    'click #saveSearch': 'saveSearch'
 	},
 	initialize: function() {
 		this.model.on('change:html', this.render, this);
@@ -62,6 +76,33 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 		});
 	},
   saveSearch: function() {
+    $('#saveButtons').hide();
+    $('#customSearchName').show();
+    $('#saveName').on('click', function(e) {
+      e.preventDefault();
+      $('#customSearchName').hide();
+      $('#saveButtons').show();
+  
+      var name = $('.customName').val();
+      var d = new Date();
+      var month = d.getMonth() + 1;
+      var day = d.getDate();
+      var year = d.getFullYear();
+      var hour = d.getHours();
+      var minute = d.getMinutes();
+
+      IONUX2.Models.saveCustomName.set({
+        'name': name,
+        'month': month,
+        'day': day,
+        'year': year,
+        'hour': hour,
+        'minute': minute
+      });
+
+      var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
+      console.log(name);
+    });
     (function() {
       // store spatial input values and set to model
       var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
@@ -178,9 +219,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveDataTypeSearch.add(datatype_checked);
       console.log(IONUX2.Collections.saveDataTypeSearch);
     })();
-
-
   },
+
 	render: function() {
 		console.log('rendering left side view');
 		this.$el.html(this.model.html);
