@@ -267,7 +267,7 @@ IONUX2.Views.Map = Backbone.View.extend({
         self.draw_markers();
       },
       complete: function(){
-        $('#loading-status').remove();
+        $('#loadingStatus2').remove();
       },
     });
   },
@@ -446,6 +446,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     self.drawingManager.setDrawingMode(null);
 
   },
+  
 
   update_inputs: function(){
 
@@ -470,7 +471,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       if($("#sw_ns").val() == "2"){
         s =  s * -1;
       }
-
+      
       self.create_rectangle(n, s, e, w);
 
     } else if($(".latLongMenu").val() == "2"){
@@ -621,11 +622,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       self.clear_inputs();
       if ($(this).find('option:selected').attr('value') == "2") {
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').show();
+        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
       } else {
-        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').hide();
+        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').hide();
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);

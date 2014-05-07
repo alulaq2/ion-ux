@@ -157,6 +157,7 @@ last edited 04-13 04-09 03-05 2014-03-02
         // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
+			
             IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
             
             $('.list_mysearches a').on('click', function(e) {
@@ -170,12 +171,11 @@ last edited 04-13 04-09 03-05 2014-03-02
                 $('.north_south_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.to_ns + '"]').attr('selected', 'selected');
                 $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
                 $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
-                $('.no_placeholder_radius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
-                $('.miles_kilos_menu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
+                $('.noPlaceholderRadius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
+                $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
                 $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
                 $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
                 $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
-
                 $('#mySearchesTabContent').hide();
                 $('#searchTabContent').show();
             });
