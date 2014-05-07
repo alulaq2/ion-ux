@@ -250,6 +250,7 @@ body {
   display: inline-block;
   width: 14px;
   height: 14px;
+  margin: 5px;
   background: url('../img/leftMinimizeArrow.png') no-repeat left;
 }
 
