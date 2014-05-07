@@ -27,10 +27,11 @@ var make_iso_timestamps = function(resp) {
 };
 
 var get_template = function(url) {
-    var data = "<h1> failed to load url : " + url + "</h1>";
+	var full_url = '/' + url;
+    var data = "<h1> failed to load url : " + full_url + "</h1>";
     $.ajax({
         async: false,
-        url: url,
+        url: full_url,
         success: function(response) {
             data = response;
         }
@@ -50,7 +51,11 @@ IONUX2 = {
 	Collections: {},
 	Views: {},
 	Dashboard: {},
+	Router: {},
 	init: function(){
+
+	    var router = new IONUX.Router();
+	    IONUX2.ROUTER = router;
 
 		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
 		IONUX2.Models.HeaderInstance = new IONUX2.Models.Header();
@@ -61,6 +66,11 @@ IONUX2 = {
 			async: false,
 			dataType: 'html'
 		});
+
+		/*IONUX2.Models.saveCustomName.fetch({
+			async: false,
+			dataType: 'html'
+		});*/
 
 		IONUX2.Models.SearchTabContentInstance = new IONUX2.Models.SearchTabContent();
 		IONUX2.Views.SearchTabContentInstance = new IONUX2.Views.SearchTabContent({model: IONUX2.Models.SearchTabContentInstance});
@@ -83,7 +93,11 @@ IONUX2 = {
       	});
 	    IONUX2.Views.spatial = new IONUX2.Views.Spatial();
 
-	    
+	    IONUX2.Models.SessionInstance.fetch({
+      		async: false
+    	});
+
+	    IONUX2.Models.SessionInstance.set_polling();
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;
 
@@ -92,10 +106,11 @@ IONUX2 = {
 	},
 
 	getTemplate: function(url) {
-		var data = "<h1> failed to load url : " + url + "</h1>";
+		var full_url = '/' + url;
+		var data = "<h1> failed to load url : " + full_url + "</h1>";
     	$.ajax({
         	async: false,
-        	url: url,
+        	url: full_url,
         	dataType: 'text',
         	success: function(response) {
             	data = response;

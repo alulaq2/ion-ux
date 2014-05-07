@@ -120,6 +120,7 @@ IONUX2.Models.Login = Backbone.Model.extend({
 	setSession: function(){
 		console.log('setting data from session.');
 		this.data = this.sessionModel.toJSON();
+    console.log(this.data);
 		this.trigger('change:session');
 	},
 	fetch: function(options){
@@ -200,23 +201,18 @@ IONUX2.Collections.Orgs = Backbone.Collection.extend({
   }
 });*/
 
+
+
 IONUX2.Models.Instruments = Backbone.Model.extend({
   defaults: {
     name: 'glider'
   }
-  /*initialize: function() {
-    this.bind("reset", this.updateView);
-  },
-  updateView: function() {
-    console.log('removing models');
-    view.remove();
-    view.render();
-  }*/
 });
 IONUX2.Models.instruments = new IONUX2.Models.Instruments();
 
 IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   defaults: {
+      accordion_visible: false,
       spatial_dropdown: "1",
       from_latitude: "",
       from_ns: "",
@@ -234,10 +230,44 @@ IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   }
 });
 
+IONUX2.Models.SaveCustomName = Backbone.Model.extend({
+  defaults: {
+    name: '',
+    month: '',
+    day: '',
+    year: '',
+    hour: '',
+    minute: ''
+  }
+  /*url: '/templates/my_searches.html',
+  html: '',
+  parse: function(resp){
+    console.log('got response from /bootstrap/mySearches.html');
+    this.html = resp;
+    this.trigger('change:html');
+    return resp;
+  }*/
+});
+
+IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();
+
+IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();
+
+IONUX2.Collections.SaveRegionSearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveRegionSearch = new IONUX2.Collections.SaveRegionSearch();
+
+IONUX2.Collections.SaveSiteSearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveSiteSearch = new IONUX2.Collections.SaveSiteSearch();
+
+IONUX2.Collections.SaveDataTypeSearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveDataTypeSearch = new IONUX2.Collections.SaveDataTypeSearch();
+
 IONUX2.Models.saveSpatialSearch = new IONUX2.Models.SaveSpatialSearch();
 
 IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
   defaults: {
+    accordion_visible: false,
     temporal_dropdown: '',
     from_year: '',
     from_month: '',
@@ -251,6 +281,9 @@ IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
 });
 
 IONUX2.Models.saveTemporalSearch = new IONUX2.Models.SaveTemporalSearch();
+
+IONUX2.Models.Facilities = Backbone.Model.extend({});
+IONUX2.Models.facilities = new IONUX2.Models.Facilities();
 
 IONUX2.siteData = [];
 IONUX2.siteDataObj = {};

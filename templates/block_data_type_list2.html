@@ -1,12 +1,12 @@
-<span class="accordion_title">
-  <div class="expand_hide arrow_right"></div><div class="accordion_label">Data Type</div>
+<span class="accordionTitle">
+  <div class="expandHide arrowRight"></div><div class="accordionLabel">Data Type</div>
 </span>
 
-<div class="spatial_details align_left">
+<div class="spatialDetails align_left" style="display:none;">
 	<div class="select_all">
-		<input class="checkAll" type="checkbox"/> Select All
+		<input class="checkAllTypes" type="checkbox"/> Select All
 	</div>
-	<div class="list_regions">
+	<div class="listDataTypes">
 		<form action="">
             <% _.each(resources, function(name) { %>
                 <input type="checkbox" value="<%= name %>"/><span> <%= name %></span><br/>

@@ -101,8 +101,8 @@ def login_required(f):
 
 @app.route('/')
 def index():
-    return render_template('ion_ux3.html')
-    # return render_app_template(request.path)
+    # return render_template('ion_ux3.html')
+    return render_app_template(request.path)
 
 @app.route('/failed')
 def failed_login():
@@ -679,6 +679,11 @@ def login(redir):
         return redirect(https_url)
     else:
         return "This page should redirect to a secure login page"
+
+@app.route('/allUsers/', methods=['GET'])
+def get_all_users():
+    users = ServiceApi.get_user_identities()
+    return jsonify(data=users)
 
 @app.route('/userprofile/', methods=['GET', 'POST', 'PUT'])
 def userprofile():
