@@ -250,7 +250,7 @@ body {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background: url('../img/navLeftMinimizeArrow.png') no-repeat left;
+  background: url('../img/leftMinimizeArrow.png') no-repeat left;
 }
 
 #login {
@@ -384,6 +384,7 @@ ul.dropdown-menu li:hover {
 #saveButtons {
   position: absolute;
   top: 0;
+  width: 100%;
 }
 
 .textRight {
@@ -396,7 +397,7 @@ ul.dropdown-menu li:hover {
   font-family: Arial;
   font-size: 12px; 
   overflow: none;
-  /*float: right;*/
+  float: right;
   border-radius: 5px;
   border: none;
 }
@@ -474,11 +475,11 @@ select.dateMenu {
   width: 54px;
 }
 
-select.date_menu.day {
+select.dateMenu.day {
   width: 45px;
 }
 
-select.date_menu.hour {
+select.dateMenu.hour {
   width: 58px;
 }
 
@@ -761,11 +762,6 @@ input.noPlaceholderRadius {
   right: 3px;
   background: url('../img/map-button-03-03.png');
 }
-
-#map_bounds {
-  background: transparent;
-}
-
 .accordionContainer .jspVerticalBar {
   right: 4px;
 }
@@ -819,6 +815,7 @@ input.noPlaceholderRadius {
   margin-bottom: 3px;
   border: 1px solid #dddddd;
   border-radius: 5px;
+  background-color:#FFFFFF;
 }
 
 /* regions */
