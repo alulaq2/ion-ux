@@ -451,7 +451,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
     var self = this;
 
-    if($(".lat_long_menu").val() == "1"){
+    if($(".latLongMenu").val() == "1"){
 
       var n = $('#north').val();
       var s = $('#south').val();
@@ -473,7 +473,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
       self.create_rectangle(n, s, e, w);
 
-    } else if($(".lat_long_menu").val() == "2"){
+    } else if($(".latLongMenu").val() == "2"){
 
       var s = $('#south').val();
       var w = $('#west').val();
@@ -523,7 +523,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       strokeColor   : '#0cc1ff',
       strokeOpacity : 0.8,
       draggable     : true,
-      editable      : true
+      editable      : false
     };
 
     this.drawingManager = new google.maps.drawing.DrawingManager({
@@ -582,7 +582,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       
     });
 
-    var self = this;
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       var mode = this.getDrawingMode();
 
@@ -636,59 +635,8 @@ IONUX2.Views.Map = Backbone.View.extend({
     //Input to drawing manager mapping
     $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
       self.update_inputs();
-    //Input to drawing manager mapping
-    $('#west, #east, #north, #south, #radius').on('change', function(){
-      
-      if($(".latLongMenu").val() == "1"){
-       
-        var bounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng($('#south').val(), $('#west').val()),
-          new google.maps.LatLng($('#north').val(), $('#east').val())
-        );
-
-        if (!self.rectangle) {
-          // make a rectangle if a user hasn't drawn one
-          self.rectangle = new google.maps.Rectangle();
-          self.rectangle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.rectangle, 'bounds_changed', function(e) {
-            self.update_latlon(self.rectangle.getBounds().getNorthEast(), self.rectangle.getBounds().getSouthWest());
-          });
-          self.rectangle.setMap(self.map);
-        }
-
-        self.rectangle.setBounds(bounds);
-        self.drawingManager.setDrawingMode(null);
-
-      } else if($(".latLongMenu").val() == "2"){
-     
-        var point = new google.maps.LatLng($('#south').val(), $('#west').val());
-        var radius = parseInt($("#radius").val())*1000;
-
-        if (!self.circle) {
-          // make a rectangle if a user hasn't drawn one
-          self.circle = new google.maps.Circle();
-          self.circle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.circle, 'radius_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-          google.maps.event.addListener(self.circle, 'center_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-
-          self.circle.setMap(self.map);
-        }
-
-        self.circle.setCenter(point);
-        self.circle.setRadius(radius);
-        self.drawingManager.setDrawingMode(null);
-
-      }
->>>>>>> new-architecture
     });
 
-    var self = this;
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {
        self.hide_info_window({rank : 0}); // always hide the infoWindow
        self.render_map_bounds(e);
@@ -721,7 +669,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     // Create the cluster styles array based on the single_icons structure, and iterate
     // through them using the heirarchy.  Clusters can only be normal or hover (no select).
     var styles = [];
-    var self = this;
     _.each(self.icons_rank,function(site) {
       _.each(['icon','hover'],function(mouse) {
         styles.push({
@@ -753,7 +700,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
-    var self = this;
     google.maps.event.addListener(this.markerClusterer, 'mouseover', function(c) {
       c.clusterIcon_.useStyle({index : c.clusterIcon_.sums_.index * 1 + 1});
       c.clusterIcon_.show();

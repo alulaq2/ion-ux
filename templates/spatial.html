@@ -70,9 +70,10 @@ $(function(){
         $('.latLongMenu').on('change', function(e) {
           $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
           $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+          
           if ($(this).find('option:selected').attr('value') == "2") {
             $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-                  $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
           } else {
             $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
             $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
