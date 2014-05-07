@@ -151,17 +151,34 @@ last edited 04-13 04-09 03-05 2014-03-02
         });
 
 
+        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
+
         // update accordion views with saved data
         
         
         // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
-            IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
+            //if (IONUX2.Models.saveCustomName.attributes.name !== "") {
+                IONUX2.Views.mySearches.render();
+                //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
+                //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
+            //}
             
             $('.list_mysearches a').on('click', function(e) {
                 e.preventDefault();
-                $('.lat_long_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
+
+                // populate spatial module with saved data
+                (function() {
+                if (IONUX2.Models.saveSpatialSearch.attributes.accordion_visible) {
+                    $('#spatial .spatialDetails').show();
+                }
+                else {
+                    $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                    $('#spatial .spatialDetails').hide();
+                }
+            
+                $('.latLongMenu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
                 $('#south').val(IONUX2.Models.saveSpatialSearch.attributes.from_latitude),
                 $('.from_ns option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ns + '"]').attr('selected', 'selected');
                 $('#west').val(IONUX2.Models.saveSpatialSearch.attributes.from_longitude),
@@ -171,13 +188,54 @@ last edited 04-13 04-09 03-05 2014-03-02
                 $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
                 $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
                 $('.no_placeholder_radius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
-                $('.miles_kilos_menu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
+                $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
                 $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
                 $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
                 $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
+                })();
 
-                $('#mySearchesTabContent').hide();
-                $('#searchTabContent').show();
+                // populate temporal module with saved data
+                 (function() {
+                    if (IONUX2.Models.saveTemporalSearch.attributes.accordion_visible) {
+                        $('#temporal .spatialDetails').show();
+                    }
+                    else {
+                        $('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                        $('#temporal .spatialDetails').hide();
+                    }
+                
+                $('.temporal_menu option[value="' + IONUX2.Models.saveTemporalSearch.attributes.temporal_dropdown + '"]').attr('selected', 'selected');
+                $('.from_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_year + '"]').attr('selected', 'selected');
+                $('.from_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_month + '"]').attr('selected', 'selected');
+                $('.from_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_day + '"]').attr('selected', 'selected');
+                $('.from_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_hour + '"]').attr('selected', 'selected');
+                $('.to_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_year + '"]').attr('selected', 'selected');
+                $('.to_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_month + '"]').attr('selected', 'selected');
+                $('.to_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_day + '"]').attr('selected', 'selected');
+                $('.to_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_hour + '"]').attr('selected', 'selected');
+                })();
+
+                /*(function() {
+                    if (IONUX2.Models.saveFacilitySearch.attributes.accordion_visible) {
+                        $('#orgSelector .spatialDetails').show();
+                    }
+                    else {
+                        $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                        $('#orgSelector .spatialDetails').hide();
+                    }
+                
+                $('.temporal_menu option[value="' + IONUX2.Models.saveTemporalSearch.attributes.temporal_dropdown + '"]').attr('selected', 'selected');
+                $('.from_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_year + '"]').attr('selected', 'selected');
+                $('.from_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_month + '"]').attr('selected', 'selected');
+                $('.from_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_day + '"]').attr('selected', 'selected');
+                $('.from_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_hour + '"]').attr('selected', 'selected');
+                $('.to_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_year + '"]').attr('selected', 'selected');
+                $('.to_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_month + '"]').attr('selected', 'selected');
+                $('.to_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_day + '"]').attr('selected', 'selected');
+                $('.to_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_hour + '"]').attr('selected', 'selected');
+                })();*/
+
+                $('#searchTab').trigger('click');
             });
             
         });
