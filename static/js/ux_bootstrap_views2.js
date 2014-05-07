@@ -18,12 +18,12 @@ IONUX2.Views.MySearches = Backbone.View.extend({
   el: '.list_mysearches',
   template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
   initialize: function() {
-    this.render();
+    //this.render();
     //this.model.on('change:html', this.render, this);
   },
   render: function() {
     console.log('rendering my searches view');
-    this.$el.append(this.template(this.model.attributes));
+    this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
 });
@@ -59,7 +59,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	el: '#searchTabContent',
 	events: {
 		'click .accordionTitle': 'expandHide',
-    'click #saveSearch': 'saveSearch'
+    'click #saveSearch': 'saveSearch',
+    'click #saveName': 'saveName'
 	},
 	initialize: function() {
 		this.model.on('change:html', this.render, this);
@@ -75,11 +76,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
        		}        
 		});
 	},
-  saveSearch: function() {
-    $('#saveButtons').hide();
-    $('#customSearchName').show();
-    $('#saveName').on('click', function(e) {
-      e.preventDefault();
+  saveName: function() {
       $('#customSearchName').hide();
       $('#saveButtons').show();
   
@@ -91,7 +88,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var hour = d.getHours();
       var minute = d.getMinutes();
 
-      IONUX2.Models.saveCustomName.set({
+      var values = [];
+      values.push({
         'name': name,
         'month': month,
         'day': day,
@@ -100,9 +98,14 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         'minute': minute
       });
 
+      IONUX2.Collections.saveNames.add(values);
+      console.log(JSON.stringify(IONUX2.Collections.saveNames));
       var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
       console.log(name);
-    });
+  },
+  saveSearch: function() {
+    $('#saveButtons').hide();
+    $('#customSearchName').show();
     (function() {
       // store spatial input values and set to model
       var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
@@ -345,35 +348,6 @@ IONUX2.Views.Instruments = Backbone.View.extend({
   }*/
 });
 
-
-
-/*IONUX2.Views.Facility = Backbone.View.extend({
-  el: '#facility',
-  template: _.template(IONUX2.getTemplate('templates/facility.html')),
-  events: {
-    'click .checkAllFacilities': 'select_all_facilities'
-  },
-  initialize: function() {
-    this.render();
-  },
-
-  select_all_facilities: function(e) {
-    var $check = $(e.currentTarget);
-    if ($check.is(':checked')) {
-      $('.list_facilities').find('input').prop('checked', true);
-    }
-    else {
-      $('.list_facilities').find('input').prop('checked', false);
-    }
-  },
-
-  render: function() {
-    this.$el.html(this.template(this.collection.toJSON()));
-    return this;
-  }
-
-});*/
-
 IONUX2.Views.Region = Backbone.View.extend({
 	el: '#region',
 	template: _.template(IONUX2.getTemplate('templates/regions.html')),
@@ -540,18 +514,3 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
 		return this;
 	}
 });	
-
-/*IONUX2.Views.AccordionWhite = Backbone.View.extend({
-  el: '#accordionSearch',
-  template: _.template(IONUX2.getTemplate('templates/block_accordion_white2.html')),
-  accordionTemplate: _.template(IONUX2.getTemplate('templates/partials/block_accordion_container2.html')),
-  initialize: function() {
-    console.log('initializing white accordion view');
-  },
-  render: function(){
-    console.log('rendering white accordion to ' + this.el);
-    this.$el.html(this.template());
-    return this;
-  },
-
-});*/

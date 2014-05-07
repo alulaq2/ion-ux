@@ -239,17 +239,15 @@ IONUX2.Models.SaveCustomName = Backbone.Model.extend({
     hour: '',
     minute: ''
   }
-  /*url: '/templates/my_searches.html',
-  html: '',
-  parse: function(resp){
-    console.log('got response from /bootstrap/mySearches.html');
-    this.html = resp;
-    this.trigger('change:html');
-    return resp;
-  }*/
 });
 
 IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();
+
+IONUX2.Collections.SaveNames = Backbone.Collection.extend({
+  // model: IONUX2.Models.saveCustomName
+});
+
+IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
 
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();
