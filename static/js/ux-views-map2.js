@@ -453,42 +453,40 @@ IONUX2.Views.Map = Backbone.View.extend({
 
     if($(".latLongMenu").val() == "1"){
 
-        var n = $('#north').val();
-        var s = $('#south').val();
-        var e = $('#east').val();
-        var w = $('#west').val();
+      var n = $('#north').val();
+      var s = $('#south').val();
+      var e = $('#east').val();
+      var w = $('#west').val();
 
-        if($("#sw_ew").val() == "2"){
-          w =  w * -1;
-        }
-        if($("#ne_ew").val() == "2"){
-          e =  e * -1;
-        }
-        if($("#ne_ns").val() == "2"){
-          n =  n * -1;
-        }
-        if($("#sw_ns").val() == "2"){
-          s =  s * -1;
-        }
-
-        self.create_rectangle(n, s, e, w);
-
-      } else if($(".latLongMenu").val() == "2"){
-
-        var s = $('#south').val();
-        var w = $('#west').val();
-
-        if($("#sw_ns").val() == "2"){
-          s =  s * -1;
-        }
-        if($("#sw_ew").val() == "2"){
-          w =  w * -1;
-        }
-        
-        self.create_circle(s, w);
-
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+      if($("#ne_ew").val() == "2"){
+        e =  e * -1;
+      }
+      if($("#ne_ns").val() == "2"){
+        n =  n * -1;
+      }
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
       }
 
+      self.create_rectangle(n, s, e, w);
+
+    } else if($(".lat_long_menu").val() == "2"){
+
+      var s = $('#south').val();
+      var w = $('#west').val();
+
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+        
+      self.create_circle(s, w);
+    }
   },
   
   draw_map: function(map_options, container_server) {
