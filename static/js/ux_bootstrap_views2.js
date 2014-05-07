@@ -86,25 +86,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var hour = d.getHours();
       var minute = d.getMinutes();
 
-      var values = [];
-      values.push({
-        'name': name,
-        'month': month,
-        'day': day,
-        'year': year,
-        'hour': hour,
-        'minute': minute
-      });
-
-      IONUX2.Collections.saveNames.add(values);
-      console.log(JSON.stringify(IONUX2.Collections.saveNames));
-      var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
-      console.log(name);
-  },
-  saveSearch: function() {
-    $('#saveButtons').hide();
-    $('#customSearchName').show();
-    (function() {
+      (function() {
       // store spatial input values and set to model
       var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
         spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
@@ -220,6 +202,26 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveDataTypeSearch.add(datatype_checked);
       console.log(IONUX2.Collections.saveDataTypeSearch);
     })();
+
+      var values = [];
+      values.push({
+        'name': name,
+        'month': month,
+        'day': day,
+        'year': year,
+        'hour': hour,
+        'minute': minute
+      });
+
+      IONUX2.Collections.saveNames.add(values);
+      console.log(JSON.stringify(IONUX2.Collections.saveNames));
+      var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
+      console.log(name);
+      
+  },
+  saveSearch: function() {
+    $('#saveButtons').hide();
+    $('#customSearchName').show();
   },
 
 	render: function() {
