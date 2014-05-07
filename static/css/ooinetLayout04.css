@@ -464,6 +464,8 @@ input.latlong {
 
 #spatial input {
   width: 45px;
+  line-height:20px;
+  padding: 1px 0px;
 }
 
 select.dateMenu {
