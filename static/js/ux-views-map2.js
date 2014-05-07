@@ -473,7 +473,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
       self.create_rectangle(n, s, e, w);
 
-    } else if($(".lat_long_menu").val() == "2"){
+    } else if($(".latLongMenu").val() == "2"){
 
       var s = $('#south').val();
       var w = $('#west').val();
@@ -523,7 +523,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       strokeColor   : '#0cc1ff',
       strokeOpacity : 0.8,
       draggable     : true,
-      editable      : true
+      editable      : false
     };
 
     this.drawingManager = new google.maps.drawing.DrawingManager({
@@ -582,7 +582,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       
     });
 
-    var self = this;
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       var mode = this.getDrawingMode();
 
@@ -639,7 +638,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       self.update_inputs();
     });
 
-    var self = this;
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {
        self.hide_info_window({rank : 0}); // always hide the infoWindow
        self.render_map_bounds(e);
@@ -672,7 +670,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     // Create the cluster styles array based on the single_icons structure, and iterate
     // through them using the heirarchy.  Clusters can only be normal or hover (no select).
     var styles = [];
-    var self = this;
     _.each(self.icons_rank,function(site) {
       _.each(['icon','hover'],function(mouse) {
         styles.push({
@@ -704,7 +701,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
-    var self = this;
     google.maps.event.addListener(this.markerClusterer, 'mouseover', function(c) {
       c.clusterIcon_.useStyle({index : c.clusterIcon_.sums_.index * 1 + 1});
       c.clusterIcon_.show();
