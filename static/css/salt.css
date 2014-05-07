@@ -1993,7 +1993,7 @@ ul.nav {
 .nav-tabs li.active a:link { 
   border: none;
 
-  background: #283c54; /* Old browsers */
+  background: #384d68; /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
 
   -webkit-border-radius: 3px 3px 0px 0px;
@@ -2367,7 +2367,7 @@ ul.nav {
   color: #FFF;
   letter-spacing: 1px;
   text-transform: uppercase;
-  background-color:#2A3E57;
+  background-color:#384d68;
 }
 
 #temporal-field-ctrl {
@@ -2495,7 +2495,7 @@ table.table tr.odd td {
 .datatable-container {}
 
 .tab-content{
-  border: 2px #293a4e solid;
+  border: 2px #384d68 solid;
   background: #FFFFFF;
 }
 	
