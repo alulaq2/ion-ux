@@ -34,9 +34,9 @@
   <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
   <div class="leftNaviNarrowSelectContainer">
     <select class="north_south_menu" id="ne_ns">
-        <option value="1">N</option>
-        <option value="2">S</option>
-      </select>
+      <option value="1">N</option>
+      <option value="2">S</option>
+    </select>
     <select class="milesKilosMenu">
       <option value="1">Km</option>
       <option value="2">Mi</option>
@@ -69,16 +69,16 @@
 <script>
 $(function(){
         $('.latLongMenu').on('change', function(e) {
-    $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-    $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-    if ($(this).find('option:selected').attr('value') == "2") {
-      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+          $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+          $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+          
+          if ($(this).find('option:selected').attr('value') == "2") {
+            $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
             $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-    }
-    else {
+          } else {
             $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
-      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
-    }
-  });
+            $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+          }     
+        });
 });
 </script>

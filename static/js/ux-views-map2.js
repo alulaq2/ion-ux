@@ -454,42 +454,40 @@ IONUX2.Views.Map = Backbone.View.extend({
 
     if($(".latLongMenu").val() == "1"){
 
-        var n = $('#north').val();
-        var s = $('#south').val();
-        var e = $('#east').val();
-        var w = $('#west').val();
+      var n = $('#north').val();
+      var s = $('#south').val();
+      var e = $('#east').val();
+      var w = $('#west').val();
 
-        if($("#sw_ew").val() == "2"){
-          w =  w * -1;
-        }
-        if($("#ne_ew").val() == "2"){
-          e =  e * -1;
-        }
-        if($("#ne_ns").val() == "2"){
-          n =  n * -1;
-        }
-        if($("#sw_ns").val() == "2"){
-          s =  s * -1;
-        }
-
-        self.create_rectangle(n, s, e, w);
-
-      } else if($(".latLongMenu").val() == "2"){
-
-        var s = $('#south').val();
-        var w = $('#west').val();
-
-        if($("#sw_ns").val() == "2"){
-          s =  s * -1;
-        }
-        if($("#sw_ew").val() == "2"){
-          w =  w * -1;
-        }
-        
-        self.create_circle(s, w);
-
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
       }
+      if($("#ne_ew").val() == "2"){
+        e =  e * -1;
+      }
+      if($("#ne_ns").val() == "2"){
+        n =  n * -1;
+      }
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      
+      self.create_rectangle(n, s, e, w);
 
+    } else if($(".latLongMenu").val() == "2"){
+
+      var s = $('#south').val();
+      var w = $('#west').val();
+
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+        
+      self.create_circle(s, w);
+    }
   },
   
   draw_map: function(map_options, container_server) {
@@ -526,7 +524,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       strokeColor   : '#0cc1ff',
       strokeOpacity : 0.8,
       draggable     : true,
-      editable      : true
+      editable      : false
     };
 
     this.drawingManager = new google.maps.drawing.DrawingManager({
@@ -585,7 +583,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       
     });
 
-    var self = this;
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       var mode = this.getDrawingMode();
 
@@ -636,13 +633,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
-
     //Input to drawing manager mapping
     $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
       self.update_inputs();
     });
 
-    var self = this;
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {
        self.hide_info_window({rank : 0}); // always hide the infoWindow
        self.render_map_bounds(e);
@@ -675,7 +670,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     // Create the cluster styles array based on the single_icons structure, and iterate
     // through them using the heirarchy.  Clusters can only be normal or hover (no select).
     var styles = [];
-    var self = this;
     _.each(self.icons_rank,function(site) {
       _.each(['icon','hover'],function(mouse) {
         styles.push({
@@ -707,7 +701,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
-    var self = this;
     google.maps.event.addListener(this.markerClusterer, 'mouseover', function(c) {
       c.clusterIcon_.useStyle({index : c.clusterIcon_.sums_.index * 1 + 1});
       c.clusterIcon_.show();
