@@ -250,7 +250,8 @@ body {
   display: inline-block;
   width: 14px;
   height: 14px;
-  background: url('../img/navLeftMinimizeArrow.png') no-repeat left;
+  margin: 5px;
+  background: url('../img/leftMinimizeArrow.png') no-repeat left;
 }
 
 #login {
@@ -337,18 +338,23 @@ ul.dropdown-menu li:hover {
 --------------------------------------------------------------- */
 
 /* left sidebar accordion */
-#accordionContainer {
+.accordionContainer {
   position: absolute;
   top: 28px;
   left: 0px;
-  background-color: #384d68;
   padding-top: 0px;
   color: #fff;
   font-family: Arial;
   font-size: 12px; 
   width: 100%;
   height:calc(100% - 28px);
+  display:block;
   overflow: auto;
+}
+
+.spatialDetails .accordionContainer {
+  height: 272px;
+  margin-right: -4px;
 }
 
 .accordionControl {
@@ -362,6 +368,7 @@ ul.dropdown-menu li:hover {
 }
 
 .spatialDetails {
+  position: relative;
   margin-left: 13px;
 }
 
@@ -377,6 +384,12 @@ ul.dropdown-menu li:hover {
   color: #fff;
 }
 
+#saveButtons {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .textRight {
   height: 18px;
   line-height: 12px;
@@ -390,6 +403,13 @@ ul.dropdown-menu li:hover {
   float: right;
   border-radius: 5px;
   border: none;
+}
+
+#customSearchName {
+  position: absolute;
+  z-index: 100;
+  top: -2px;
+  display: none;
 }
 
 .leftAccordion {
@@ -458,15 +478,15 @@ select.dateMenu {
   width: 54px;
 }
 
-select.date_menu.day {
+select.dateMenu.day {
   width: 45px;
 }
 
-select.date_menu.hour {
+select.dateMenu.hour {
   width: 58px;
 }
 
-#accordionContainer input {
+.accordionContainer input {
   height: 16px;
   line-height: 15px;
   padding: 0px 2px;
@@ -475,7 +495,7 @@ select.date_menu.hour {
   font-size: 12px; 
 }
 
-#accordionContainer select {
+.accordionContainer select {
   height: 16px;
   line-height: 16px;
   padding: 0px;
@@ -750,19 +770,20 @@ input.noPlaceholderRadius {
   background: transparent;
 }
 
-#accordionContainer .jspVerticalBar {
+.accordionContainer .jspVerticalBar {
+
   right: 4px;
 }
 
-#accordionContainer .jspTrack {
+.accordionContainer .jspTrack {
   background: none;
 }
 
-#accordionContainer .jspDrag {
+.accordionContainer .jspDrag {
   background: #88A9CC;
 }
 
-#accordionContainerWhite {
+.accordionContainerWhite {
   color: #000;
   position: relative;
   width:  calc(100% - 8px);
@@ -803,6 +824,7 @@ input.noPlaceholderRadius {
   margin-bottom: 3px;
   border: 1px solid #dddddd;
   border-radius: 5px;
+  background-color:#FFFFFF;
 }
 
 /* regions */
