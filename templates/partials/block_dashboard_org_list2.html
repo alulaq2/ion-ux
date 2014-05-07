@@ -10,14 +10,20 @@
 		<form action="">
 			
             <% _.each(resources, function(resource) { %>
-                <input type="checkbox" value="<%= resource._id %>"/><span> <%= resource.name %></span><br/>
+                <input type="checkbox" value="<%= resource._id %>"/>
+                <div class="resourceLink" data-id="<%= resource._id %>"><%= resource.name %></div><br/>
             <% }) %>
         </form>
     </div>
 </div>
 
+
 <script>
-	$(function() {
-		$('.spatialDetails').hide();
-	});
+    $(function(){
+        $(".list_facilities .resourceLink").click(function(){
+            var resource_id = $(this).attr('data-id');
+            var url = "/Org/face/"+resource_id+"/";
+            IONUX.ROUTER.navigate(url, {trigger:true});
+        });
+    });
 </script>
