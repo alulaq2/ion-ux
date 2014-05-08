@@ -165,55 +165,58 @@ last edited 04-13 04-09 03-05 2014-03-02
                 //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
             //}
             
-            $('.list_mysearches a').on('click', function(e) {
-                e.preventDefault();
+            $('.list_mysearches a').each(function(index) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var searchModel = IONUX2.Collections.saveNames.at(index);
+                    console.log(searchModel);
 
-                // populate spatial module with saved data
-                (function() {
-                if (IONUX2.Models.saveSpatialSearch.attributes.accordion_visible) {
-                    $('#spatial .spatialDetails').show();
-                }
-                else {
-                    $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                    $('#spatial .spatialDetails').hide();
-                }
+                    // populate spatial module with saved data
+                    (function() {
+                        if (searchModel.attributes.spatial_accordion_visible) {
+                            $('#spatial .spatialDetails').show();
+                        }
+                        else {
+                            $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                            $('#spatial .spatialDetails').hide();
+                        }
             
-                $('.latLongMenu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
-                $('#south').val(IONUX2.Models.saveSpatialSearch.attributes.from_latitude),
-                $('.from_ns option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ns + '"]').attr('selected', 'selected');
-                $('#west').val(IONUX2.Models.saveSpatialSearch.attributes.from_longitude),
-                $('.from_ew option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ew + '"]').attr('selected', 'selected');
-                $('.placeholder_lat').val(IONUX2.Models.saveSpatialSearch.attributes.to_latitude),
-                $('.north_south_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.to_ns + '"]').attr('selected', 'selected');
-                $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
-                $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
-                $('.no_placeholder_radius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
-                $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
-                $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
-                $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
-                $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
-                })();
+                        $('.latLongMenu option[value="' + searchModel.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
+                        $('#south').val(searchModel.attributes.from_latitude),
+                        $('.from_ns option[value="' + searchModel.attributes.from_ns + '"]').attr('selected', 'selected');
+                        $('#west').val(searchModel.attributes.from_longitude),
+                        $('.from_ew option[value="' + searchModel.attributes.from_ew + '"]').attr('selected', 'selected');
+                        $('.placeholder_lat').val(searchModel.attributes.to_latitude),
+                        $('.north_south_menu option[value="' + searchModel.attributes.to_ns + '"]').attr('selected', 'selected');
+                        $('.show_hide_longitude').val(searchModel.attributes.to_longitude),
+                        $('.to_ew option[value="'+ searchModel.attributes.to_ew + '"]').attr('selected', 'selected');
+                        $('.no_placeholder_radius').val(searchModel.attributes.radius),
+                        $('.milesKilosMenu').val(searchModel.attributes.miles_kilos),
+                        $('[data-verticalfrom]').val(searchModel.attributes.vertical_from),
+                        $('[data-verticalto]').val(searchModel.attributes.vertical_to),
+                        $('.feet_miles option[value="' + searchModel.attributes.feet_miles + '"]').attr('selected', 'selected');
+                    })();
 
-                // populate temporal module with saved data
-                 (function() {
-                    if (IONUX2.Models.saveTemporalSearch.attributes.accordion_visible) {
-                        $('#temporal .spatialDetails').show();
-                    }
-                    else {
-                        $('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                        $('#temporal .spatialDetails').hide();
-                    }
+                    // populate temporal module with saved data
+                    (function() {
+                        if (searchModel.attributes.temporal_accordion_visible) {
+                            $('#temporal .spatialDetails').show();
+                        }
+                        else {
+                            $('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                            $('#temporal .spatialDetails').hide();
+                        }
                 
-                $('.temporal_menu option[value="' + IONUX2.Models.saveTemporalSearch.attributes.temporal_dropdown + '"]').attr('selected', 'selected');
-                $('.from_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_year + '"]').attr('selected', 'selected');
-                $('.from_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_month + '"]').attr('selected', 'selected');
-                $('.from_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_day + '"]').attr('selected', 'selected');
-                $('.from_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.from_hour + '"]').attr('selected', 'selected');
-                $('.to_date_menu .year option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_year + '"]').attr('selected', 'selected');
-                $('.to_date_menu .month option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_month + '"]').attr('selected', 'selected');
-                $('.to_date_menu .day option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_day + '"]').attr('selected', 'selected');
-                $('.to_date_menu .hour option[value="' + IONUX2.Models.saveTemporalSearch.attributes.to_hour + '"]').attr('selected', 'selected');
-                })();
+                    $('.temporal_menu option[value="' + searchModel.attributes.temporal_dropdown + '"]').attr('selected', 'selected');
+                    $('.from_date_menu .year option[value="' + searchModel.attributes.from_year + '"]').attr('selected', 'selected');
+                    $('.from_date_menu .month option[value="' + searchModel.attributes.from_month + '"]').attr('selected', 'selected');
+                    $('.from_date_menu .day option[value="' + searchModel.attributes.from_day + '"]').attr('selected', 'selected');
+                    $('.from_date_menu .hour option[value="' + searchModel.attributes.from_hour + '"]').attr('selected', 'selected');
+                    $('.to_date_menu .year option[value="' + searchModel.attributes.to_year + '"]').attr('selected', 'selected');
+                    $('.to_date_menu .month option[value="' + searchModel.attributes.to_month + '"]').attr('selected', 'selected');
+                    $('.to_date_menu .day option[value="' + searchModel.attributes.to_day + '"]').attr('selected', 'selected');
+                    $('.to_date_menu .hour option[value="' + searchModel.attributes.to_hour + '"]').attr('selected', 'selected');
+                    })();
 
                 /*(function() {
                     if (IONUX2.Models.saveFacilitySearch.attributes.accordion_visible) {
@@ -236,6 +239,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                 })();*/
 
                 $('#searchTab').trigger('click');
+                });
             });
             
         });

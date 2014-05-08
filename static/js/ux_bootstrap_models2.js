@@ -219,7 +219,7 @@ IONUX2.Models.instruments = new IONUX2.Models.Instruments();
 
 IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   defaults: {
-      accordion_visible: false,
+      spatial_accordion_visible: false,
       spatial_dropdown: "1",
       from_latitude: "",
       from_ns: "",
@@ -272,7 +272,7 @@ IONUX2.Models.saveSpatialSearch = new IONUX2.Models.SaveSpatialSearch();
 
 IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
   defaults: {
-    accordion_visible: false,
+    temporal_accordion_visible: false,
     temporal_dropdown: '',
     from_year: '',
     from_month: '',
