@@ -166,6 +166,8 @@ last edited 04-13 04-09 03-05 2014-03-02
                 elementContainer.append($("#"+val));
             });
         }
+
+        console.log("user id is " + IONUX2.Models.SessionInstance.attributes.user_id);        
         
         // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
@@ -177,12 +179,49 @@ last edited 04-13 04-09 03-05 2014-03-02
             //}
             
             $('.list_mysearches a').each(function(index) {
+                var searchModel = IONUX2.Collections.saveNames.at(index);
+                var body = JSON.stringify(searchModel);
+
+                $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
+                    data: {data: body},
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded'
+                });
                 $(this).on('click', function(e) {
 
-                    
-
                     e.preventDefault();
-                    var searchModel = IONUX2.Collections.saveNames.at(index);
+                    /*var searchModel = IONUX2.Collections.saveNames.at(index);
+                    var body = JSON.stringify(searchModel);
+
+                     $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: '/profile/14710562c82e4631ba1bdffb2139d568/',
+                        data: {data: body},
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded'
+                    });*/
+
+                     $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
+                        success: function(data) {
+                            console.log("getting json saved search data from server");
+                            console.log(data);
+                        },
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded'
+                    });
 
                     var $accordion_container = $('.jspPane');
                     
