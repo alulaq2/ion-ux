@@ -96,6 +96,32 @@ IONUX2.Views.Map = Backbone.View.extend({
   events: {
     'click': 'render_map_bounds'
   },
+
+  search_clicked: function(){
+
+    var form_values = $('#searchForm').serializeArray();
+    form_values.splice(0, 0, {name:'adv', value:1});
+
+    var search_term = $.param(form_values);
+
+    console.log('SEARCH CLICKED...' + search_term);
+
+    IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
+
+    //var self = this;
+    //$.ajax({
+      //type: 'GET',
+      //url: 'search',
+      //data: search_term,
+      //dataType: 'json',
+      //success: function(resp) {
+        //console.log(resp);
+      //},
+      //error: function(resp) {
+        //console.log('ERROR');
+      //}
+    //});
+  },
   
   render_map_bounds: function(e){
      var bounds = this.map.getBounds();
@@ -151,6 +177,10 @@ IONUX2.Views.Map = Backbone.View.extend({
     // HACK! temporarily workaround to a timing issue in Chrome/Safari.
     // this.get_sites_status();
     window.setTimeout(this.get_sites_status, 1000);
+    var self = this;
+    $('#searchBtn').on('click', function(){
+      self.search_clicked();
+    });
   },
   
     data_types: function(){
@@ -318,6 +348,12 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#north").val("");
     $("#east").val("");
     $("#radius").val("");
+
+    $("#southFm").val("");
+    $("#westFm").val("");
+    $("#northFm").val("");
+    $("#eastFm").val("");
+    $("#radiusFm").val("");
   },
 
   update_latlon: function (ne, sw){
@@ -326,6 +362,10 @@ IONUX2.Views.Map = Backbone.View.extend({
     var e = ne.lng();
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(n.toFixed(4));
+    $("#westFm").val(e.toFixed(4));
+    $("#northFm").val(s.toFixed(4));
+    $("#eastFm").val(w.toFixed(4));
 
     if(n >= 0){
       $("#ne_ns").val("1");
@@ -368,6 +408,9 @@ IONUX2.Views.Map = Backbone.View.extend({
   update_pointradius: function (radius, sw){
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(s.toFixed(4));
+    $("#westFm").val(w.toFixed(4));
+    $("#radiusFm").val(radius);
 
     if(s >= 0){
       $("#sw_ns").val("1");
@@ -417,13 +460,15 @@ IONUX2.Views.Map = Backbone.View.extend({
     self.drawingManager.setDrawingMode(null);
   },
 
-  create_circle: function(lat, lng, radius){
+  create_circle: function(lat, lng){
     var point = new google.maps.LatLng(lat, lng);
     var radius = 0.00;
     
     if($("#radius").val() != null && $("#radius").val().length > 0){
      radius = parseInt($("#radius").val())*1000;
     }
+
+    $("#radiusFm").val(radius);
 
     var self = this;
     if (!self.circle) {
@@ -471,6 +516,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       if($("#sw_ns").val() == "2"){
         s =  s * -1;
       }
+
+      var n = $('#northFm').val(n);
+      var s = $('#southFm').val(s);
+      var e = $('#eastFm').val(e);
+      var w = $('#westFm').val(w);
       
       self.create_rectangle(n, s, e, w);
 
@@ -485,6 +535,9 @@ IONUX2.Views.Map = Backbone.View.extend({
       if($("#sw_ew").val() == "2"){
         w =  w * -1;
       }
+
+      var s = $('#southFm').val(s);
+      var w = $('#westFm').val(w);
         
       self.create_circle(s, w);
     }
