@@ -372,6 +372,12 @@ ul.dropdown-menu li:hover {
   margin-left: 13px;
 }
 
+#spatial .spatialDetails {
+  position: relative;
+  margin-left: 13px;
+  width: 220px;
+}
+
 .spatialDetails.align_left {
   margin-left:0;
 }
