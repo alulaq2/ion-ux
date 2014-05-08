@@ -198,10 +198,14 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         var facility_value = $(this).val();
         var is_checked = $(this).prop('checked');
         facilities_checked.push({'facillity_accordion_visible' : facility_accordion_visible, 'value' : facility_value, 'is_checked' : is_checked });
+        //values.push({'facillity_accordion_visible' : facility_accordion_visible, 'value' : facility_value, 'is_checked' : is_checked });
+        //values = values.concat(facilities_checked);
+        //console.log('concatenating values');
+        //console.log(values);
         //values.push({'facility_accordion_visible' : facility_accordion_visible, 'value' : facility_value, 'is_checked' : is_checked });
       });
       IONUX2.Collections.saveFacilitySearch.add(facilities_checked);
-      //values.push(IONUX2.Collections.saveFacilitySearch.toJSON());
+      //values.concat(IONUX2.Collections.saveFacilitySearch);
       //console.log(IONUX2.Collections.saveFacilitySearch);
     })();
 
@@ -213,6 +217,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         var region_name = $(this).data('spatial');
         var is_checked = $(this).prop('checked');
         regions_checked.push({'region_accordion_visible' : region_accordion_visible, 'region_name' : region_name, 'is_checked' : is_checked });
+
         //values.push({'region_accordion_visible' : region_accordion_visible, 'region_name' : region_name, 'is_checked' : is_checked });
       });
       IONUX2.Collections.saveRegionSearch.add(regions_checked);
