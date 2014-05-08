@@ -31,10 +31,12 @@
       </div>
 
 
-      <span class="accordionLabel topSearchRadius"><br>Radius:<br></span>
+      <span class="accordionLabel topSearchRadius"><br />Radius:<br /></span>
+      <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
+      
       <span class="labelThrough top_search_to">To:</span>
       <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" id="north"/>
-      <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
+      
       <div class="leftNaviNarrowSelectContainer">
         <select class="north_south_menu" id="ne_ns">
           <option value="1">N</option>
@@ -73,9 +75,6 @@
 <script>
 $(function(){
         $('.latLongMenu').on('change', function(e) {
-          $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-          $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-          
           if ($(this).find('option:selected').attr('value') == "2") {
             $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
             $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
