@@ -274,8 +274,6 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 
 .current-user {margin-right:6px}
 
-/* html body div#main div#mainNewTab div#upperMain div#mapCanvas2 div.gm-style div.gmnoprint div.gmnoprint div img {width:20px; max-width:20px; !important} */
-
 /* ---------------------------------------------------------------
  TEMP USER-NAV - ALL BLUE BUTTONS TO GET THIS STYLE EVENTUALLY
 --------------------------------------------------------------- */
@@ -357,7 +355,6 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails .accordionContainer {
   height: 272px;
-  margin-right: -4px;
 }
 
 .accordionControl {
@@ -372,13 +369,6 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails {
   position: relative;
-  margin-left: 13px;
-}
-
-#spatial .spatialDetails {
-  position: relative;
-  margin-left: 13px;
-  width: 220px;
 }
 
 .spatialDetails.align_left {
@@ -442,7 +432,8 @@ ul.dropdown-menu li:hover {
 }
 
 .leftAccordion#spatial {
-  padding: 4px 13px 4px 4px;
+  padding: 4px;
+  line-height: 16px;
 }
 
 .spatialDuration, .latlong {
@@ -617,7 +608,6 @@ input.noPlaceholderRadius {
 }
 
 .labelThrough {
-  height: 10px;
   display: block;
 }
 
@@ -798,8 +788,14 @@ input.noPlaceholderRadius {
 #accordionContainerWhite {
   color: #000;
   position: relative;
-  width:  calc(100% - 8px);
-  margin: 3px
+  width:  calc(100% - 6px);
+  margin: 3px;
+  top: 0px;
+  left: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  z-index:8;
+  
 }
 
 .accordionWhiteChevron {
