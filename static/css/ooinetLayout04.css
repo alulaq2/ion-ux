@@ -274,7 +274,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 
 .current-user {margin-right:6px}
 
-html body div#main div#mainNewTab div#upperMain div#mapCanvas2 div.gm-style div.gmnoprint div.gmnoprint div img {width:20px; max-width:20px; !important}
+/* html body div#main div#mainNewTab div#upperMain div#mapCanvas2 div.gm-style div.gmnoprint div.gmnoprint div img {width:20px; max-width:20px; !important} */
 
 /* ---------------------------------------------------------------
  TEMP USER-NAV - ALL BLUE BUTTONS TO GET THIS STYLE EVENTUALLY

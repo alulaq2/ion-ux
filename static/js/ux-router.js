@@ -26,14 +26,6 @@ IONUX.Router = Backbone.Router.extend({
   },
   
   dashboard_map: function(){
-    //this._remove_dashboard_menu();
-    $('.map-nested-ul').find('.active').removeClass('active');
-    
-    $('#left .resources-view').hide();
-    $('#left .map-view').show();
-    $('#btn-map').addClass('active').siblings('.active').removeClass('active');
-    
-    $('#dynamic-container').html($('#dashboard-map-tmpl').html()).show();
     if (!IONUX.Dashboard.MapResources || !IONUX.Dashboard.MapResource) {
       IONUX.Dashboard.MapResources = new IONUX.Collections.MapResources([], {resource_id: null});
       IONUX.Dashboard.MapResource = new IONUX.Models.MapResource();
@@ -41,20 +33,8 @@ IONUX.Router = Backbone.Router.extend({
     };
     
     // render empty table.
-    new IONUX.Views.MapDataProductTable({el: $('#dynamic-container #2163993'), collection: IONUX.Dashboard.MapDataResources});
+    // new IONUX.Views.MapDataProductTable({el: $('#dynamic-container #2163993'), collection: IONUX.Dashboard.MapDataResources});
     
-    
-    if (!IONUX.Dashboard.MapView){
-      IONUX.Dashboard.MapView = new IONUX.Views.Map({
-        collection: IONUX.Dashboard.Observatories,
-        model: IONUX.Dashboard.MapResource
-      });
-    }else{
-      IONUX.Dashboard.MapView.active_marker = null; // Track clicked icon
-      IONUX.Dashboard.MapView.map_bounds_elmt = $('#map_bounds');
-      IONUX.Dashboard.MapView.draw_map();
-      IONUX.Dashboard.MapView.draw_markers();
-    }
   },
   
 dashboard_map_resource: function(resource_id) {
