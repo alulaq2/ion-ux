@@ -267,7 +267,7 @@ IONUX2.Views.Map = Backbone.View.extend({
         self.draw_markers();
       },
       complete: function(){
-        $('#loading-status').remove();
+        $('#loadingStatus2').remove();
       },
     });
   },
@@ -322,19 +322,172 @@ IONUX2.Views.Map = Backbone.View.extend({
 
   update_latlon: function (ne, sw){
 
-    $("#south").val(sw.lat().toFixed(2));
-    $("#west").val(sw.lng().toFixed(2));
-    $("#north").val(ne.lat().toFixed(2));
-    $("#east").val(ne.lng().toFixed(2));
+    var n = ne.lat();
+    var e = ne.lng();
+    var s = sw.lat();
+    var w = sw.lng();
+
+    if(n >= 0){
+      $("#ne_ns").val("1");
+    } else {
+      $("#ne_ns").val("2");
+      n = n * -1;
+    }
+
+    if(e >= 0){
+      $("#ne_ew").val("1");
+    } else {
+      $("#ne_ew").val("2");
+      e = e * -1;
+    }
+
+    if(s >= 0){
+      $("#sw_ns").val("1");
+    } else {
+      $("#sw_ns").val("2");
+      s = s * -1;
+    }
+
+    if(w >= 0){
+      $("#sw_ew").val("1");
+    } else {
+      $("#sw_ew").val("2");
+      w = w * -1;
+    }
+
+    $("#south").val(s.toFixed(2));
+    $("#west").val(w.toFixed(2));
+    $("#north").val(n.toFixed(2));
+    $("#east").val(e.toFixed(2));
+
+    //TODO: Assign actual values to input fields for form submission
+    //$("#hidden_field").val(ne.lat())
 
   },
 
   update_pointradius: function (radius, sw){
+    var s = sw.lat();
+    var w = sw.lng();
 
-    $("#south").val(sw.lat().toFixed(2));
-    $("#west").val(sw.lng().toFixed(2));
+    if(s >= 0){
+      $("#sw_ns").val("1");
+    } else {
+      $("#sw_ns").val("2");
+      s = s * -1;
+    }
+
+    if(w >= 0){
+      $("#sw_ew").val("1");
+    } else {
+      $("#sw_ew").val("2");
+      w = w * -1;
+    }
+
+    $("#south").val(s.toFixed(2));
+    $("#west").val(w.toFixed(2));
     $("#radius").val((radius/1000).toFixed(2));
 
+    //TODO: Assign actual values to input fields for form submission
+    //$("#hidden_field_lat").val(sw.lat())
+    //$("#hidden_field_lng").val(sw.lng())
+    //$("#hidden_field_radius").val(radius)
+
+  },
+
+  create_rectangle: function(n, s, e, w){
+
+    var bounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(s, w),
+      new google.maps.LatLng(n, e)
+    );
+
+    var self = this;
+    if (!self.rectangle) {
+      // make a rectangle if a user hasn't drawn one
+      self.rectangle = new google.maps.Rectangle();
+      self.rectangle.setOptions(self.overlay_options);
+      // create a listener on the rectangle to catch modifications / dragging
+      google.maps.event.addListener(self.rectangle, 'bounds_changed', function(e) {
+        self.update_latlon(self.rectangle.getBounds().getNorthEast(), self.rectangle.getBounds().getSouthWest());
+      });
+      self.rectangle.setMap(self.map);
+    }
+
+    self.rectangle.setBounds(bounds);
+    self.drawingManager.setDrawingMode(null);
+  },
+
+  create_circle: function(lat, lng, radius){
+    var point = new google.maps.LatLng(lat, lng);
+    var radius = 0.00;
+    
+    if($("#radius").val() != null && $("#radius").val().length > 0){
+     radius = parseInt($("#radius").val())*1000;
+    }
+
+    var self = this;
+    if (!self.circle) {
+      // make a rectangle if a user hasn't drawn one
+      self.circle = new google.maps.Circle();
+      self.circle.setOptions(self.overlay_options);
+      // create a listener on the rectangle to catch modifications / dragging
+      google.maps.event.addListener(self.circle, 'radius_changed', function() {
+        self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
+      });
+      google.maps.event.addListener(self.circle, 'center_changed', function() {
+        self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
+      });
+
+      self.circle.setMap(self.map);
+    }
+
+    self.circle.setCenter(point);
+    self.circle.setRadius(radius);
+    self.drawingManager.setDrawingMode(null);
+
+  },
+  
+
+  update_inputs: function(){
+
+    var self = this;
+
+    if($(".latLongMenu").val() == "1"){
+
+      var n = $('#north').val();
+      var s = $('#south').val();
+      var e = $('#east').val();
+      var w = $('#west').val();
+
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+      if($("#ne_ew").val() == "2"){
+        e =  e * -1;
+      }
+      if($("#ne_ns").val() == "2"){
+        n =  n * -1;
+      }
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      
+      self.create_rectangle(n, s, e, w);
+
+    } else if($(".latLongMenu").val() == "2"){
+
+      var s = $('#south').val();
+      var w = $('#west').val();
+
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+        
+      self.create_circle(s, w);
+    }
   },
   
   draw_map: function(map_options, container_server) {
@@ -371,7 +524,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       strokeColor   : '#0cc1ff',
       strokeOpacity : 0.8,
       draggable     : true,
-      editable      : true
+      editable      : false
     };
 
     this.drawingManager = new google.maps.drawing.DrawingManager({
@@ -430,7 +583,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       
     });
 
-    var self = this;
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       var mode = this.getDrawingMode();
 
@@ -470,11 +622,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       self.clear_inputs();
       if ($(this).find('option:selected').attr('value') == "2") {
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').show();
+        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
       } else {
-        $('.top_search_radius, .no_placeholder_radius, .miles_kilos_menu').hide();
+        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').hide();
         $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
         self.from_click = true;
         self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
@@ -482,57 +634,10 @@ IONUX2.Views.Map = Backbone.View.extend({
     });
 
     //Input to drawing manager mapping
-    $('#west, #east, #north, #south, #radius').on('change', function(){
-      
-      if($(".latLongMenu").val() == "1"){
-       
-        var bounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng($('#south').val(), $('#west').val()),
-          new google.maps.LatLng($('#north').val(), $('#east').val())
-        );
-
-        if (!self.rectangle) {
-          // make a rectangle if a user hasn't drawn one
-          self.rectangle = new google.maps.Rectangle();
-          self.rectangle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.rectangle, 'bounds_changed', function(e) {
-            self.update_latlon(self.rectangle.getBounds().getNorthEast(), self.rectangle.getBounds().getSouthWest());
-          });
-          self.rectangle.setMap(self.map);
-        }
-
-        self.rectangle.setBounds(bounds);
-        self.drawingManager.setDrawingMode(null);
-
-      } else if($(".latLongMenu").val() == "2"){
-     
-        var point = new google.maps.LatLng($('#south').val(), $('#west').val());
-        var radius = parseInt($("#radius").val())*1000;
-
-        if (!self.circle) {
-          // make a rectangle if a user hasn't drawn one
-          self.circle = new google.maps.Circle();
-          self.circle.setOptions(self.overlay_options);
-          // create a listener on the rectangle to catch modifications / dragging
-          google.maps.event.addListener(self.circle, 'radius_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-          google.maps.event.addListener(self.circle, 'center_changed', function() {
-            self.update_pointradius(self.circle.getRadius(), self.circle.getCenter());
-          });
-
-          self.circle.setMap(self.map);
-        }
-
-        self.circle.setCenter(point);
-        self.circle.setRadius(radius);
-        self.drawingManager.setDrawingMode(null);
-
-      }
+    $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
+      self.update_inputs();
     });
 
-    var self = this;
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {
        self.hide_info_window({rank : 0}); // always hide the infoWindow
        self.render_map_bounds(e);
@@ -565,7 +670,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     // Create the cluster styles array based on the single_icons structure, and iterate
     // through them using the heirarchy.  Clusters can only be normal or hover (no select).
     var styles = [];
-    var self = this;
     _.each(self.icons_rank,function(site) {
       _.each(['icon','hover'],function(mouse) {
         styles.push({
@@ -597,7 +701,6 @@ IONUX2.Views.Map = Backbone.View.extend({
       }
     });
 
-    var self = this;
     google.maps.event.addListener(this.markerClusterer, 'mouseover', function(c) {
       c.clusterIcon_.useStyle({index : c.clusterIcon_.sums_.index * 1 + 1});
       c.clusterIcon_.show();
