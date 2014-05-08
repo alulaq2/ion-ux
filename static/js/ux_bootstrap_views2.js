@@ -91,6 +91,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       console.log("date is " + d.getTime());
 
+      var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+
       // store spatial input values and set to model
       var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
         spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
@@ -162,6 +164,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'year': year,
       'hour': hour,
       'minute': minute
+    };
+
+    var sortableOrder = {
+      'sortable_order': sortable_order
     };
 
     var spatial = {
@@ -250,6 +256,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       var values = {
         'searchName': searchName,
+        'sortableOrder': sortableOrder,
         'spatial' : spatial,
         'temporal': temporal,
         'facilities' : facilities,
