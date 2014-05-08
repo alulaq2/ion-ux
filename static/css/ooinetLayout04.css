@@ -24,6 +24,8 @@ body {
  padding:0px;
 }
 
+a:focus, object:focus {outline:none; -moz-outline-style:none}
+
 #header2 {
  position:fixed;
  top:0px;
@@ -805,11 +807,11 @@ input.noPlaceholderRadius {
   background: #88A9CC;
 }
 
-.accordionContainerWhite {
+#accordionContainerWhite {
   color: #000;
   position: relative;
   width:  calc(100% - 8px);
-  margin: 3px;
+  margin: 3px
 }
 
 .accordionWhiteChevron {
