@@ -215,37 +215,54 @@ last edited 04-13 04-09 03-05 2014-03-02
                         success: function(data) {
                             console.log("getting json saved search data from server");
                             console.log(data);
+                            populateSearch(data);
                         },
                         dataType: 'json',
                         contentType: 'application/x-www-form-urlencoded'
                     });
 
-                    var $accordion_container = $('.jspPane');
+
+                    function populateSearch(search_info) {
+                        var searchModel = JSON.parse(search_info.data);
+                        var spatialModel = searchModel.spatial;
+                        console.log("retrieving spatial data");
+                        console.log(spatialModel);
+                        var temporalModel = searchModel.temporal,
+                            facilitiesModel = searchModel.facilities,
+                            regionsModel = searchModel.regions,
+                            sitesModel = searchModel.sites,
+                            dataTypesModel = searchModel.dataTypes;
+                            var sortableOrder = searchModel.sortableOrder;
+                            console.log("parsing sortableOrder");
+                            console.log(sortableOrder);
+                            //sortableOrder = searchModel.sortableOrder;
+
+                        var $accordion_container = $('.jspPane');
                     
-                    var spatialModel = searchModel.attributes.spatial,
+                    /*var spatialModel = searchModel.attributes.spatial,
                         temporalModel = searchModel.attributes.temporal,
                         facilitiesModel = searchModel.attributes.facilities,
                         regionsModel = searchModel.attributes.regions,
                         sitesModel = searchModel.attributes.sites,
                         dataTypesModel = searchModel.attributes.dataTypes,
-                        sortableOrder = searchModel.attributes.sortableOrder
+                        sortableOrder = searchModel.attributes.sortableOrder*/
 
-                    reorder(sortableOrder.sortable_order, $accordion_container);
+                        reorder(sortableOrder.sortable_order, $accordion_container);
                     
 
                     // populate spatial module with saved data
-                   (function() {
-                        if (spatialModel.spatial_accordion_visible) {
-                            $('#spatial .spatialDetails').show();
-                        }
-                        else {
-                            $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
-                            $('#spatial .spatialDetails').hide();
-                        }
+                        (function() {
+                            if (spatialModel.spatial_accordion_visible) {
+                                $('#spatial .spatialDetails').show();
+                            }
+                            else {
+                                $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
+                                $('#spatial .spatialDetails').hide();
+                            }
             
-                        $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
-                        $('#south').val(spatialModel.from_latitude),
-                        $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
+                            $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+                            $('#south').val(spatialModel.from_latitude),
+                            $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
                         $('#west').val(spatialModel.from_longitude),
                         $('.from_ew option[value="' + spatialModel.from_ew + '"]').attr('selected', 'selected');
                         $('.placeholder_lat').val(spatialModel.to_latitude),
@@ -257,10 +274,10 @@ last edited 04-13 04-09 03-05 2014-03-02
                         $('[data-verticalfrom]').val(spatialModel.vertical_from),
                         $('[data-verticalto]').val(spatialModel.vertical_to),
                         $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
-                    })();
+                        })();
 
                     // populate temporal module with saved data
-                   (function() {
+                        (function() {
                         if (temporalModel.temporal_accordion_visible) {
                             $('#temporal .spatialDetails').show();
                         }
@@ -333,6 +350,7 @@ last edited 04-13 04-09 03-05 2014-03-02
                     })();
 
                 $('#searchTab').trigger('click');
+                }
                 });
             });
             
