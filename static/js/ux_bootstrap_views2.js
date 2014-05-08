@@ -266,6 +266,19 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       console.log('show values');
       console.log(values);
       IONUX2.Collections.saveNames.add(values);
+      console.log("logging collection json");
+      console.log(IONUX2.Collections.saveNames.toJSON());
+      /*$.ajax({
+            async: false,
+            type: "POST",
+            url: '/profile/14710562c82e4631ba1bdffb2139d568/',
+            data: {data: IONUX2.Collections.saveNames.toJSON()},
+            success: function(data) {
+                console.log(data);
+            },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded'
+        });*/
       // IONUX2.Collections.saveNames.add(IONUX2.Collections.saveFacilitySearch.toJSON());
       console.log(IONUX2.Collections.saveNames);
       var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
