@@ -153,8 +153,16 @@ last edited 04-13 04-09 03-05 2014-03-02
 
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
 
+        
+
         // update accordion views with saved data
         
+         function reorder(orderArray, elementContainer) {
+            $.each(orderArray, function(key, val){
+                console.log("value is " + val);
+                elementContainer.append($("#"+val));
+            });
+        }
         
         // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
@@ -167,15 +175,23 @@ last edited 04-13 04-09 03-05 2014-03-02
             
             $('.list_mysearches a').each(function(index) {
                 $(this).on('click', function(e) {
+
+                    
+
                     e.preventDefault();
                     var searchModel = IONUX2.Collections.saveNames.at(index);
+
+                    var $accordion_container = $('.jspPane');
                     
                     var spatialModel = searchModel.attributes.spatial,
                         temporalModel = searchModel.attributes.temporal,
                         facilitiesModel = searchModel.attributes.facilities,
                         regionsModel = searchModel.attributes.regions,
                         sitesModel = searchModel.attributes.sites,
-                        dataTypesModel = searchModel.attributes.dataTypes;
+                        dataTypesModel = searchModel.attributes.dataTypes,
+                        sortableOrder = searchModel.attributes.sortableOrder
+
+                    reorder(sortableOrder.sortable_order, $accordion_container);
                     
 
                     // populate spatial module with saved data
