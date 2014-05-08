@@ -291,14 +291,18 @@ dashboard_map_resource: function(resource_id) {
   page: function(resource_type, view_type, resource_id){
     $('#dashboard-container').hide();
     // Todo move into own view
+    $('#mainNewTab').hide();
+    $('#mainLegacyTab').show();
+    $('#dynamic-container').attr('style', 'background:#fff');
     $('#dynamic-container').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
-    
+
     var resource_extension = new IONUX.Models.ResourceExtension({resource_type: resource_type, resource_id: resource_id});
     var self = this;
     resource_extension.fetch()
       .success(function(model, resp) {
         $('#dynamic-container').show();
+        $('#dynamic-container').attr('style', 'background:#dbdee5');
         $('#dynamic-container').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         $('.span9 li,.span3 li').hide();
         self._remove_dashboard_menu();
@@ -306,8 +310,6 @@ dashboard_map_resource: function(resource_id) {
         // Pull back recent events as a 2nd request.
         fetch_events(window.MODEL_DATA['resource_type'], resource_id);
       });
-    $('#mainNewTab').hide();
-    $('#mainLegacyTab').show();
 },
   
   command: function(resource_type, resource_id){

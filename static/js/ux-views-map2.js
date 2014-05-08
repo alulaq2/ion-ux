@@ -524,7 +524,7 @@ IONUX2.Views.Map = Backbone.View.extend({
       strokeColor   : '#0cc1ff',
       strokeOpacity : 0.8,
       draggable     : true,
-      editable      : false
+      editable      : true
     };
 
     this.drawingManager = new google.maps.drawing.DrawingManager({
