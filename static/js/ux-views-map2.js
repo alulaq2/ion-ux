@@ -1,5 +1,5 @@
 IONUX2.Views.Map = Backbone.View.extend({
-  el: '#mapCanvas2',
+  el: '#map_canvas',
 
   // From worst to best ('na' considered the catch-all).
   icons_rank: [
@@ -141,7 +141,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     // This is a hack until something can be done more elegantly in the CSS!
     if (!window.resize) {
       window.resize = $(window).resize(function() {
-        $('#mapCanvas2').height($('#mapCanvas2').parent().height() - 20); // Leave enough room for the banner.
+        $('#map_canvas').height($('#map_canvas').parent().height() - 20); // Leave enough room for the banner.
       });
     }
 
@@ -241,7 +241,7 @@ IONUX2.Views.Map = Backbone.View.extend({
 
   get_sites_status: function() {
     var resource_ids = this.collection.pluck('_id');
-    $('#mapCanvas2').append('<div id="loadingStatus2" style="">Loading Status...</div>')
+    $('#map_canvas').append('<div id="loadingStatus2" style="">Loading Status...</div>')
     
     var self = this;
     $.ajax({
@@ -492,9 +492,9 @@ IONUX2.Views.Map = Backbone.View.extend({
   
   draw_map: function(map_options, container_server) {
     console.log('draw_map');
-    $('#mapCanvas2').empty().show();
+    $('#map_canvas').empty().show();
 
-    this.map = new google.maps.Map(document.getElementById('mapCanvas2'), {
+    this.map = new google.maps.Map(document.getElementById('map_canvas'), {
       center: new google.maps.LatLng(39.8106460, -98.5569760),
       zoom: 3,
       mapTypeId: google.maps.MapTypeId.SATELLITE,
