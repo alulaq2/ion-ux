@@ -2,44 +2,45 @@
   <div class="expandHide arrowRight"> </div><div class="accordionLabel">Region</div>
 </span>
 
-<div class="spatialDetails align_left" style="display:none;height:300px;margin-right: -6px;">
+<div class="spatialDetails align_left" style="display:none;">
+<!-- <div class="spatialDetails align_left" style="display:none;height:300px;margin-right: -6px;"> -->
 	<div class="select_all">
 		<input class="checkAll" type="checkbox"/> Select All
 	</div>
-	<div class="regions_list">
-		<div class="accordionContainer">
+	<div class="list_regions">
+		<!-- <div class="accordionContainer"> -->
 			<form action="">
 			
     		<% _.each(resources, function(nested_resources, san) { %>
-    			<article class="leftAccordion">
+    			<!-- <article class="leftAccordion">
 					<span class="accordionTitle">
 					  <div class="expandHide arrowRight"> </div><div class="accordionLabel"><%= san %></div>
 					</span>
-					<div class="spatialDetails align_left" style="display:none;">
-    				<!-- <input id="region_item" type="checkbox" data-spatial="<%= san %>"/><span> <%= san %></span><br/> -->
+					<div class="spatialDetails align_left" style="display:none;"> -->
+    				<input id="region_item" type="checkbox" data-spatial="<%= san %>"/><span> <%= san %></span><br/>
 		    			<% _.each(nested_resources, function(nest) { %>
 			                <% if (nest.local_name) { %>
-			                	<input class="region_item" type="checkbox" /><div class="resourceLink" data-id="<%= nest._id %>"> <%= nest.local_name %></div><br/>
+			                	<!-- <input class="region_item" type="checkbox" /><div class="resourceLink" data-id="<%= nest._id %>"> <%= nest.local_name %></div><br/> -->
 			                  	<div style="display: none"><%= nest.local_name %></div>
 			                <% } else { %>
-			                	<input class="region_item" type="checkbox" /><div class="resourceLink" data-id="<%= nest._id %>"> <%= nest.name %></div><br/>
+			                	<!-- <input class="region_item" type="checkbox" /><div class="resourceLink" data-id="<%= nest._id %>"> <%= nest.name %></div><br/> -->
 			                  	<div style="display: none"><%= nest.name %></div>
 			                <% }; %>
 		    			<% }); %>
-		    		</div>
-		    	</article>
+		    		<!-- </div>
+		    	</article> -->
     		<% }); %>
 			</form>
-		</div>
+		<!-- </div> -->
 	</div>
  </div>
 
-<script>
+<!-- <script>
     $(function(){
-        $(".regions_list .resourceLink").click(function(){
+        $(".list_regions .resourceLink").click(function(){
             var resource_id = $(this).attr('data-id');
             var url = "/Observatory/face/"+resource_id+"/";
             IONUX.ROUTER.navigate(url, {trigger:true});
         });
     });
-</script>
+</script> -->

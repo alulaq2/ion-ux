@@ -112,6 +112,31 @@ def failed_login():
 def serve_template(filename):
     return render_template(filename)
 
+@app.route('/profile/<user_id>/', methods=['GET', 'POST'])
+def user_profiles(user_id):
+    if request.method == "GET":
+        # return user profile json here!
+        path = os.path.join('profiles', "{0}.json".format(user_id))
+        if not os.path.exists(path):
+            return jsonify({'data':False})
+        else:
+            user_file = open(path, 'r')
+            profile = user_file.read()
+            user_file.close()
+            return render_json_response(profile)
+    elif request.method == "POST":
+        # store the user profile json here!
+        path = os.path.join('profiles', "{0}.json".format(user_id))
+        if not os.path.exists('profiles'):
+            os.makedirs('profiles')
+        user_file = open(path, 'w')
+        profile = request.form['profile']
+        print profile
+        user_file.write(profile)
+        user_file.close()
+
+        return '<html><body>Success!</body></html>'
+
 # -----------------------------------------------------------------------------
 # SEARCH & ATTACHMENTS
 # -----------------------------------------------------------------------------

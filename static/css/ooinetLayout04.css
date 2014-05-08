@@ -249,6 +249,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 }
 
 .navLeftMinimizeArrow {
+  cursor: pointer;
   display: inline-block;
   width: 14px;
   height: 14px;
