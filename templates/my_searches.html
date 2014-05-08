@@ -1,4 +1,4 @@
 <% _.each(this.collection.models, function(search) { %>
-<li><a href="#"><%= search.attributes.name %> <%= search.attributes.month %>/<%= search.attributes.day %>/<%= search.attributes.year %> <%= search.attributes.hour %>:<%= search.attributes.minute %></a></li>
+<li><a data-id="<%= search.attributes.time %>" href="#"><%= search.attributes.name %> <%= search.attributes.month %>/<%= search.attributes.day %>/<%= search.attributes.year %> <%= search.attributes.hour %>:<%= search.attributes.minute %></a></li>
 <% }); %>
 
