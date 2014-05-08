@@ -369,6 +369,9 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails {
   position: relative;
+  margin-left: 16px;
+  margin-right:0px;
+  width: 238px;
 }
 
 .spatialDetails.align_left {
@@ -609,6 +612,7 @@ input.noPlaceholderRadius {
 
 .labelThrough {
   display: block;
+  margin:0px
 }
 
 .arrowDown { /* not called in another file */
