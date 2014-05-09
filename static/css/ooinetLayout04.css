@@ -263,7 +263,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 }
 
 #navLeftMinimizeArrow.collapsed {
-  top: 60px;
+  top: 75px;
   left: 275px;
   background: #384d68;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -271,9 +271,10 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   color:#fff;
   width: auto;
   height: 18px;
-  padding: 2px 5px;
+  padding: 3px 7px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  margin-left:-2px
 }
 
 #login {
@@ -394,9 +395,10 @@ ul.dropdown-menu li:hover {
   width: 238px;
 }
 
-.spatialDetails span{
-	margin:0px;
-	}
+.spatialDetails span.labelThrough {
+	margin:0px; padding:0px;
+}
+	
 .spatialDetails.align_left {
   margin-left:0;
 }
