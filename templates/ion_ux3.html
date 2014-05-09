@@ -31,8 +31,18 @@ last edited 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header2" align="left"> </div>
+	<div id="header2" align="left">
+        <div>
+            <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
+            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png" alt="OOI" /></a>
+        </div>
+        <div id="login"> login </div> <!-- User navigation -->
+    </div>
 	<div id="leftSubheader" align="left">
+        <div id="twoNavTabs" class="twoNavTabs">
+            <div id="searchTab" class="twoNavTab active" href="#searchTabContent">Search</div>
+            <div id="mySearchesTab" class="twoNavTab" href="#mySearchesTabContent">My Searches</div>
+        </div>
     </div>
 	<div id="mainSubheader" align="left">
         <div id="searchProduction"> 
@@ -41,13 +51,13 @@ last edited 04-13 04-09 03-05 2014-03-02
             <div class="mapButtonHidden" title="Hidden Map View"> </div>
         </div></div>
 
+    <div id="navLeftMinimizeArrow"> </div>
     <div id="left2">
-        <div id="searchTabContent">.</div>
+        <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
         <ul class="list_mysearches">
         </ul>
         </div>
-        <div id="legacyTabContent" style="z-index:0; display:none;"> </div>
     </div>
     <div id="main">
         <div id="mainNewTab">
@@ -209,36 +219,66 @@ last edited 04-13 04-09 03-05 2014-03-02
             
         });
 
-        $('#saveConfigBtn').on('click', function(e) {
-            e.preventDefault();
+        $(".twoNavTab").click(function(e){
+            var target = $(e.target);
+            target.addClass('active').siblings().removeClass('active');
+            tab_content = target.attr("href");
+            $(tab_content).siblings().hide();
+            $(tab_content).show();
+        });
 
-            /*$(".lat_long_menu").find('option').each(function( i, opt ) {
-                if ( opt.value === IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown ) {
-                    console.log('found menu match');
-                    $(opt).attr('selected', 'selected');
-                }
-            });*/
-            $('.lat_long_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
-            $('#south').val(IONUX2.Models.saveSpatialSearch.attributes.from_latitude),
-            $('.from_ns option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ns + '"]').attr('selected', 'selected');
-            $('#west').val(IONUX2.Models.saveSpatialSearch.attributes.from_longitude),
-            $('.from_ew option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ew + '"]').attr('selected', 'selected');
-            $('.placeholder_lat').val(IONUX2.Models.saveSpatialSearch.attributes.to_latitude),
-            $('.north_south_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.to_ns + '"]').attr('selected', 'selected');
-            $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
-            $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
-            $('.no_placeholder_radius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
-            $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
-            $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
-            $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
-            $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
+        $('#navLeftMinimizeArrow').click(function(e){
+            if ($(this).hasClass('collapsed')) {
+                $(this).animate({
+                   left: '275px'
+                }, { 
+                    duration: 200, 
+                    queue: false,
+                    complete: function(){
+                        $(this).removeClass('collapsed');
+                        $(this).attr('style', 'left:0px');
+                        $(this).html('');
+                    }
+                });
+                $('#left2').animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+            } else {
+                $(this).addClass('collapsed');
+                $(this).attr('style', 'left:275px');
+                $(this).html('Search');
+                
+                $(this).animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $('#left2').animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+            }
         });
         
-        $('#loadConfigBtn').on('click', function(e) {
-            e.preventDefault();
-            UINAV.getUserProfile();
-        });
-
       });
       {% block document_ready %}
       {% endblock %}

@@ -58,6 +58,8 @@ IONUX2 = {
 	    IONUX2.ROUTER = router;
 
 		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
+
+		/*
 		IONUX2.Models.HeaderInstance = new IONUX2.Models.Header();
 
 		IONUX2.Views.HeaderInstance = new IONUX2.Views.Header({model: IONUX2.Models.HeaderInstance});
@@ -66,6 +68,15 @@ IONUX2 = {
 			async: false,
 			dataType: 'html'
 		});
+		*/
+
+		IONUX2.Models.LoginTemplateInstance = new IONUX2.Models.LoginTemplate();
+		IONUX2.Models.LoginInstance = new IONUX2.Models.Login();
+		IONUX2.Models.LoginInstance.setModels(IONUX2.Models.LoginTemplateInstance, IONUX2.Models.SessionInstance);
+
+		IONUX2.Views.LoginInstance = new IONUX2.Views.Login({model: IONUX2.Models.LoginInstance});
+
+	    IONUX2.Models.LoginInstance.fetch();
 
 		/*IONUX2.Models.saveCustomName.fetch({
 			async: false,
@@ -79,7 +90,7 @@ IONUX2 = {
 			dataType: 'html'
 		});
 
-		$("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
+		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
 		$("#lowerMain").html(IONUX2.getTemplate('templates/block_accordion_white2.html')).show();
 
 	    // Bootstrap navigation menu
