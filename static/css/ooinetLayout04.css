@@ -390,13 +390,8 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails {
   position: relative;
-  margin-left: 16px;
-  margin-right:0px;
+  margin: 4px 0px 6px 16px;
   width: 238px;
-}
-
-.spatialDetails span.labelThrough {
-	margin:0px; padding:0px;
 }
 	
 .spatialDetails.align_left {
@@ -483,7 +478,7 @@ ul.dropdown-menu li:hover {
 }
 
 .latlong {
-  width: 40px;
+  width: 50px;
 }
 
 input.latlong {
@@ -513,9 +508,15 @@ input.latlong {
 #spatial input {
   height: 17px;
   padding: 0px;
-  margin: 0px;
-  margin-top:-1px
+  margin-top: -1px; /* necessary for alignment of spatial input alignment */
 }
+
+/* necessary for alignment of spatial input alignment */
+input#south, input#west, input#north, input#east, input#radius {margin-top:-2px}
+span#fromLabel {line-height:20px; margin:0px 0px -6px 0px; padding:0px}
+span#veLabel {line-height:20px; margin:5px 0px -6px 0px; padding:0px}
+span#toLabel {line-height:20px; margin:2px 0px -6px 0px; padding:0px}
+p#radiusLabel {line-height:22px; margin:1px 0px -7px 0px; padding:0px}
 
 select.dateMenu {
   width: 54px;
