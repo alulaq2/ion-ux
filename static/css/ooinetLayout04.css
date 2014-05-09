@@ -16,6 +16,7 @@ html, body {
  height:100%;
  font-family: Arial;
  font-size: 12px; 
+ background-color: #dbdee5;
 }
 
 body {
@@ -96,6 +97,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
  left:275px;
  padding:0px;
  margin:0px;
+ background-color: #dbdee5;
  height:calc(100% - 104px);
  /*height:calc(100% - 141px);*/
  width:calc(100% - 275px);
@@ -148,7 +150,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
  height:calc(100% - 104px);
  width:275px;
  overflow: auto;
- z-index:1;
+ z-index: 10;
 }
 
 #leftSubheader {
@@ -248,13 +250,30 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   left: 0px;
 }
 
-.navLeftMinimizeArrow {
+#navLeftMinimizeArrow {
+  position: absolute;
+  left: 0px;
+  top: 104px;
   cursor: pointer;
-  display: inline-block;
   width: 14px;
   height: 14px;
   margin: 5px;
+  z-index: 1000;
   background: url('../img/leftMinimizeArrow.png') no-repeat left;
+}
+
+#navLeftMinimizeArrow.collapsed {
+  top: 60px;
+  left: 275px;
+  background: #384d68;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transform: translate(0px, 9px) rotate(90deg) translate(0px, 19px);
+  color:#fff;
+  width: auto;
+  height: 18px;
+  padding: 2px 5px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 #login {
@@ -392,8 +411,8 @@ ul.dropdown-menu li:hover {
 
 #saveButtons {
   position: absolute;
-  top: 0;
-  width: 100%;
+  top: 0px;
+  right: 0px;
 }
 
 .textRight {

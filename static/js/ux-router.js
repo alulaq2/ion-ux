@@ -89,7 +89,10 @@ dashboard_map_resource: function(resource_id) {
     var type;
     try{
       active_resource_attributes = IONUX.Dashboard.PlatformSites.findWhere({_id: resource_id})['attributes']; 
-      type = 'PlatformSite';  
+      type = 'PlatformSite';
+      var url = "/PlatformSite/face/"+resource_id+"/";
+      this.navigate(url, {trigger:true});
+      return
     }catch(err){
 
     }
