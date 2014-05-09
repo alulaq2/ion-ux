@@ -211,6 +211,10 @@ last edited 04-13 04-09 03-05 2014-03-02
                         contentType: 'application/x-www-form-urlencoded'
                     });*/
 
+                    //var searches = JSON.stringify(searchModel);
+                    //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
+
+
                      $.ajax({
                         async: false,
                         type: "GET",
@@ -226,6 +230,7 @@ last edited 04-13 04-09 03-05 2014-03-02
 
 
                     function populateSearch(search_info) {
+                        //console.log(search_info[index].data);
                         var searchModel = JSON.parse(search_info.data);
                         var spatialModel = searchModel.spatial;
                         console.log("retrieving spatial data");
