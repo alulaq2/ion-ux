@@ -17,8 +17,10 @@
 					  <div class="expandHide arrowRight"> </div><div class="accordionLabel"><%= san %></div>
 					</span>
 					<div class="spatialDetails align_left" style="display:none;"> -->
-    				<input id="region_item" type="checkbox" data-spatial="<%= san %>"/><span> <%= san %></span><br/>
+    				<input id="region_item" type="checkbox" data-spatial="<%= san %>"/><span> <%= san %></span>
+    					<% var count = 0; %>
 		    			<% _.each(nested_resources, function(nest) { %>
+		    				<% count++; %>
 			                <% if (nest.local_name) { %>
 			                	<!-- <input class="region_item" type="checkbox" /><div class="resourceLink" data-id="<%= nest._id %>"> <%= nest.local_name %></div><br/> -->
 			                  	<div style="display: none"><%= nest.local_name %></div>
@@ -27,6 +29,7 @@
 			                  	<div style="display: none"><%= nest.name %></div>
 			                <% }; %>
 		    			<% }); %>
+		    			<span> (<%= count %>)</span><br/>
 		    		<!-- </div>
 		    	</article> -->
     		<% }); %>
