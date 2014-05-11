@@ -47,6 +47,16 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
  width: 100%;
 }
 
+#adminMenu {
+  color:white;
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  max-width:600px;
+  height:24px;
+  outline:1px solid #FFF;
+}
+
 #headerLinks {
   color: white;
   position: absolute;
