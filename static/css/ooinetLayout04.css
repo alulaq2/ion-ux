@@ -52,9 +52,34 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   position:absolute;
   bottom:0px;
   right:0px;
-  max-width:600px;
-  height:24px;
-  outline:1px solid #FFF;
+  margin:0px 5px;
+  width:600px;
+  height:20px;
+  text-align:right;
+  z-index:4;
+  'outline:1px solid #F00;
+}
+
+.adminMenuTab {
+  display:inline-block;
+  background-color:#3b5e7e;
+  color:#fff;
+  height:19px;
+  padding:0px 8px;
+  max-width:120px;
+  line-height:19px;
+  text-align:center;
+  z-index:8;
+  border-color:#5687AF;
+  border-style:solid;
+  border-width:1px 1px 0px 1px;
+  border-radius:4px 4px 0px 0px;
+}
+
+.adminMenuTab:hover {
+  color:#ABCEEA;
+  cursor:pointer;
+  cursor:hand;
 }
 
 #headerLinks {
