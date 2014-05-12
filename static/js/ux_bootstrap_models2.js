@@ -187,6 +187,51 @@ IONUX2.Models.Instruments = Backbone.Model.extend({
 });
 IONUX2.Models.instruments = new IONUX2.Models.Instruments();
 
+IONUX2.Collections.Instruments = Backbone.Collection.extend({
+  model: IONUX2.Models.Instruments,
+  initialize: function(models, options){
+    console.log("resource id is " + options.resource_id);
+    this.resource_id = options.resource_id;
+    //this.listenTo(this.model, 'change', this.render);
+    //this.listenTo(this.model, 'destroy', this.remove);
+    //this.on('reset', this.updateView);
+    //console.log("resource id is " + this.resource_id);
+  },
+  url: function() {
+   return '/find_site_data_products/'+this.resource_id+'/';
+  },
+
+  updateView: function() {
+    console.log("need to remove the view now");
+    /*this.undelegateEvents();
+    this.$el.removeData().unbind(); 
+    //Remove view from DOM
+    this.remove();  
+    Backbone.View.prototype.remove.call(this);*/
+    //this.$el.remove()
+  },
+  
+  parse: function(resp) {
+    var data_products = [];
+    //console.log("site resources are " + resp.data.site_resources);
+    if (!_.isEmpty(resp.data.site_resources)) {
+      site_resources = _.filter(resp.data.site_resources, function(v,k) {
+        return !_.isEmpty(v); // Only display those with ooi_product_name
+      });
+      make_iso_timestamps(site_resources);
+    };
+    for (item in site_resources) {
+      //console.log("items are " + site_resources[item].name);
+      //$('.instrument_list').append('<li>' + site_resources[item].name + '</li>');
+    }
+    console.log('site resources are ' + site_resources);
+    //return new Backbone.Collection.add(site_resources);
+    //return new Backbone.Collection(site_resources);
+    return site_resources;
+    //IONUX2.Collections.Instruments
+  }
+});
+
 IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   defaults: {
       spatial_dropdown: "1",
