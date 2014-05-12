@@ -251,6 +251,22 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	}
 });
 
+IONUX2.Views.LeftAccordion = Backbone.View.extend({
+  el: '#accordionContainer',
+  //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
+  template: _.template('<article class="leftAccordion"><span class="accordionTitle">' +
+   '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
+  '<section class="leftAccordionContents" style="display:none;" id="<%= id %>"></section></article>'),
+  initialize: function() {
+    console.log('initializing left accordion view');
+  },
+  addAccordion: function(title, id) {
+    params = {'data':{'title':title, 'id':id}};
+    this.$el.append(this.template(params.data));
+    //return this;
+  }
+});
+
 IONUX2.Views.Sites = Backbone.View.extend({
   el: '#site',
   template: _.template(IONUX2.getTemplate('templates/sites.html')),
@@ -283,7 +299,7 @@ IONUX2.Views.Sites = Backbone.View.extend({
     if ($check.is(':checked')) {
       IONUX2.Collections.instruments.fetch({
         success : function(collection) {
-          $('#instrument .leftAccordionContents').append(IONUX2.Views.instruments.render().el);
+          $('#instrument').append(IONUX2.Views.instruments.render().el);
         }
       });
     }
@@ -424,6 +440,19 @@ IONUX2.Views.Spatial = Backbone.View.extend({
 		this.$el.html(this.template());
 		return this;
 	}
+});
+
+IONUX2.Views.Temporal = Backbone.View.extend({
+  el: '#temporal',
+  template: _.template(IONUX2.getTemplate('templates/temporal.html')),
+  initialize: function() {
+    console.log('initializing temporal view');
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template());
+    return this;
+  }
 });
 
 IONUX2.Views.OrgSelector = Backbone.View.extend({

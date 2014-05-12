@@ -117,7 +117,7 @@ IONUX2 = {
 		        IONUX2.Dashboard.Observatories = new IONUX2.Collections.Observatories(_.sortBy(resp.data.observatories,function(o){return o.spatial_area_name + (o.local_name ? o.local_name : '') + o.name}));
       		},
       	});
-	    IONUX2.Views.spatial = new IONUX2.Views.Spatial();
+	    //IONUX2.Views.spatial = new IONUX2.Views.Spatial();
 
 	    IONUX2.Models.SessionInstance.fetch({
       		async: false
