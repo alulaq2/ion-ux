@@ -236,56 +236,56 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             $(tab_content).show();
         });
 
-        $('#navLeftMinimizeArrow').click(function(e){
-            if ($(this).hasClass('collapsed')) {
-                $(this).animate({
-                   left: '275px'
-                }, { 
-                    duration: 200, 
-                    queue: false,
-                    complete: function(){
-                        $(this).removeClass('collapsed');
-                        $(this).attr('style', 'left:0px');
-                        $(this).html('');
-                    }
-                });
-                $('#left2').animate({
-                   left: '0px'
-                }, { duration: 200, queue: false });
-                $("#leftSubheader").animate({
-                   left: '0px'
-                }, { duration: 200, queue: false });
-                $("#main").animate({
-                   left: '275px',
-                   width: '-=275px'
-                }, { duration: 200, queue: false });
-                $("#mainSubheader").animate({
-                   left: '275px',
-                   width: '-=275px'
-                }, { duration: 200, queue: false });
-            } else {
-                $(this).addClass('collapsed');
-                $(this).attr('style', 'left:275px');
-                $(this).html('Search');
-                
-                $(this).animate({
-                   left: '0px'
-                }, { duration: 200, queue: false });
-                $('#left2').animate({
-                   left: '-275px'
-                }, { duration: 200, queue: false });
-                $("#leftSubheader").animate({
-                   left: '-275px'
-                }, { duration: 200, queue: false });
-                $("#main").animate({
-                   left: '0px',
-                   width: '100%'
-                }, { duration: 200, queue: false });
-                $("#mainSubheader").animate({
-                   left: '0px',
-                   width: '100%'
-                }, { duration: 200, queue: false });
-            }
+            var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+            var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
+            var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
+                temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
+                facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible'),
+                region_accordion_visible = $('#region .spatialDetails').is(':visible'),
+                site_accordion_visible = $('#site .spatialDetails').is(':visible'),
+                datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible'),
+                boolean_accordion_visible = $('#boolean_expression .spatialDetails').is(':visible'),
+                platform_accordion_visible = $('#platform .spatialDetails').is(':visible'),
+                instrument_accordion_visible = $('#instrument .spatialDetails').is(':visible'),
+                assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
+                data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
+                platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
+                instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
+                datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
+
+
+            var user_profile = {
+                'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+                'name': IONUX2.Models.SessionInstance.attributes.name,
+                'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+                'configuration': {
+                    'spatial': spatial_accordion_visible,
+                    'temporal': temporal_accordion_visible,
+                    'orgSelector': facility_accordion_visible,
+                    'region': region_accordion_visible,
+                    'site': site_accordion_visible,
+                    'dataTypesList': datatype_accordion_visible,
+                    'boolean_expression': boolean_accordion_visible,
+                    'platform': platform_accordion_visible,
+                    'instrument': instrument_accordion_visible
+                },
+                'bottom_config': {
+                    'accordionAssets': assets_accordion_visible,
+                    'accordionData': data_accordion_visible,
+                    'accordionPlatform': platform2_accordion_visible,
+                    'accordionInstruments': instrument2_accordion_visible,
+                    'accordionDataType': datatype2_accordion_visible
+                },
+                'sortable_order': sortable_order,
+                'bottom_sortable': bottom_sortable
+            };
+
+            IONUX2.Models.saveConfiguration.set(user_profile);
+            console.log("configuration model");
+            console.log(IONUX2.Models.saveConfiguration);
+            
+            var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
+            UINAV.postUserProfile(userConfiguration);
         });
         
       });
