@@ -684,6 +684,7 @@ input.noPlaceholderRadius {
 .instrument_list {
   list-style: none;
   margin-left: 0;
+  margin-bottom: 0;
 }
 
 .accordion_detail_container {
