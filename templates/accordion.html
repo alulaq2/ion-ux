@@ -13,7 +13,7 @@
   <span class="accordionTitle">
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Temporal</div>
   </span>
-	<div class="spatialDetails" style="display:none;">
+	<div class="leftAccordionContents" style="display:none;">
     <div class="leftNaviSelectContainer">
       <select class="temporal_menu" id="tempSelect">
         <option value="temporal_range">Temporal Range</option>
@@ -48,7 +48,7 @@
       <span class="accordionTitle">
         <div class="expandHide arrowRight"></div><div class="accordionLabel">Facility</div>
       </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
       </div>
     </article>
 <article class="leftAccordion" id="region">
@@ -65,7 +65,7 @@
   <span class="accordionTitle">
     <div class="expandHide arrowRight"></div><div class="accordionLabel">Platform</div>
   </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
     More information
   </div>
 </article>
@@ -73,7 +73,7 @@
   <span class="accordionTitle">
     <div class="expandHide arrowRight"></div><div class="accordionLabel">Instrument</div>
   </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
   </div>
 </article>
 
@@ -87,11 +87,8 @@
   <span class="accordionTitle">
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Boolean Expression</div>
   </span>
-	<div class="spatialDetails" style="display:none;">
-		<h4>Search Criteria</h4>
-    <form id="booleanForm">
-    <div class="filter-item-holder"></div>
-    </form>
+	<div class="leftAccordionContents" style="display:none;">
+		More information
 	</div>
 </article>
 </div>
@@ -148,8 +145,8 @@
     		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
     		IONUX2.Collections.OrgsInstance.fetch();
 
-        $('.spatialDetails').hide();
-        $('.accordionContainer').sortable({
+        $('.leftAccordionContents').hide();
+        $('#accordionContainer').sortable({
           items: "article:not(.accordion_fixed)"
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});

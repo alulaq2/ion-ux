@@ -5,10 +5,10 @@ var UINAV = {
             elementContainer.append($("#"+val));
             for (item in configurationList) {
             	if (configurationList[item]) {
-            		$('#'+item + ' .spatialDetails').show();
+            		$('#'+item + ' .leftAccordionContents').show();
             	}
             	else {
-            		$('#'+item + ' .spatialDetails').hide();
+            		$('#'+item + ' .leftAccordionContents').hide();
             	}
             }
      	});
@@ -28,14 +28,6 @@ var UINAV = {
         });
     },
     loadSpatial: function(spatialModel) {
-    	/*if (spatialModel.spatial_accordion_visible) {
-            $('#spatial .spatialDetails').show();
-        }
-        else {
-            $('#spatial .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#spatial .spatialDetails').hide();
-        }*/
-            
         $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
         if (spatialModel.spatial_dropdown == 2) {
         	$('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
@@ -60,14 +52,6 @@ var UINAV = {
         $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
     },
     loadTemporal: function(temporalModel) {
-    	/*if (temporalModel.temporal_accordion_visible) {
-            $('#temporal .spatialDetails').show();
-        }
-        else {
-            $('#temporal .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#temporal .spatialDetails').hide();
-        }*/
-                
         $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
         $('.from_date_menu .year option[value="' + temporalModel.from_year + '"]').attr('selected', 'selected');
         $('.from_date_menu .month option[value="' + temporalModel.from_month + '"]').attr('selected', 'selected');
@@ -78,54 +62,22 @@ var UINAV = {
         $('.to_date_menu .day option[value="' + temporalModel.to_day + '"]').attr('selected', 'selected');
         $('.to_date_menu .hour option[value="' + temporalModel.to_hour + '"]').attr('selected', 'selected');
     },
-    loadFacilities: function(facilitiesModel) {
-    	/*if (facilitiesModel[0].facility_accordion_visible) {
-            $('#orgSelector .spatialDetails').show();
-        }
-        else {
-            $('#orgSelector .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#orgSelector .spatialDetails').hide();
-        }*/
-        
+    loadFacilities: function(facilitiesModel) {        
         $('.list_facilities input').each(function(index) {
             $(this).prop('checked', facilitiesModel[index].is_checked);
         });
     },
     loadRegions: function(regionsModel) {
-    	/*if (regionsModel[0].region_accordion_visible) {
-            $('#region .spatialDetails').show();
-        }
-        else {
-            $('#region .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#region .spatialDetails').hide();
-        }*/
-        
         $('.list_regions input').each(function(index) {
         	$(this).prop('checked', regionsModel[index].is_checked);
         });
     },
     loadSites: function(sitesModel) {
-    	/*if (sitesModel[0].sites_accordion_visible) {
-            $('#site .spatialDetails').show();
-        }
-        else {
-            $('#site .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#site .spatialDetails').hide();
-        }*/
-        
         $('.list_sites input').each(function(index) {
             $(this).prop('checked', sitesModel[index].is_checked);
         });
     },
     loadDataTypes: function(dataTypesModel) {
-    	/*if (dataTypesModel[0].datatype_accordion_visible) {
-            $('#dataTypesList .spatialDetails').show();
-        }
-        else {
-            $('#dataTypesList .expandHide').removeClass('arrowDown').addClass('arrowRight');
-            $('#dataTypesList .spatialDetails').hide();
-        }*/
-        
         $('.listDataTypes input').each(function(index) {
             $(this).prop('checked', dataTypesModel[index].is_checked);
         });

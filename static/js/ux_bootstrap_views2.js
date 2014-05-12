@@ -65,7 +65,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().children('.spatialDetails').slideToggle('fast', function() {
+		$link.parent().find('.leftAccordionContents').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
             	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
@@ -91,7 +91,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       //var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );  
 
       // store spatial input values and set to model
-      var spatial_dropdown = $('.lat_long_menu option:selected').attr('value'),
+      var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
         from_ns = $('.from_ns option:selected').val(),
         from_longitude = $('#west').val(),
@@ -190,7 +190,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     console.log(IONUX2.Models.saveTemporalSearch);
 
     // get facility checkbox values and add to collection
-    //var facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible');
     (function() {
       var facilities_checked = [];
       $('.list_facilities input').each(function(data) {
@@ -201,6 +200,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
     })();
 
+    // get region checkbox values and add to collection
     (function() {
       // get facility checkbox values
       var facilities_checked = [];
@@ -234,7 +234,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       console.log(sites_checked);
     })();
 
-    //var datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
     (function() {
       // get data type checkbox values and add to collection
       var datatype_checked = [];
@@ -315,7 +314,7 @@ IONUX2.Views.Sites = Backbone.View.extend({
     if ($check.is(':checked')) {
       IONUX2.Collections.instruments.fetch({
         success : function(collection) {
-          $('#instrument .spatialDetails').append(IONUX2.Views.instruments.render().el);
+          $('#instrument .leftAccordionContents').append(IONUX2.Views.instruments.render().el);
         }
       });
     }

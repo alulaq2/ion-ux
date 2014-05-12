@@ -423,13 +423,11 @@ ul.dropdown-menu li:hover {
   display: inline-block;
 }
 
-.spatialDetails {
-  position: relative;
-  margin: 4px 0px 6px 16px;
-  width: 238px;
+.leftAccordionContents {
+  margin-left: 13px;
 }
-	
-.spatialDetails.align_left {
+
+.leftAccordionContents.align_left {
   margin-left:0;
 }
 
@@ -684,11 +682,11 @@ input.noPlaceholderRadius {
   display: none;
 }
 
-.spatialDetails select option {
+.leftAccordionContents select option {
   background-color: #88A9CC;
 }
 
-.spatialDetails h5 {
+.leftAccordionContents h5 {
   line-height: 8px;
   font-size: 12px;
 }
