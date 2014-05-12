@@ -66,7 +66,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().find('.spatialDetails').slideToggle('fast', function() {
+		$link.parent().find('.leftAccordionContents').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
             	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
@@ -91,7 +91,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       //var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );  
 
       // store spatial input values and set to model
-      //var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
       var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
         from_ns = $('.from_ns option:selected').val(),
@@ -108,7 +107,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         feet_miles = $('.feet_miles option:selected').val();
 
       // save temporal input values and set to model
-      //var temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
       var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
         from_year = $('.from_date_menu .year').val(),
         from_month = $('.from_date_menu .month').val(),
@@ -173,7 +171,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     console.log(IONUX2.Models.saveTemporalSearch);
 
     // get facility checkbox values and add to collection
-    //var facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible');
     (function() {
       var facilities_checked = [];
       $('.list_facilities input').each(function(data) {
@@ -185,7 +182,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     })();
 
     // get region checkbox values and add to collection
-    //var region_accordion_visible = $('#region .spatialDetails').is(':visible');
     (function() {
       var regions_checked = [];
       $('.list_regions input').each(function(data) {
@@ -196,7 +192,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveRegionSearch.set(regions_checked);
     })();
 
-    //var sites_accordion_visible = $('#sites .spatialDetails').is(':visible');
     (function() {
       // get sites checkbox values and add to collection
       var sites_checked = [];
@@ -208,7 +203,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveSiteSearch.set(sites_checked);
     })();
 
-    //var datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
     (function() {
       // get data type checkbox values and add to collection
       var datatype_checked = [];
@@ -289,7 +283,7 @@ IONUX2.Views.Sites = Backbone.View.extend({
     if ($check.is(':checked')) {
       IONUX2.Collections.instruments.fetch({
         success : function(collection) {
-          $('#instrument .spatialDetails').append(IONUX2.Views.instruments.render().el);
+          $('#instrument .leftAccordionContents').append(IONUX2.Views.instruments.render().el);
         }
       });
     }

@@ -14,7 +14,7 @@
   <span class="accordionTitle">
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Temporal</div>
   </span>
-	<div class="spatialDetails" style="display:none;">
+	<div class="leftAccordionContents" style="display:none;">
     <div class="leftNaviSelectContainer">
       <select class="temporal_menu">
         <option value="1">Data Collection</option>
@@ -44,7 +44,7 @@
       <span class="accordionTitle">
         <div class="expandHide arrowRight"></div><div class="accordionLabel">Facility</div>
       </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
       </div>
     </article>
     
@@ -62,7 +62,7 @@
   <span class="accordionTitle">
     <div class="expandHide arrowRight"></div><div class="accordionLabel">Platform</div>
   </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
     More information
   </div>
 </article>
@@ -70,7 +70,7 @@
   <span class="accordionTitle">
     <div class="expandHide arrowRight"></div><div class="accordionLabel">Instrument</div>
   </span>
-  <div class="spatialDetails" style="display:none;">
+  <div class="leftAccordionContents" style="display:none;">
   </div>
 </article>
 
@@ -84,7 +84,7 @@
   <span class="accordionTitle">
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Boolean Expression</div>
   </span>
-	<div class="spatialDetails" style="display:none;">
+	<div class="leftAccordionContents" style="display:none;">
 		More information
 	</div>
 </article>
@@ -129,7 +129,7 @@
 		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
 		IONUX2.Collections.OrgsInstance.fetch();
 
-        $('.spatialDetails').hide();
+        $('.leftAccordionContents').hide();
         $('#accordionContainer').sortable({
           items: "article:not(.accordion_fixed)"
         });
