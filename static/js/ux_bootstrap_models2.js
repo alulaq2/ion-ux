@@ -220,11 +220,9 @@ IONUX2.Collections.Instruments = Backbone.Collection.extend({
       });
       make_iso_timestamps(site_resources);
     };
-    for (item in site_resources) {
-      //console.log("items are " + site_resources[item].name);
-      //$('.instrument_list').append('<li>' + site_resources[item].name + '</li>');
-    }
-    console.log('site resources are ' + site_resources);
+    
+    console.log('site resources')
+    console.log(site_resources);
     //return new Backbone.Collection.add(site_resources);
     //return new Backbone.Collection(site_resources);
     return site_resources;
