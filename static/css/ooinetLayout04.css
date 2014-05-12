@@ -16,6 +16,7 @@ html, body {
  height:100%;
  font-family: Arial;
  font-size: 12px; 
+ background-color: #DBDEE5;
 }
 
 body {
@@ -23,6 +24,8 @@ body {
  margin:0px;
  padding:0px;
 }
+
+a:focus, object:focus {outline:none; -moz-outline-style:none}
 
 #header2 {
  position:fixed;
@@ -42,6 +45,42 @@ body {
  z-index: -1;
  height: 72px;
  width: 100%;
+}
+
+#adminMenu {
+  color:white;
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  margin:0px 5px;
+  width:800px;
+  height:20px;
+  text-align:right;
+  z-index:4;
+  overflow:hidden;
+  'outline:1px solid #F00;
+}
+
+.adminMenuTab {
+  display:inline-block;
+  background-color:#3b5e7e;
+  color:#fff;
+  height:19px;
+  padding:0px 8px;
+  max-width:120px;
+  line-height:19px;
+  text-align:center;
+  z-index:8;
+  border-color:#5687AF;
+  border-style:solid;
+  border-width:1px 1px 0px 1px;
+  border-radius:4px 4px 0px 0px;
+}
+
+.adminMenuTab:hover {
+  color:#ABCEEA;
+  cursor:pointer;
+  cursor:hand;
 }
 
 #headerLinks {
@@ -74,7 +113,7 @@ body {
 }
 
 #mainSubheader {
- background-color: #dbdee5;
+ background-color: #DBDEE5;
  position:fixed;
  top:72px;
  left:275px;
@@ -84,7 +123,7 @@ body {
  height:32px;
  z-index:0;
  display:block;
- background-color: #ddd;
+ background-color: #DBDEE5;
 }
 
 #main {
@@ -94,6 +133,7 @@ body {
  left:275px;
  padding:0px;
  margin:0px;
+ background-color: #DBDEE5;
  height:calc(100% - 104px);
  /*height:calc(100% - 141px);*/
  width:calc(100% - 275px);
@@ -123,19 +163,19 @@ body {
  }
 
 #dynamic-container {  /* same as main */
- position:absolute;
- top:0px;
- left:0px;
- padding:0px;
- margin:0px;
- /* height:calc(100% - 104px); */
- height: 100%;
- /* width:calc(100% - 275px); */
- width: 100%;
- z-index:0;
- overflow:auto; /* Note: for a contained iframe at 100% height and width, must set overflow:hidden
- otherwise there will be 2 vertical scroll bars (might be a browser bug). */
- 		background-color:#dbdee5
+  position:absolute;
+  top:0px;
+  left:0px;
+  padding:0px;
+  margin:0px;
+  /* height:calc(100% - 104px); */
+  height: 100%;
+  /* width:calc(100% - 275px); */
+  width: 100%;
+  z-index:0;
+  overflow:auto; /* Note: for a contained iframe at 100% height and width, must set overflow:hidden
+  otherwise there will be 2 vertical scroll bars (might be a browser bug). */
+  background-color: #DBDEE5;
 }
 
 #left2 {
@@ -146,7 +186,7 @@ body {
  height:calc(100% - 104px);
  width:275px;
  overflow: auto;
- z-index:1;
+ z-index: 10;
 }
 
 #leftSubheader {
@@ -181,7 +221,7 @@ body {
  padding:0px;
  width:100%;
  height:40%;
- background-color: #ddd;
+ background-color: #DBDEE5;
  z-index:4;
  overflow:auto;
 }
@@ -246,12 +286,31 @@ body {
   left: 0px;
 }
 
-.navLeftMinimizeArrow {
-  display: inline-block;
+#navLeftMinimizeArrow {
+  position: absolute;
+  left: 0px;
+  top: 104px;
+  cursor: pointer;
   width: 14px;
   height: 14px;
   margin: 5px;
+  z-index: 1000;
   background: url('../img/leftMinimizeArrow.png') no-repeat left;
+}
+
+#navLeftMinimizeArrow.collapsed {
+  top: 75px;
+  left: 275px;
+  background: #384d68;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transform: translate(0px, 9px) rotate(90deg) translate(0px, 19px);
+  color:#fff;
+  width: auto;
+  height: 18px;
+  padding: 3px 7px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  margin-left:-2px
 }
 
 #login {
@@ -271,7 +330,6 @@ body {
 
 .current-user {margin-right:6px}
 
-html body div#main div#mainNewTab div#upperMain div#mapCanvas2 div.gm-style div.gmnoprint div.gmnoprint div img {width:20px; max-width:20px; !important}
 
 /* ---------------------------------------------------------------
  TEMP USER-NAV - ALL BLUE BUTTONS TO GET THIS STYLE EVENTUALLY
@@ -354,7 +412,6 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails .accordionContainer {
   height: 272px;
-  margin-right: -4px;
 }
 
 .accordionControl {
@@ -369,9 +426,10 @@ ul.dropdown-menu li:hover {
 
 .spatialDetails {
   position: relative;
-  margin-left: 13px;
+  margin: 4px 0px 6px 16px;
+  width: 238px;
 }
-
+	
 .spatialDetails.align_left {
   margin-left:0;
 }
@@ -386,8 +444,8 @@ ul.dropdown-menu li:hover {
 
 #saveButtons {
   position: absolute;
-  top: 0;
-  width: 100%;
+  top: 0px;
+  right: 0px;
 }
 
 .textRight {
@@ -428,13 +486,26 @@ ul.dropdown-menu li:hover {
   border-radius: 7px;
 }
 
+#region article.leftAccordion {
+  padding: 1px;
+  /*width: 217px;*/
+  margin-bottom: 3px;
+  margin-right: 3px;
+  margin-left: 3px;
+  border: 1px solid #5687AF;
+  border-left: 0px;
+  border-radius: 4px;
+}
+
 .leftAccordion#spatial {
-  padding: 4px 13px 4px 4px;
+  padding: 4px;
+  line-height: 16px;
 }
 
 .spatialDuration, .latlong {
-  height: 13px !important;
+  height: 16px !important;
   color: #969fa6;
+  padding:0px;
 }
 
 .spatialDuration {
@@ -443,7 +514,7 @@ ul.dropdown-menu li:hover {
 }
 
 .latlong {
-  width: 40px;
+  width: 50px;
 }
 
 input.latlong {
@@ -471,8 +542,17 @@ input.latlong {
 }
 
 #spatial input {
-  width: 45px;
+  height: 17px;
+  padding: 0px;
+  margin-top: -1px; /* necessary for alignment of spatial input alignment */
 }
+
+/* necessary for alignment of spatial input alignment */
+input#south, input#west, input#north, input#east, input#radius {margin-top:-2px}
+span#fromLabel {line-height:20px; margin:0px 0px -6px 0px; padding:0px}
+span#veLabel {line-height:20px; margin:5px 0px -6px 0px; padding:0px}
+span#toLabel {line-height:20px; margin:2px 0px -6px 0px; padding:0px}
+p#radiusLabel {line-height:22px; margin:1px 0px -7px 0px; padding:0px}
 
 select.dateMenu {
   width: 54px;
@@ -600,8 +680,8 @@ input.noPlaceholderRadius {
 }
 
 .labelThrough {
-  height: 10px;
   display: block;
+  margin:0px
 }
 
 .arrowDown { /* not called in another file */
@@ -783,11 +863,17 @@ input.noPlaceholderRadius {
   background: #88A9CC;
 }
 
-.accordionContainerWhite {
+#accordionContainerWhite {
   color: #000;
   position: relative;
-  width:  calc(100% - 8px);
+  width:  calc(100% - 6px);
   margin: 3px;
+  top: 0px;
+  left: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  z-index:8;
+  
 }
 
 .accordionWhiteChevron {
@@ -822,7 +908,7 @@ input.noPlaceholderRadius {
   width: 100%;
   margin: 0px;
   margin-bottom: 3px;
-  border: 1px solid #dddddd;
+  border: 1px solid #DBDEE5;
   border-radius: 5px;
   background-color:#FFFFFF;
 }

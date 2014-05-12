@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- filename ion_ux3.html proto=ion_ux2.html
-last edited 04-13 04-09 03-05 2014-03-02
+last edited 05-11 04-13 04-09 03-05 2014-03-02
 -->
 <html>
 <head>
@@ -17,6 +17,8 @@ last edited 04-13 04-09 03-05 2014-03-02
     <link href='http://fonts.googleapis.com/css?family=Signika:300,400,600,700' rel='stylesheet' type='text/css'/>
     <link href='http://fonts.googleapis.com/css?family=Signika+Negative:300,400,600,700' rel='stylesheet' type='text/css' />
 
+        <link rel="stylesheet" href="/static/css/common.css" type="text/css" />
+
     <link rel="stylesheet/less" class="salt" href="/static/css/salt_images.less" />
     <link rel="stylesheet" type="text/css" href="/static/css/salt.css"/>
     {% endblock %}
@@ -29,26 +31,45 @@ last edited 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header2" align="left"> </div>
+	<div id="header2" align="left">
+        <div>
+            <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
+            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png" alt="OOI" /></a>
+        </div>
+        <div id="adminMenu">
+            <div id="myDasboard" class="adminMenuTab">My Dashboard</div>
+            <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
+            <div id="instrumentManagement" class="adminMenuTab">Intrument Mgmt</div>
+            <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
+            <div id="addResource" class="adminMenuTab">Add/Edit Resource</div>
+            <div id="deployments" class="adminMenuTab">Deployments</div>
+        </div>
+        <div id="login"> login </div> <!-- User navigation -->
+    </div>
 	<div id="leftSubheader" align="left">
+        <div id="twoNavTabs" class="twoNavTabs">
+            <div id="searchTab" class="twoNavTab active" href="#searchTabContent">Search</div>
+            <div id="mySearchesTab" class="twoNavTab" href="#mySearchesTabContent">My Searches</div>
+        </div>
     </div>
 	<div id="mainSubheader" align="left">
         <div id="searchProduction"> 
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
             <div class="mapButtonHidden" title="Hidden Map View"> </div>
-        </div></div>
-
-    <div id="left2">
-        <div id="searchTabContent">.</div>
-        <div id="mySearchesTabContent" style="display:none;">
-        <ul class="list_mysearches">
-            <!--<li><a href="#">Search 1 <span class="date_mysearches">04/28/2014</span></a></li>
-            <li><a href="#">Search 2 <span class="date_mysearches">04/27/2014</span></a></li>
-            <li><a href="#">Search 3 <span class="date_mysearches">04/26/2014</span></a></li>-->
-        </ul>
         </div>
-        <div id="legacyTabContent" style="z-index:0; display:none;"> </div>
+    </div>
+
+    <div id="navLeftMinimizeArrow"> </div>
+    <div id="left2">
+        <div id="searchTabContent"> </div>
+        <div id="mySearchesTabContent" style="display:none;">
+            <ul class="list_mysearches">
+                <!--<li><a href="#">Search 1 <span class="date_mysearches">04/28/2014</span></a></li>
+                <li><a href="#">Search 2 <span class="date_mysearches">04/27/2014</span></a></li>
+                <li><a href="#">Search 3 <span class="date_mysearches">04/26/2014</span></a></li>-->
+            </ul>
+        </div>
     </div>
     <div id="main">
         <div id="mainNewTab">
@@ -58,7 +79,7 @@ last edited 04-13 04-09 03-05 2014-03-02
            </div>
         </div>
         <div id="mainLegacyTab" style="display:none;">
-            <div id="dynamic-container" style="display:none;height:100%"> </div>
+            <div id="dynamic-container" style="display:none;"> </div>
         </div>
 	</div>
 
@@ -71,11 +92,11 @@ last edited 04-13 04-09 03-05 2014-03-02
     {% block inherit_vendor_js %}
     <!-- Vendor JavaScripts -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCcEp2hQdftRhaYgonh1Vyv0JYi5KVvFI&amp;sensor=false&amp;libraries=drawing"> </script>
+    <script src="/static/visualization/js/markerclusterer.js"> </script>
     <script src="/static/js/jquery-1.9.1.min.js"> </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"> </script>
     <script type='text/javascript' src='http://www.google.com/jsapi'> </script>
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1'}]}"> </script>
-    <script src="/static/visualization/js/markerclusterer.js"> </script>
             
     <script src="/static/js/underscore-1.4.4.min.js "> </script>
     <script src="/static/js/backbone-1.0.min.js"> </script>
@@ -85,6 +106,7 @@ last edited 04-13 04-09 03-05 2014-03-02
     <script src="/static/js/jquery.dataTables-1.9.3.js"> </script>
     <script src="/static/js/jquery.dataTables-api-extensions.js"> </script>
     <script src="/static/js/jquery.jscrollpane.min.js"> </script>
+
     {% endblock %}
 
     {% block extra_vendor_js %}{% endblock %}
@@ -182,7 +204,65 @@ last edited 04-13 04-09 03-05 2014-03-02
             
         });
 
-        
+        $(".twoNavTab").click(function(e){
+            var target = $(e.target);
+            target.addClass('active').siblings().removeClass('active');
+            tab_content = target.attr("href");
+            $(tab_content).siblings().hide();
+            $(tab_content).show();
+        });
+
+        $('#navLeftMinimizeArrow').click(function(e){
+            if ($(this).hasClass('collapsed')) {
+                $(this).animate({
+                   left: '275px'
+                }, { 
+                    duration: 200, 
+                    queue: false,
+                    complete: function(){
+                        $(this).removeClass('collapsed');
+                        $(this).attr('style', 'left:0px');
+                        $(this).html('');
+                    }
+                });
+                $('#left2').animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+            } else {
+                $(this).addClass('collapsed');
+                $(this).attr('style', 'left:275px');
+                $(this).html('Search');
+                
+                $(this).animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $('#left2').animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+            }
+        });
         
       });
       {% block document_ready %}

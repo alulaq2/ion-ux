@@ -2,7 +2,7 @@
    <div class="expandHide arrowRight"> </div>
    <div class="accordionLabel">Spatial</div>
 </span>
-<section class="spatialDetails" style="display:none;">
+<section class="spatialDetails">
   <div class="leftNaviSelectContainer">
     <select class="latLongMenu">
       <option value="1">Lat/Long - Rect</option>
@@ -10,47 +10,54 @@
     </select>
     <div class="leftNaviSelectArrow"> </div>
   </div>
-  <span class="labelThrough">From:</span>
-  <input class="spatialDuration latlong" type="text" placeholder="Lat" id="south"/>
-  <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ns" id="sw_ns">
-      <option value="1">N</option>
-      <option value="2">S</option>
-    </select>
-    <div class="leftNaviNarrowSelectArrow"> </div>
-  </div>
-  <input class="spatialDuration latlong" type="text" placeholder="Long" id="west"/>
-  <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ew" id="sw_ew">
-      <option value="1">E</option>
-      <option value="2">W</option>
-    </select>
-    <div class="leftNaviNarrowSelectArrow"> </div>
-  </div>
-  <span class="labelThrough top_search_to">To:</span>
-  <span class="accordionLabel topSearchRadius">Radius:</span>
-  <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" id="north"/>
-  <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
-  <div class="leftNaviNarrowSelectContainer">
-    <select class="north_south_menu" id="ne_ns">
-      <option value="1">N</option>
-      <option value="2">S</option>
-    </select>
-    <select class="milesKilosMenu">
-      <option value="1">Km</option>
-      <option value="2">Mi</option>
-    </select>
-    <div class="leftNaviNarrowSelectArrow"> </div>
-  </div>
-  <input class="spatialDuration latlong show_hide_longitude" type="text" placeholder="Long" id="east"/>
-  <div class="leftNaviNarrowSelectContainer show_hide_longitude">
-    <select class="to_ew" id="ne_ew">
-      <option value="1">E</option>
-      <option value="2">W</option>
-    </select>
-    <div class="leftNaviNarrowSelectArrow"> </div>
-  </div>
-  <span class="vertical_extents">Vertical Extents (positive downward)</span>
+  
+
+      <span class="labelThrough" id="fromLabel">From:</span>
+      <input class="spatialDuration latlong" type="text" placeholder="Lat" id="south"/>
+      <div class="leftNaviNarrowSelectContainer">
+        <select class="from_ns" id="sw_ns">
+          <option value="1">N</option>
+          <option value="2">S</option>
+        </select>
+        <div class="leftNaviNarrowSelectArrow"> </div>
+      </div>
+      <input class="spatialDuration latlong" type="text" placeholder="Long" id="west"/>
+      <div class="leftNaviNarrowSelectContainer">
+        <select class="from_ew" id="sw_ew">
+          <option value="1">E</option>
+          <option value="2">W</option>
+        </select>
+        <div class="leftNaviNarrowSelectArrow"> </div>
+      </div>
+
+
+      <p class="accordionLabel topSearchRadius" id="radiusLabel">Radius:</p>
+      <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius" placeholder="0"/>
+      
+      <span class="labelThrough top_search_to" id="toLabel">To:</span>
+      <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" id="north"/>
+      
+      <div class="leftNaviNarrowSelectContainer">
+        <select class="north_south_menu" id="ne_ns">
+          <option value="1">N</option>
+          <option value="2">S</option>
+        </select>
+        <select class="milesKilosMenu">
+          <option value="1">Km</option>
+          <option value="2">Mi</option>
+        </select>
+        <div class="leftNaviNarrowSelectArrow"> </div>
+      </div>
+      <input class="spatialDuration latlong show_hide_longitude" type="text" placeholder="Long" id="east"/>
+      <div class="leftNaviNarrowSelectContainer show_hide_longitude">
+        <select class="to_ew" id="ne_ew">
+          <option value="1">E</option>
+          <option value="2">W</option>
+        </select>
+        <div class="leftNaviNarrowSelectArrow"> </div>
+      </div>
+
+  <span class="vertical_extents" id="veLabel">Vertical Extents (positive downward)</span>
   <div class="accordionDetailContainer">
   <div class="accordionLabel">From:</div>
     <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from" id="upper"/>
