@@ -15,27 +15,32 @@
   </span>
 	<div class="spatialDetails" style="display:none;">
     <div class="leftNaviSelectContainer">
-      <select class="temporal_menu">
+      <select class="temporal_menu" id="tempSelect">
+        <option value="temporal_range">Temporal Range</option>
+        <option value="ts_created">Time Created</option>
+        <option value="ts_updated">Time Updated</option>
+        <!--
         <option value="1">Data Collection</option>
         <option value="2">Planned Timestamps</option>
-         <option value="3">Deployed Timestamps</option>
-         <option value="4">Activated Timestamps</option>
+        <option value="3">Deployed Timestamps</option>
+        <option value="4">Activated Timestamps</option>
+      -->
       </select>
       <div class="leftNaviSelectArrow"/>
     </div>
 		<div>From</div>
 		<div class='date-dropdown from_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
+			<select class="dateMenu year" id="tempFromYear"></select>
+			<select class="dateMenu month" id="tempFromMonth"></select>
+   		<select class="dateMenu day" id="tempFromDay"></select>
+      <select class="dateMenu hour" id="tempFromHour"></select>
     </div>
 		<div>To</div>
 		<div class='date-dropdown to_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
+			<select class="dateMenu year" id="tempToYear"></select>
+			<select class="dateMenu month" id="tempToMonth"></select>
+   		<select class="dateMenu day" id="tempToDay"></select>
+      <select class="dateMenu hour" id="tempToHour"></select>
     </div>
 	</div>
 </article>
@@ -83,7 +88,10 @@
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Boolean Expression</div>
   </span>
 	<div class="spatialDetails" style="display:none;">
-		More information
+		<h4>Search Criteria</h4>
+    <form id="booleanForm">
+    <div class="filter-item-holder"></div>
+    </form>
 	</div>
 </article>
 </div>
@@ -93,10 +101,16 @@
   <input type="hidden" name="south" id="southFm"/>
   <input type="hidden" name="east" id="eastFm"/>
   <input type="hidden" name="west" id="westFm"/>
+  <input type="hidden" name="vertical-lower-bound" id="lowerFm"/>
+  <input type="hidden" name="vertical-upper-bound" id="upperFm"/>
+  <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm"/>
+  <input type="hidden" name="temporal-to-ctrl" id="tempToFm"/>
+  <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm"/>
   <input type="hidden" name="radius" id="radiusFm"/>
 </form>
 
 <script type="text/template" id="block_data_type_list_tmpl">{% include 'block_data_type_list2.html' %}</script>
+<script type="text/template" id="filter-item-tmpl">{% include 'block_boolean2.html' %}</script>
     
     <script>
 		IONUX2.Views.DataTypesList = Backbone.View.extend({
@@ -127,12 +141,12 @@
 
         IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories });
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
-		IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
-		IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
-		IONUX2.Models.DataTypeListInstance.fetch();
-		IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
-		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
-		IONUX2.Collections.OrgsInstance.fetch();
+    		IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
+    		IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
+    		IONUX2.Models.DataTypeListInstance.fetch();
+    		IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
+    		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
+    		IONUX2.Collections.OrgsInstance.fetch();
 
         $('.spatialDetails').hide();
         $('.accordionContainer').sortable({

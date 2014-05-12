@@ -55,10 +55,10 @@
 
   <span class="vertical_extents" id="veLabel">Vertical Extents (positive downward)</span>
   <div class="accordionDetailContainer">
-  <div class="accordionLabel" id="fromLabel">From:</div>
-    <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from"/>
-  <div class="accordionLabel" id="toLabel">To:</div>
-    <input class="spatialDuration latlong" type="text" placeholder="Depth" data-verticalto="to"/>
+  <div class="accordionLabel">From:</div>
+    <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from" id="upper"/>
+  <div class="accordionLabel">To:</div>
+    <input class="spatialDuration latlong" type="text" placeholder="Depth" data-verticalto="to" id="lower"/>
   <div class="leftNaviNarrowSelectContainer">
       <select class="feet_miles">
         <option value="1">m</option>
@@ -70,14 +70,23 @@
 </section>
 <script>
 $(function(){
-        $('.latLongMenu').on('change', function(e) {
-          if ($(this).find('option:selected').attr('value') == "2") {
-            $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-          } else {
-            $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
-      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
-    }
+  $('#upper, #lower').on('change', function(){
+    updateUpLow();
   });
 });
+function updateUpLow(){
+
+  if($('#upper').val() == "0"){
+    $('#upperFm').val('');
+  }  else {
+    $('#upperFm').val($('#upper').val());
+  }
+
+  if($('#lower').val() == 'Depth'){
+    $('#lowerFm').val('');
+  } else {
+    $('#lowerFm').val($('#lower').val());
+  }
+
+}
 </script>
