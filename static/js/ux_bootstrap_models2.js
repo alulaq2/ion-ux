@@ -189,7 +189,6 @@ IONUX2.Models.instruments = new IONUX2.Models.Instruments();
 
 IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   defaults: {
-      spatial_accordion_visible: false,
       spatial_dropdown: "1",
       from_latitude: "",
       from_ns: "",
@@ -206,6 +205,24 @@ IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
       feet_miles: ""
   }
 });
+
+IONUX2.Models.saveSpatialSearch = new IONUX2.Models.SaveSpatialSearch();
+
+IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
+  defaults: {
+    temporal_dropdown: '',
+    from_year: '',
+    from_month: '',
+    from_day: '',
+    from_hour: '',
+    to_year: '',
+    to_month: '',
+    to_day: '',
+    to_hour: '',
+  }
+});
+
+IONUX2.Models.saveTemporalSearch = new IONUX2.Models.SaveTemporalSearch();
 
 IONUX2.Models.SaveCustomName = Backbone.Model.extend({
   defaults: {
@@ -256,25 +273,6 @@ IONUX2.Collections.saveSiteSearch = new IONUX2.Collections.SaveSiteSearch();
 
 IONUX2.Collections.SaveDataTypeSearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveDataTypeSearch = new IONUX2.Collections.SaveDataTypeSearch();
-
-IONUX2.Models.saveSpatialSearch = new IONUX2.Models.SaveSpatialSearch();
-
-IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
-  defaults: {
-    temporal_accordion_visible: false,
-    temporal_dropdown: '',
-    from_year: '',
-    from_month: '',
-    from_day: '',
-    from_hour: '',
-    to_year: '',
-    to_month: '',
-    to_day: '',
-    to_hour: '',
-  }
-});
-
-IONUX2.Models.saveTemporalSearch = new IONUX2.Models.SaveTemporalSearch();
 
 IONUX2.Models.Facilities = Backbone.Model.extend({});
 IONUX2.Models.facilities = new IONUX2.Models.Facilities();
