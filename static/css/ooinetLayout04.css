@@ -53,10 +53,11 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   bottom:0px;
   right:0px;
   margin:0px 5px;
-  width:600px;
+  width:800px;
   height:20px;
   text-align:right;
   z-index:4;
+  overflow:hidden;
   'outline:1px solid #F00;
 }
 
