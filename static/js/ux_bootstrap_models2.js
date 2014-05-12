@@ -298,7 +298,15 @@ IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
       platform: '',
       instrument: ''
     },
-    sortable_order: ''
+    bottom_config: {
+      accordionAssets: '',
+      accordionData: '',
+      accordionPlatform: '',
+      accordionInstruments: '',
+      accordionDataType: ''
+    },
+    sortable_order: '',
+    bottom_sortable: ''
   }
 });
 IONUX2.Models.saveConfiguration = new IONUX2.Models.SaveConfiguration();

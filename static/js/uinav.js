@@ -13,6 +13,20 @@ var UINAV = {
             }
      	});
     },
+    reorder_bottom: function(orderArray, configurationList, elementContainer) {
+        $.each(orderArray, function(key, val){
+            console.log("value is " + val);
+            elementContainer.append($("#"+val));
+            for (item in configurationList) {
+                if (configurationList[item]) {
+                    $('#'+item + ' .accordionContents').show();
+                }
+                else {
+                    $('#'+item + ' .accordionContents').hide();
+                }
+            }
+        });
+    },
     loadSpatial: function(spatialModel) {
     	/*if (spatialModel.spatial_accordion_visible) {
             $('#spatial .spatialDetails').show();
@@ -146,10 +160,14 @@ var UINAV = {
     loadConfiguration: function(configuration) {
         var configurationModel = JSON.parse(configuration.data);
         var $accordion_container = $('.jspPane');
+        var $bottom_accordion = $('#accordionContainerWhite');
         var sortableOrder = configurationModel.sortable_order;
+        var bottom_sortable = configurationModel.bottom_sortable;
         var configurationList = configurationModel.configuration;
+        var bottomConfigList = configurationModel.bottom_config;
         console.log("configuration list");
         console.log(configurationList);
         this.reorder(sortableOrder, configurationList, $accordion_container);
+        this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
     }
 };

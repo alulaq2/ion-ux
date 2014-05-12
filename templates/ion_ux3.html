@@ -218,6 +218,7 @@ last edited 04-13 04-09 03-05 2014-03-02
             e.preventDefault();
 
             var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+            var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
             var spatial_accordion_visible = $('#spatial .spatialDetails').is(':visible'),
                 temporal_accordion_visible = $('#temporal .spatialDetails').is(':visible'),
                 facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible'),
@@ -226,7 +227,13 @@ last edited 04-13 04-09 03-05 2014-03-02
                 datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible'),
                 boolean_accordion_visible = $('#boolean_expression .spatialDetails').is(':visible'),
                 platform_accordion_visible = $('#platform .spatialDetails').is(':visible'),
-                instrument_accordion_visible = $('#instrument .spatialDetails').is(':visible');
+                instrument_accordion_visible = $('#instrument .spatialDetails').is(':visible'),
+                assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
+                data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
+                platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
+                instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
+                datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
+
 
             var user_profile = {
                 'userId': IONUX2.Models.SessionInstance.attributes.user_id,
@@ -243,7 +250,15 @@ last edited 04-13 04-09 03-05 2014-03-02
                     'platform': platform_accordion_visible,
                     'instrument': instrument_accordion_visible
                 },
-                'sortable_order': sortable_order
+                'bottom_config': {
+                    'accordionAssets': assets_accordion_visible,
+                    'accordionData': data_accordion_visible,
+                    'accordionPlatform': platform2_accordion_visible,
+                    'accordionInstruments': instrument2_accordion_visible,
+                    'accordionDataType': datatype2_accordion_visible
+                },
+                'sortable_order': sortable_order,
+                'bottom_sortable': bottom_sortable
             };
 
             IONUX2.Models.saveConfiguration.set(user_profile);
