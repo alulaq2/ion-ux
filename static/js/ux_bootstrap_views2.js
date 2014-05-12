@@ -285,7 +285,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
   el: '#accordionContainer',
   //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
-  template: _.template('<article class="leftAccordion"><span class="accordionTitle">' +
+  template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
    '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
   '<section class="leftAccordionContents" style="display:none;" id="<%= id %>"></section></article>'),
   initialize: function() {
