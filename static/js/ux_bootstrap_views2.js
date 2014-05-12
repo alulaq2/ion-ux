@@ -77,6 +77,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
   saveName: function() {
       $('#customSearchName').hide();
       $('#saveButtons').show();
+
   
       var name = $('.customName').val();
       var d = new Date();
@@ -256,7 +257,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       // add search values to saved search collection
       IONUX2.Collections.saveNames.add(values);
       console.log("saved search collection");
-      console.log(IONUX2.Collections.saveNames);      
+      console.log(IONUX2.Collections.saveNames);     
+
+      //remove previous input text so that name placeholder shows
+      $('.customName').val(''); 
   },
 
   saveSearch: function() {
