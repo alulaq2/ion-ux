@@ -73,8 +73,23 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
        		}        
 		});
 	},
-  saveSearch: function() {
-    (function() {
+
+  saveName: function() {
+      $('#customSearchName').hide();
+      $('#saveButtons').show();
+
+  
+      var name = $('.customName').val();
+      var d = new Date();
+      var month = d.getMonth() + 1;
+      var day = d.getDate();
+      var year = d.getFullYear();
+      var hour = d.getHours();
+      var minute = d.getMinutes();
+      var time = d.getTime();
+
+      //var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );  
+
       // store spatial input values and set to model
       var spatial_dropdown = $('.lat_long_menu option:selected').attr('value'),
         from_latitude = $('#south').val(),
@@ -219,6 +234,64 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       console.log(sites_checked);
     })();
 
+    //var datatype_accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
+    (function() {
+      // get data type checkbox values and add to collection
+      var datatype_checked = [];
+      $('.listDataTypes input').each(function(data) {
+        var datatype_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        datatype_checked.push({/*'datatype_accordion_visible' : datatype_accordion_visible,*/ 'datatype_value' : datatype_value, 'is_checked' : is_checked });
+      });
+      IONUX2.Collections.saveDataTypeSearch.set(datatype_checked);
+    })();
+
+      var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
+      var regions = IONUX2.Collections.saveRegionSearch.toJSON();
+      var sites = IONUX2.Collections.saveSiteSearch.toJSON();
+      var dataTypes = IONUX2.Collections.saveDataTypeSearch.toJSON();
+
+      var values = {
+        'searchName': searchName,
+        //'sortableOrder': sortableOrder,
+        'spatial' : spatial,
+        'temporal': temporal,
+        'facilities' : facilities,
+        'regions': regions,
+        'sites': sites,
+        'dataTypes': dataTypes
+      };
+
+      /*var user_profile = {
+        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+        'name': IONUX2.Models.SessionInstance.attributes.name,
+        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+        'spatial_open': spatial_accordion_visible,
+        'temporal_open': temporal_accordion_visible,
+        'facility_open': facility_accordion_visible,
+        'region_open': region_accordion_visible,
+        'site_open': sites_accordion_visible,
+        'datatype_open': datatype_accordion_visible,
+        'sortable_order': sortable_order
+      };*/
+
+      // save user profile data to configuration model
+      /*IONUX2.Models.saveConfiguration.set(user_profile);
+      console.log("configuration model");
+      console.log(IONUX2.Models.saveConfiguration);*/
+
+      // add search values to saved search collection
+      IONUX2.Collections.saveNames.add(values);
+      console.log("saved search collection");
+      console.log(IONUX2.Collections.saveNames);     
+
+      //remove previous input text so that name placeholder shows
+      $('.customName').val(''); 
+  },
+
+  saveSearch: function() {
+    $('#saveButtons').hide();
+    $('#customSearchName').show();
   },
 
 	render: function() {
