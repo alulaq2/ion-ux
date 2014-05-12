@@ -236,24 +236,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         'dataTypes': dataTypes
       };
 
-      /*var user_profile = {
-        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-        'name': IONUX2.Models.SessionInstance.attributes.name,
-        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-        'spatial_open': spatial_accordion_visible,
-        'temporal_open': temporal_accordion_visible,
-        'facility_open': facility_accordion_visible,
-        'region_open': region_accordion_visible,
-        'site_open': sites_accordion_visible,
-        'datatype_open': datatype_accordion_visible,
-        'sortable_order': sortable_order
-      };*/
-
-      // save user profile data to configuration model
-      /*IONUX2.Models.saveConfiguration.set(user_profile);
-      console.log("configuration model");
-      console.log(IONUX2.Models.saveConfiguration);*/
-
       // add search values to saved search collection
       IONUX2.Collections.saveNames.add(values);
       console.log("saved search collection");
