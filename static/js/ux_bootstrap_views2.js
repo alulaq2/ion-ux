@@ -153,6 +153,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'feet_miles': feet_miles
     };
 
+    IONUX2.Models.saveSpatialSearch.set(spatial);
+    console.log("spatial model");
+    console.log(IONUX2.Models.saveSpatialSearch);
+
     var temporal = {
       //'temporal_accordion_visible': temporal_accordion_visible,
       'temporal_dropdown': temporal_dropdown,
@@ -165,6 +169,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'to_day': to_day,
       'to_hour': to_hour
     };
+
+    IONUX2.Models.saveTemporalSearch.set(temporal);
+    console.log("temporal model");
+    console.log(IONUX2.Models.saveTemporalSearch);
 
     // get facility checkbox values and add to collection
     //var facility_accordion_visible = $('#orgSelector .spatialDetails').is(':visible');
