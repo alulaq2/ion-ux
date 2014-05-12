@@ -52,7 +52,33 @@ IONUX2 = {
 	Views: {},
 	Dashboard: {},
 	Router: {},
+	Dispatcher: {},
+	registerEvents: function(source){
+		var _self = this;
+		source.on("all", function(eventName) {
+		  var args = Array.prototype.slice.apply(arguments).splice(1);
+		  args.unshift(eventName);
+		  _self.trigger.apply(_self, args);
+		});
+	},
 	init: function(){
+
+		_.extend(this, Backbone.Events);
+
+		Backbone.Model.prototype.initialize = function(initialize) {
+			return function(){
+				IONUX2.registerEvents(this);
+				return initialize.apply(this, arguments);
+			};
+		}(Backbone.Model.prototype.initialize);
+
+		this.on("all", function(eventName){
+			console.log(this.prototype);
+			if (this instanceof IONUX2.Models.Login) {
+				console.log("Captured event: " + eventName);
+				console.log(this);
+			}
+		});
 
 	    var router = new IONUX.Router();
 	    IONUX2.ROUTER = router;
