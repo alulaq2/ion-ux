@@ -28,7 +28,9 @@ var UINAV = {
         });
     },
     loadSpatial: function(spatialModel) {
-        $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+        IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
+
+        /*$('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
         if (spatialModel.spatial_dropdown == 2) {
         	$('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
             $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
@@ -49,7 +51,7 @@ var UINAV = {
         $('.milesKilosMenu').val(spatialModel.miles_kilos),
         $('[data-verticalfrom]').val(spatialModel.vertical_from),
         $('[data-verticalto]').val(spatialModel.vertical_to),
-        $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
+        $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');*/
     },
     loadTemporal: function(temporalModel) {
         $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');

@@ -149,9 +149,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'feet_miles': feet_miles
     };
 
-    IONUX2.Models.saveSpatialSearch.set(spatial);
+    IONUX2.Models.spatialModelInstance.set(spatial);
     console.log("spatial model");
-    console.log(IONUX2.Models.saveSpatialSearch);
+    console.log(IONUX2.Models.spatialModelInstance);
 
     var temporal = {
       //'temporal_accordion_visible': temporal_accordion_visible,
@@ -221,7 +221,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       var values = {
         'searchName': searchName,
-        //'sortableOrder': sortableOrder,
         'spatial' : spatial,
         'temporal': temporal,
         'facilities' : facilities,
@@ -433,13 +432,42 @@ IONUX2.Views.Spatial = Backbone.View.extend({
 	template: _.template(IONUX2.getTemplate('templates/spatial.html')),
 	initialize: function() {
 		console.log('initializing spatial view');
+    this.model.on('change:spatialData', this.updateData, this);
 		this.render();
 	},
+  updateData: function() {
+    var spatialModel = IONUX2.Models.spatialModelInstance.attributes;
+    console.log("spatial model in Views Spatial");
+    console.log(spatialModel);
+    $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+    if (spatialModel.spatial_dropdown == 2) {
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+    }
+    else {
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+    }
+    $('#south').val(spatialModel.from_latitude),
+    $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
+    $('#west').val(spatialModel.from_longitude),
+    $('.from_ew option[value="' + spatialModel.from_ew + '"]').attr('selected', 'selected');
+    $('.placeholder_lat').val(spatialModel.to_latitude),
+    $('.north_south_menu option[value="' + spatialModel.to_ns + '"]').attr('selected', 'selected');
+    $('.show_hide_longitude').val(spatialModel.to_longitude),
+    $('.to_ew option[value="'+ spatialModel.to_ew + '"]').attr('selected', 'selected');
+    $('.no_placeholder_radius').val(spatialModel.radius),
+    $('.milesKilosMenu').val(spatialModel.miles_kilos),
+    $('[data-verticalfrom]').val(spatialModel.vertical_from),
+    $('[data-verticalto]').val(spatialModel.vertical_to),
+    $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
+  },
 	render: function() {
 		console.log('rendering spatial');
 		this.$el.html(this.template());
 		return this;
-	}
+	},
+  
 });
 
 IONUX2.Views.Temporal = Backbone.View.extend({

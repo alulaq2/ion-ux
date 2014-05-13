@@ -230,7 +230,7 @@ IONUX2.Collections.Instruments = Backbone.Collection.extend({
   }
 });
 
-IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
+/*IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
   defaults: {
       spatial_dropdown: "1",
       from_latitude: "",
@@ -247,9 +247,35 @@ IONUX2.Models.SaveSpatialSearch = Backbone.Model.extend({
       vertical_to: "",
       feet_miles: ""
   }
+});*/
+
+IONUX2.Models.SpatialInit = Backbone.Model.extend({
+  defaults: {
+      spatial_dropdown: "1",
+      from_latitude: "",
+      from_ns: "",
+      from_longitude: "",
+      from_ew: "",
+      to_latitude: "",
+      to_ns: "",
+      to_longitude: "",
+      to_ew: "",
+      radius: "",
+      miles_kilos: "",
+      vertical_from: "",
+      vertical_to: "",
+      feet_miles: ""
+  },
+  updateAttributes: function(attributes) {
+    console.log("attributes in spatial model");
+    console.log(attributes);
+    //attributes = this.attributes;
+    this.set(attributes);
+    this.trigger('change:spatialData');
+  }
 });
 
-IONUX2.Models.saveSpatialSearch = new IONUX2.Models.SaveSpatialSearch();
+IONUX2.Models.spatialModelInstance = new IONUX2.Models.SpatialInit();
 
 IONUX2.Models.SaveTemporalSearch = Backbone.Model.extend({
   defaults: {
