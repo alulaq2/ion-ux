@@ -484,6 +484,7 @@ ul.dropdown-menu li:hover {
 
 #saveConfiguration {
   margin-top: 2px;
+  position: absolute;
 }
 
 .leftAccordion {
