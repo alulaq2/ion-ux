@@ -405,6 +405,12 @@ def org_list():
     orgs = ServiceApi.find_by_resource_type('Org')
     return jsonify(data={'orgs': orgs})
 
+@app.route('/<resource_type>/display/', methods=['GET'])
+def general_list(resource_type=None):
+    resource_list = ServiceApi.find_by_resource_type(resource_type)
+    list_count = len(resource_list)
+    return jsonify(data={'count': list_count, 'resources': resource_list})
+
 # -----------------------------------------------------------------------------
 # RESOURCE EXTENSION & RELATED SITES API
 # -----------------------------------------------------------------------------
