@@ -34,14 +34,14 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 	<div id="header2" align="left">
         <div>
             <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
-            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png" alt="OOI" /></a>
+            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0" alt="OOI" /></a>
         </div>
         <div id="adminMenu">
             <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
             <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
             <div id="instrumentManagement" class="adminMenuTab">Intrument Mgmt</div>
             <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
-            <div id="addResource" class="adminMenuTab">Add/Edit Resource</div>
+            <div id="resourceManagement" class="adminMenuTab">Resource Mgmt</div>
             <div id="deployments" class="adminMenuTab">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
@@ -234,7 +234,27 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#myDashboard").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/block_peter_is_awesome2.html')).show();
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockMyDashboard.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#dataProcessing").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockDataProcessing.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#instrumentManagement").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockInstrumentManagement.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#assetTracking").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockAssetTracking.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#resourceManagement").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockResourceManagement.html')).show();
             $(".mapButtonHidden").click();
         });
 
