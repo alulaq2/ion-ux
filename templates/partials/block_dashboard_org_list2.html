@@ -1,20 +1,12 @@
-<span class="accordionTitle">
-  <div class="expandHide arrowRight"></div><div class="accordionLabel">Facility</div>
-</span>
-
-<div class="spatialDetails align_left" style="display:none;">
-	<div class="select_all">
-		<input class="checkAllFacilities" type="checkbox"/> Select All
-	</div>
-	<div class="list_facilities">
-		<form action="">
-			
-            <% _.each(resources, function(resource) { %>
-                <input type="checkbox" value="<%= resource._id %>"/>
-                <div class="resourceLink" data-id="<%= resource._id %>"><%= resource.name %></div><br/>
-            <% }) %>
-        </form>
-    </div>
+<div class="select_all">
+	<input class="checkAllFacilities" type="checkbox"/> Select All
+</div>
+<div class="list_facilities">
+	<form action="">
+		<% _.each(resources, function(resource) { %>
+            <input type="checkbox" value="<%= resource._id %>"/><div class="resourceLink" data-id="<%= resource._id %>"> <%= resource.name %></div><br/>
+        <% }) %>
+    </form>
 </div>
 
 

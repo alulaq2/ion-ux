@@ -130,12 +130,13 @@ def user_profiles(user_id):
         if not os.path.exists('profiles'):
             os.makedirs('profiles')
         user_file = open(path, 'w')
-        profile = request.form['profile']
+        print request.form
+        profile = request.form['data']
         print profile
         user_file.write(profile)
         user_file.close()
 
-        return '<html><body>Success!</body></html>'
+        return render_json_response("{data:{status:'ok'}}")
 
 # -----------------------------------------------------------------------------
 # SEARCH & ATTACHMENTS
@@ -868,7 +869,6 @@ def chart(resource_id=None):
 @app.route('/dev/image', methods=['GET'])
 def dev_image(resource_id=None):
     return render_template('dev_image.html')
-
 
 # -----------------------------------------------------------------------------
 # CATCH ANY UNMATCHED ROUTES
