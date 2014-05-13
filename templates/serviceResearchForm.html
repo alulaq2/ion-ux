@@ -1,0 +1,29 @@
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+	<form action="http://localhost:3000/profile/test1234/" method="POST">
+		Service:<br/>
+		<input name="service" type="text" id="service"/><br/>
+		Method:<br/>
+		<input name="method" type="text" id="method"/><br/>
+		Parameters:<br/>
+		<textarea name="params" cols="140" rows="20" id="params"></textarea><br/>
+	</form>
+	<span id="submit" style="width:auto;background:#008800;border: 1px solid #000;border-radius:6px;color:#fff;padding:4px;cursor:pointer;">Submit</span>
+<script>
+	$(function(){
+		$("#submit").click(function(e) {
+			url = "http://localhost:3000/services_backdoor/" + $('#service').val() + "/" + $('#method').val() + "/?";
+			var params = $('#params').val();
+			var params_list = params.split('\n');
+			var query_string = params_list.join('&');
+			url += query_string;
+			console.log(url);
+			window.location.assign(url);
+		});
+	});
+</script>
+</body>
+</html>

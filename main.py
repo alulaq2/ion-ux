@@ -112,6 +112,10 @@ def failed_login():
 def serve_template(filename):
     return render_template(filename)
 
+@app.route('/services_research/', methods=['GET'])
+def temp_services_research():
+    return render_template('serviceResearchForm.html')
+
 @app.route('/profile/<user_id>/', methods=['GET', 'POST'])
 def user_profiles(user_id):
     if request.method == "GET":
