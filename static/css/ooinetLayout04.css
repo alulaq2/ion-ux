@@ -472,10 +472,9 @@ ul.dropdown-menu li:hover {
   height: 16px;
   line-height: 15px;
   padding: 0px 2px;
-  margin: 0px;
+  margin: 5px 5px 0 0;
   font-family: Arial;
   font-size: 12px;
-  margin-right: 5px;
 }
 
 #saveConfiguration {
