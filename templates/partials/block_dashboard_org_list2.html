@@ -4,7 +4,7 @@
 <div class="list_facilities">
 	<form action="">
 		<% _.each(resources, function(resource) { %>
-            <input type="checkbox" value="<%= resource._id %>"/><span> <%= resource.name %></span><br/>
+            <input type="checkbox" value="<%= resource._id %>"/><div class="resourceLink" data-id="<%= resource._id %>"> <%= resource.name %></div><br/>
         <% }) %>
     </form>
 </div>
