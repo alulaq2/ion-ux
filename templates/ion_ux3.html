@@ -296,7 +296,7 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
         $('#saveConfigBtn').on('click', function(e) {
             e.preventDefault();
 
-            var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+            var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
             var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
             var spatial_accordion_visible = $('#spatial').is(':visible'),
                 temporal_accordion_visible = $('#temporal').is(':visible'),

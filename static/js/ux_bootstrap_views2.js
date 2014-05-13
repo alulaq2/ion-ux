@@ -66,7 +66,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().find('.leftAccordionContents').slideToggle('fast', function() {
+		$link.parent().children('.leftAccordionContents').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
             	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
@@ -242,17 +242,17 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 });
 
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
-  el: '#accordionContainer',
+  el: '#searchTabContent',
   //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
   template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
    '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
-  '<section class="leftAccordionContents" style="display:none;" id="<%= id %>"></section></article>'),
+  '<section class="leftAccordionContents" style="display:none;position:relative;" id="<%= id %>"></section></article>'),
   initialize: function() {
     console.log('initializing left accordion view');
   },
   addAccordion: function(title, id) {
     params = {'data':{'title':title, 'id':id}};
-    this.$el.append(this.template(params.data));
+    this.$el.children('.accordionContainer').append(this.template(params.data));
     //return this;
   }
 });
