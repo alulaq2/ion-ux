@@ -78,7 +78,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       $('#customSearchName').hide();
       $('#saveButtons').show();
 
-  
       var name = $('.customName').val();
       var d = new Date();
       var month = d.getMonth() + 1;
@@ -87,8 +86,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var hour = d.getHours();
       var minute = d.getMinutes();
       var time = d.getTime();
-
-      //var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );  
 
       // store spatial input values and set to model
       var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
@@ -146,12 +143,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'minute': minute
     };
 
-    /*var sortableOrder = {
-      'sortable_order': sortable_order
-    };*/
-
     var spatial = {
-      //'spatial_accordion_visible': spatial_accordion_visible,
       'spatial_dropdown': spatial_dropdown,
       'from_latitude': from_latitude,
       'from_ns': from_ns,
@@ -173,7 +165,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     console.log(IONUX2.Models.spatialModelInstance);
 
     var temporal = {
-      //'temporal_accordion_visible': temporal_accordion_visible,
       'temporal_dropdown': temporal_dropdown,
       'from_year': from_year,
       'from_month': from_month,
@@ -185,9 +176,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'to_hour': to_hour
     };
 
-    IONUX2.Models.saveTemporalSearch.set(temporal);
+    IONUX2.Models.temporalModelInstance.set(temporal);
     console.log("temporal model");
-    console.log(IONUX2.Models.saveTemporalSearch);
+    console.log(IONUX2.Models.temporalModelInstance);
 
     // get facility checkbox values and add to collection
     (function() {
@@ -545,7 +536,20 @@ IONUX2.Views.Temporal = Backbone.View.extend({
   template: _.template(IONUX2.getTemplate('templates/temporal.html')),
   initialize: function() {
     console.log('initializing temporal view');
+    this.model.on('change:temporalData', this.updateData, this);
     this.render();
+  },
+  updateData: function() {
+    var temporalModel = IONUX2.Models.temporalModelInstance.attributes;
+    $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
+    $('.from_date_menu .year option[value="' + temporalModel.from_year + '"]').attr('selected', 'selected');
+    $('.from_date_menu .month option[value="' + temporalModel.from_month + '"]').attr('selected', 'selected');
+    $('.from_date_menu .day option[value="' + temporalModel.from_day + '"]').attr('selected', 'selected');
+    $('.from_date_menu .hour option[value="' + temporalModel.from_hour + '"]').attr('selected', 'selected');
+    $('.to_date_menu .year option[value="' + temporalModel.to_year + '"]').attr('selected', 'selected');
+    $('.to_date_menu .month option[value="' + temporalModel.to_month + '"]').attr('selected', 'selected');
+    $('.to_date_menu .day option[value="' + temporalModel.to_day + '"]').attr('selected', 'selected');
+    $('.to_date_menu .hour option[value="' + temporalModel.to_hour + '"]').attr('selected', 'selected');
   },
   render: function() {
     this.$el.html(this.template());
