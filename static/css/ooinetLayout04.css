@@ -424,13 +424,14 @@ ul.dropdown-menu li:hover {
   display: inline-block;
 }
 
-.spatialDetails {
-  position: relative;
+.leftAccordionContents {
+  margin-left: 13px;
+  /*position: relative;
   margin: 4px 0px 6px 16px;
-  width: 238px;
+  width: 238px;*/
 }
-	
-.spatialDetails.align_left {
+
+.leftAccordionContents.align_left {
   margin-left:0;
 }
 
@@ -465,9 +466,24 @@ ul.dropdown-menu li:hover {
 
 #customSearchName {
   position: absolute;
-  z-index: 100;
-  top: -2px;
+  z-index: 8;
   display: none;
+  top: 0px;
+  left: 5px;
+}
+
+#customSearchName .customName {
+  height: 16px;
+  line-height: 15px;
+  padding: 0px 2px;
+  margin: 0px;
+  font-family: Arial;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+#saveConfiguration {
+  margin-top: 2px;
 }
 
 .leftAccordion {
@@ -670,11 +686,11 @@ input.noPlaceholderRadius {
   display: none;
 }
 
-.spatialDetails select option {
+.leftAccordionContents select option {
   background-color: #88A9CC;
 }
 
-.spatialDetails h5 {
+.leftAccordionContents h5 {
   line-height: 8px;
   font-size: 12px;
 }
@@ -759,6 +775,7 @@ input.noPlaceholderRadius {
 .instrument_list {
   list-style: none;
   margin-left: 0;
+  margin-bottom: 0;
 }
 
 .accordionDetailContainer {
