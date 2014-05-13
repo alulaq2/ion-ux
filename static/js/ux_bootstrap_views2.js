@@ -227,11 +227,13 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       //remove previous input text so that name placeholder shows
       $('.customName').val(''); 
+      $('#navLeftMinimizeArrow').show();
   },
 
   saveSearch: function() {
     $('#saveButtons').hide();
     $('#customSearchName').show();
+    $('#navLeftMinimizeArrow').hide();
   },
 
 	render: function() {
