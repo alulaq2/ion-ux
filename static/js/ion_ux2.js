@@ -79,7 +79,7 @@ IONUX2 = {
 		}(Backbone.Model.prototype.initialize);
 
 		this.on("all", function(eventName){
-			console.log(this.prototype);
+			//console.log(this.prototype);
 			if (this instanceof IONUX2.Models.Login) {
 				console.log("Captured event: " + eventName);
 				console.log(this);
