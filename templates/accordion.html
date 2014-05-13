@@ -96,7 +96,7 @@
           IONUX2.Views.leftAccordion.addAccordion(accordions[accordion].title, accordions[accordion].id);
         }
 
-        IONUX2.Views.spatial = new IONUX2.Views.Spatial();
+        IONUX2.Views.spatial = new IONUX2.Views.Spatial({model: IONUX2.Models.spatialModelInstance});
         IONUX2.Views.temporal = new IONUX2.Views.Temporal();
         IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories });
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
