@@ -150,7 +150,7 @@ IONUX2 = {
 
 	getTemplate: function(url) {
 		var full_url = '/' + url;
-		var data = "<h1> failed to load url : " + full_url + "</h1>";
+		var data = "<span> failed to load url : " + full_url + "</span>";
     	$.ajax({
         	async: false,
         	url: full_url,
