@@ -236,7 +236,62 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             $(tab_content).show();
         });
 
-            var sortable_order = $( "#accordionContainer" ).sortable( "toArray" );
+        $('#navLeftMinimizeArrow').click(function(e){
+            if ($(this).hasClass('collapsed')) {
+                $(this).animate({
+                   left: '275px'
+                }, { 
+                    duration: 200, 
+                    queue: false,
+                    complete: function(){
+                        $(this).removeClass('collapsed');
+                        $(this).attr('style', 'left:0px');
+                        $(this).html('');
+                    }
+                });
+                $('#left2').animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '275px',
+                   width: '-=275px'
+                }, { duration: 200, queue: false });
+            } else {
+                $(this).addClass('collapsed');
+                $(this).attr('style', 'left:275px');
+                $(this).html('Search');
+                
+                $(this).animate({
+                   left: '0px'
+                }, { duration: 200, queue: false });
+                $('#left2').animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#leftSubheader").animate({
+                   left: '-275px'
+                }, { duration: 200, queue: false });
+                $("#main").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+                $("#mainSubheader").animate({
+                   left: '0px',
+                   width: '100%'
+                }, { duration: 200, queue: false });
+            }
+        });
+        
+        $('#saveConfigBtn').on('click', function(e) {
+            e.preventDefault();
+
+            var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
             var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
             var spatial_accordion_visible = $('#spatial').is(':visible'),
                 temporal_accordion_visible = $('#temporal').is(':visible'),
