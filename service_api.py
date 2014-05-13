@@ -53,6 +53,11 @@ class ServiceApi(object):
         return service_gateway_get('visualization', operation_name, raw_return=True, params=visualization_parameters)
 
     @staticmethod
+    def back_door_service_request_utility(service, function, params):
+        results = service_gateway_get(service, function, params)
+        return results
+
+    @staticmethod
     def find_related_objects_has_resource(resource_id):
         related_objects = service_gateway_get('resource_management', 'get_org_resource_attributes', params={'org_id': resource_id})
         if related_objects:

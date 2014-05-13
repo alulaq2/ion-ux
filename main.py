@@ -405,6 +405,21 @@ def org_list():
 # RESOURCE EXTENSION & RELATED SITES API
 # -----------------------------------------------------------------------------
 
+@app.route('/services_backdoor/<service>/<function>/', methods=['GET'])
+def services_backdoor_utility(service, function):
+    app.logger.debug(request.args)
+    params = request.args
+    params = {}
+    for k,v in request.args.iteritems():
+        if v == 'true':
+            params.update({k:True})
+        elif v == 'false':
+            params.update({k:False})
+        else:
+            params.update({k:v})
+    results = ServiceApi.back_door_service_request_utility(service, function, params)
+    return render_json_response(results)
+
 @app.route('/<resource_type>/extension/<resource_id>/', methods=['GET'])
 def extension(resource_type, resource_id):
     # Login not required to view, but required for user specific things
