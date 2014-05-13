@@ -399,18 +399,18 @@ ul.dropdown-menu li:hover {
   position: absolute;
   z-index: 8;
   display: none;
-  top: 1px;
+  top: 0px;
   left: 5px;
 }
 
 #customSearchName .customName {
-  height: 15px;
-  width: 200px;
-  margin-right: 4px;
-}
-
-#saveName {
-  margin-bottom: 15px;
+  height: 16px;
+  line-height: 15px;
+  padding: 0px 2px;
+  margin: 0px;
+  font-family: Arial;
+  font-size: 12px;
+  margin-right: 5px;
 }
 
 #saveConfiguration {
