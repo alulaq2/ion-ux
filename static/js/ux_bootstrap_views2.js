@@ -607,7 +607,8 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       filter_container.find('select[name="filter_arg"]').remove();
 
       if (filter_container.find('select[name="filter_operator"]').length == 0) {
-        var sel_operator = $('<select class="operator" name="filter_operator"></select>');
+        // var sel_operator = $('<select class="operator" name="filter_operator"></select>');
+        var sel_operator = $('<select class="leftNaviSelectContainer" name="filter_operator"></select>');
         filter_container.find('.filter-add').before(sel_operator);
         _.each(operators, function(o) {
           sel_operator.append('<option>' + o + '</option>');
@@ -615,7 +616,8 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       }
 
       if (filter_container.find('input[name="filter_arg"]').length == 0) {
-        var inp_arg = '<input class="argument" type="text" name="filter_arg" value="" />';
+        // var inp_arg = '<input class="argument" type="text" name="filter_arg" value="" />';
+        var inp_arg = '<input class="argument2" type="text" name="filter_arg" value="" />';
         filter_container.find('.filter-add').before(inp_arg);
       }
 
