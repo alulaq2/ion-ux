@@ -135,7 +135,6 @@ IONUX2 = {
       		},
       	});
 	    IONUX2.Views.spatial = new IONUX2.Views.Spatial();
-	    IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
 
 	    IONUX2.Models.SessionInstance.fetch({
       		async: false

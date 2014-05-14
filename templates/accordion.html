@@ -91,9 +91,9 @@
 	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Boolean Expression</div>
   </span>
 	<div class="spatialDetails" style="display:none;">
-		<h4>Search Criteria</h4>
+		<span class="labelThrough">Search Criteria</span>
     <form id="booleanForm">
-    <div class="filter-item-holder"></div>
+    <div class="filter-item-holder"> </div>
     </form>
 	</div>
 </article>
@@ -150,6 +150,10 @@
     		IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
     		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
     		IONUX2.Collections.OrgsInstance.fetch();
+
+        IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
+        IONUX2.Views.boolean.render();
+
 
         $('.spatialDetails').hide();
         $('.accordionContainer').sortable({

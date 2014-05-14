@@ -524,14 +524,66 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
     "click .filter-remove": "remove_filter_item",
     "change select[name='filter_var']": "filter_field_changed"
   },
+  filter_fields: [
+    {field: 'name'                  , label: 'Name'                     , values: []} ,
+    {field: 'ooi_short_name'        , label: 'OOI Data Product Code'    , values: []} ,
+    {field: 'ooi_product_name'      , label: 'Data Product Type'        , values: []} ,
+    {field: 'description'           , label: 'Description'              , values: []} ,
+    {field: 'instrument_family'     , label: 'Instrument Family'        , values: []} ,
+    {field: 'lcstate'               , label: 'Lifecycle State'          , values: ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED']} ,
+    {field: 'alt_ids'               , label: 'OOI Reference Designator' , values: []} ,
+    {field: 'name'                  , label: 'Organization'             , values: []} ,
+    {field: 'platform_family'       , label: 'Platform Family'          , values: []} ,
+    {field: 'processing_level_code' , label: 'Processing Level'         , values: [['L0 - Unprocessed Data', 'L0'],
+                                                                                   ['L1 - Basic Data', 'L1'],
+                                                                                   ['L2 - Derived Data', 'L2']]} ,
+    {field: 'quality_control_level' , label: 'Quality Control Level'    , values: [['a - No QC applied', 'a'],
+                                                                                   ['b - Automatic QC applied', 'b'],
+                                                                                   ['c - Human QC applied', 'c']]} ,
+    {field: 'name'                  , label: 'Site'                     , values: ['Coastal Endurance',
+                                                                                   'Coastal Pioneer',
+                                                                                   'Global Argentine Basin',
+                                                                                   'Global Irminger Sea',
+                                                                                   'Global Southern Ocean',
+                                                                                   'Global Station Papa',
+                                                                                   'Regional Axial',
+                                                                                   'Regional Hydrate Ridge',
+                                                                                   'Regional Mid Plate']} ,
+    {field: 'aggregated_status'     , label: 'Status'                   , values: ['Critical', 'OK', 'None expected', 'Warning']} ,
+    {field: 'type_'                 , label: 'Type'                     , values: [
+      ['Attachment','Attachment'],
+      ['Data Agent Instance','ExternalDatasetAgentInstance'],
+      ['Data Agent','ExternalDatasetAgent'],
+      ['Data Process','Data Process'],
+      ['Data Product','DataProduct'],
+      ['Data Transform','DataProcessDefinition'],
+      ['Dataset Agent Instance','ExternalDatasetAgentInstance'],
+      ['Dataset Agent','ExternalDatasetAgent'],
+      ['Deployment','Deployment'],
+      ['Event Type','EventType'],
+      ['Event','Event'],
+      ['Instrument Agent Instance','InstrumentAgentInstance'],
+      ['Instrument Agent','InstrumentAgent'],
+      ['Instrument Model','InstrumentModel'],
+      ['Instrument','InstrumentDevice'],
+      ['Organization [Facility]','Org'],
+      ['Platform Agent Instance','PlatformAgentInstance'],
+      ['Platform Agent','PlatformAgent'],
+      ['Platform Model','PlatformModel'],
+      ['Platform','PlatformDevice'],
+      ['Port','InstrumentSite'],
+      ['Role','UserRole'],
+      ['Site','Observatory'],
+      ['Station','PlatformSite'],
+      ['Subscription','NotificationRequest'],
+      ['User','UserInfo']]},
+  ],
   initialize: function() {
     console.log('initializing boolean view');
-    this.render();
-    this.add_filter_item();
   },
   render: function() {
     console.log('rendering boolean');
-    this.$el.html(this.template({'fields':this.filter_fields}));
+    this.add_filter_item();
     return this;
   },
   add_filter_item: function(evt) {
@@ -540,7 +592,8 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
 
     var filter_item = $(this.template({'fields':this.filter_fields}));
     if (evt == null){
-      this.$el.find(".filter-item-holder").append(filter_item);
+      // this.$el.find(".filter-item-holder").append(filter_item);
+      this.$el.html(filter_item);
     } else {
       var target = $(evt.target);
       target.parents('.filter-item').after(filter_item);
@@ -618,61 +671,8 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
         inp_arg.append('<option value="' + value + '">' + label + '</option>');
       });
     }
-  },
-  filter_fields: [
-    {field: 'name'                  , label: 'Name'                     , values: []} ,
-    {field: 'ooi_short_name'        , label: 'OOI Data Product Code'    , values: []} ,
-    {field: 'ooi_product_name'      , label: 'Data Product Type'        , values: []} ,
-    {field: 'description'           , label: 'Description'              , values: []} ,
-    {field: 'instrument_family'     , label: 'Instrument Family'        , values: []} ,
-    {field: 'lcstate'               , label: 'Lifecycle State'          , values: ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED']} ,
-    {field: 'alt_ids'               , label: 'OOI Reference Designator' , values: []} ,
-    {field: 'name'                  , label: 'Organization'             , values: []} ,
-    {field: 'platform_family'       , label: 'Platform Family'          , values: []} ,
-    {field: 'processing_level_code' , label: 'Processing Level'         , values: [['L0 - Unprocessed Data', 'L0'],
-                                                                                   ['L1 - Basic Data', 'L1'],
-                                                                                   ['L2 - Derived Data', 'L2']]} ,
-    {field: 'quality_control_level' , label: 'Quality Control Level'    , values: [['a - No QC applied', 'a'],
-                                                                                   ['b - Automatic QC applied', 'b'],
-                                                                                   ['c - Human QC applied', 'c']]} ,
-    {field: 'name'                  , label: 'Site'                     , values: ['Coastal Endurance',
-                                                                                   'Coastal Pioneer',
-                                                                                   'Global Argentine Basin',
-                                                                                   'Global Irminger Sea',
-                                                                                   'Global Southern Ocean',
-                                                                                   'Global Station Papa',
-                                                                                   'Regional Axial',
-                                                                                   'Regional Hydrate Ridge',
-                                                                                   'Regional Mid Plate']} ,
-    {field: 'aggregated_status'     , label: 'Status'                   , values: ['Critical', 'OK', 'None expected', 'Warning']} ,
-    {field: 'type_'                 , label: 'Type'                     , values: [
-      ['Attachment','Attachment'],
-      ['Data Agent Instance','ExternalDatasetAgentInstance'],
-      ['Data Agent','ExternalDatasetAgent'],
-      ['Data Process','Data Process'],
-      ['Data Product','DataProduct'],
-      ['Data Transform','DataProcessDefinition'],
-      ['Dataset Agent Instance','ExternalDatasetAgentInstance'],
-      ['Dataset Agent','ExternalDatasetAgent'],
-      ['Deployment','Deployment'],
-      ['Event Type','EventType'],
-      ['Event','Event'],
-      ['Instrument Agent Instance','InstrumentAgentInstance'],
-      ['Instrument Agent','InstrumentAgent'],
-      ['Instrument Model','InstrumentModel'],
-      ['Instrument','InstrumentDevice'],
-      ['Organization [Facility]','Org'],
-      ['Platform Agent Instance','PlatformAgentInstance'],
-      ['Platform Agent','PlatformAgent'],
-      ['Platform Model','PlatformModel'],
-      ['Platform','PlatformDevice'],
-      ['Port','InstrumentSite'],
-      ['Role','UserRole'],
-      ['Site','Observatory'],
-      ['Station','PlatformSite'],
-      ['Subscription','NotificationRequest'],
-      ['User','UserInfo']]},
-  ]
+  }
+
 });
 
 IONUX2.Views.OrgSelector = Backbone.View.extend({
