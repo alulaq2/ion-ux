@@ -110,10 +110,20 @@
 
         $('.leftAccordionContents').hide();
         $('.accordionContainer').sortable({
-          items: "article:not(.accordion_fixed)"
+          items: "article:not(.accordion_fixed)",
+          change: function( event, ui ) {
+          }
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});
-        
+        $(".accordionContainer" ).on( "sortchange", function( event, ui ) {
+          var sortable_order = $(this).sortable( "toArray" );
+          IONUX2.Models.sortModelInstance.set({'sort_order': sortable_order});
+          console.log("sort order model");
+          console.log(IONUX2.Models.sortModelInstance);
+          console.log("accordion is changing " + sortable_order);
+          console.log(event);
+          console.log(ui);
+        });
       });
 
     </script>
