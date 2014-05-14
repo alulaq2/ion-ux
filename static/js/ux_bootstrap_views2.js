@@ -18,12 +18,10 @@ IONUX2.Views.MySearches = Backbone.View.extend({
   el: '.list_mysearches',
   template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
   initialize: function() {
-    this.render();
-    //this.model.on('change:html', this.render, this);
   },
   render: function() {
     console.log('rendering my searches view');
-    this.$el.append(this.template(this.model.attributes));
+    this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
 });
@@ -59,7 +57,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	el: '#searchTabContent',
 	events: {
 		'click .accordionTitle': 'expandHide',
-    'click #saveSearch': 'saveSearch'
+    'click #saveSearch': 'saveSearch',
+    'click #saveName': 'saveName'
 	},
 	initialize: function() {
 		this.model.on('change:html', this.render, this);
@@ -67,7 +66,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 	expandHide: function(e) {
 		e.preventDefault();
 		var $link = $(e.currentTarget);
-		$link.parent().children('.spatialDetails').slideToggle('fast', function() {
+		$link.parent().children('.leftAccordionContents').slideToggle('fast', function() {
 			if ($(this).is(':visible')) {
             	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
         	} else {
@@ -75,14 +74,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
        		}        
 		});
 	},
-  saveSearch: function() {
-    $('#saveButtons').hide();
-    $('#customSearchName').show();
-    $('#saveName').on('click', function(e) {
-      e.preventDefault();
+  saveName: function() {
       $('#customSearchName').hide();
       $('#saveButtons').show();
-  
+
       var name = $('.customName').val();
       var d = new Date();
       var month = d.getMonth() + 1;
@@ -90,23 +85,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var year = d.getFullYear();
       var hour = d.getHours();
       var minute = d.getMinutes();
+      var time = d.getTime();
 
-      IONUX2.Models.saveCustomName.set({
-        'name': name,
-        'month': month,
-        'day': day,
-        'year': year,
-        'hour': hour,
-        'minute': minute
-      });
-
-      var name = $('.customName').val() + " " + month + "/" + day + "/" + year + " " + hour + ":" + minute;
-      console.log(name);
-    });
-    (function() {
       // store spatial input values and set to model
-      var accordion_visible = $('#spatial .spatialDetails').is(':visible'),
-        spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
+      var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
         from_ns = $('.from_ns option:selected').val(),
         from_longitude = $('#west').val(),
@@ -121,30 +103,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         vertical_to = $('[data-verticalto]').val(),
         feet_miles = $('.feet_miles option:selected').val();
 
-
-      IONUX2.Models.saveSpatialSearch.set({
-        'accordion_visible': accordion_visible,
-        'spatial_dropdown': spatial_dropdown,
-        'from_latitude': from_latitude,
-        'from_ns': from_ns,
-        'from_longitude': from_longitude,
-        'from_ew': from_ew,
-        'to_latitude': to_latitude,
-        'to_ns': to_ns,
-        'to_longitude': to_longitude,
-        'to_ew': to_ew,
-        'radius': radius,
-        'miles_kilos': miles_kilos,
-        'vertical_from': vertical_from,
-        'vertical_to': vertical_to,
-        'feet_miles': feet_miles
-      });
-    })();
-
-    (function() {
       // save temporal input values and set to model
-      var accordion_visible = $('#temporal .spatialDetails').is(':visible'),
-        temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
+      var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
         from_year = $('.from_date_menu .year').val(),
         from_month = $('.from_date_menu .month').val(),
         from_day = $('.from_date_menu .day').val(),
@@ -154,71 +114,124 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         to_day = $('.to_date_menu .day').val(),
         to_hour = $('.to_date_menu .hour').val();
 
-      IONUX2.Models.saveTemporalSearch.set({
-        'accordion_visible': accordion_visible,
-        'temporal_dropdown': temporal_dropdown,
-        'from_year': from_year,
-        'from_month': from_month,
-        'from_day': from_day,
-        'from_hour': from_hour,
-        'to_year': to_year,
-        'to_month': to_month,
-        'to_day': to_day,
-        'to_hour': to_hour,
-      });
-    })();
+    var searchName = {
+      'time': time,
+      'name': name,
+      'month': month,
+      'day': day,
+      'year': year,
+      'hour': hour,
+      'minute': minute
+    };
 
+    var spatial = {
+      'spatial_dropdown': spatial_dropdown,
+      'from_latitude': from_latitude,
+      'from_ns': from_ns,
+      'from_longitude': from_longitude,
+      'from_ew': from_ew,
+      'to_latitude': to_latitude,
+      'to_ns': to_ns,
+      'to_longitude': to_longitude,
+      'to_ew': to_ew,
+      'radius': radius,
+      'miles_kilos': miles_kilos,
+      'vertical_from': vertical_from,
+      'vertical_to': vertical_to,
+      'feet_miles': feet_miles
+    };
+
+    IONUX2.Models.spatialModelInstance.set(spatial);
+    console.log("spatial model");
+    console.log(IONUX2.Models.spatialModelInstance);
+
+    var temporal = {
+      'temporal_dropdown': temporal_dropdown,
+      'from_year': from_year,
+      'from_month': from_month,
+      'from_day': from_day,
+      'from_hour': from_hour,
+      'to_year': to_year,
+      'to_month': to_month,
+      'to_day': to_day,
+      'to_hour': to_hour
+    };
+
+    IONUX2.Models.temporalModelInstance.set(temporal);
+    console.log("temporal model");
+    console.log(IONUX2.Models.temporalModelInstance);
+
+    // get facility checkbox values and add to collection
     (function() {
-      // get facility checkbox values and add to collection
-      var accordion_visible = $('#orgSelector .spatialDetails').is(':visible');
       var facilities_checked = [];
       $('.list_facilities input').each(function(data) {
         var facility_value = $(this).val();
         var is_checked = $(this).prop('checked');
-        facilities_checked.push({'accordion_visible' : accordion_visible, 'value' : facility_value, 'is_checked' : is_checked });
+        facilities_checked.push({/*'facility_accordion_visible' : facility_accordion_visible,*/ 'value' : facility_value, 'is_checked' : is_checked });
       });
-      IONUX2.Collections.saveFacilitySearch.add(facilities_checked);
-      console.log(IONUX2.Collections.saveFacilitySearch);
+      IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
     })();
 
+    // get region checkbox values and add to collection
     (function() {
-      // get region checkbox values and add to collection
-      var accordion_visible = $('#region .spatialDetails').is(':visible');
       var regions_checked = [];
       $('.list_regions input').each(function(data) {
         var region_name = $(this).data('spatial');
         var is_checked = $(this).prop('checked');
-        regions_checked.push({'accordion_visible' : accordion_visible, 'name' : region_name, 'is_checked' : is_checked });
+        regions_checked.push({/*'region_accordion_visible' : region_accordion_visible,*/ 'region_name' : region_name, 'is_checked' : is_checked });
       });
-      IONUX2.Collections.saveRegionSearch.add(regions_checked);
-      console.log(IONUX2.Collections.saveRegionSearch);
+      IONUX2.Collections.saveRegionSearch.set(regions_checked);
     })();
 
     (function() {
       // get sites checkbox values and add to collection
-      var accordion_visible = $('#sites .spatialDetails').is(':visible');
       var sites_checked = [];
       $('.list_sites input').each(function(data) {
         var site_id = $(this).data('id');
         var is_checked = $(this).prop('checked');
-        sites_checked.push({'accordion_visible' : accordion_visible, 'id' : site_id, 'is_checked' : is_checked });
+        sites_checked.push({/*'sites_accordion_visible' : sites_accordion_visible,*/ 'id' : site_id, 'is_checked' : is_checked });
       });
-      IONUX2.Collections.saveSiteSearch.add(sites_checked);
-      console.log(IONUX2.Collections.saveSiteSearch);
+      IONUX2.Collections.saveSiteSearch.set(sites_checked);
     })();
 
     (function() {
       // get data type checkbox values and add to collection
-      var accordion_visible = $('#dataTypesList .spatialDetails').is(':visible');
       var datatype_checked = [];
       $('.listDataTypes input').each(function(data) {
         var datatype_value = $(this).val();
         var is_checked = $(this).prop('checked');
-        datatype_checked.push({'accordion_visible' : accordion_visible, 'datatype_value' : datatype_value, 'is_checked' : is_checked });
+        datatype_checked.push({/*'datatype_accordion_visible' : datatype_accordion_visible,*/ 'datatype_value' : datatype_value, 'is_checked' : is_checked });
       });
-      IONUX2.Collections.saveDataTypeSearch.add(datatype_checked);
-      console.log(IONUX2.Collections.saveDataTypeSearch);
+      IONUX2.Collections.saveDataTypeSearch.set(datatype_checked);
     })();
+
+      var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
+      var regions = IONUX2.Collections.saveRegionSearch.toJSON();
+      var sites = IONUX2.Collections.saveSiteSearch.toJSON();
+      var dataTypes = IONUX2.Collections.saveDataTypeSearch.toJSON();
+
+      var values = {
+        'searchName': searchName,
+        'spatial' : spatial,
+        'temporal': temporal,
+        'facilities' : facilities,
+        'regions': regions,
+        'sites': sites,
+        'dataTypes': dataTypes
+      };
+
+      // add search values to saved search collection
+      IONUX2.Collections.saveNames.add(values);
+      console.log("saved search collection");
+      console.log(IONUX2.Collections.saveNames);     
+
+      //remove previous input text so that name placeholder shows
+      $('.customName').val(''); 
+  },
+
+  saveSearch: function() {
+    $('#saveButtons').hide();
+    $('#customSearchName').show();
   },
 
 	render: function() {
@@ -226,6 +239,22 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 		this.$el.html(this.model.html);
 		return this;
 	}
+});
+
+IONUX2.Views.LeftAccordion = Backbone.View.extend({
+  el: '#searchTabContent',
+  //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
+  template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
+   '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
+  '<section class="leftAccordionContents" style="display:none;position:relative;" id="<%= id %>"></section></article>'),
+  initialize: function() {
+    console.log('initializing left accordion view');
+  },
+  addAccordion: function(title, id) {
+    params = {'data':{'title':title, 'id':id}};
+    this.$el.children('.accordionContainer').append(this.template(params.data));
+    //return this;
+  }
 });
 
 IONUX2.Views.Sites = Backbone.View.extend({
@@ -260,22 +289,15 @@ IONUX2.Views.Sites = Backbone.View.extend({
     if ($check.is(':checked')) {
       IONUX2.Collections.instruments.fetch({
         success : function(collection) {
-          $('#instrument .spatialDetails').append(IONUX2.Views.instruments.render().el);
+          $('#instrument').append(IONUX2.Views.instruments.render().el);
         }
       });
     }
     else {
       //IONUX2.Collections.instruments.reset();
-      $('.instrument_list').remove();
-      /*IONUX2.Collections.instruments.fetch({
-        success : function(collection) {
-          IONUX2.Views.instruments.removeView();
-          $('#instrument .spatialDetails').append(IONUX2.Views.instruments.render().el);
-          //$('#instrument .spatialDetails').append(IONUX2.Views.instruments.render().el);
-        }
-      //$('#instrument .spatialDetails').html(IONUX2.Views.instruments.removeView().el);
-      
-    });*/
+      var $resourceIdElem = $('.' + IONUX2.Collections.instruments.resource_id + '');
+      console.log("resource id element is " + $resourceIdElem);
+      $resourceIdElem.remove();
     }
   },
 
@@ -330,61 +352,16 @@ IONUX2.Views.Instruments = Backbone.View.extend({
   render: function() {
     this.collection.each(function(instrument_name) {
       var instrumentView = new IONUX2.Views.InstrumentView({ model : instrument_name });
-      $(this.el).prepend(instrumentView.render().el);
+      $(this.el).addClass(IONUX2.Collections.instruments.resource_id).prepend(instrumentView.render().el);
     }, this);
     return this;
   }
-  /*add : function(models, options) {
-    var newModels = [];
-    _.each(models, function(model) {
-      if (_.isUndefined(this.get(model.id))) {
-        newModels.push(model);    
-      }
-    }, this);
-    return Backbone.Collection.prototype.add.call(this, newModels, options);
-  }*/
 });
-
-
-
-/*IONUX2.Views.Facility = Backbone.View.extend({
-  el: '#facility',
-  template: _.template(IONUX2.getTemplate('templates/facility.html')),
-  events: {
-    'click .checkAllFacilities': 'select_all_facilities'
-  },
-  initialize: function() {
-    this.render();
-  },
-
-  select_all_facilities: function(e) {
-    var $check = $(e.currentTarget);
-    if ($check.is(':checked')) {
-      $('.list_facilities').find('input').prop('checked', true);
-    }
-    else {
-      $('.list_facilities').find('input').prop('checked', false);
-    }
-  },
-
-  render: function() {
-    this.$el.html(this.template(this.collection.toJSON()));
-    return this;
-  }
-
-});*/
 
 IONUX2.Views.Region = Backbone.View.extend({
 	el: '#region',
 	template: _.template(IONUX2.getTemplate('templates/regions.html')),
 	events: {
-      /*'click .secondary-link': 'click_action',
-      'click .secondary-nested-link': 'click_action_nested',
-      'click .secondary-link-selected': 'click_action',
-      'click .secondary-nested-link-selected': 'click_action_nested',
-      'click .toggle-all-menu': 'toggle_action',
-      'click .toggle-all-menu-selected': 'toggle_action',
-      'click .primary-link': 'trigger_pan_map',*/
       'click .checkAll': 'select_all_regions',
       'click #region_item': 'toggle_sites'
   },
@@ -416,67 +393,6 @@ IONUX2.Views.Region = Backbone.View.extend({
     }
   },
 
-  /*trigger_pan_map: function(e) {
-   IONUX2.Dashboard.MapResource.tmp = e.target.innerHTML.toString().trim();
-   if (e.target.className =="primary-link nested-primary-link"){
-      IONUX2.Dashboard.MapResource.resource_level = 3;
-   }else{
-      IONUX2.Dashboard.MapResource.resource_level = 0;
-   }
-   //get selected id
-   var res = e.target.pathname.split("/",3);
-   IONUX2.Dashboard.MapResource.tmpId = res[2];
-   IONUX2.Dashboard.MapResource.trigger('pan:map');
-  },
-  
-   click_action_map: function(e){
-       e.preventDefault();
-       var target = $(e.target);
-       target.parent().next('ul').toggle();
-  },
-
-  click_action: function(e){
-      e.preventDefault();
-      var target = $(e.target);
-      target.parent().parent().next('ul').toggle()
-      if (target.parent().parent().next('ul').is(":visible")) {
-          target.attr('class','secondary-link-selected  pull-right');
-      }
-      else {
-          target.attr('class','secondary-link pull-right');
-      }
-
-      console.log(target.parent().parent().next('ul').is(":visible"))
-  },
-
-  click_action_nested: function(e){
-      e.preventDefault();
-      var target = $(e.target);
-      target.parent().next('ul').toggle()
-      if (target.parent().next('ul').is(":visible")) {
-          target.attr('class','secondary-nested-link-selected  pull-right');
-      }
-      else {
-          target.attr('class','secondary-nested-link pull-right');
-      }
-
-      console.log(target.parent().next('ul').is(":visible"))
-  },
-
-   toggle_action: function(e){
-       e.preventDefault();
-       var map_target = $('.map-nested-ul');
-       map_target.toggle();
-       var target = $(e.target);
-       console.log(target.attr('class'));
-       if (target.attr('class') == 'toggle-all-menu pull-right'){
-           target.attr('class', 'toggle-all-menu-selected pull-right')
-       }
-       else {
-           target.attr('class', 'toggle-all-menu pull-right')
-       }
-   },*/
-
 	build_menu: function(){
     // Grab all spatial names, then uniques; separate for clarity.
     var spatial_area_names = _.map(this.collection.models, function(resource) {
@@ -507,13 +423,68 @@ IONUX2.Views.Spatial = Backbone.View.extend({
 	template: _.template(IONUX2.getTemplate('templates/spatial.html')),
 	initialize: function() {
 		console.log('initializing spatial view');
+    this.model.on('change:spatialData', this.updateData, this);
 		this.render();
 	},
+  updateData: function() {
+    var spatialModel = IONUX2.Models.spatialModelInstance.attributes;
+    console.log("spatial model in Views Spatial");
+    console.log(spatialModel);
+    $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+    if (spatialModel.spatial_dropdown == 2) {
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+    }
+    else {
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+    }
+    $('#south').val(spatialModel.from_latitude),
+    $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
+    $('#west').val(spatialModel.from_longitude),
+    $('.from_ew option[value="' + spatialModel.from_ew + '"]').attr('selected', 'selected');
+    $('.placeholder_lat').val(spatialModel.to_latitude),
+    $('.north_south_menu option[value="' + spatialModel.to_ns + '"]').attr('selected', 'selected');
+    $('.show_hide_longitude').val(spatialModel.to_longitude),
+    $('.to_ew option[value="'+ spatialModel.to_ew + '"]').attr('selected', 'selected');
+    $('.no_placeholder_radius').val(spatialModel.radius),
+    $('.milesKilosMenu').val(spatialModel.miles_kilos),
+    $('[data-verticalfrom]').val(spatialModel.vertical_from),
+    $('[data-verticalto]').val(spatialModel.vertical_to),
+    $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
+  },
 	render: function() {
 		console.log('rendering spatial');
 		this.$el.html(this.template());
 		return this;
-	}
+	},
+  
+});
+
+IONUX2.Views.Temporal = Backbone.View.extend({
+  el: '#temporal',
+  template: _.template(IONUX2.getTemplate('templates/temporal.html')),
+  initialize: function() {
+    console.log('initializing temporal view');
+    this.model.on('change:temporalData', this.updateData, this);
+    this.render();
+  },
+  updateData: function() {
+    var temporalModel = IONUX2.Models.temporalModelInstance.attributes;
+    $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
+    $('.from_date_menu .year option[value="' + temporalModel.from_year + '"]').attr('selected', 'selected');
+    $('.from_date_menu .month option[value="' + temporalModel.from_month + '"]').attr('selected', 'selected');
+    $('.from_date_menu .day option[value="' + temporalModel.from_day + '"]').attr('selected', 'selected');
+    $('.from_date_menu .hour option[value="' + temporalModel.from_hour + '"]').attr('selected', 'selected');
+    $('.to_date_menu .year option[value="' + temporalModel.to_year + '"]').attr('selected', 'selected');
+    $('.to_date_menu .month option[value="' + temporalModel.to_month + '"]').attr('selected', 'selected');
+    $('.to_date_menu .day option[value="' + temporalModel.to_day + '"]').attr('selected', 'selected');
+    $('.to_date_menu .hour option[value="' + temporalModel.to_hour + '"]').attr('selected', 'selected');
+  },
+  render: function() {
+    this.$el.html(this.template());
+    return this;
+  }
 });
 
 IONUX2.Views.OrgSelector = Backbone.View.extend({
@@ -540,18 +511,3 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
 		return this;
 	}
 });	
-
-/*IONUX2.Views.AccordionWhite = Backbone.View.extend({
-  el: '#accordionSearch',
-  template: _.template(IONUX2.getTemplate('templates/block_accordion_white2.html')),
-  accordionTemplate: _.template(IONUX2.getTemplate('templates/partials/block_accordion_container2.html')),
-  initialize: function() {
-    console.log('initializing white accordion view');
-  },
-  render: function(){
-    console.log('rendering white accordion to ' + this.el);
-    this.$el.html(this.template());
-    return this;
-  },
-
-});*/
