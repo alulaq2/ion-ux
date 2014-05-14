@@ -12,6 +12,16 @@
 		<textarea name="params" cols="140" rows="20" id="params"></textarea><br/>
 	</form>
 	<span id="submit" style="width:auto;background:#008800;border: 1px solid #000;border-radius:6px;color:#fff;padding:4px;cursor:pointer;">Submit</span>
+
+<pre>
+http://ooinet.oceanobservatories.org/search/?adv=1&north=47.0402&west=-138.1641&east=-101.6016&south=21.943&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&filter_var=name&filter_operator=contains&filter_arg=
+
+query={'and':[],'or':[],'query':{'field': 'product_type', 'value':'Mooring'}}
+id_only=false
+
+query={'and':[],'or':[],'query':{'field': 'ooi_product_name', 'value':'Conductivity'}}
+id_only=false
+</pre>
 <script>
 	$(function(){
 		$("#submit").click(function(e) {

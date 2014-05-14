@@ -429,7 +429,8 @@ def services_backdoor_utility(service, function):
         else:
             params.update({k:v})
     results = ServiceApi.back_door_service_request_utility(service, function, params)
-    return render_json_response(results)
+    list_count = len(results)
+    return jsonify(data={'count': list_count, 'results': results})
 
 @app.route('/<resource_type>/extension/<resource_id>/', methods=['GET'])
 def extension(resource_type, resource_id):

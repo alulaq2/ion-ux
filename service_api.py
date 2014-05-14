@@ -7,6 +7,7 @@ from werkzeug.contrib.cache import SimpleCache
 from werkzeug.exceptions import HTTPException
 # import re
 import config
+import os
 
 GATEWAY_BASE_URL = 'http://%s:%d' % (GATEWAY_HOST, GATEWAY_PORT)
 SERVICE_GATEWAY_BASE_URL = '%s/ion-service' % (GATEWAY_BASE_URL)
@@ -54,7 +55,7 @@ class ServiceApi(object):
 
     @staticmethod
     def back_door_service_request_utility(service, function, params):
-        results = service_gateway_get(service, function, params)
+        results = service_gateway_get(service, function, params, True)
         return results
 
     @staticmethod
@@ -250,6 +251,10 @@ class ServiceApi(object):
         post_data['query'] = queries[0]
         post_data['and'] = queries[1:]
 
+        string_query = '*****  QUERY IS::::::{0}'.format(post_data)
+        f = open('crap.txt', 'w')
+        f.write(string_query)
+        f.close()
         # have to manually call because normal SG post turns a list into the first object?
         url, data = build_post_request('discovery', 'query', {'query': post_data, 'id_only': False})
         resp = requests.post(url, data)
