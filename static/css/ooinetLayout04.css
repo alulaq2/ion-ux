@@ -486,6 +486,10 @@ ul.dropdown-menu li:hover {
   position: absolute;
 }
 
+#saveConfiguration {
+  display: none;
+}
+
 .leftAccordion {
   background-color: #3b5e7e;
   background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
