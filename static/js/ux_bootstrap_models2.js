@@ -217,7 +217,8 @@ IONUX2.Collections.Instruments = Backbone.Collection.extend({
   }
 });
 
-//IONUX2.Collections.InstrumentGroup = Backbone.Collection.extend({});
+IONUX2.Collections.InstrumentGroup = Backbone.Collection.extend({});
+IONUX2.Collections.instrumentGroup = new IONUX2.Collections.InstrumentGroup();
 
 IONUX2.Models.SpatialInit = Backbone.Model.extend({
   defaults: {

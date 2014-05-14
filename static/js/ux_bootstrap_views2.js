@@ -286,6 +286,7 @@ IONUX2.Views.Sites = Backbone.View.extend({
     var resourceId = $(e.currentTarget).data('id');
     var $check = $(e.currentTarget);
     IONUX2.Collections.instruments = new IONUX2.Collections.Instruments([], {resource_id: resourceId});
+    IONUX2.Collections.instrumentGroup.set(IONUX2.Collections.instruments);
     IONUX2.Views.instruments = new IONUX2.Views.Instruments({collection: IONUX2.Collections.instruments});
     
     if ($check.is(':checked')) {
