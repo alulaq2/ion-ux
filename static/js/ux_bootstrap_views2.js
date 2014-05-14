@@ -517,8 +517,9 @@ IONUX2.Views.Spatial = Backbone.View.extend({
 });
 
 IONUX2.Views.BooleanSearch = Backbone.View.extend({
-  el: '.filter-item-holder',
+  el: '#boolean_expression',
   template: _.template(IONUX2.getTemplate('templates/block_boolean2.html')),
+  item_template: _.template(IONUX2.getTemplate('templates/partials/block_boolean_item2.html')),
   events: {
     "click .filter-add": "add_filter_item",
     "click .filter-remove": "remove_filter_item",
@@ -527,18 +528,19 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
   initialize: function() {
     console.log('initializing boolean view');
     this.render();
-    this.add_filter_item();
+    //this.add_filter_item();
   },
   render: function() {
     console.log('rendering boolean');
-    this.$el.html(this.template({'fields':this.filter_fields}));
+    this.$el.html(this.template());
+    this.add_filter_item();
     return this;
   },
   add_filter_item: function(evt) {
     //var columns = this.get_filter_columns();
     //var data = {"columns":columns, "operators":OPERATORS};
 
-    var filter_item = $(this.template({'fields':this.filter_fields}));
+    var filter_item = $(this.item_template({'fields':this.filter_fields}));
     if (evt == null){
       this.$el.find(".filter-item-holder").append(filter_item);
     } else {
