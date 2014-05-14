@@ -448,9 +448,12 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#westFm").val(e.toFixed(4));
     $("#northFm").val(s.toFixed(4));
     $("#eastFm").val(w.toFixed(4));
+    
+    var attribute = {};
 
     if(n >= 0){
       $("#ne_ns").val("1");
+      attribute["to_ns"] = "1";
     } else {
       $("#ne_ns").val("2");
       n = n * -1;
@@ -481,6 +484,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#west").val(w.toFixed(2));
     $("#north").val(n.toFixed(2));
     $("#east").val(e.toFixed(2));
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
   },
 
