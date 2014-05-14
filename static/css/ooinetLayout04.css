@@ -610,6 +610,16 @@ select.dateMenu.hour {
   margin-bottom: 4px;
 }
 
+select.leftNaviSelectContainer {
+  position: relative;
+  width: 160px;
+  height: 16px;
+  padding: 0px;
+  border: 1px solid #384D68;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
 .leftNaviNarrowSelectContainer {
 position: relative;
 height: 16px;
@@ -672,6 +682,20 @@ display: inline-block;
   background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
   background: -moz-linear-gradient(left, #88A9CC, #7890AC);
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
+}
+
+input.argument2 {
+  height: 18px;
+  border-top:#7D7D7D 1px solid;
+  border-left:#7D7D7D 1px solid;
+  border-bottom:#FFFFFF 1px solid;
+  border-right:#FFFFFF 1px solid;
+  background: #cdcdcd;
+  padding: 0px 5px;
+  font-size: 11px;
+  font-weight: 500;
+  width: 150px;
+  color: #000;
 }
 
 .topSearchRadius {
