@@ -96,6 +96,113 @@ IONUX2.Views.Map = Backbone.View.extend({
   events: {
     'click': 'render_map_bounds'
   },
+
+  set_temporal_form: function(){
+
+    var tYear = $("#tempFromYear").val();
+    var tMonth = parseInt($("#tempFromMonth").val()) + 1;
+    var tDay = $("#tempFromDay").val();
+
+    $("#tempFromFm").val(tYear + '-' + tMonth + '-' + tDay);
+
+    var tYear2 = $("#tempToYear").val();
+    var tMonth2 = parseInt($("#tempToMonth").val()) + 1;
+    var tDay2 = $("#tempToDay").val();
+
+    $("#tempToFm").val(tYear2 + '-' + tMonth2 + '-' + tDay2);
+
+    $("#temporal-field-ctrlFm").val($("#tempSelect").val());
+
+  },
+
+  search_clicked: function(){
+
+    this.set_temporal_form();
+
+    var form_values = $('#searchForm').serializeArray();
+    form_values.splice(0, 0, {name:'adv', value:1});
+
+    var form_values_bool = $('#booleanForm').serializeArray();
+
+    // switch into an object - much easier to access directly
+    var formObj = _.object(_.map(form_values, function(v) {
+      return [v.name, v.value];
+    }));
+    
+    // normalize into "down" facing vertical if switched to up
+    if (this.$('.vertical-bounds-positive').hasClass('toggle_sealevel_passive')) {
+      if (formObj['vertical-lower-bound']) {
+        formObj['vertical-lower-bound'] = -formObj['vertical-lower-bound'];
+      }
+      if (formObj['vertical-upper-bound']) {
+        formObj['vertical-upper-bound'] = -formObj['vertical-upper-bound'];
+      }
+      if (formObj['vertical-upper-bound'] < formObj['vertical-lower-bound']) {
+        var tmp = formObj['vertical-upper-bound'];
+        formObj['vertical-upper-bound'] = formObj['vertical-lower-bound'];
+        formObj['vertical-lower-bound'] = tmp;
+      }
+    }
+
+    //Error checking advanced search input params
+    function check_Vals() {
+
+      var bValid = true;
+      var errorString = '';
+
+      //Check geospatial bounds (all or none)
+      var all = form_values[1].value !== '' && form_values[2].value !== '' &&
+        + form_values[3].value !== '' && form_values[4].value !== '';
+
+      var none = form_values[1].value == '' && form_values[2].value == '' &&
+        + form_values[3].value == '' && form_values[4].value == '';
+
+      if (!(all || none)){
+        errorString += 'Error in GEOSPATIAL BOUNDS:\nPartially filled form\n';
+        bValid = false;
+      }
+
+      //Check vertical bounds (all or none)
+      var all_or_none = (form_values[5].value !== '' && form_values[6].value !== '') ||
+        + (form_values[5].value == '' && form_values[6].value == '');
+
+      if (!all_or_none){
+        errorString += 'Error in VERTICAL BOUNDS:\nPartially filled form\n';
+        bValid = false;
+      }
+
+      //Check temporal bounds (all or none)
+      all_or_none = (form_values[7].value !== '' && form_values[8].value !== '') ||
+        + (form_values[7].value == '' && form_values[8].value == '');
+
+      if (!all_or_none){
+        errorString += 'Error in TEMPORAL BOUNDS:\nPartially filled form\n';
+        bValid = false;
+      }
+
+      if (!bValid){
+        self.alert(errorString)
+      }
+
+      return bValid;
+    }
+
+    //Check input values
+    var bValid = check_Vals();
+    if (!bValid){
+      return;
+    }
+
+    var search_term = $.param(form_values);
+    var search_term2 = $.param(form_values_bool);
+
+    search_term = search_term + '&' + search_term2;
+
+    console.log('SEARCH CLICKED...' + search_term);
+
+    IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
+
+  },
   
   render_map_bounds: function(e){
      var bounds = this.map.getBounds();
@@ -151,6 +258,11 @@ IONUX2.Views.Map = Backbone.View.extend({
     // HACK! temporarily workaround to a timing issue in Chrome/Safari.
     // this.get_sites_status();
     window.setTimeout(this.get_sites_status, 1000);
+    var self = this;
+    $('#searchBtn').on('click', function(){
+      self.search_clicked();
+    });
+
   },
   
     data_types: function(){
@@ -318,6 +430,12 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#north").val("");
     $("#east").val("");
     $("#radius").val("");
+
+    $("#southFm").val("");
+    $("#westFm").val("");
+    $("#northFm").val("");
+    $("#eastFm").val("");
+    $("#radiusFm").val("");
   },
 
   update_latlon: function (ne, sw){
@@ -326,6 +444,10 @@ IONUX2.Views.Map = Backbone.View.extend({
     var e = ne.lng();
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(n.toFixed(4));
+    $("#westFm").val(e.toFixed(4));
+    $("#northFm").val(s.toFixed(4));
+    $("#eastFm").val(w.toFixed(4));
 
     if(n >= 0){
       $("#ne_ns").val("1");
@@ -360,14 +482,14 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#north").val(n.toFixed(2));
     $("#east").val(e.toFixed(2));
 
-    //TODO: Assign actual values to input fields for form submission
-    //$("#hidden_field").val(ne.lat())
-
   },
 
   update_pointradius: function (radius, sw){
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(s.toFixed(4));
+    $("#westFm").val(w.toFixed(4));
+    $("#radiusFm").val(radius);
 
     if(s >= 0){
       $("#sw_ns").val("1");
@@ -386,11 +508,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#south").val(s.toFixed(2));
     $("#west").val(w.toFixed(2));
     $("#radius").val((radius/1000).toFixed(2));
-
-    //TODO: Assign actual values to input fields for form submission
-    //$("#hidden_field_lat").val(sw.lat())
-    //$("#hidden_field_lng").val(sw.lng())
-    //$("#hidden_field_radius").val(radius)
 
   },
 
@@ -417,13 +534,15 @@ IONUX2.Views.Map = Backbone.View.extend({
     self.drawingManager.setDrawingMode(null);
   },
 
-  create_circle: function(lat, lng, radius){
+  create_circle: function(lat, lng){
     var point = new google.maps.LatLng(lat, lng);
     var radius = 0.00;
     
     if($("#radius").val() != null && $("#radius").val().length > 0){
      radius = parseInt($("#radius").val())*1000;
     }
+
+    $("#radiusFm").val(radius);
 
     var self = this;
     if (!self.circle) {
@@ -471,6 +590,11 @@ IONUX2.Views.Map = Backbone.View.extend({
       if($("#sw_ns").val() == "2"){
         s =  s * -1;
       }
+
+      var n = $('#northFm').val(n);
+      var s = $('#southFm').val(s);
+      var e = $('#eastFm').val(e);
+      var w = $('#westFm').val(w);
       
       self.create_rectangle(n, s, e, w);
 
@@ -485,6 +609,9 @@ IONUX2.Views.Map = Backbone.View.extend({
       if($("#sw_ew").val() == "2"){
         w =  w * -1;
       }
+
+      var s = $('#southFm').val(s);
+      var w = $('#westFm').val(w);
         
       self.create_circle(s, w);
     }
