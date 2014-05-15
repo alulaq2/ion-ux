@@ -245,9 +245,9 @@ class ServiceApi(object):
         post_data['query'] = queries[0]
         post_data['and'] = queries[1:]
 
-        f = open('crap.txt', 'w');
-        f.write(jsonify(post_data));
-        f.close();
+        # f = open('crap.txt', 'w');
+        # f.write(jsonify(post_data));
+        # f.close();
 
         # have to manually call because normal SG post turns a list into the first object?
         url, data = build_post_request('discovery', 'query', {'query': post_data, 'id_only': False})
