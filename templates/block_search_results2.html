@@ -1,11 +1,11 @@
-<div id="searchResultsTabContainer" style="position:relative; height:28px;">
-	<div class="twoNavTabs" style="left:10px;">
+<div id="searchResultsTabContainer" style="position:relative; height:28px; width:100%;">
+	<div class="twoNavTabs" style="left:10px;width:calc(100% - 10px);">
 		<div id="dataSearchResultsTab" class="twoNavTab active" href="#dataSearchResultsAccordion">Data</div>
 		<div id="assetsSearchResultsTab" class="twoNavTab" href="#assetsSearchResultsAccordion">Assets</div>
 		<div id="sitesSearchResultsTab" class="twoNavTab" href="#siteSearchResultsAccordion">Sites</div>
 	</div>
 </div>
-<div id="searchResultsContainer" style="position:absolute;top:28px;left:0px;height:calc(100% - 30px);width:100%;background:#fff;">
+<div id="searchResultsContainer" >
 	<div id="dataSearchResultsAccordion"> 
 		<div class="accordionContainerWhite">
 		</div>
@@ -34,6 +34,8 @@
 
 <script>
 	$(function () {
+		$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
+
 		var dataTypesList = [
 			{'name':"Conductivity", 'id':"Conductivity"},
 			{'name':"Density", 'id':"Density"},

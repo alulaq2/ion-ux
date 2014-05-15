@@ -919,6 +919,29 @@ input.noPlaceholderRadius {
   background: transparent;
 }
 
+#searchResultsContainer {
+  position:absolute;
+  top:28px;
+  left:0px;
+  height:calc(100% - 28px);
+  width:100%;
+  overflow:auto;
+  background:#384d68;
+}
+
+#searchResultsContainer .jspVerticalBar {
+
+  right: 4px;
+}
+
+#searchResultsContainer .jspTrack {
+  background: none;
+}
+
+#searchResultsContainer .jspDrag {
+  background: #88A9CC;
+}
+
 .accordionContainer .jspVerticalBar {
 
   right: 4px;
