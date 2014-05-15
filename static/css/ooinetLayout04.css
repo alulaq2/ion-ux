@@ -557,6 +557,12 @@ input.latlong {
   margin-bottom: 2px;
 }
 
+input.booleanInput {
+  width: calc(100% - 58px);
+  margin-left: 4px;
+  margin-bottom: 2px;
+}
+
 #spatial input {
   height: 17px;
   padding: 0px;
@@ -610,14 +616,32 @@ select.dateMenu.hour {
   margin-bottom: 4px;
 }
 
-select.leftNaviSelectContainer {
+.filter-item {
+  margin: 0px;
+}
+
+select.booleanSelectContainer {
   position: relative;
-  width: 160px;
-  height: 16px;
+  width: 162px;
+  /* These are required to remove all browser default styling of drop down arrow */  
+  /*
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  */
+  /*  */
+  height: 18px;
   padding: 0px;
+  color: #fff;
+  line-height: 16px;
   border: 1px solid #384D68;
   border-radius: 3px;
-  margin-bottom: 4px;
+  background: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));
+  background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
+  background: -moz-linear-gradient(left, #88A9CC, #7890AC);
+  background: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
 .leftNaviNarrowSelectContainer {
