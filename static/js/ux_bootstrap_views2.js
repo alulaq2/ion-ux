@@ -32,7 +32,8 @@ IONUX2.Views.LoadSearches = Backbone.View.extend({
   render: function() {
     console.log('rendering load searches view');
     console.log(this.model);
-    this.$el.html(this.template(this.model.data));
+    //this.$el.html(this.template(this.model.data));
+    this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
 });
