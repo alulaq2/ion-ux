@@ -245,12 +245,12 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             'spatialElem': $('#spatial').is(':visible'),
             'temporalElem': $('#temporal').is(':visible'),
             'orgSelectorElem': $('#orgSelector').is(':visible'),
-                    'regionElem': $('#region').is(':visible'),
-                    'siteElem': $('#site').is(':visible'),
-                    'dataTypesListElem': $('#dataTypesList').is(':visible'),
-                    'boolean_expressionElem': $('#boolean_expression').is(':visible'),
-                    'platformElem': $('#platform').is(':visible'),
-                    'instrumentElem': $('#instrument').is(':visible'),
+            'regionElem': $('#region').is(':visible'),
+            'siteElem': $('#site').is(':visible'),
+            'dataTypesListElem': $('#dataTypesList').is(':visible'),
+            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+            'platformElem': $('#platform').is(':visible'),
+            'instrumentElem': $('#instrument').is(':visible')
         },
         'bottom_config': {
               'accordionAssets': $('#accordionAssets .accordionContents').is(':visible'),
