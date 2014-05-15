@@ -5,6 +5,8 @@ IONUX2.Views.Map = Backbone.View.extend({
   icons_rank: [
     'critical','warning','ok','na'
   ],
+
+  do_change_spatial_event: true,
  
   // The cluster icons are a handily fixed 240 pixels further down the sprite from the following.
   single_icons: {
@@ -151,6 +153,9 @@ IONUX2.Views.Map = Backbone.View.extend({
     // HACK! temporarily workaround to a timing issue in Chrome/Safari.
     // this.get_sites_status();
     window.setTimeout(this.get_sites_status, 1000);
+
+    //Input to drawing manager mapping, for manual updating of inputs. Input -> Map
+    IONUX2.Models.spatialModelInstance.on('change:spatialData', this.update_inputs, this);
 
   },
   
@@ -320,13 +325,90 @@ IONUX2.Views.Map = Backbone.View.extend({
     attribute["to_longitude"] = "";
     attribute["to_latitude"] = "";
     attribute["radius"] = "";
-    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    this.update_spatial_model(attribute);
 
     $("#southFm").val("");
     $("#westFm").val("");
     $("#northFm").val("");
     $("#eastFm").val("");
     $("#radiusFm").val("");
+  },
+
+  update_inputs: function(){
+      var model = IONUX2.Models.spatialModelInstance.attributes;
+      console.log('update_inputs fired.');
+      console.log(this.do_change_spatial_event);
+      if (this.do_change_spatial_event == true){
+        var attribute = {};
+
+        console.log('updating map for model changes.');
+        console.log(model);
+
+        if(model.spatial_dropdown == "1"){
+          if(this.circle){
+            this.circle.setMap(null);
+            delete this.circle;
+          } 
+
+          var n = model.to_latitude;//$('#north').val();
+          var s = model.from_latitude;//$('#south').val();
+          var e = model.to_longitude;//$('#east').val();
+          var w = model.from_longitude;//$('#west').val();
+
+          console.log('N:' + n +" S:" + s + " E:" + e + " W:" + w);
+
+          if(model.from_ew == "2"){
+            w =  w * -1;
+          }
+          if(model.to_ew == "2"){
+            e =  e * -1;
+          }
+          if(model.to_ns == "2"){
+            n =  n * -1;
+          }
+          if(model.from_ns == "2"){
+            s =  s * -1;
+          }
+
+          $('#northFm').val(n);
+          $('#southFm').val(s);
+          $('#eastFm').val(e);
+          $('#westFm').val(w);
+
+          console.log('N:' + n +" S:" + s + " E:" + e + " W:" + w);
+          
+          this.create_rectangle(n, s, e, w);
+
+        } else if(model.spatial_dropdown == "2"){
+          if (this.rectangle) {
+            this.rectangle.setMap(null);
+            delete this.rectangle;
+          }
+
+          var s = model.from_latitude;//$('#south').val();
+          var w = model.from_longitude;//$('#west').val();
+          var r = model.radius;
+
+          if(model.from_ns == "2"){
+            s =  s * -1;
+          }
+          if(model.from_ew == "2"){
+            w =  w * -1;
+          }
+
+          $('#southFm').val(s);
+          $('#westFm').val(w);
+          $("#radiusFm").val(r);
+            
+          this.create_circle(s, w, r);
+        }
+      }
+  },
+
+  update_spatial_model: function (attribute){
+    this.do_change_spatial_event = false;
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    this.do_change_spatial_event = true;
   },
 
   update_latlon: function (ne, sw){
@@ -374,7 +456,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     attribute["from_latitude"] = s.toFixed(2);
     attribute["to_longitude"] = e.toFixed(2);
     attribute["to_latitude"] = n.toFixed(2);
-    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    this.update_spatial_model(attribute);
 
   },
 
@@ -405,7 +487,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     attribute["from_latitude"] = s.toFixed(2);
     attribute["radius"] = (radius/1000).toFixed(2);
 
-    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    this.update_spatial_model(attribute);
 
   },
 
@@ -432,15 +514,15 @@ IONUX2.Views.Map = Backbone.View.extend({
     self.drawingManager.setDrawingMode(null);
   },
 
-  create_circle: function(lat, lng){
+  create_circle: function(lat, lng, radius){
     var point = new google.maps.LatLng(lat, lng);
-    var radius = 0.00;
+    // var radius = 0.00;
     
-    if($("#radius").val() != null && $("#radius").val().length > 0){
-     radius = parseInt($("#radius").val())*1000;
+    if(radius != null && radius.length > 0){
+     radius = parseInt(radius)*1000;
     }
 
-    $("#radiusFm").val(radius);
+    // $("#radiusFm").val(radius);
 
     var self = this;
     if (!self.circle) {
@@ -550,7 +632,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       
       if(!self.spatial_open){
-        $("#spatialtab").click();
+        $("#spatialElem").find('.accordionTitle').click();
       }
 
       var mode = this.getDrawingMode();
@@ -559,12 +641,12 @@ IONUX2.Views.Map = Backbone.View.extend({
       if (mode == "rectangle"){
         self.clear_inputs();
         attribute["spatial_dropdown"] = "1";
-        IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+        self.update_spatial_model(attribute);
         $('.latLongMenu').val("1");
       } else if (mode == "circle"){
         self.clear_inputs();
         attribute["spatial_dropdown"] = "2";
-        IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+        self.update_spatial_model(attribute);
         $('.latLongMenu').val("2");
       }
 
