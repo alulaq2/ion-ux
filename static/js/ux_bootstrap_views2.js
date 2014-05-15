@@ -112,6 +112,21 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var minute = d.getMinutes();
       var time = d.getTime();
 
+      var spatial_accordion_visible = $('#spatial').is(':visible'),
+          temporal_accordion_visible = $('#temporal').is(':visible'),
+          facility_accordion_visible = $('#orgSelector').is(':visible'),
+          region_accordion_visible = $('#region').is(':visible'),
+          site_accordion_visible = $('#site').is(':visible'),
+          datatype_accordion_visible = $('#dataTypesList').is(':visible'),
+          boolean_accordion_visible = $('#boolean_expression').is(':visible'),
+          platform_accordion_visible = $('#platform').is(':visible'),
+          instrument_accordion_visible = $('#instrument').is(':visible'),
+          assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
+          data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
+          platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
+          instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
+          datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
+
       // store spatial input values and set to model
       var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
@@ -129,15 +144,16 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         feet_miles = $('.feet_miles option:selected').val();
 
       // save temporal input values and set to model
-      var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
-        from_year = $('.from_date_menu .year').val(),
-        from_month = $('.from_date_menu .month').val(),
-        from_day = $('.from_date_menu .day').val(),
-        from_hour = $('.from_date_menu .hour').val(),
-        to_year = $('.to_date_menu .year').val(),
-        to_month = $('.to_date_menu .month').val(),
-        to_day = $('.to_date_menu .day').val(),
-        to_hour = $('.to_date_menu .hour').val();
+
+    var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
+      from_year = $('.from_date_menu .year').val(),
+      from_month = $('.from_date_menu .month').val(),
+      from_day = $('.from_date_menu .day').val(),
+      from_hour = $('.from_date_menu .hour').val(),
+      to_year = $('.to_date_menu .year').val(),
+      to_month = $('.to_date_menu .month').val(),
+      to_day = $('.to_date_menu .day').val(),
+      to_hour = $('.to_date_menu .hour').val();
 
     var searchName = {
       'time': time,
@@ -149,7 +165,28 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       'minute': minute
     };
 
+    /*var configuration = {
+      'spatialElem': spatial_accordion_visible,
+      'temporalElem': temporal_accordion_visible,
+      'orgSelectorElem': facility_accordion_visible,
+      'regionElem': region_accordion_visible,
+      'siteElem': site_accordion_visible,
+      'dataTypesListElem': datatype_accordion_visible,
+      'boolean_expressionElem': boolean_accordion_visible,
+      'platformElem': platform_accordion_visible,
+      'instrumentElem': instrument_accordion_visible
+    };
+
+    var bottom_config = {
+      'accordionAssets': assets_accordion_visible,
+      'accordionData': data_accordion_visible,
+      'accordionPlatform': platform2_accordion_visible,
+      'accordionInstruments': instrument2_accordion_visible,
+      'accordionDataType': datatype2_accordion_visible
+    };*/
+
     var spatial = {
+
       'spatial_dropdown': spatial_dropdown,
       'from_latitude': from_latitude,
       'from_ns': from_ns,
@@ -278,23 +315,31 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       //IONUX2.Collections.userProfileInstance.fetch();
       var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
       console.log("parse collection");
-      console.log(parsed_collection);
-      var parsed_obj = parsed_collection[0].saved_searches;
-      //IONUX2.Collections.saveNames.reset();
-      var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
-      console.log("concatenating");
-      console.log(concat_obj);
-      console.log("save names collection");
+      console.log(parsed_collection + " " + parsed_collection.length);
+      // store accordion sortable order
+      var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
+      var sortArray = [];
+      sortArray.push(sortable_order);
+      IONUX2.Models.saveLeftOrder.set(sortArray);
+      console.log("sortable order " + typeof(sortable_order));
+      console.log(sortable_order);
+      var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
+      var bottomSortArray = [];
+      bottomSortArray.push(bottom_sortable);
+      IONUX2.Models.saveBottomOrder.set(bottomSortArray);
+      console.log("bottom sort order " + typeof(bottom_sortable));
+      console.log(bottom_sortable);
+      if (parsed_collection.length != 0) {
+        var parsed_obj = parsed_collection[0].saved_searches;
+        //IONUX2.Collections.saveNames.reset();
+        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
+        console.log("concatenating");
+        console.log(concat_obj);
+        console.log("save names collection");
 
-      IONUX2.Collections.saveNames.set(concat_obj);
-      //console.log(IONUX2.Collections.saveNames.toJSON());
-      /*var parsed_array = [];
-      //console.log("parse object " +  typeof(parsed_obj));
-      console.log(parsed_obj);
-      parsed_array.push(parsed_obj);
-      parsed_array.push(IONUX2.Collections.saveNames.toJSON());
-      console.log("parsed array is");
-      console.log(parsed_array);*/
+        IONUX2.Collections.saveNames.set(concat_obj);
+      }
+      
       IONUX2.Collections.userProfileInstance.set({
         'userId': IONUX2.Models.SessionInstance.attributes.user_id,
         'name':  IONUX2.Models.SessionInstance.attributes.name,
@@ -317,10 +362,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
               'accordionInstruments': $('#accordionInstruments .accordionContents').is(':visible'),
               'accordionDataType': $('#accordionDataType .accordionContents').is(':visible')
         },
-        //'sortable_order': sortable_order,
-        //'bottom_sortable': bottom_sortable,
+        'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
+        //'bottom_sortable': bottomSortArray,
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
-        //'saved_searches': concat_obj
       });
       console.log("User Profile Collection");
       console.log(IONUX2.Collections.userProfileInstance);
@@ -329,6 +373,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       //remove previous input text so that name placeholder shows
       $('.customName').val(''); 
       $('#navLeftMinimizeArrow').show();
+      var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
+      UINAV.postUserProfile(userProfile);
   },
 
   saveSearch: function() {

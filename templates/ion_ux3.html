@@ -234,7 +234,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             //IONUX2.Views.mySearches.render();
             //IONUX2.Views.loadSearches.render();
             IONUX2.Views.loadSearchCollection.render();
-            IONUX2.Views.mySearches.render();
+            //IONUX2.Views.mySearches.render();
             
             // loop through list of saved searches
             $('.list_mysearches a').each(function(index) {
@@ -280,7 +280,14 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         regionsModel = searchModel.saved_searches[index].regions,
                         sitesModel = searchModel.saved_searches[index].sites,
                         dataTypesModel = searchModel.saved_searches[index].dataTypes,
-                        sortableOrder = searchModel.saved_searches[index].sortableOrder;
+                        sortableOrder = searchModel.sortable_order[0];
+                        configurationModel = searchModel.configuration[0];
+
+                        console.log("sortable order in load");
+                        console.log(sortableOrder);
+
+                        console.log("config model in load");
+                        console.log(configurationModel);
 
                         console.log("spatial model index is " + index);
                         console.log(spatialModel);
@@ -288,10 +295,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         console.log("facilities model index is " + index);
                         console.log(facilitiesModel);
 
-                    // trigger saved jquery sort order
-                    //var $accordion_container = $('.jspPane');
-                    //UINAV.reorder(sortableOrder.sortable_order, $accordion_container);
-                    
                     // populate accordion modules with saved data
                     UINAV.loadSpatial(spatialModel);
                     UINAV.loadTemporal(temporalModel);
@@ -299,6 +302,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     UINAV.loadRegions(regionsModel);
                     UINAV.loadSites(sitesModel);
                     UINAV.loadDataTypes(dataTypesModel);
+
+                    // trigger saved jquery sort order
+                    //var $accordion_container = $('.jspPane');
+                    //UINAV.reorder(sortableOrder, configurationModel, $accordion_container);
+                    
+                    
 
                 // open Search tab
                 $('#searchTab').trigger('click');

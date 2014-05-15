@@ -1,5 +1,9 @@
 var UINAV = {
 	reorder: function(orderArray, configurationList, elementContainer) {
+        console.log("order array in reorder");
+        console.log(orderArray);
+        console.log("element container");
+        console.log(elementContainer);
         $.each(orderArray, function(key, val){
             console.log("value is " + val);
             elementContainer.append($("#"+val));
@@ -14,7 +18,7 @@ var UINAV = {
      	});
     },
     reorder_bottom: function(orderArray, configurationList, elementContainer) {
-        $.each(orderArray, function(key, val){
+        $.each(orderArray[0], function(key, val){
             console.log("value is " + val);
             elementContainer.append($("#"+val));
             for (item in configurationList) {
@@ -73,10 +77,12 @@ var UINAV = {
             async: false,
             type: "GET",
             url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
-            success: function(data) {
+            success: function(request) {
                 console.log("getting json saved search data from server");
-                console.log(data);
-                UINAV.loadConfiguration(data);
+                console.log(request.data + " " + typeof(request.data));
+                if (request.data) {
+                    UINAV.loadConfiguration(request);
+                }
             },
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded'
@@ -87,17 +93,19 @@ var UINAV = {
         console.log("config object");
         console.log(configurationModel);
         var $accordion_container = $('.jspPane');
-        var $bottom_accordion = $('#accordionContainerWhite');
+        //var $bottom_accordion = $('#accordionContainerWhite');
         /*var sortableOrder = configurationModel.sortable_order;
         var bottom_sortable = configurationModel.bottom_sortable;
         var configurationList = configurationModel.configuration;
         var bottomConfigList = configurationModel.bottom_config;*/
         var sortableOrder = configurationModel[0].sortable_order;
-        var bottom_sortable = configurationModel[0].bottom_sortable;
+        console.log("sortable order in load config");
+        console.log(sortableOrder);
+        //var bottom_sortable = configurationModel[0].bottom_sortable;
         var configurationList = configurationModel[0].configuration;
-        var bottomConfigList = configurationModel[0].bottom_config;
-        this.reorder(sortableOrder, configurationList, $accordion_container);
-        this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
+        //var bottomConfigList = configurationModel[0].bottom_config;
+        //this.reorder(sortableOrder[0], configurationList[0], $accordion_container);
+        //this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
         IONUX2.Collections.userProfileInstance.set(configurationModel);
         console.log("load config collection");
         console.log(IONUX2.Collections.userProfileInstance);

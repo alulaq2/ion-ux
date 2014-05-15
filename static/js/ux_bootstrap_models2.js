@@ -312,6 +312,12 @@ IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
 });
 IONUX2.Models.saveConfiguration = new IONUX2.Models.SaveConfiguration();
 
+IONUX2.Models.SaveLeftOrder = Backbone.Model.extend({});
+IONUX2.Models.saveLeftOrder = new IONUX2.Models.SaveLeftOrder();
+
+IONUX2.Models.SaveBottomOrder = Backbone.Model.extend({});
+IONUX2.Models.saveBottomOrder = new IONUX2.Models.SaveBottomOrder();
+
 IONUX2.Collections.UserProfile = Backbone.Collection.extend({});
 IONUX2.Collections.userProfileInstance = new IONUX2.Collections.UserProfile();
 
