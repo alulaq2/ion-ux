@@ -243,11 +243,17 @@ dashboard_map_resource: function(resource_id) {
   },
   
   search: function(query) {
+    console.log('LETS DO THIS SHET!!!!!!');
+    var func = IONUX2.parseSearchResults;
+    console.log('PARSER is: ');
+    console.log(func);
+    if (!(typeof(func) == "function")) return;
+    /*
     $('#dashboard-container').hide();
     // Todo move into own view
     $('#dynamic-container').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
-    
+    */
     var search_model = new IONUX.Models.Search();
     // use heuristics to determine what kind of query we have here
     var fetch_opts = {};
@@ -260,6 +266,8 @@ dashboard_map_resource: function(resource_id) {
     search_model.set({search_query: query})
     search_model.fetch(fetch_opts)
       .success(function(resp){
+        IONUX2.parseSearchResults(resp.data);
+        /*
         console.log('Search success:', resp);
         $('#dynamic-container').html($('#2163152').html());
         $('.span9 li,.span3 li').hide();
@@ -270,7 +278,9 @@ dashboard_map_resource: function(resource_id) {
         var table_id = table_elmt.attr('id');
         new IONUX.Views.DataTable({el: $(table_elmt), data: resp.data});
         $('.heading').html('<h1>Search Results</h1>').css('padding-bottom', '15px'); // Temp: css hack to make layout nice.
+        */
       });
+    
   },
 
   collection: function(resource_type){

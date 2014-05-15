@@ -36,6 +36,23 @@
 	$(function () {
 		$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
 
+		IONUX2.parseSearchResults = function(response_data) {
+			var assetsList = {};
+			_.each(response_data, function(resource) {
+				_.each(assetTypesList, function(assetType) {
+					if (resource['type_'] == assetType.type){
+						if (!(assetType.type in assetsList)){
+							assetsList[assetType.type] = [];
+						}
+						assetsList[assetType.type].push(resource);
+					}
+				});
+			});
+			console.log('ASSETS!!!!');
+			console.log(response_data);
+			console.log(assetsList);
+		}
+
 		var dataTypesList = [
 			{'name':"Conductivity", 'id':"Conductivity"},
 			{'name':"Density", 'id':"Density"},
@@ -53,8 +70,8 @@
 		];
 
 		var assetTypesList = [
-			{'name':"Platform", 'id':"Platform"},
-			{'name':"Instrument", 'id':"Instrument"}
+			{'name':"Platform", 'id':"Platform", 'type':"Platform"},
+			{'name':"Instrument", 'id':"Instrument", 'type':"Instrument"}
 		];
 
 		var siteTypesList = [
