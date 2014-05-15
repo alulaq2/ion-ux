@@ -560,10 +560,12 @@ IONUX2.Views.Map = Backbone.View.extend({
         self.clear_inputs();
         attribute["spatial_dropdown"] = "1";
         IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+        $('.latLongMenu').val("1");
       } else if (mode == "circle"){
         self.clear_inputs();
         attribute["spatial_dropdown"] = "2";
         IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+        $('.latLongMenu').val("2");
       }
 
       if(mode != null){
