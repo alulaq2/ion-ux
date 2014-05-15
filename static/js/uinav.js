@@ -46,7 +46,7 @@ var UINAV = {
         // load configuration for bottom accordion
         for (item in configurationList) {
             if (configurationList[item]) {
-                $('#'+configurationList[item].id).show();
+                $('#'+item + ' .leftAccordionContents').show();
             }
         }
     },

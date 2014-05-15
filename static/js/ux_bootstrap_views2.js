@@ -235,12 +235,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var accordion_list = [];
       $('.accordionContainerWhite .accordionWhite').each(function(item) {
         var accordion_id = 'accordion' + $(this).attr('id');
-        var accordion_contents = $(this).find('.accordionContents').is(':visible');
-        accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
-      });
-      IONUX2.Collections.saveAccordionConfig.set(accordion_list);
-      console.log("accordion collection");
-      console.log(IONUX2.Collections.saveAccordionConfig);
+        var $accordion_contents = $(this).find('.accordionContents:visible').length;
+          accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
+        });
+        IONUX2.Collections.saveAccordionConfig.set(accordion_list);
     })();
 
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
@@ -263,15 +261,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveNames.set(values);
 
       var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
-      // store accordion sortable order
-      var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-      var sortArray = [];
-      sortArray.push(sortable_order);
-      IONUX2.Models.saveLeftOrder.set(sortArray);
-      var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
-      var bottomSortArray = [];
-      bottomSortArray.push(bottom_sortable);
-      IONUX2.Models.saveBottomOrder.set(bottomSortArray);
 
       if (parsed_collection.length != 0) {
         var parsed_obj = parsed_collection[0].saved_searches;
@@ -295,12 +284,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             'instrumentElem': $('#instrument').is(':visible')
         },
         'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
-        //'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
-        //'bottom_sortable': IONUX2.Models.saveBottomOrder.toJSON(),
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
-      console.log("User Profile Collection");
-      console.log(IONUX2.Collections.userProfileInstance);
 
       //remove previous input text so that name placeholder shows
       $('.customName').val(''); 
@@ -312,6 +297,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
   saveSearch: function() {
     $('#saveButtons').hide();
     $('#customSearchName').show();
+    $('.customName').focus();
     $('#navLeftMinimizeArrow').hide();
   },
 
