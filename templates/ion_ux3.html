@@ -110,7 +110,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     {% block inherit_ionux_js %} {% endblock %}
 
     <script src="/static/js/ion_ux2.js"> </script>
-    <script src="/static/js/ux-router2.js"> </script>
+    <!--<script src="/static/js/ux-router2.js"> </script>-->
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
@@ -299,7 +299,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
             IONUX2.setPageView('searchResults');
 
-            Backbone.history.start(/*{pushState:true, hashChange: false}*/);
+            //Backbone.history.start(/*{pushState:true, hashChange: false}*/);
 
             $(".mapButtonFull").click(function(){
                 IONUX2.setMapState('mapFull');
@@ -314,9 +314,11 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             });
 
             
-
+        // check if user is logged in
+        
            
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+
 
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
@@ -362,12 +364,14 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     UINAV.loadDataTypes(dataTypesModel);
                     UINAV.loadBooleanExpression(booleanExpressionModel);
 
+                    UINAV.loadVisibility(configurationModel);
+
                     // trigger saved jquery sort order
-                    var $accordion_container = $('.accordionContainer .jspPane');
+                    /*var $accordion_container = $('.accordionContainer .jspPane');
                     UINAV.reorder(sortableOrder, configurationModel, $accordion_container);
 
                     var $bottom_accordion = $('.accordionContainerWhite');
-                    UINAV.reorder_bottom(bottom_sortable, bottomConfigModel, $bottom_accordion);
+                    UINAV.reorder_bottom(bottom_sortable, bottomConfigModel, $bottom_accordion);*/
                     
                 // open Search tab
                 $('#searchTab').trigger('click');
@@ -473,14 +477,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
                 console.log("bottom_sortable");
                 console.log(bottom_sortable);
-                var spatial_accordion_visible = $('#spatial').is(':visible'),
-                    temporal_accordion_visible = $('#temporal').is(':visible'),
-                    facility_accordion_visible = $('#orgSelector').is(':visible'),
-                    site_accordion_visible = $('#site').is(':visible'),
-                    platform_accordion_visible = $('#platformTypesList').is(':visible'),
-                    datatype_accordion_visible = $('#dataTypesList').is(':visible'),
-                    boolean_accordion_visible = $('#boolean_expression').is(':visible');
-
+                
                 (function() {
                     var accordion_list = [];
                     $('.accordionContainerWhite .accordionWhite').each(function(item) {
@@ -491,34 +488,23 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     IONUX2.Collections.saveAccordionConfig.set(accordion_list);
                 })();
 
-                var user_profile = {
-                    'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-                    'name': IONUX2.Models.SessionInstance.attributes.name,
-                    'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+                IONUX2.Collections.userConfiguration.set({
                     'configuration': {
-                        'spatialElem': spatial_accordion_visible,
-                        'temporalElem': temporal_accordion_visible,
-                        'orgSelectorElem': facility_accordion_visible,
-                        'siteElem': site_accordion_visible,
-                        'platformElem': platform_accordion_visible,
-                        'dataTypesListElem': datatype_accordion_visible,
-                        'boolean_expressionElem': boolean_accordion_visible
+                        'spatialElem': $('#spatial').is(':visible'),
+                        'temporalElem': $('#temporal').is(':visible'),
+                        'orgSelectorElem': $('#orgSelector').is(':visible'),
+                        'siteElem': $('#site').is(':visible'),
+                        'platformTypesListElem': $('#platformTypesList').is(':visible'),
+                        'dataTypesListElem': $('#dataTypesList').is(':visible'),
+                        'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+                        'instrumentElem': $('#instrument').is(':visible')
                     },
-                    'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
                     'sortable_order': sortable_order,
                     'bottom_sortable': bottom_sortable
-                };
+                });
 
-                IONUX2.Models.saveConfiguration.set(user_profile);
-                console.log("configuration model");
-                console.log(IONUX2.Models.saveConfiguration);
-                
-                var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
-                
-                //IONUX2.Collections.userProfileInstance.set(user_profile);
-                //var userConfiguration = JSON.stringify(IONUX2.Collections.userProfileInstance);
-                //UINAV.postUserProfile(userConfiguration);
-
+                var userConfiguration = JSON.stringify(IONUX2.Collections.userConfiguration);
+                UINAV.postUserConfiguration(userConfiguration);
             });
             
             // ************ Load UI state. *************

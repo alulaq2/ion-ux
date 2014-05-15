@@ -1,10 +1,13 @@
 var UINAV = {
 	reorder: function(orderArray, configurationList, elementContainer) {
+        console.log("reordering");
+        console.log(elementContainer);
         // load configuration and sortable order for left accordion
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
             for (item in configurationList) {
             	if (configurationList[item]) {
+                    console.log("item is " + item);
             		$('#'+item + ' .leftAccordionContents').show();
             	}
             	else {
@@ -26,6 +29,14 @@ var UINAV = {
                 }
             }
         });
+    },
+    loadVisibility: function(configurationList) {
+        for (item in configurationList) {
+            if (configurationList[item]) {
+                console.log("item visible is " + item);
+                $('#'+item + ' .leftAccordionContents').show();
+            }
+        }
     },
     loadSpatial: function(spatialModel) {
         IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
@@ -71,11 +82,38 @@ var UINAV = {
             contentType: 'application/x-www-form-urlencoded'
         });
     },
+    postUserConfiguration: function(userConfiguration) {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '_ui/',
+            data: {data: userConfiguration},
+            success: function(data) {
+                console.log(data);
+            },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded'
+        });
+    },
     getUserProfile: function() {
     	$.ajax({
             async: false,
             type: "GET",
             url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
+            success: function(request) {
+                if (request.data) {
+                    UINAV.loadSavedSearches(request);
+                }
+            },
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded'
+        });
+    },
+    getUserConfiguration: function() {
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '_ui/',
             success: function(request) {
                 if (request.data) {
                     UINAV.loadConfiguration(request);
@@ -85,12 +123,34 @@ var UINAV = {
             contentType: 'application/x-www-form-urlencoded'
         });
     },
-    loadConfiguration: function(configuration) {
-        var configurationModel = JSON.parse(configuration.data);
+    loadSavedSearches: function(savedSearch) {
+        console.log("loading saved searches");
+        var savedSearchList = JSON.parse(savedSearch.data);
         var $accordion_container = $('.jspPane');
-        var sortableOrder = configurationModel[0].sortable_order;
-        var configurationList = configurationModel[0].configuration;
-        IONUX2.Collections.userProfileInstance.set(configurationModel);
+        var sortableOrder = savedSearchList[0].sortable_order;
+        var bottom_sortable = savedSearchList[0].bottom_sortable;
+        var configurationList = savedSearchList[0].configuration;
+        var bottomConfigList = savedSearchList[0].bottom_config;
+        IONUX2.Collections.userProfileInstance.set(savedSearchList);
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+        
+        // trigger accordion visibility
+        //var $accordion_container = $('.accordionContainer .jspPane');
+        //this.loadVisibility(configurationList);
+    },
+    loadConfiguration: function(configuration) {
+        console.log("loading configuration");
+        var configurationModel = JSON.parse(configuration.data);
+        var sortableOrder = configurationModel[0].sortable_order;
+        var bottom_sortable = configurationModel[0].bottom_sortable;
+        var configurationList = configurationModel[0].configuration;
+        var bottomConfigList = configurationModel[0].bottom_config;
+        
+        // trigger saved jquery sort order
+        var $accordion_container = $('.accordionContainer .jspPane');
+        this.reorder(sortableOrder, configurationList, $accordion_container);
+
+        //var $bottom_accordion = $('.accordionContainerWhite');
+        //UINAV.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
     }
 };

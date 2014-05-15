@@ -337,6 +337,9 @@ IONUX2.Models.saveBottomOrder = new IONUX2.Models.SaveBottomOrder();
 IONUX2.Collections.UserProfile = Backbone.Collection.extend({});
 IONUX2.Collections.userProfileInstance = new IONUX2.Collections.UserProfile();
 
+IONUX2.Collections.UserConfiguration = Backbone.Collection.extend({});
+IONUX2.Collections.userConfiguration = new IONUX2.Collections.UserConfiguration();
+
 IONUX2.Models.SortOrder = Backbone.Model.extend({});
 IONUX2.Models.sortModelInstance = new IONUX2.Models.SortOrder();
 
