@@ -1,5 +1,5 @@
 <div id="searchResultsTabContainer" style="position:relative; height:28px; width:100%;">
-	<div class="twoNavTabs" style="left:10px;width:calc(100% - 10px);">
+	<div class="twoNavTabs" style="left:24px;width:calc(100% - 24px);">
 		<div id="dataSearchResultsTab" class="twoNavTab active" href="#dataSearchResultsAccordion">Data</div>
 		<div id="assetsSearchResultsTab" class="twoNavTab" href="#assetsSearchResultsAccordion">Assets</div>
 		<div id="sitesSearchResultsTab" class="twoNavTab" href="#siteSearchResultsAccordion">Sites</div>
@@ -36,6 +36,37 @@
 	$(function () {
 		$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
 
+		IONUX2.parseSearchResults = function(response_data) {
+			var assetsList = {};
+			_.each(response_data, function(resource) {
+				_.each(assetTypesList, function(resourceType) {
+					if (resource['type_'] == resourceType.type){
+						if (!(resourceType.type in assetsList)){
+							assetsList[resourceType.type] = [];
+						}
+						assetsList[resourceType.type].push(resource);
+					}
+				});
+			});
+			console.log(response_data);
+			console.log('ASSETS!!!!');
+			console.log(assetsList);
+
+			var sitesList = {};
+			_.each(response_data, function(resource) {
+				_.each(siteTypesList, function(resourceType) {
+					if (resource['type_'] == resourceType.type){
+						if (!(resourceType.type in sitesList)){
+							sitesList[resourceType.type] = [];
+						}
+						sitesList[resourceType.type].push(resource);
+					}
+				});
+			});
+			console.log('SITES!!!!');
+			console.log(sitesList);
+		}
+
 		var dataTypesList = [
 			{'name':"Conductivity", 'id':"Conductivity"},
 			{'name':"Density", 'id':"Density"},
@@ -53,15 +84,16 @@
 		];
 
 		var assetTypesList = [
-			{'name':"Platform", 'id':"Platform"},
-			{'name':"Instrument", 'id':"Instrument"}
+			{'name':"Platform", 'id':"Platform", 'type':"Platform"},
+			{'name':"Instrument", 'id':"Instrument", 'type':"Instrument"}
 		];
 
 		var siteTypesList = [
-			{'name':"Facility", 'id':"Facility"},
-			{'name':"Observatory", 'id':"Observatory"},
-			{'name':"Platform Site", 'id':"PlatformSite"},
-			{'name':"Instrument Site", 'id':"InstrumentSite"}
+			{'name':"Facility", 'id':"Facility", 'type':"Org"},
+			{'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
+			{'name':"Station", 'id':"StationSite", 'type':"StationSite"},
+			{'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
+			{'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
 		];
 
 		var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';

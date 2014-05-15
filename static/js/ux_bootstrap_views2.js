@@ -97,7 +97,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         to_ns = $('.north_south_menu option:selected').val(),
         to_longitude = $('.show_hide_longitude').val(),
         to_ew = $('.to_ew option:selected').val(),
-        radius = $('.noPlaceholderRadius').val(),
+        radius = $('#radius').val(),
         miles_kilos = $('.milesKilosMenu').val(),
         vertical_from = $('[data-verticalfrom]').val(),
         vertical_to = $('[data-verticalto]').val(),
@@ -246,7 +246,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
   el: '#searchTabContent',
   //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
-  template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle" id="<%= id %>tab">' +
+  template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
    '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
   '<section class="leftAccordionContents" style="display:none;position:relative;" id="<%= id %>"></section></article>'),
   initialize: function() {
@@ -433,30 +433,30 @@ IONUX2.Views.Spatial = Backbone.View.extend({
     var spatialModel = IONUX2.Models.spatialModelInstance.attributes;
     console.log("spatial model in Views Spatial");
     console.log(spatialModel);
-
-    //$('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
-
+    // $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+    $('.latLongMenu').val(spatialModel.spatial_dropdown);
     if (spatialModel.spatial_dropdown == 2) {
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-    } else {
+    }
+    else {
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
     }
-
-    $('#south').val(spatialModel.from_latitude),
+    $('#south').val(spatialModel.from_latitude);
     $('.from_ns option[value="' + spatialModel.from_ns + '"]').attr('selected', 'selected');
-    $('#west').val(spatialModel.from_longitude),
+    $('#west').val(spatialModel.from_longitude);
     $('.from_ew option[value="' + spatialModel.from_ew + '"]').attr('selected', 'selected');
-    $('.placeholder_lat').val(spatialModel.to_latitude),
+    $('.placeholder_lat').val(spatialModel.to_latitude);
     $('.north_south_menu option[value="' + spatialModel.to_ns + '"]').attr('selected', 'selected');
-    $('.show_hide_longitude').val(spatialModel.to_longitude),
+    $('.show_hide_longitude').val(spatialModel.to_longitude);
     $('.to_ew option[value="'+ spatialModel.to_ew + '"]').attr('selected', 'selected');
-    $('#radius').val(spatialModel.radius),
-    $('.milesKilosMenu').val(spatialModel.miles_kilos),
-    $('[data-verticalfrom]').val(spatialModel.vertical_from),
-    $('[data-verticalto]').val(spatialModel.vertical_to),
+    $('.no_placeholder_radius').val(spatialModel.radius);
+    $('.milesKilosMenu').val(spatialModel.miles_kilos);
+    $('[data-verticalfrom]').val(spatialModel.vertical_from);
+    $('[data-verticalto]').val(spatialModel.vertical_to);
     $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
+    $('#radius').val(spatialModel.radius);
   },
 	render: function() {
 		console.log('rendering spatial');

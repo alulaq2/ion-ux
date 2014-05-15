@@ -69,8 +69,6 @@ IONUX2 = {
 	},
 	init: function(){
 
-		_.extend(this, Backbone.Events);
-
 		Backbone.Model.prototype.initialize = function(initialize) {
 			return function(){
 				IONUX2.registerEvents(this);
@@ -80,8 +78,8 @@ IONUX2 = {
 
 		this.on("all", function(eventName){
 			if (eventName.indexOf("change")>-1) {
-				console.log("Captured event: " + eventName);
-				console.log(this);
+				// console.log("Captured event: " + eventName);
+				// console.log(this);
 			}
 		});
 
@@ -188,3 +186,5 @@ IONUX2 = {
 	}
   
 };
+
+_.extend(IONUX2, Backbone.Events);
