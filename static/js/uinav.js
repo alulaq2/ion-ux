@@ -5,36 +5,48 @@ var UINAV = {
         // load configuration and sortable order for left accordion
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
-            for (item in configurationList) {
-            	if (configurationList[item]) {
-                    console.log("item is " + item);
-            		$('#'+item + ' .leftAccordionContents').show();
-            	}
-            	else {
-            		$('#'+item + ' .leftAccordionContents').hide();
-            	}
-            }
+            
      	});
+
+        for (item in configurationList) {
+            if (configurationList[item]) {
+                $('#'+item + ' .leftAccordionContents').show();
+            }
+            else {
+                $('#'+item + ' .leftAccordionContents').hide();
+            }
+        }
     },
     reorder_bottom: function(orderArray, configurationList, elementContainer) {
         // load configuration and sortable order for bottom accordion
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
-            for (item in configurationList) {
-                if (configurationList[item]) {
-                    $('#'+configurationList[item].id).show();
-                }
-                else {
-                    $('#'+configurationList[item].id).hide();
-                }
-            }
+            
         });
+
+        for (item in configurationList) {
+            console.log("item in accordion is " + configurationList[item].is_visible);
+            if (configurationList[item].is_visible) {
+                $('#'+configurationList[item].id).show();
+            }
+            else {
+                $('#'+configurationList[item].id).hide();
+            }
+        }
     },
     loadVisibility: function(configurationList) {
         for (item in configurationList) {
             if (configurationList[item]) {
                 console.log("item visible is " + item);
                 $('#'+item + ' .leftAccordionContents').show();
+            }
+        }
+    },
+    loadAccordionVisibility: function(configurationList) {
+        // load configuration for bottom accordion
+        for (item in configurationList) {
+            if (configurationList[item]) {
+                $('#'+configurationList[item].id).show();
             }
         }
     },
@@ -134,23 +146,23 @@ var UINAV = {
         IONUX2.Collections.userProfileInstance.set(savedSearchList);
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
         
-        // trigger accordion visibility
-        //var $accordion_container = $('.accordionContainer .jspPane');
-        //this.loadVisibility(configurationList);
     },
     loadConfiguration: function(configuration) {
         console.log("loading configuration");
         var configurationModel = JSON.parse(configuration.data);
         var sortableOrder = configurationModel[0].sortable_order;
         var bottom_sortable = configurationModel[0].bottom_sortable;
+       
         var configurationList = configurationModel[0].configuration;
         var bottomConfigList = configurationModel[0].bottom_config;
+         console.log("bottom configuration list");
+        console.log(bottomConfigList);
         
         // trigger saved jquery sort order
         var $accordion_container = $('.accordionContainer .jspPane');
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
-        //var $bottom_accordion = $('.accordionContainerWhite');
-        //UINAV.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
+        var $bottom_accordion = $('.accordionContainerWhite');
+        this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
     }
 };

@@ -344,8 +344,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         platformTypesModel = searchModel.saved_searches[index].platformTypes,
                         dataTypesModel = searchModel.saved_searches[index].dataTypes,
                         booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
-                        sortableOrder = searchModel.sortable_order[0],
-                        bottom_sortable = searchModel.bottom_sortable[0],
                         configurationModel = searchModel.configuration,
                         bottomConfigModel = searchModel.bottom_config;
 
@@ -365,6 +363,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     UINAV.loadBooleanExpression(booleanExpressionModel);
 
                     UINAV.loadVisibility(configurationModel);
+                    UINAV.loadAccordionVisibility(bottomConfigModel);
 
                     // trigger saved jquery sort order
                     /*var $accordion_container = $('.accordionContainer .jspPane');
@@ -479,11 +478,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 console.log(bottom_sortable);
                 
                 (function() {
+                    // get visibility state for bottom accordion elements and add to collection
                     var accordion_list = [];
                     $('.accordionContainerWhite .accordionWhite').each(function(item) {
                         var accordion_id = 'accordion' + $(this).attr('id');
-                        var accordion_contents = $(this).find('.accordionContents').is(':visible');
-                        accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
+                        var $accordion_contents = $(this).find('.accordionContents:visible').length;
+                        accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
                     });
                     IONUX2.Collections.saveAccordionConfig.set(accordion_list);
                 })();
@@ -499,6 +499,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         'boolean_expressionElem': $('#boolean_expression').is(':visible'),
                         'instrumentElem': $('#instrument').is(':visible')
                     },
+                    'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
                     'sortable_order': sortable_order,
                     'bottom_sortable': bottom_sortable
                 });

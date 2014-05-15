@@ -239,6 +239,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
       });
       IONUX2.Collections.saveAccordionConfig.set(accordion_list);
+      console.log("accordion collection");
+      console.log(IONUX2.Collections.saveAccordionConfig);
     })();
 
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
@@ -293,8 +295,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             'instrumentElem': $('#instrument').is(':visible')
         },
         'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
-        'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
-        'bottom_sortable': IONUX2.Models.saveBottomOrder.toJSON(),
+        //'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
+        //'bottom_sortable': IONUX2.Models.saveBottomOrder.toJSON(),
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
       console.log("User Profile Collection");
