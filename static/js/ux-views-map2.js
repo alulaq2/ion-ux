@@ -96,113 +96,6 @@ IONUX2.Views.Map = Backbone.View.extend({
   events: {
     'click': 'render_map_bounds'
   },
-
-  set_temporal_form: function(){
-
-    var tYear = $("#tempFromYear").val();
-    var tMonth = parseInt($("#tempFromMonth").val()) + 1;
-    var tDay = $("#tempFromDay").val();
-
-    $("#tempFromFm").val(tYear + '-' + tMonth + '-' + tDay);
-
-    var tYear2 = $("#tempToYear").val();
-    var tMonth2 = parseInt($("#tempToMonth").val()) + 1;
-    var tDay2 = $("#tempToDay").val();
-
-    $("#tempToFm").val(tYear2 + '-' + tMonth2 + '-' + tDay2);
-
-    $("#temporal-field-ctrlFm").val($("#tempSelect").val());
-
-  },
-
-  search_clicked: function(){
-
-    this.set_temporal_form();
-
-    var form_values = $('#searchForm').serializeArray();
-    form_values.splice(0, 0, {name:'adv', value:1});
-
-    var form_values_bool = $('#booleanForm').serializeArray();
-
-    // switch into an object - much easier to access directly
-    var formObj = _.object(_.map(form_values, function(v) {
-      return [v.name, v.value];
-    }));
-    
-    // normalize into "down" facing vertical if switched to up
-    if (this.$('.vertical-bounds-positive').hasClass('toggle_sealevel_passive')) {
-      if (formObj['vertical-lower-bound']) {
-        formObj['vertical-lower-bound'] = -formObj['vertical-lower-bound'];
-      }
-      if (formObj['vertical-upper-bound']) {
-        formObj['vertical-upper-bound'] = -formObj['vertical-upper-bound'];
-      }
-      if (formObj['vertical-upper-bound'] < formObj['vertical-lower-bound']) {
-        var tmp = formObj['vertical-upper-bound'];
-        formObj['vertical-upper-bound'] = formObj['vertical-lower-bound'];
-        formObj['vertical-lower-bound'] = tmp;
-      }
-    }
-
-    //Error checking advanced search input params
-    function check_Vals() {
-
-      var bValid = true;
-      var errorString = '';
-
-      //Check geospatial bounds (all or none)
-      var all = form_values[1].value !== '' && form_values[2].value !== '' &&
-        + form_values[3].value !== '' && form_values[4].value !== '';
-
-      var none = form_values[1].value == '' && form_values[2].value == '' &&
-        + form_values[3].value == '' && form_values[4].value == '';
-
-      if (!(all || none)){
-        errorString += 'Error in GEOSPATIAL BOUNDS:\nPartially filled form\n';
-        bValid = false;
-      }
-
-      //Check vertical bounds (all or none)
-      var all_or_none = (form_values[5].value !== '' && form_values[6].value !== '') ||
-        + (form_values[5].value == '' && form_values[6].value == '');
-
-      if (!all_or_none){
-        errorString += 'Error in VERTICAL BOUNDS:\nPartially filled form\n';
-        bValid = false;
-      }
-
-      //Check temporal bounds (all or none)
-      all_or_none = (form_values[7].value !== '' && form_values[8].value !== '') ||
-        + (form_values[7].value == '' && form_values[8].value == '');
-
-      if (!all_or_none){
-        errorString += 'Error in TEMPORAL BOUNDS:\nPartially filled form\n';
-        bValid = false;
-      }
-
-      if (!bValid){
-        self.alert(errorString)
-      }
-
-      return bValid;
-    }
-
-    //Check input values
-    var bValid = check_Vals();
-    if (!bValid){
-      return;
-    }
-
-    var search_term = $.param(form_values);
-    var search_term2 = $.param(form_values_bool);
-
-    search_term = search_term + '&' + search_term2;
-
-    console.log('SEARCH CLICKED...' + search_term);
-
-    IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
-
-  },
   
   render_map_bounds: function(e){
      var bounds = this.map.getBounds();
@@ -258,10 +151,6 @@ IONUX2.Views.Map = Backbone.View.extend({
     // HACK! temporarily workaround to a timing issue in Chrome/Safari.
     // this.get_sites_status();
     window.setTimeout(this.get_sites_status, 1000);
-    var self = this;
-    $('#searchBtn').on('click', function(){
-      self.search_clicked();
-    });
 
   },
   
@@ -425,11 +314,13 @@ IONUX2.Views.Map = Backbone.View.extend({
   },
 
   clear_inputs: function(){
-    $("#south").val("");
-    $("#west").val("");
-    $("#north").val("");
-    $("#east").val("");
-    $("#radius").val("");
+    var attribute = {};
+    attribute["from_longitude"] = "";
+    attribute["from_latitude"] = "";
+    attribute["to_longitude"] = "";
+    attribute["to_latitude"] = "";
+    attribute["radius"] = "";
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
     $("#southFm").val("");
     $("#westFm").val("");
@@ -452,38 +343,37 @@ IONUX2.Views.Map = Backbone.View.extend({
     var attribute = {};
 
     if(n >= 0){
-      $("#ne_ns").val("1");
       attribute["to_ns"] = "1";
-    } else {
-      $("#ne_ns").val("2");
+    } else {;
+      attribute["to_ns"] = "2";
       n = n * -1;
     }
 
     if(e >= 0){
-      $("#ne_ew").val("1");
+      attribute["to_ew"] = "1";
     } else {
-      $("#ne_ew").val("2");
+      attribute["to_ew"] = "2";
       e = e * -1;
     }
 
     if(s >= 0){
-      $("#sw_ns").val("1");
+      attribute["from_ns"] = "1";
     } else {
-      $("#sw_ns").val("2");
+      attribute["from_ns"] = "2";
       s = s * -1;
     }
 
     if(w >= 0){
-      $("#sw_ew").val("1");
+      attribute["from_ew"] = "1";
     } else {
-      $("#sw_ew").val("2");
+      attribute["from_ew"] = "2";
       w = w * -1;
     }
 
-    $("#south").val(s.toFixed(2));
-    $("#west").val(w.toFixed(2));
-    $("#north").val(n.toFixed(2));
-    $("#east").val(e.toFixed(2));
+    attribute["from_longitude"] = w.toFixed(2);
+    attribute["from_latitude"] = s.toFixed(2);
+    attribute["to_longitude"] = e.toFixed(2);
+    attribute["to_latitude"] = n.toFixed(2);
     IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
   },
@@ -495,23 +385,27 @@ IONUX2.Views.Map = Backbone.View.extend({
     $("#westFm").val(w.toFixed(4));
     $("#radiusFm").val(radius);
 
+    var attribute = {};
+
     if(s >= 0){
-      $("#sw_ns").val("1");
+      attribute["from_ns"] = "1";
     } else {
-      $("#sw_ns").val("2");
+      attribute["from_ns"] = "2";
       s = s * -1;
     }
 
     if(w >= 0){
-      $("#sw_ew").val("1");
+      attribute["from_ew"] = "1";
     } else {
-      $("#sw_ew").val("2");
+      attribute["from_ew"] = "2";
       w = w * -1;
     }
 
-    $("#south").val(s.toFixed(2));
-    $("#west").val(w.toFixed(2));
-    $("#radius").val((radius/1000).toFixed(2));
+    attribute["from_longitude"] = w.toFixed(2);
+    attribute["from_latitude"] = s.toFixed(2);
+    attribute["radius"] = (radius/1000).toFixed(2);
+
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
   },
 
@@ -570,56 +464,6 @@ IONUX2.Views.Map = Backbone.View.extend({
 
   },
 
-  update_inputs: function(){
-
-    var self = this;
-
-    if($(".latLongMenu").val() == "1"){
-
-      var n = $('#north').val();
-      var s = $('#south').val();
-      var e = $('#east').val();
-      var w = $('#west').val();
-
-      if($("#sw_ew").val() == "2"){
-        w =  w * -1;
-      }
-      if($("#ne_ew").val() == "2"){
-        e =  e * -1;
-      }
-      if($("#ne_ns").val() == "2"){
-        n =  n * -1;
-      }
-      if($("#sw_ns").val() == "2"){
-        s =  s * -1;
-      }
-
-      var n = $('#northFm').val(n);
-      var s = $('#southFm').val(s);
-      var e = $('#eastFm').val(e);
-      var w = $('#westFm').val(w);
-      
-      self.create_rectangle(n, s, e, w);
-
-    } else if($(".latLongMenu").val() == "2"){
-
-      var s = $('#south').val();
-      var w = $('#west').val();
-
-      if($("#sw_ns").val() == "2"){
-        s =  s * -1;
-      }
-      if($("#sw_ew").val() == "2"){
-        w =  w * -1;
-      }
-
-      var s = $('#southFm').val(s);
-      var w = $('#westFm').val(w);
-        
-      self.create_circle(s, w);
-    }
-  },
-  
   draw_map: function(map_options, container_server) {
     console.log('draw_map');
     $('#map_canvas').empty().show();
@@ -702,36 +546,24 @@ IONUX2.Views.Map = Backbone.View.extend({
     });
 
     this.spatial_open = false;
-    this.from_click = false;
-
-    $("#spatial_title").on("click", function(){
-      if(self.spatial_open){
-        self.spatial_open = false;
-      } else {
-        self.spatial_open = true;
-      }
-      
-    });
 
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
-      var mode = this.getDrawingMode();
-
+      
       if(!self.spatial_open){
-        $("#spatial_title").click();
+        $("#spatialtab").click();
       }
+
+      var mode = this.getDrawingMode();
+      var attribute = {};
 
       if (mode == "rectangle"){
         self.clear_inputs();
-        if(!self.from_click){
-          $(".latLongMenu").val("1").change();
-        }
-         self.from_click = false;
+        attribute["spatial_dropdown"] = "1";
+        IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
       } else if (mode == "circle"){
         self.clear_inputs();
-        if(!self.from_click){
-          $(".latLongMenu").val("2").change();
-        }
-        self.from_click = false;
+        attribute["spatial_dropdown"] = "2";
+        IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
       }
 
       if(mode != null){
@@ -744,29 +576,6 @@ IONUX2.Views.Map = Backbone.View.extend({
           delete self.circle;
         } 
       }
-    });
-
-    //Moved here for toggle between drop-down and drawing selector on Map
-    $('.latLongMenu').on('change', function(e) {
-      console.log('changed option ' + $(this).find('option:selected').attr('value'));
-      self.clear_inputs();
-      if ($(this).find('option:selected').attr('value') == "2") {
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.top_search_radius, .no_placeholder_radius, .milesKilosMenu').show();
-        self.from_click = true;
-        self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
-      } else {
-        $('.top_search_radius, .no_placeholder_radius, .milesKilosMenu').hide();
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
-        self.from_click = true;
-        self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
-      }
-    });
-
-
-    //Input to drawing manager mapping
-    $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
-      self.update_inputs();
     });
 
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {

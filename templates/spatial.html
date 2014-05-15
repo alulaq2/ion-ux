@@ -8,7 +8,7 @@
   <span class="labelThrough">From:</span>
   <input class="spatialDuration latlong" type="text" placeholder="Lat" id="south" fieldName="from_latitude"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ns" fieldName="from_ns">
+    <select class="from_ns" fieldName="from_ns" id="sw_ns"> 
       <option value="1">N</option>
       <option value="2">S</option>
     </select>
@@ -16,7 +16,7 @@
   </div>
   <input class="spatialDuration latlong" type="text" placeholder="Long" id="west" fieldName="from_longitude"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="from_ew" fieldName="from_ew">
+    <select class="from_ew" fieldName="from_ew" id="sw_ew">
       <option value="1">E</option>
       <option value="2">W</option>
     </select>
@@ -25,13 +25,13 @@
   <span class="labelThrough top_search_to">To:</span>
   <span class="accordionLabel topSearchRadius">Radius:</span>
   <input class="spatialDuration latlong placeholder_lat" type="text" placeholder="Lat" id="north" fieldName="to_latitude"/>
-  <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius"/>
+  <input class="spatialDuration latlong noPlaceholderRadius" type="text" id="radius" fieldName="radius"/>
   <div class="leftNaviNarrowSelectContainer">
-    <select class="north_south_menu" fieldName="to_ns">
+    <select class="north_south_menu" fieldName="to_ns" id="ne_ns">
         <option value="1">N</option>
         <option value="2">S</option>
       </select>
-    <select class="milesKilosMenu" fieldName="miles_kilos">
+    <select class="milesKilosMenu" fieldName="miles_kilos" id="miles_kilos">
       <option value="1">Km</option>
       <option value="2">Mi</option>
     </select>
@@ -39,7 +39,7 @@
   </div>
   <input class="spatialDuration latlong show_hide_longitude" type="text" placeholder="Long" id="east" fieldName="to_longitude"/>
   <div class="leftNaviNarrowSelectContainer show_hide_longitude">
-    <select class="to_ew" fieldName="to_ew">
+    <select class="to_ew" fieldName="to_ew" id="ne_ew">
       <option value="1">E</option>
       <option value="2">W</option>
     </select>
@@ -48,11 +48,11 @@
   <span class="vertical_extents">Vertical Extents (positive downward)</span>
   <div class="accordion_detail_container">
   <div class="accordionLabel">From:</div>
-    <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from" fieldName="vertical_from"/>
+    <input class="spatialDuration latlong" type="text" placeholder="0" data-verticalfrom="from" fieldName="vertical_from" id="upper"/>
   <div class="accordionLabel">To:</div>
-    <input class="spatialDuration latlong" type="text" placeholder="Depth" data-verticalto="to" fieldName="vertical_to"/>
+    <input class="spatialDuration latlong" type="text" placeholder="Depth" data-verticalto="to" fieldName="vertical_to" id="lower"/>
   <div class="leftNaviNarrowSelectContainer">
-      <select class="feet_miles" fieldName="feet_miles">
+      <select class="feet_miles" fieldName="feet_miles" id="feet_miles">
         <option value="1">m</option>
         <option value="2">ft</option>
       </select>
@@ -61,6 +61,121 @@
   </div>
 <script>
 $(function(){
+
+  //Moved here for toggle between drop-down and drawing selector on Map
+  $('.latLongMenu').on('change', function(e) {
+    console.log('changed option ' + $(this).find('option:selected').attr('value'));
+    IONUX2.Dashboard.MapView.clear_inputs();
+
+    if ($(this).find('option:selected').attr('value') == "2") {
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+      IONUX2.Dashboard.MapView.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
+    } else {
+      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
+      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+      IONUX2.Dashboard.MapView.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
+    }
+    var attribute = {};
+    attribute["spatial_dropdown"] = $(".latLongMenu").val();
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+
+  });
+  
+  //Controls the open of the Spatial accoridan block. Block -> Map and Map -> Block
+  $("#spatialtab").on("click", function(){
+    if(IONUX2.Dashboard.MapView.spatial_open){
+      IONUX2.Dashboard.MapView.spatial_open = false;
+    } else {
+      IONUX2.Dashboard.MapView.spatial_open = true;
+    }  
+  });
+
+  //Input to drawing manager mapping, for manual updating of inputs. Input -> Map
+  $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew, #miles_kilos, #feet_miles, #upper, #lower').on('change', function(e){
+    e.preventDefault();
+    update_inputs($(this));
+  });
+
+function update_inputs(obj){
+    var attribute = {};
+
+    if($(".latLongMenu").val() == "1"){
+
+      var n = $('#north').val();
+      var s = $('#south').val();
+      var e = $('#east').val();
+      var w = $('#west').val();
+
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+      if($("#ne_ew").val() == "2"){
+        e =  e * -1;
+      }
+      if($("#ne_ns").val() == "2"){
+        n =  n * -1;
+      }
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+
+      $('#northFm').val(n);
+      $('#southFm').val(s);
+      $('#eastFm').val(e);
+      $('#westFm').val(w);
+      
+      IONUX2.Dashboard.MapView.create_rectangle(n, s, e, w);
+
+    } else if($(".latLongMenu").val() == "2"){
+
+      var s = $('#south').val();
+      var w = $('#west').val();
+
+      if($("#sw_ns").val() == "2"){
+        s =  s * -1;
+      }
+      if($("#sw_ew").val() == "2"){
+        w =  w * -1;
+      }
+
+      $('#southFm').val(s);
+      $('#westFm').val(w);
+        
+      IONUX2.Dashboard.MapView.create_circle(s, w);
+    }
+    /*
+    attribute["spatial_dropdown"] = $(".latLongMenu").val();
+    attribute["from_longitude"] = $('#west').val();
+    attribute["from_latitude"] = $('#south').val();
+    attribute["to_longitude"] = $('#east').val();
+    attribute["to_latitude"] = $('#north').val();
+    attribute["from_ns"] = $("#sw_ns").val();
+    attribute["from_ew"] = $("#sw_ew").val();
+    attribute["to_ns"] = $("#ne_ns").val();
+    attribute["to_ew"] = $("#ne_ew").val();
+    attribute["radius"] = $("#radius").val();
+    attribute["miles_kilos"] = $("#miles_kilos").val();
+    attribute["feet_miles"] = $("feet_miles").val();
+    attribute["vertical_from"] = $("#upper").val();
+    attribute["vertical_from"] = $("lower").val();
+    */
+    var attr = obj.attr('fieldName');
+
+    // For some browsers, `attr` is undefined; for others,
+    // `attr` is false.  Check for both.
+    if (typeof attr !== 'undefined' && attr !== false) {
+      var attributeName = obj.attr('fieldName');
+      var value = obj.val();
+      var attribute = {};
+      attribute[attributeName] = value;
+      IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    }
+    //IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+}
+
+/*
+*  DONT WANT EVENTS FIRED ON EVERY CHANGE, NEEDS TO BE SPECIFIC OR ENTERS INFINITE LOOP BETWEEN MAP AND SPATIAL BLOCK
 
     $('#spatial .spatialDuration, #spatial select').on('change', function(e) {
       e.preventDefault();
@@ -76,34 +191,6 @@ $(function(){
         IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
       }
     });
-
-    $('.latLongMenu').on('change', function(e) {
-    
-      $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-      $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-      if ($(this).find('option:selected').attr('value') == "2") {
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-      }
-      else {
-        $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
-      }
-  });
+*/
 });
-function updateUpLow(){
-
-  if($('#upper').val() == "0"){
-    $('#upperFm').val('');
-  }  else {
-    $('#upperFm').val($('#upper').val());
-  }
-
-  if($('#lower').val() == 'Depth'){
-    $('#lowerFm').val('');
-  } else {
-    $('#lowerFm').val($('#lower').val());
-  }
-
-}
 </script>
