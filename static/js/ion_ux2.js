@@ -109,11 +109,6 @@ IONUX2 = {
 
 	    IONUX2.Models.LoginInstance.fetch();
 
-		/*IONUX2.Models.saveCustomName.fetch({
-			async: false,
-			dataType: 'html'
-		});*/
-
 		IONUX2.Models.SearchTabContentInstance = new IONUX2.Models.SearchTabContent();
 		IONUX2.Views.SearchTabContentInstance = new IONUX2.Views.SearchTabContent({model: IONUX2.Models.SearchTabContentInstance});
 		IONUX2.Models.SearchTabContentInstance.fetch({
@@ -146,7 +141,7 @@ IONUX2 = {
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
 	    	$('#saveConfiguration').show();
-	    	//UINAV.getUserProfile();
+	    	UINAV.getUserProfile();
 	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;

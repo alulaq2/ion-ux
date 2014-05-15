@@ -269,7 +269,7 @@ IONUX2.Models.TemporalInit = Backbone.Model.extend({
 
 IONUX2.Models.temporalModelInstance = new IONUX2.Models.TemporalInit();
 
-IONUX2.Models.SaveCustomName = Backbone.Model.extend({
+/*IONUX2.Models.SaveCustomName = Backbone.Model.extend({
   defaults: {
     name: '',
     month: '',
@@ -280,7 +280,7 @@ IONUX2.Models.SaveCustomName = Backbone.Model.extend({
   }
 });
 
-IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();
+IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();*/
 
 IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
   defaults: {
@@ -321,9 +321,6 @@ IONUX2.Models.sortBottomModelInstance = new IONUX2.Models.SortBottomOrder();
 IONUX2.Collections.SaveNames = Backbone.Collection.extend({});
 
 IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
-
-IONUX2.Models.UserProfile = Backbone.Model.extend({});
-IONUX2.Models.userProfileInstance = new IONUX2.Models.UserProfile();
 
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();

@@ -55,7 +55,6 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 	<div id="mainSubheader" align="left">
         <div id="saveConfiguration">
             <button class="textRight" id="saveConfigBtn">Save Configuration</button>
-            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
         </div>
         <div id="searchProduction"> 
             <div class="mapButtonFull" title="Full Map View"> </div>
@@ -192,7 +191,6 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 
                     // retrieve model at current index from collection
                     //var searchModel = IONUX2.Collections.saveNames.at(index);
-                    //var searchModel = IONUX2.Models.userProfileInstance.attributes;
                     var searchModel = IONUX2.Models.saveConfiguration.attributes;
                     console.log("search model");
                     console.log(searchModel);
@@ -389,11 +387,6 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             
             var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
             UINAV.postUserProfile(userConfiguration);
-        });
-        
-        $('#loadConfigBtn').on('click', function(e) {
-            e.preventDefault();
-            UINAV.getUserProfile();
         });
 
       });

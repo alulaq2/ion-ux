@@ -14,7 +14,7 @@ IONUX2.Views.Header = Backbone.View.extend({
 	}
 });
 
-IONUX2.Views.MySearches = Backbone.View.extend({
+/*IONUX2.Views.MySearches = Backbone.View.extend({
   el: '.list_mysearches',
   template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
   initialize: function() {
@@ -24,7 +24,7 @@ IONUX2.Views.MySearches = Backbone.View.extend({
     this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
-});
+});*/
 
 IONUX2.Views.LoadSearches = Backbone.View.extend({
   el: '.list_mysearches',
@@ -263,9 +263,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         //'bottom_sortable': bottom_sortable,
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
-      //IONUX2.Collections.saveNames.add(values);
-      console.log("saved search collection");
-      console.log(IONUX2.Collections.saveNames);     
+      //IONUX2.Collections.saveNames.add(values);    
 
       //remove previous input text so that name placeholder shows
       $('.customName').val(''); 

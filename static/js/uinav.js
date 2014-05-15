@@ -88,13 +88,9 @@ var UINAV = {
         var bottom_sortable = configurationModel.bottom_sortable;
         var configurationList = configurationModel.configuration;
         var bottomConfigList = configurationModel.bottom_config;
-        console.log("configuration list");
-        console.log(configurationList);
         this.reorder(sortableOrder, configurationList, $accordion_container);
         this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
-        IONUX2.Models.userProfileInstance.set(configurationModel);
-        IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({model: IONUX2.Models.userProfileInstance});
-        console.log("load configuration");
-        console.log(IONUX2.Views.loadSearches);
+        IONUX2.Models.saveConfiguration.set(configurationModel);
+        IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({model: IONUX2.Models.saveConfiguration});
     }
 };
