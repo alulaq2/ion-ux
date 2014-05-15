@@ -223,19 +223,19 @@ IONUX2.Collections.instrumentGroup = new IONUX2.Collections.InstrumentGroup();
 IONUX2.Models.SpatialInit = Backbone.Model.extend({
   defaults: {
       spatial_dropdown: "1",
-      from_latitude: "",
+      from_latitude: "0.00",
       from_ns: "",
-      from_longitude: "",
+      from_longitude: "0.00",
       from_ew: "",
-      to_latitude: "",
+      to_latitude: "0.00",
       to_ns: "",
-      to_longitude: "",
+      to_longitude: "0.00",
       to_ew: "",
-      radius: "",
-      miles_kilos: "",
+      radius: "0.00",
+      miles_kilos: "1",
       vertical_from: "",
       vertical_to: "",
-      feet_miles: ""
+      feet_miles: "1"
   },
   updateAttributes: function(attributes) {
     console.log("attributes in spatial model");

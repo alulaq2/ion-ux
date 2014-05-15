@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- filename ion_ux3.html proto=ion_ux2.html
-last edited 05-11 04-13 04-09 03-05 2014-03-02
+last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 -->
 <html>
 <head>
@@ -31,39 +31,39 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header2" align="left">
+    <div id="header2" align="left">
         <div>
-            <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
-            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0" alt="OOI" /></a>
+            <img id="img_a" src="/static/img/ooinet-header-background-02.png" border="0" />
+            <a href="/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0"  /></a>
         </div>
         <div id="adminMenu">
             <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
-            <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
-            <div id="instrumentManagement" class="adminMenuTab">Intrument Mgmt</div>
-            <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
+            <div id="dataProcessing" class="adminMenuTab" style="display:none;">Data Processing</div>
+            <div id="instrumentManagement" class="adminMenuTab" style="display:none;">Instrument Mgmt</div>
+            <div id="assetTracking" class="adminMenuTab" style="display:none;">Asset Tracking</div>
             <div id="resourceManagement" class="adminMenuTab">Resource Mgmt</div>
-            <div id="deployments" class="adminMenuTab">Deployments</div>
+            <div id="deployments" class="adminMenuTab" style="display:none;">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
     </div>
-	<div id="leftSubheader" align="left">
+    <div id="leftSubheader" align="left">
         <div id="twoNavTabs" class="twoNavTabs">
             <div id="searchTab" class="twoNavTab active" href="#searchTabContent">Search</div>
             <div id="mySearchesTab" class="twoNavTab" href="#mySearchesTabContent">My Searches</div>
         </div>
     </div>
-	<div id="mainSubheader" align="left">
-        <div id="saveConfiguration">
+    <div id="mainSubheader" align="left">
+        <div id="saveConfiguration" style="display:none;">
             <button class="textRight" id="saveConfigBtn">Save Configuration</button>
         </div>
-        <div id="searchProduction"> 
+        <div id="mapToolbar" state="mapSplit">  <!-- states are mapFull, mapSplit, and mapHidden -->
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
             <div class="mapButtonHidden" title="Hidden Map View"> </div>
         </div>
     </div>
 
-    <div id="navLeftMinimizeArrow"> </div>
+    <div id="navLeftMinimizeArrow"><div id="searchChevron"> </div></div>
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
@@ -79,9 +79,9 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
            </div>
         </div>
         <div id="mainLegacyTab" style="display:none;">
-            <div id="dynamic-container" style="display:none;"> </div>
+            
         </div>
-	</div>
+    </div>
 
     {% block inherit_templates %} {% endblock %}
 
@@ -131,51 +131,101 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
       $(function(){
         IONUX2.init();
 
+        /* states are mapFull, mapSplit, and mapHidden */
+
+        IONUX2.getMapState = function() {
+            return $('#mapToolbar').attr('state');
+        }
+
+        IONUX2.setMapState = function(state) {
+            if(!(IONUX2.getMapState() == state)){
+                $('#mapToolbar').attr('state', state);
+                var center = IONUX2.Dashboard.MapView.map.getCenter();
+                var zoom = IONUX2.Dashboard.MapView.map.getZoom();
+                console.log('** STATE **' + state);
+                switch(state){
+                    case "mapFull": $("#upperMain").css("height", "100%");
+                                    $("#lowerMain").css("height", "0%");
+                                    $("#lowerMain").css("top", "100%");
+                                    break;
+                    case "mapSplit": $("#upperMain").css("height", "60%");
+                                    $("#lowerMain").css("height", "40%");
+                                    $("#lowerMain").css("top", "60%");
+                                    break;
+                    case "mapHidden": $("#upperMain").css("height", "0%");
+                                    $("#lowerMain").css("height", "100%");
+                                    $("#lowerMain").css("top", "0%");
+                                    break;
+                    default: $("#upperMain").css("height", "100%");
+                            $("#lowerMain").css("height", "0%");
+                            $("#lowerMain").css("top", "100%");
+                            break;
+                }                
+                $(window).trigger('resize');
+                google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
+                IONUX2.Dashboard.MapView.map.setCenter(center);
+                IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            }
+        }
+
         $(".mapButtonFull").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "100%");
-            $("#lowerMain").css("height", "0%");
-            $("#lowerMain").css("top", "100%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapFull');
         });
 
         $(".mapButtonSplit").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "60%");
-            $("#lowerMain").css("height", "40%");
-            $("#lowerMain").css("top", "60%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapSplit');
         });
         
         $(".mapButtonHidden").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "0%");
-            $("#lowerMain").css("height", "100%");
-            $("#lowerMain").css("top", "0%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapHidden');
         });
 
         //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});
         //IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({model: IONUX2.Models.saveConfiguration});
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+        
+        var landingPages = {
+                'searchResults': {
+                    id:'searchResultsLandingPage',
+                    block: 'templates/block_search_results2.html'
+                },
+                'resourceManagement': {
+                    id:'resourceManagementLandingPage',
+                    block: 'templates/block_resource_management2.html'
+                }
+            };
+
+        /* page view states are searchResults, resourceManagement */
+
+        IONUX2.setPageView = function(viewState) {
+            console.log(viewState);
+            console.log(landingPages[viewState]);
+            landing_id = landingPages[viewState].id;
+            if($('#'+landing_id).length == 0){
+                var newDiv = $('<div/>', {
+                    id : landing_id
+                });
+                $('#lowerMain').append(newDiv);
+                newDiv.html(IONUX2.getTemplate(landingPages[viewState].block));
+            }
+            $('#'+landing_id).show().siblings().hide();
+            switch(viewState){
+                case "searchResults": if(IONUX2.getMapState() == "mapHidden"){
+                                        IONUX2.setMapState('mapSplit');
+                                      }
+                                      if($('#legacyFacePageTab').hasClass('active')){
+                                        $('#dataSearchResultsTab').click();
+                                      }
+                                      break;
+                case "resourceManagement" : IONUX2.setMapState('mapHidden');
+                                            break;
+
+            }
+        }
+
+        IONUX2.setPageView('searchResults');
+
+        //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
         
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
@@ -184,6 +234,7 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             //IONUX2.Views.mySearches.render();
             //IONUX2.Views.loadSearches.render();
             IONUX2.Views.loadSearchCollection.render();
+            IONUX2.Views.mySearches.render();
             
             // loop through list of saved searches
             $('.list_mysearches a').each(function(index) {
@@ -198,6 +249,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
                     var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
                     console.log("search model");
                     console.log(searchModel);
+                    //var searchModel = IONUX2.Collections.saveNames.at(index);
+
 
                     // convert search model into string to pass to ajax call
                     var body = JSON.stringify(searchModel);
@@ -249,6 +302,7 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 
                 // open Search tab
                 $('#searchTab').trigger('click');
+                $('#searchBtn').click();
             
                 });
             });
@@ -256,8 +310,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#myDashboard").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/blockMyDashboard.html')).show();
-            $(".mapButtonHidden").click();
+            // IONUX.ROUTER.navigate("", {trigger: true});
+            IONUX2.setPageView("searchResults");
         });
 
         $("#dataProcessing").click(function(e){
@@ -276,8 +330,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#resourceManagement").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/blockResourceManagement.html')).show();
-            $(".mapButtonHidden").click();
+            // IONUX.ROUTER.navigate("/hmmm/", {trigger: true});
+            IONUX2.setPageView("resourceManagement");
         });
 
         $(".twoNavTab").click(function(e){
@@ -297,8 +351,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
                     queue: false,
                     complete: function(){
                         $(this).removeClass('collapsed');
-                        $(this).attr('style', 'left:0px');
-                        $(this).html('');
+                        $(this).attr('style', 'left:250px');
+                        $(this).html('<div id="searchChevron"> </div>');
                     }
                 });
                 $('#left2').animate({
@@ -318,7 +372,7 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             } else {
                 $(this).addClass('collapsed');
                 $(this).attr('style', 'left:275px');
-                $(this).html('Search');
+                $(this).html('Search<div id="searchChevron"> </div>');
                 
                 $(this).animate({
                    left: '0px'
@@ -384,8 +438,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
                     'accordionDataType': datatype2_accordion_visible
                 },
                 'sortable_order': sortable_order,
-                'bottom_sortable': bottom_sortable,
-                'saved_searches': IONUX2.Collections.saveNames.toJSON()
+                'bottom_sortable': bottom_sortable
+                //'saved_searches': IONUX2.Collections.saveNames.toJSON()
             };
 
             IONUX2.Collections.userProfileInstance.set(user_profile);

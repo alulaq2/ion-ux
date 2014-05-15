@@ -67,9 +67,14 @@ IONUX2 = {
 		  _self.trigger.apply(_self, args);
 		});
 	},
+	showFacePage: function(){
+		var target = $('#legacyFacePageTab');
+		target.addClass('active').siblings().removeClass('active');
+		tab_content = target.attr("tabContent");
+		$(tab_content).siblings().hide();
+		$(tab_content).show();
+	},
 	init: function(){
-
-		
 
 		Backbone.Model.prototype.initialize = function(initialize) {
 			return function(){
@@ -80,8 +85,8 @@ IONUX2 = {
 
 		this.on("all", function(eventName){
 			if (eventName.indexOf("change")>-1) {
-				console.log("Captured event: " + eventName);
-				console.log(this);
+				// console.log("Captured event: " + eventName);
+				// console.log(this);
 			}
 		});
 
@@ -116,10 +121,8 @@ IONUX2 = {
 			dataType: 'html'
 		});
 
-		
-
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
-		$("#lowerMain").html(IONUX2.getTemplate('templates/block_accordion_white2.html')).show();
+		// $("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
 
 	    // Bootstrap navigation menu
 	    $.ajax({
@@ -140,7 +143,7 @@ IONUX2 = {
 	    // check if user is logged in
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
-	    	$('#saveConfiguration').show();
+	    	//$('#saveConfiguration').show();
 	    	UINAV.getUserProfile();
 	    }
 	    
