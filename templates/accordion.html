@@ -138,16 +138,20 @@
       function set_temporal_form(){
 
           var tYear = $("#tempFromYear").val();
-          var tMonth = parseInt($("#tempFromMonth").val()) + 1;
+          var tMonth = $("#tempFromMonth").val();
           var tDay = $("#tempFromDay").val();
 
-          $("#tempFromFm").val(tYear + '-' + tMonth + '-' + tDay);
+          if(tYear.length > 0 && tMonth.length > 0 && tDay.length > 0){
+            $("#tempFromFm").val(tYear + '-' + (parseInt(tMonth) + 1) + '-' + tDay);
+          }
 
           var tYear2 = $("#tempToYear").val();
-          var tMonth2 = parseInt($("#tempToMonth").val()) + 1;
+          var tMonth2 = $("#tempToMonth").val();
           var tDay2 = $("#tempToDay").val();
 
-          $("#tempToFm").val(tYear2 + '-' + tMonth2 + '-' + tDay2);
+          if(tYear2.length > 0 && tMonth2.length > 0 && tDay2.length > 0){
+            $("#tempToFm").val(tYear2 + '-' + (parseInt(tMonth2) + 1) + '-' + tDay2);
+          }
 
           $("#temporal-field-ctrlFm").val($("#tempSelect").val());
 

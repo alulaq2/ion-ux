@@ -68,23 +68,23 @@
     
     populateYearDropdown(1900, currentYear+10);
     populateMonthDropdown();
-    populateDayDropdown(numberOfDays);
+    populateDayDropdown(numberOfDays, '');
     populateHourDropdown(numberofHours);
                
-    selectYearDropdown(currentYear);
-    selectMonthDropdown(currentMonth);
-    selectDayDropdown(currentDay);
-    selectHourDropdown(currentHour);
+    //selectYearDropdown(currentYear);
+    //selectMonthDropdown(currentMonth);
+    //selectDayDropdown(currentDay);
+    //selectHourDropdown(currentHour);
         
     bindYearDropdownEvent();
     bindMonthDropdownEvent();
-    bindDayDropdownEvent();
-    bindHourDropdownEvent();
+    //bindDayDropdownEvent();
+    //bindHourDropdownEvent();
   }      
       
   function populateYearDropdown(startYear, endYear) {
     var yearOptions = [];
-        
+    yearOptions.push('<option value="">Year</option>');
     for (var y = startYear; y <= endYear; y++) {          
       yearOptions.push('<option value="' + y + '">' + y + '</option>');
     }
@@ -94,6 +94,7 @@
       
   function populateMonthDropdown() {
     var monthOptions = [];
+    monthOptions.push('<option value="">Month</option>');
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     for (var m = 0; m < months.length; m++) {          
       monthOptions.push('<option value="' + m + '">' + months[m] + '</option>');
@@ -101,23 +102,108 @@
         
     $('.month').html(monthOptions.join());
   }
-      
-  function populateDayDropdown(numberOfDays) {
-    var dayOptions = [];        
+
+  function populateDayDropdown(numberOfDays, toFrom) {
+    var dayOptions = [];
+    dayOptions.push('<option value="0">Day</option>');        
     for (var d = 1; d <= numberOfDays; d++) {          
       dayOptions.push('<option value="' + d + '">' + d + '</option>');
     }
-    $('.day').html(dayOptions.join());
+    if(toFrom == 'from'){ 
+      $('#tempFromDay').html(dayOptions.join());
+    } else if (toFrom == 'to'){
+      $('#tempToDay').html(dayOptions.join());
+    } else {
+      $('#tempFromDay').html(dayOptions.join());
+      $('#tempToDay').html(dayOptions.join());
+    }
   }
 
   function populateHourDropdown(numberOfHours) {
     var hourOptions = [];
+    hourOptions.push('<option value="">Hour</option>');
     for (var h=1; h<=numberOfHours; h++) {
       hourOptions.push('<option value="' + h + '">' + h + ':00</option>');
     }
     $('.hour').html(hourOptions.join());
   }
       
+  function selectDayDropdown(day, toFrom) {
+    $('#temp'+toFrom+'Day option[value=' + day + ']').attr('selected', true);
+  }
+     
+  function refreshDayDropdown(toFrom) {
+    if(toFrom == 'from'){
+      var year = $('#tempFromYear').val();
+      var month = $('#tempFromMonth').val();
+      var day = $('#tempFromDay').val();
+
+      if(year.length > 0 && month.length > 0){  
+        var numberOfDays = daysInMonth(year, parseInt(month));
+            
+        populateDayDropdown(numberOfDays, 'from');
+            
+        if (day <= numberOfDays && day != null) {
+          selectDayDropdown(day, 'From');
+        } else {
+          selectDayDropdown(0, 'From');
+        }  
+      }
+    } else if(toFrom =='to'){
+      var year = $('#tempToYear').val();
+      var month = $('#tempToMonth').val();
+      var day = $('#tempToDay').val();
+
+      if(year.length > 0 && month.length > 0){  
+        var numberOfDays = daysInMonth(year, parseInt(month));
+            
+        populateDayDropdown(numberOfDays, 'to');
+            
+        if (day <= numberOfDays && day != null) {
+          selectDayDropdown(day, 'To');
+        } else {
+          selectDayDropdown(0, 'To');
+        }  
+      }
+    }      
+  }
+      
+  /*** Event handlers ***/
+  function bindYearDropdownEvent() {
+    $('#tempToYear').on('change', function() {
+      refreshDayDropdown('to');
+    });
+    $('#tempFromYear').on('change', function() {
+      refreshDayDropdown('from');
+    });
+  }
+      
+  function bindMonthDropdownEvent() {
+    $('#tempFromMonth').on('change', function() {
+      refreshDayDropdown('from');
+    });
+    $('#tempToMonth').on('change', function() {
+      refreshDayDropdown('to');
+    });
+  }
+
+  /** Utility Function **/
+  // Reference: http://stackoverflow.com/a/315767 + fguillen's comment
+  function daysInMonth(year, month) {
+    return new Date(year, month+1, 0).getDate();
+  }
+
+  // NO LONGER NEEDED
+/*
+  function populateDayDropdown(numberOfDays) {
+    var dayOptions = [];
+    dayOptions.push('<option value="0">Day</option>');        
+    for (var d = 1; d <= numberOfDays; d++) {          
+      dayOptions.push('<option value="' + d + '">' + d + '</option>');
+    }
+    $('.day').html(dayOptions.join());
+  }
+
   function selectYearDropdown(year) {
     $('.year option[value=' + year + ']').attr('selected', true);
   }
@@ -125,43 +211,9 @@
   function selectMonthDropdown(month) {
     $('.month option[value=' + month + ']').attr('selected', true);
   }
-      
-  function selectDayDropdown(day) {
-    $('.day option[value=' + day + ']').attr('selected', true);
-  }
 
   function selectHourDropdown(hour) {
     $('.hour option[value=' + hour + ']').attr('selected', true);
-  }
-      
-  function refreshDayDropdown() {
-    var year = parseInt($('.year').val());
-    var month = parseInt($('.month').val());
-    var day = parseInt($('.day').val());   
-    var numberOfDays = daysInMonth(year, month);
-        
-    populateDayDropdown(numberOfDays);
-        
-    if (day <= numberOfDays) {
-      selectDayDropdown(day);
-    } else {
-      selectDayDropdown(numberOfDays);
-    }        
-  }
-      
-  /*** Event handlers ***/
-  function bindYearDropdownEvent() {
-    $('#year').on('change', function() {
-      refreshDayDropdown();
-      syncDatePickerWithDateDropdown();
-    });
-  }
-      
-  function bindMonthDropdownEvent() {
-    $('#month').on('change', function() {
-      refreshDayDropdown();
-      syncDatePickerWithDateDropdown();
-    });
   }
       
   function bindDayDropdownEvent() {
@@ -176,7 +228,7 @@
     });
   }
       
-  /** Sync Functions **/
+  //Sync Functions 
   function syncDateDropdownWithDatePicker() {
     var datePickerDate = $('#datepicker').datepicker('getDate');
     selectYearDropdown(datePickerDate.getFullYear());
@@ -194,10 +246,6 @@
     var dropdownDate = new Date(dropdownYear, dropdownMonth, dropdownDay, dropdownHour);
     $('#datepicker').datepicker('setDate', dropdownDate);
   }
-      
-  /** Utility Function **/
-  // Reference: http://stackoverflow.com/a/315767 + fguillen's comment
-  function daysInMonth(year, month) {
-    return new Date(year, month+1, 0).getDate();
-  }
+*/   
+  
   </script>
