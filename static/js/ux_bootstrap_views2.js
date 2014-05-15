@@ -245,7 +245,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         'dataTypes': dataTypes
       };
 
-      IONUX2.Collections.saveNames.add(values);
+      IONUX2.Collections.saveNames.set(values);
 
       //
       // add search values to saved search collection
@@ -280,12 +280,14 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       console.log("parse collection");
       console.log(parsed_collection);
       var parsed_obj = parsed_collection[0].saved_searches;
+      //IONUX2.Collections.saveNames.reset();
       var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
       console.log("concatenating");
       console.log(concat_obj);
       console.log("save names collection");
-      IONUX2.Collections.saveNames = concat_obj;
-      console.log(IONUX2.Collections.saveNames);
+
+      IONUX2.Collections.saveNames.set(concat_obj);
+      //console.log(IONUX2.Collections.saveNames.toJSON());
       /*var parsed_array = [];
       //console.log("parse object " +  typeof(parsed_obj));
       console.log(parsed_obj);
@@ -317,8 +319,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         },
         //'sortable_order': sortable_order,
         //'bottom_sortable': bottom_sortable,
-        //'saved_searches': IONUX2.Collections.saveNames.toJSON()
-        'saved_searches': IONUX2.Collections.saveNames
+        'saved_searches': IONUX2.Collections.saveNames.toJSON()
+        //'saved_searches': concat_obj
       });
       console.log("User Profile Collection");
       console.log(IONUX2.Collections.userProfileInstance);
