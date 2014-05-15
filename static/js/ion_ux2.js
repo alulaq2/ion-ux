@@ -67,13 +67,6 @@ IONUX2 = {
 		  _self.trigger.apply(_self, args);
 		});
 	},
-	showFacePage: function(){
-		var target = $('#legacyFacePageTab');
-		target.addClass('active').siblings().removeClass('active');
-		tab_content = target.attr("tabContent");
-		$(tab_content).siblings().hide();
-		$(tab_content).show();
-	},
 	init: function(){
 
 		Backbone.Model.prototype.initialize = function(initialize) {
@@ -92,27 +85,6 @@ IONUX2 = {
 
 	    var router = new IONUX.Router();
 	    IONUX2.ROUTER = router;
-
-		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
-
-		/*
-		IONUX2.Models.HeaderInstance = new IONUX2.Models.Header();
-
-		IONUX2.Views.HeaderInstance = new IONUX2.Views.Header({model: IONUX2.Models.HeaderInstance});
-
-		IONUX2.Models.HeaderInstance.fetch({
-			async: false,
-			dataType: 'html'
-		});
-		*/
-
-		IONUX2.Models.LoginTemplateInstance = new IONUX2.Models.LoginTemplate();
-		IONUX2.Models.LoginInstance = new IONUX2.Models.Login();
-		IONUX2.Models.LoginInstance.setModels(IONUX2.Models.LoginTemplateInstance, IONUX2.Models.SessionInstance);
-
-		IONUX2.Views.LoginInstance = new IONUX2.Views.Login({model: IONUX2.Models.LoginInstance});
-
-	    IONUX2.Models.LoginInstance.fetch();
 
 		/*IONUX2.Models.saveCustomName.fetch({
 			async: false,
@@ -135,9 +107,23 @@ IONUX2 = {
 			url: '/ui/navigation/',
 			success: function(resp) {
 		        // MAPS Sidebar (initially shown)
+		    	IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs(_.sortBy(resp.data.orgs,function(o){return o.name}));
 		        IONUX2.Dashboard.Observatories = new IONUX2.Collections.Observatories(_.sortBy(resp.data.observatories,function(o){return o.spatial_area_name + (o.local_name ? o.local_name : '') + o.name}));
       		},
       	});
+      	console.log("Created Orgs instance.");
+      	console.log(IONUX2.Collections.OrgsInstance);
+
+		IONUX2.Models.PermittedFacilitiesInstance = new IONUX2.Models.PermittedFacilities();
+		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
+
+		IONUX2.Models.LoginTemplateInstance = new IONUX2.Models.LoginTemplate();
+		IONUX2.Models.LoginInstance = new IONUX2.Models.Login();
+		IONUX2.Models.LoginInstance.setModels(IONUX2.Models.LoginTemplateInstance, IONUX2.Models.SessionInstance);
+
+		IONUX2.Views.LoginInstance = new IONUX2.Views.Login({model: IONUX2.Models.LoginInstance});
+
+	    IONUX2.Models.LoginInstance.fetch();
 
 	    IONUX2.Models.SessionInstance.fetch({
       		async: false
@@ -190,8 +176,40 @@ IONUX2 = {
 	      IONUX2.Dashboard.MapView.draw_map();
 	      IONUX2.Dashboard.MapView.draw_markers();
 	    }
-	}
+	},
   
+	// Returns Org names with create privileges. Otherwise, it returns empty list
+	createRoles: function(){
+		if(this.is_logged_in())
+		{
+		  return _.filter(_.keys(IONUX2.Models.SessionInstance.get('roles')), function(r){
+		    return _.size(IONUX2.Models.SessionInstance.get('roles')[r]) > 1;
+		  });
+		} else {
+		  return [];
+		}
+		},
+		is_logged_in: function(){
+		return IONUX2.Models.SessionInstance.get('is_logged_in');
+		},
+		is_owner: function(){
+		var user_id = IONUX2.Models.SessionInstance.get('user_id');
+		var owner_match = _.findWhere(MODEL_DATA.owners, {_id: user_id}) ? true : false;
+		return owner_match;
+	},
+
+    // look through all roles for a potential match
+    has_permission: function(target_roles) {
+    	var model = IONUX2.Models.PermittedFacilitiesInstance.attributes;
+    	var roles = IONUX2.Models.SessionInstance.get('roles');
+
+		// loop through all orgs in case a user has permission to do something in one but not the other
+		var hits = 0;
+		_.each(model.orgs,function(o) {
+			hits += !_.isEmpty(_.intersection(roles[o.org_governance_name],target_roles)) ? 1 : 0;
+		});
+		return hits > 0;
+    }
 };
 
 _.extend(IONUX2, Backbone.Events);

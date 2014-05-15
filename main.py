@@ -249,7 +249,7 @@ def event_types():
 @app.route('/create/', methods=['POST'])
 @login_required
 def create_resource():
-    resp = ServiceApi.create_resource(request.form.get('resource_type', None), request.form.get('org_id', None))
+    resp = ServiceApi.create_resource(request.form.get('resource_type', None), request.form.get('org_id', None), request.form.get('lcstate', None))
     return render_json_response(resp)
 
 @app.route('/<resource_type>/face/<resource_id>/subscribe/', methods=['GET'])

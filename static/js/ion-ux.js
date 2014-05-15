@@ -123,9 +123,14 @@ IONUX = {
   },
   // Returns Org names with create privileges. Otherwise, it returns empty list
   createRoles: function(){
-    return _.filter(_.keys(IONUX.SESSION_MODEL.get('roles')), function(r){
-             return _.size(IONUX.SESSION_MODEL.get('roles')[r]) > 1;
-    });
+    if(this.is_logged_in())
+    {
+      return _.filter(_.keys(IONUX.SESSION_MODEL.get('roles')), function(r){
+        return _.size(IONUX.SESSION_MODEL.get('roles')[r]) > 1;
+      });
+    } else {
+      return [];
+    }
   },
   is_logged_in: function(){
     return IONUX.SESSION_MODEL.get('is_logged_in');
