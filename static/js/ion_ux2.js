@@ -126,8 +126,6 @@ IONUX2 = {
 			dataType: 'html'
 		});
 
-		
-
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
 		// $("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
 
@@ -150,12 +148,7 @@ IONUX2 = {
 	    // check if user is logged in
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
-<<<<<<< HEAD
-	    	$('#saveConfiguration').show();
-	    	//UINAV.getUserProfile();
-=======
 	    	// $('#saveConfiguration').show();
->>>>>>> 0fe6fbd948443154200e12123b89474d0a6c3dac
 	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;
