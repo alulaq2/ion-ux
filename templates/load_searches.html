@@ -1,5 +1,3 @@
-<% _.each(this.collection.models, function(config) { %>
-	<% _.each(config.attributes.saved_searches, function(search) { %>
+<% _.each(this.model.attributes.saved_searches, function(search) { %>
 		<li><a data-id="<%= search.searchName.time %>" href="#"><%= search.searchName.name %> <%= search.searchName.month %>/<%= search.searchName.day %>/<%= search.searchName.year %> <%= search.searchName.hour %>:<%= search.searchName.minute %></a></li>
-	<% }); %>
 <% }); %>

@@ -306,7 +306,8 @@ IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
       accordionDataType: ''
     },
     sortable_order: '',
-    bottom_sortable: ''
+    bottom_sortable: '',
+    saved_searches: ''
   }
 });
 IONUX2.Models.saveConfiguration = new IONUX2.Models.SaveConfiguration();
@@ -320,6 +321,9 @@ IONUX2.Models.sortBottomModelInstance = new IONUX2.Models.SortBottomOrder();
 IONUX2.Collections.SaveNames = Backbone.Collection.extend({});
 
 IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
+
+IONUX2.Models.UserProfile = Backbone.Model.extend({});
+IONUX2.Models.userProfileInstance = new IONUX2.Models.UserProfile();
 
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();

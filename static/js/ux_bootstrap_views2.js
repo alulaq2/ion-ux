@@ -33,7 +33,8 @@ IONUX2.Views.LoadSearches = Backbone.View.extend({
   },
   render: function() {
     console.log('rendering load searches view');
-    this.$el.html(this.template(this.collection.toJSON()));
+    console.log(this.model);
+    this.$el.html(this.template(this.model.data));
     return this;
   }
 });
@@ -232,8 +233,37 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         'dataTypes': dataTypes
       };
 
-      // add search values to saved search collection
       IONUX2.Collections.saveNames.add(values);
+
+      //
+      // add search values to saved search collection
+      IONUX2.Models.saveConfiguration.set({
+        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+        'name':  IONUX2.Models.SessionInstance.attributes.name,
+        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+        'configuration': {
+            'spatialElem': $('#spatial').is(':visible'),
+            'temporalElem': $('#temporal').is(':visible'),
+            'orgSelectorElem': $('#orgSelector').is(':visible'),
+                    'regionElem': $('#region').is(':visible'),
+                    'siteElem': $('#site').is(':visible'),
+                    'dataTypesListElem': $('#dataTypesList').is(':visible'),
+                    'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+                    'platformElem': $('#platform').is(':visible'),
+                    'instrumentElem': $('#instrument').is(':visible'),
+        },
+        'bottom_config': {
+              'accordionAssets': $('#accordionAssets .accordionContents').is(':visible'),
+              'accordionData': $('#accordionData .accordionContents').is(':visible'),
+              'accordionPlatform': $('#accordionPlatform .accordionContents').is(':visible'),
+              'accordionInstruments': $('#accordionInstruments .accordionContents').is(':visible'),
+              'accordionDataType': $('#accordionDataType .accordionContents').is(':visible')
+        },
+        //'sortable_order': sortable_order,
+        //'bottom_sortable': bottom_sortable,
+        'saved_searches': IONUX2.Collections.saveNames.toJSON()
+      });
+      //IONUX2.Collections.saveNames.add(values);
       console.log("saved search collection");
       console.log(IONUX2.Collections.saveNames);     
 

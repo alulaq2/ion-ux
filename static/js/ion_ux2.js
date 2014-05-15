@@ -69,7 +69,7 @@ IONUX2 = {
 	},
 	init: function(){
 
-		_.extend(this, Backbone.Events);
+		
 
 		Backbone.Model.prototype.initialize = function(initialize) {
 			return function(){
@@ -191,3 +191,5 @@ IONUX2 = {
 	}
   
 };
+
+_.extend(IONUX2, Backbone.Events);
