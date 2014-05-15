@@ -122,7 +122,7 @@ IONUX2 = {
 		});
 
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
-		$("#lowerMain").html(IONUX2.getTemplate('templates/block_accordion_white2.html')).show();
+		$("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
 
 	    // Bootstrap navigation menu
 	    $.ajax({

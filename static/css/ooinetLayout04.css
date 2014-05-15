@@ -932,7 +932,7 @@ input.noPlaceholderRadius {
   background: #88A9CC;
 }
 
-#accordionContainerWhite {
+.accordionContainerWhite {
   color: #000;
   position: relative;
   width:  calc(100% - 6px);
