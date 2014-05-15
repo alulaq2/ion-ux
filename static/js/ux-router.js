@@ -245,8 +245,6 @@ dashboard_map_resource: function(resource_id) {
   search: function(query) {
     console.log('LETS DO THIS SHET!!!!!!');
     var func = IONUX2.parseSearchResults;
-    console.log('PARSER is: ');
-    console.log(func);
     if (!(typeof(func) == "function")) return;
     /*
     $('#dashboard-container').hide();
