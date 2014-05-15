@@ -280,14 +280,19 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       console.log("parse collection");
       console.log(parsed_collection);
       var parsed_obj = parsed_collection[0].saved_searches;
-      var parsed_array = [];
-      console.log("parse object " +  typeof(parsed_obj));
+      var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
+      console.log("concatenating");
+      console.log(concat_obj);
+      console.log("save names collection");
+      IONUX2.Collections.saveNames = concat_obj;
+      console.log(IONUX2.Collections.saveNames);
+      /*var parsed_array = [];
+      //console.log("parse object " +  typeof(parsed_obj));
       console.log(parsed_obj);
       parsed_array.push(parsed_obj);
       parsed_array.push(IONUX2.Collections.saveNames.toJSON());
       console.log("parsed array is");
-      console.log(parsed_array);
-      //parsed_array.concat();
+      console.log(parsed_array);*/
       IONUX2.Collections.userProfileInstance.set({
         'userId': IONUX2.Models.SessionInstance.attributes.user_id,
         'name':  IONUX2.Models.SessionInstance.attributes.name,
@@ -312,7 +317,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         },
         //'sortable_order': sortable_order,
         //'bottom_sortable': bottom_sortable,
-        'saved_searches': IONUX2.Collections.saveNames.toJSON()
+        //'saved_searches': IONUX2.Collections.saveNames.toJSON()
+        'saved_searches': IONUX2.Collections.saveNames
       });
       console.log("User Profile Collection");
       console.log(IONUX2.Collections.userProfileInstance);
