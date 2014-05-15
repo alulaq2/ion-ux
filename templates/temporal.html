@@ -1,25 +1,30 @@
     <div class="leftNaviSelectContainer">
-      <select class="temporal_menu">
+      <select class="temporal_menu" id="tempSelect">
+        <option value="temporal_range">Temporal Range</option>
+        <option value="ts_created">Time Created</option>
+        <option value="ts_updated">Time Updated</option>
+        <!--
         <option value="1">Data Collection</option>
         <option value="2">Planned Timestamps</option>
          <option value="3">Deployed Timestamps</option>
          <option value="4">Activated Timestamps</option>
+       -->
       </select>
       <div class="leftNaviSelectArrow"></div>
     </div>
 		<div>From</div>
-		<div class='date-dropdown from_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
+		<div class='date-dropdown from_date_menu' >
+			<select class="dateMenu year" id="tempFromYear"></select>
+			<select class="dateMenu month" id="tempFromMonth"></select>
+   		<select class="dateMenu day" id="tempFromDay"></select>
+      <select class="dateMenu hour" id="tempFromHour"></select>
     </div>
 		<div>To</div>
 		<div class='date-dropdown to_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
+			<select class="dateMenu year" id="tempToYear"></select>
+			<select class="dateMenu month" id="tempToMonth"></select>
+   		<select class="dateMenu day" id="tempToDay"></select>
+      <select class="dateMenu hour" id="tempToHour"></select>
     </div>
   <script type="text/javascript">
   
