@@ -504,13 +504,12 @@ IONUX2.Views.Spatial = Backbone.View.extend({
     console.log("spatial model in Views Spatial");
     console.log(spatialModel);
 
-    $('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
+    //$('.latLongMenu option[value="' + spatialModel.spatial_dropdown + '"]').attr('selected', 'selected');
 
     if (spatialModel.spatial_dropdown == 2) {
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
-    }
-    else {
+    } else {
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
     }

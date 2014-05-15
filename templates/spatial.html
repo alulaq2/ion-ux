@@ -65,20 +65,22 @@ $(function(){
   //Moved here for toggle between drop-down and drawing selector on Map
   $('.latLongMenu').on('change', function(e) {
     console.log('changed option ' + $(this).find('option:selected').attr('value'));
+    //var attribute = {};
     IONUX2.Dashboard.MapView.clear_inputs();
 
     if ($(this).find('option:selected').attr('value') == "2") {
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').show();
+      //attribute["spatial_dropdown"] = "2";
       IONUX2.Dashboard.MapView.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
     } else {
       $('.topSearchRadius, .noPlaceholderRadius, .milesKilosMenu').hide();
       $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
+      //attribute["spatial_dropdown"] = "1";
       IONUX2.Dashboard.MapView.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
-    }
-    var attribute = {};
-    attribute["spatial_dropdown"] = $(".latLongMenu").val();
-    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    }  
+    
+    //IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
   });
   
