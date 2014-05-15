@@ -1,5 +1,5 @@
 <div class="filter-item">
-    <select name="filter_var">
+    <select class="booleanSelectContainer" name="filter_var">
         <% _.each(fields, function(e) { %>
         <option value="<%= e.field %>"><%= e.label %></option>
         <%});%>
