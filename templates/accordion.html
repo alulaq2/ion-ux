@@ -108,7 +108,8 @@
 		    IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
 		    IONUX2.Collections.OrgsInstance.fetch();
 
-        $('.leftAccordionContents').hide();
+        IONUX2.Views.boolean.render();
+
         $('.accordionContainer').sortable({
           items: "article:not(.accordion_fixed)"
         });

@@ -499,102 +499,6 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
     "click .filter-remove": "remove_filter_item",
     "change select[name='filter_var']": "filter_field_changed"
   },
-  initialize: function() {
-    console.log('initializing boolean view');
-    this.render();
-    //this.add_filter_item();
-  },
-  render: function() {
-    console.log('rendering boolean');
-    this.$el.html(this.template());
-    this.add_filter_item();
-    return this;
-  },
-  add_filter_item: function(evt) {
-    //var columns = this.get_filter_columns();
-    //var data = {"columns":columns, "operators":OPERATORS};
-
-    var filter_item = $(this.item_template({'fields':this.filter_fields}));
-    if (evt == null){
-      this.$el.find(".filter-item-holder").append(filter_item);
-    } else {
-      var target = $(evt.target);
-      target.parents('.filter-item').after(filter_item);
-    }
-
-    // seems to be no way to get this to cooperate, so we'll just select the first item
-    var sel = filter_item.find('select[name="filter_var"]');
-    sel.change();
-  },
-  remove_filter_item: function(evt) {
-    var this_filter_item = $(evt.target).parents('.filter-item');
-    var filter_items = this_filter_item.siblings();
-    if (filter_items.length > 0) {
-      this_filter_item.remove();
-      return;
-    }
-  },
-  filter_field_changed: function(evt){
-    var sel = $(evt.currentTarget);
-    var filter_container = sel.parent();
-
-    var operators = ['contains', 'like', 'matches', 'starts with', 'ends with'];
-
-    // determine if the selected field is a dropdown type or an entry type
-    var entry = _.findWhere(this.filter_fields, {'label': sel.find("option:selected").text() });
-
-    if (entry == null) {
-      console.error("Could not find associated entry");
-      return;
-    }
-
-    if (entry.values.length == 0) {
-      // this is a manual textbox entry
-      filter_container.find('input[name="filter_operator"]').remove();
-      filter_container.find('select[name="filter_arg"]').remove();
-
-      if (filter_container.find('select[name="filter_operator"]').length == 0) {
-        var sel_operator = $('<select class="operator" name="filter_operator"></select>');
-        filter_container.find('.filter-add').before(sel_operator);
-        _.each(operators, function(o) {
-          sel_operator.append('<option>' + o + '</option>');
-        });
-      }
-
-      if (filter_container.find('input[name="filter_arg"]').length == 0) {
-        var inp_arg = '<input class="argument" type="text" name="filter_arg" value="" />';
-        filter_container.find('.filter-add').before(inp_arg);
-      }
-
-    } else {
-
-      filter_container.find('select[name="filter_operator"]').remove();
-      filter_container.find('input[name="filter_arg"]').remove();
-
-      if (filter_container.find('input[name="filter_operator"]').length == 0) {
-        var sel_operator = '<input type="text" class="argument" style="visibility:hidden;" name="filter_operator" value="matches" />';
-        filter_container.find('.filter-add').before(sel_operator);
-      }
-
-      var inp_arg = filter_container.find('select[name="filter_arg"]'); 
-      if (inp_arg.length == 0) {
-        inp_arg = $('<select class="column" name="filter_arg"></select>');
-        filter_container.find('.filter-add').before(inp_arg);
-      }
-
-      inp_arg.empty();
-      _.each(entry.values, function(v) {
-        var value = null, label = null;
-        if (typeof(v) == "string")
-          value = label = v;
-        else {
-          label = v[0];
-          value = v[1];
-        }
-        inp_arg.append('<option value="' + value + '">' + label + '</option>');
-      });
-    }
-  },
   filter_fields: [
     {field: 'name'                  , label: 'Name'                     , values: []} ,
     {field: 'ooi_short_name'        , label: 'OOI Data Product Code'    , values: []} ,
@@ -648,7 +552,105 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       ['Station','PlatformSite'],
       ['Subscription','NotificationRequest'],
       ['User','UserInfo']]},
-  ]
+  ],
+  initialize: function() {
+    console.log('initializing boolean view');
+  },
+  render: function() {
+    console.log('rendering boolean');
+    this.$el.html(this.template());
+    this.add_filter_item();
+    return this;
+  },
+  add_filter_item: function(evt) {
+    //var columns = this.get_filter_columns();
+    //var data = {"columns":columns, "operators":OPERATORS};
+
+    var filter_item = $(this.item_template({'fields':this.filter_fields}));
+    if (evt == null){
+      this.$el.find(".filter-item-holder").html(filter_item);
+      // this.$el.html(filter_item);
+    } else {
+      var target = $(evt.target);
+      target.parents('.filter-item').after(filter_item);
+    }
+
+    // seems to be no way to get this to cooperate, so we'll just select the first item
+    var sel = filter_item.find('select[name="filter_var"]');
+    sel.change();
+  },
+  remove_filter_item: function(evt) {
+    var this_filter_item = $(evt.target).parents('.filter-item');
+    var filter_items = this_filter_item.siblings();
+    if (filter_items.length > 0) {
+      this_filter_item.remove();
+      return;
+    }
+  },
+  filter_field_changed: function(evt){
+    var sel = $(evt.currentTarget);
+    var filter_container = sel.parent();
+
+    var operators = ['contains', 'like', 'matches', 'starts with', 'ends with'];
+
+    // determine if the selected field is a dropdown type or an entry type
+    var entry = _.findWhere(this.filter_fields, {'label': sel.find("option:selected").text() });
+
+    if (entry == null) {
+      console.error("Could not find associated entry");
+      return;
+    }
+
+    if (entry.values.length == 0) {
+      // this is a manual textbox entry
+      filter_container.find('input[name="filter_operator"]').remove();
+      filter_container.find('select[name="filter_arg"]').remove();
+
+      if (filter_container.find('select[name="filter_operator"]').length == 0) {
+        // var sel_operator = $('<select class="operator" name="filter_operator"></select>');
+        var sel_operator = $('<select class="booleanSelectContainer" name="filter_operator"></select>');
+        filter_container.find('.filter-add').before(sel_operator);
+        _.each(operators, function(o) {
+          sel_operator.append('<option>' + o + '</option>');
+        });
+      }
+
+      if (filter_container.find('input[name="filter_arg"]').length == 0) {
+        // var inp_arg = '<input class="argument" type="text" name="filter_arg" value="" />';
+        var inp_arg = '<input type="text" class="booleanInput" name="filter_arg" value="" />';
+        filter_container.find('.filter-add').before(inp_arg);
+      }
+
+    } else {
+
+      filter_container.find('select[name="filter_operator"]').remove();
+      filter_container.find('input[name="filter_arg"]').remove();
+
+      if (filter_container.find('input[name="filter_operator"]').length == 0) {
+        var sel_operator = '<input type="text" class="argument" style="visibility:hidden;" name="filter_operator" value="matches" />';
+        filter_container.find('.filter-add').before(sel_operator);
+      }
+
+      var inp_arg = filter_container.find('select[name="filter_arg"]'); 
+      if (inp_arg.length == 0) {
+        inp_arg = $('<select class="column" name="filter_arg"></select>');
+        filter_container.find('.filter-add').before(inp_arg);
+      }
+
+      inp_arg.empty();
+      _.each(entry.values, function(v) {
+        var value = null, label = null;
+        if (typeof(v) == "string")
+          value = label = v;
+        else {
+          label = v[0];
+          value = v[1];
+        }
+        inp_arg.append('<option value="' + value + '">' + label + '</option>');
+      });
+    }
+  }
+
 });
 
 IONUX2.Views.OrgSelector = Backbone.View.extend({
