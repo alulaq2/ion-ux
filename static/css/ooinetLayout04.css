@@ -561,6 +561,12 @@ input.latlong {
   margin-bottom: 2px;
 }
 
+input.booleanInput {
+  width: calc(100% - 58px);
+  margin-left: 4px;
+  margin-bottom: 2px;
+}
+
 #spatial input {
   height: 17px;
   padding: 0px;
@@ -612,6 +618,34 @@ select.dateMenu.hour {
   border: 1px solid #384D68;
   border-radius: 3px;
   margin-bottom: 4px;
+}
+
+.filter-item {
+  margin: 0px;
+}
+
+select.booleanSelectContainer {
+  position: relative;
+  width: 162px;
+  /* These are required to remove all browser default styling of drop down arrow */  
+  /*
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  */
+  /*  */
+  height: 18px;
+  padding: 0px;
+  color: #fff;
+  line-height: 16px;
+  border: 1px solid #384D68;
+  border-radius: 3px;
+  background: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));
+  background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
+  background: -moz-linear-gradient(left, #88A9CC, #7890AC);
+  background: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
 .leftNaviNarrowSelectContainer {
@@ -676,6 +710,20 @@ display: inline-block;
   background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
   background: -moz-linear-gradient(left, #88A9CC, #7890AC);
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
+}
+
+input.argument2 {
+  height: 18px;
+  border-top:#7D7D7D 1px solid;
+  border-left:#7D7D7D 1px solid;
+  border-bottom:#FFFFFF 1px solid;
+  border-right:#FFFFFF 1px solid;
+  background: #cdcdcd;
+  padding: 0px 5px;
+  font-size: 11px;
+  font-weight: 500;
+  width: 150px;
+  color: #000;
 }
 
 .topSearchRadius {
@@ -871,6 +919,29 @@ input.noPlaceholderRadius {
   background: transparent;
 }
 
+#searchResultsContainer {
+  position:absolute;
+  top:28px;
+  left:0px;
+  height:calc(100% - 28px);
+  width:100%;
+  overflow:auto;
+  background:#384d68;
+}
+
+#searchResultsContainer .jspVerticalBar {
+
+  right: 4px;
+}
+
+#searchResultsContainer .jspTrack {
+  background: none;
+}
+
+#searchResultsContainer .jspDrag {
+  background: #88A9CC;
+}
+
 .accordionContainer .jspVerticalBar {
 
   right: 4px;
@@ -884,7 +955,7 @@ input.noPlaceholderRadius {
   background: #88A9CC;
 }
 
-#accordionContainerWhite {
+.accordionContainerWhite {
   color: #000;
   position: relative;
   width:  calc(100% - 6px);
