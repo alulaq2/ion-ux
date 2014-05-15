@@ -77,7 +77,16 @@ var TABLE_67890 = TABLE_23456;
 <script>
 	$(function(){
         $('#accordionContainerWhite').sortable({
-        	items: ".accordionWhite:not(.pinned)"
+        	items: ".accordionWhite:not(.pinned)",
+        	update: function( event, ui ) {
+          	}
+        });
+
+        $("#accordionContainerWhite" ).on( "sortupdate", function( event, ui ) {
+          var sortable_order = $(this).sortable( "toArray" );
+          IONUX2.Models.sortBottomModelInstance.set({'sort_order': sortable_order});
+          console.log("sort bottom order model");
+          console.log(IONUX2.Models.sortBottomModelInstance);
         });
 
         function toggleAccordion(accordion_contents){
