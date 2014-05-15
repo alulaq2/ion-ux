@@ -633,7 +633,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
 
       var inp_arg = filter_container.find('select[name="filter_arg"]'); 
       if (inp_arg.length == 0) {
-        inp_arg = $('<select class="column" name="filter_arg"></select>');
+        inp_arg = $('<select class="booleanSelectContainer" name="filter_arg"></select>');
         filter_container.find('.filter-add').before(inp_arg);
       }
 
