@@ -1,10 +1,11 @@
 <div class="select_all">
     <input class="checkAllSites" type="checkbox"/> Select All
 </div>
+<form id="sitesForm">
 <div class="list_sites">
-    <form action="">
+    
         <% _.each(this.collection.models, function(site) { %>
-        	<input id="site_item" class="resource_id" data-id="<%= site.attributes._id %>" data-sites="<%= site.attributes.spatial_area_name %>" type="checkbox"/><div class="resourceLink" data-id="<%= site.attributes._id %>">
+        	<input id="site_item" class="resource_id" data-id="<%= site.attributes._id %>" data-sites="<%= site.attributes.spatial_area_name %>" type="checkbox" name="<%= site.attributes.name %>" /><div class="resourceLink" data-id="<%= site.attributes._id %>">
         	<% if (site.attributes.local_name) { %>
         		<%= site.attributes.local_name %><br/>
             <% } else { %>
@@ -12,9 +13,8 @@
             <% }; %>
             </div><br/>
         <% }) %>
-    </form>
 </div>
-
+</form>
 <script>
     $(function(){
         $(".list_sites .resourceLink").click(function(){

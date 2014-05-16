@@ -1,14 +1,15 @@
 <div class="select_all">
 	<input class="checkAllFacilities" type="checkbox"/> Select All
 </div>
+<form id="facilityForm">
 <div class="list_facilities">
-	<form action="">
+	
 		<% _.each(resources, function(resource) { %>
-            <input type="checkbox" value="<%= resource._id %>"/><div class="resourceLink" data-id="<%= resource._id %>"> <%= resource.name %></div><br/>
+            <input type="checkbox" value="<%= resource._id %>" name="<%= resource.name %>"><div class="resourceLink" data-id="<%= resource._id %>"> <%= resource.name %></div><br/>
         <% }) %>
-    </form>
+    
 </div>
-
+</form>
 
 <script>
     $(function(){

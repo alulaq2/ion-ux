@@ -1,20 +1,20 @@
 <div class="select_all">
     <input class="checkAllPlatformTypes" type="checkbox"/> Select All
 </div>
+<form id="platformTypeForm">
 <div class="listPlatformTypes">
-    <form action="">
-            <input class="resource_id" type="checkbox"/> AUV<br/>
-            <input class="resource_id" type="checkbox"/> Cable Infrastructure<br/>
-            <input class="resource_id" type="checkbox"/> Cable Node<br/>
-            <input class="resource_id" type="checkbox"/> Camera<br/>
-            <input class="resource_id" type="checkbox"/> Engineering<br/>
-            <input class="resource_id" type="checkbox"/> Glider<br/>
-            <input class="resource_id" type="checkbox"/> Mobile Asset Dock<br/>
-            <input class="resource_id" type="checkbox"/> Mooring<br/>
-            <input class="resource_id" type="checkbox"/> Profiler<br/>
-    </form>
+    
+            <input class="resource_id" type="checkbox" name="AUV" /> AUV<br/>
+            <input class="resource_id" type="checkbox" name="Cable Infrastructure" /> Cable Infrastructure<br/>
+            <input class="resource_id" type="checkbox" name="Cable Node" /> Cable Node<br/>
+            <input class="resource_id" type="checkbox" name="Camera" /> Camera<br/>
+            <input class="resource_id" type="checkbox" name="Engineering" /> Engineering<br/>
+            <input class="resource_id" type="checkbox" name="Glider" /> Glider<br/>
+            <input class="resource_id" type="checkbox" name="Mobile Asset Dock" /> Mobile Asset Dock<br/>
+            <input class="resource_id" type="checkbox" name="Mooring" /> Mooring<br/>
+            <input class="resource_id" type="checkbox" name="Profiler" /> Profiler<br/>
 </div>
-
+ </form>
 <script>
     $('.checkAllPlatformTypes').on('click', function(){
         $('.listPlatformTypes').find('input').prop("checked", $('.checkAllPlatformTypes').prop("checked"));
