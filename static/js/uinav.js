@@ -76,10 +76,10 @@ var UINAV = {
     loadBooleanExpression: function(booleanExpressionCollection) {
         console.log("boolean expression collection");
         console.log(booleanExpressionCollection);
-        /*$('select[name="filter_arg"]').each(function(index) {
+        $('select[name="filter_arg"]').each(function(index) {
             console.log("got filter arg " + index);
                 $(this).remove();
-        });*/
+        });
         $('.filter-item').each(function(index) {
             if (index != 0) {
                 this.remove();
