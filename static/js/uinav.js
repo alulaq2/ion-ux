@@ -75,6 +75,7 @@ var UINAV = {
 
     loadSpatial: function(spatialModel) {
         IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
+        IONUX2.Dashboard.MapView.map.setCenter(spatialModel.center);
     },
     loadTemporal: function(temporalModel) {
         IONUX2.Models.temporalModelInstance.updateAttributes(temporalModel);
@@ -356,7 +357,8 @@ var UINAV = {
         miles_kilos = $('.milesKilosMenu').val(),
         vertical_from = $('[data-verticalfrom]').val(),
         vertical_to = $('[data-verticalto]').val(),
-        feet_miles = $('.feet_miles option:selected').val();
+        feet_miles = $('.feet_miles option:selected').val(),
+        center = IONUX2.Dashboard.MapView.map.getCenter();
 
     // save temporal input values and set to model
     var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
@@ -393,7 +395,8 @@ var UINAV = {
       'miles_kilos': miles_kilos,
       'vertical_from': vertical_from,
       'vertical_to': vertical_to,
-      'feet_miles': feet_miles
+      'feet_miles': feet_miles,
+      'center': center
     };
 
     IONUX2.Models.spatialModelInstance.set(spatial);
