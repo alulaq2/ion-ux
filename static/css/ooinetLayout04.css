@@ -299,7 +299,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 }
 
 #navLeftMinimizeArrow.collapsed {
-  top: 75px;
+  top: 74px;
   left: 275px;
   background: #384d68;
   -webkit-font-smoothing: subpixel-antialiased;
@@ -622,9 +622,7 @@ select.dateMenu.hour {
   margin-bottom: 4px;
 }
 
-.filter-item {
-  margin: 0px;
-}
+.filter-item {}
 
 select.booleanSelectContainer {
   position: relative;
