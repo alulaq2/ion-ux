@@ -76,6 +76,10 @@ var UINAV = {
     loadBooleanExpression: function(booleanExpressionCollection) {
         console.log("boolean expression collection");
         console.log(booleanExpressionCollection);
+        /*$('select[name="filter_arg"]').each(function(index) {
+            console.log("got filter arg " + index);
+                $(this).remove();
+        });*/
         $('.filter-item').each(function(index) {
             if (index != 0) {
                 this.remove();
@@ -89,14 +93,15 @@ var UINAV = {
         }
         _.each(booleanExpressionCollection, function(booleanModel, key) {
             console.log("index is " + key);
+            
             $('.filter-item').eq(key).find('select[name="filter_var"]').val(booleanModel.boolean_main_filter);
 
             if ((booleanModel.boolean_main_filter == "lcstate") || (booleanModel.boolean_main_filter == "processing_level_code") ||
              (booleanModel.boolean_main_filter == "quality_control_level") || (booleanModel.boolean_main_filter == "aggregated_status")
                 || (booleanModel.boolean_main_filter == "type_")) {
                 
-                $('select[name="filter_arg"]').remove();
-                $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').hide();
+                
+                $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').remove();
                 
                 var lcstateValues= ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED'];
                 var processingValues = [
@@ -156,7 +161,7 @@ var UINAV = {
                 
             }
             else {
-                $('select[name="filter_arg"], .argument, select[name="filter_operator"], .booleanInput').remove();
+                $('.argument, select[name="filter_operator"], .booleanInput').remove();
                 $('.filter-add').before('<select class="booleanSelectContainer" name="filter_operator"><option value="contains">contains</option><option value="like">like</option><option value="matches">matches</option><option value="starts with">starts with</option><option value="ends with">ends with</option></select><input type="text" class="booleanInput" name="filter_arg" value="">');
                 $('.filter-item').eq(key).find('select[name="filter_operator"]').val(booleanModel.boolean_sub_filter);
                 $('.filter-item').eq(key).find('.booleanInput').val(booleanModel.boolean_input);
@@ -164,7 +169,11 @@ var UINAV = {
             $('.filter-item').eq(key).find('select[name="filter_var"]').on('change', function() {
                     $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').show();
                 });
+
         });
+        
+
+
     },
     postUserProfile: function(userProfile) {
     	$.ajax({
