@@ -223,6 +223,7 @@
           $("#northFm").val("");
           $("#eastFm").val("");
           $("#radiusFm").val("");
+          $('#radius').val("");
 
           // clear all checkboxes
           $('#searchTabContent').find('input').prop("checked", false);
@@ -374,7 +375,7 @@
           if (search_term == "adv=1&north=&south=&east=&west=&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&radius=0") {
             search_term = "adv=1&north=&south=&east=&west=&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&radius="
           }
-          
+
           var search_term2 = $.param(form_values_bool);
 
           search_term = search_term + '&' + search_term2;
