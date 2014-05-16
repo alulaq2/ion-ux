@@ -19,6 +19,29 @@
     $('.checkAllPlatformTypes').on('click', function(){
         $('.listPlatformTypes').find('input').prop("checked", $('.checkAllPlatformTypes').prop("checked"));
     });
+    $('.listPlatformTypes input[type="checkbox"]').each(function(index) {
+    $(this).on('click', function(e) {
+        var checked_val = $(this).attr('name');
+        if ($(this).is(':checked')) {
+            numDataTypes++;
+            var numFilters = $('.filter-add').length;
+            $('.booleanInput').eq(numFilters-1).val(checked_val);
+            $('.filter-add').eq(numFilters-1).click();
+        }
+        else {
+            numDataTypes--;
+            var inputList = [];
+            $('.booleanInput').each(function(item) {
+                inputList.push($(this).val());
+            });
+            for (var i=0; i<inputList.length; i++) {
+                if ($(this).attr('name') == inputList[i]) {
+                    $('.filter-remove').eq(i).click();
+                }
+            }
+        }
+    });
+});
 </script>
 <!-- Dont forget to modify the below to match platformTypes -->
 <!-- <script>

@@ -10,7 +10,7 @@
 </form>
 <script type="text/javascript">
 var numDataTypes = 0;
-$('.listDataTypes input').each(function(index) {
+$('.listDataTypes input[type="checkbox"]').each(function(index) {
 	$(this).on('click', function(e) {
 		var checked_val = $(this).attr('name');
 		if ($(this).is(':checked')) {
