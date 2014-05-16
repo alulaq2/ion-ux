@@ -57,7 +57,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             <button class="textRight" id="saveConfigBtn">Save Configuration</button>
             <button class="textRight" id="loadConfigBtn">Load Configuration</button>
         </div>
-        <div id="searchProduction"> 
+        <div id="mapToolbar" state="mapSplit">  <!-- states are mapFull, mapSplit, and mapHidden -->
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
             <div class="mapButtonHidden" title="Hidden Map View"> </div>
@@ -80,7 +80,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
            </div>
         </div>
         <div id="mainLegacyTab" style="display:none;">
-            <div id="dynamic-container" style="display:none;"> </div>
+            
         </div>
 	</div>
 
@@ -132,46 +132,53 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
       $(function(){
         IONUX2.init();
 
+        /* states are mapFull, mapSplit, and mapHidden */
+
+        IONUX2.getMapState = function() {
+            return $('#mapToolbar').attr('state');
+        }
+
+        IONUX2.setMapState = function(state) {
+            if(!(IONUX2.getMapState() == state)){
+                $('#mapToolbar').attr('state', state);
+                var center = IONUX2.Dashboard.MapView.map.getCenter();
+                var zoom = IONUX2.Dashboard.MapView.map.getZoom();
+                console.log('** STATE **' + state);
+                switch(state){
+                    case "mapFull": $("#upperMain").css("height", "100%");
+                                    $("#lowerMain").css("height", "0%");
+                                    $("#lowerMain").css("top", "100%");
+                                    break;
+                    case "mapSplit": $("#upperMain").css("height", "60%");
+                                    $("#lowerMain").css("height", "40%");
+                                    $("#lowerMain").css("top", "60%");
+                                    break;
+                    case "mapHidden": $("#upperMain").css("height", "0%");
+                                    $("#lowerMain").css("height", "100%");
+                                    $("#lowerMain").css("top", "0%");
+                                    break;
+                    default: $("#upperMain").css("height", "100%");
+                            $("#lowerMain").css("height", "0%");
+                            $("#lowerMain").css("top", "100%");
+                            break;
+                }                
+                $(window).trigger('resize');
+                google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
+                IONUX2.Dashboard.MapView.map.setCenter(center);
+                IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            }
+        }
+
         $(".mapButtonFull").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "100%");
-            $("#lowerMain").css("height", "0%");
-            $("#lowerMain").css("top", "100%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapFull');
         });
 
         $(".mapButtonSplit").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "60%");
-            $("#lowerMain").css("height", "40%");
-            $("#lowerMain").css("top", "60%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapSplit');
         });
         
         $(".mapButtonHidden").click(function(){
-            $("#mainLegacyTab").hide();
-            $("#mainNewTab").show();
-            var center = IONUX2.Dashboard.MapView.map.getCenter();
-            var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-            $("#upperMain").css("height", "0%");
-            $("#lowerMain").css("height", "100%");
-            $("#lowerMain").css("top", "0%");
-            $(window).trigger('resize');
-            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
-            IONUX2.Dashboard.MapView.map.setCenter(center);
-            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+            IONUX2.setMapState('mapHidden');
         });
 
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
@@ -227,6 +234,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
                 // open Search tab
                 $('#searchTab').trigger('click');
+                $('#searchBtn').click();
             
                 });
             });

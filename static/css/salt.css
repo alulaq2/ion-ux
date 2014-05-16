@@ -126,7 +126,7 @@ h2 {
 #dynamic-container { background-color:#dbdee5}
 
 #spinner {
-  color: #fff;
+  /* color: #fff; */
   /* clears page heading */
   margin-top: 50px;
 }
