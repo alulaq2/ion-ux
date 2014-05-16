@@ -3,18 +3,16 @@
 </div>
 <div class="list_sites">
     <form action="">
-        <% _.each(observatory, function(resource) { %>
+        <% _.each(resources, function(resource) { %>
             <div id="observatoryName">
-                <div class="expandHide arrowRight"></div> <%= resource %> Sites<br/>
-                <ul class="showSites">
-                <% _.each(resource, function(r) { %>
-                    <li><input type="checkbox">
-                            <%= r %><br/>
-                    </li>
-                <% }) %>
+                <div class="expandHide arrowRight"></div> <%= resource %><br/>
+                <ul class="showObservatory">
+                <% _.each(resource, function(nested_resource) { %>
+                    <li><input type="checkbox"> <%= nested_resource %><br/></li>
+                <% }); %>
                 </ul>
             </div>
-        <% }) %>
+        <% }); %>
     </form>
 </div>
 

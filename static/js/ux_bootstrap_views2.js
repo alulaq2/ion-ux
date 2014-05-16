@@ -174,40 +174,15 @@ IONUX2.Views.Observatories = Backbone.View.extend({
   el: '#observatoryList',
   template: _.template(IONUX2.getTemplate('templates/observatories.html')),
   initialize: function() {
-    this.collection.fetch();
-    this.collection.fetch().done(function() {
-        console.log("model observatory is");
-        console.log(this.collection);
-    });
-    console.log("observatory collection is");
-    console.log(this.collection);
-   
-    this.render();
+    this.model.on('change:data', this.render, this);
   },
 
-  /*build_menu: function(){
-    // Grab all spatial names, then uniques; separate for clarity.
-    var observatory_name = _.map(this.collection.models, function(resource) {
-      var observatory = resource.get('facility_name');
-      if (observatory != '') return observatory;
-    });
-    var unique_observatories = _.uniq(observatory_name);
-
-    var resource_list = {};
-    _.each(unique_observatories, function(observe) {
-      resource_list[observe] = _.map(this.collection.where({spatial_area_name: san}), function(resource) { console.log("resource is"); console.log(resource); return resource.toJSON()});
-    }, this);
-    return resource_list;
-  },*/
-
   render: function() {
-    console.log('rendering sites');
-     _.each(this.collection, function(item) {
-      console.log("observatory model");
+    _.each(this.model.data, function(item) {
+      console.log("observatory data is");
       console.log(item);
     });
-    this.$el.html(this.template({observatory: this.collection.toJSON()}));
-    //this.$el.html(this.template(this.collection.toJSON()));
+    this.$el.html(this.template({resources: this.model.data}));
     return this;
   }
 });
