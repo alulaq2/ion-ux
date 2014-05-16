@@ -132,7 +132,8 @@
         $("#platformTypesList").html(IONUX2.getTemplate('templates/block_platform_types2.html'));
 
         $('.accordionContainer').sortable({
-          items: "article:not(.accordion_fixed)"
+          items: "article:not(.accordion_fixed)",
+          distance: 5
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});
 

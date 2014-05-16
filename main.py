@@ -717,11 +717,6 @@ def login(redir):
     else:
         return "This page should redirect to a secure login page"
 
-@app.route('/allUsers/', methods=['GET'])
-def get_all_users():
-    users = ServiceApi.get_user_identities()
-    return jsonify(data=users)
-
 @app.route('/userprofile/', methods=['GET', 'POST', 'PUT'])
 def userprofile():
     if not session.has_key('user_id'):
@@ -834,52 +829,52 @@ def session_info():
 # DEVELOPMENT ROUTES
 # -----------------------------------------------------------------------------
 
-@app.route('/dev/thumbnail', methods=['GET'])
-def thumbnail():
-    return render_template('overview_thumbnails.html')
+# @app.route('/dev/thumbnail', methods=['GET'])
+# def thumbnail():
+#     return render_template('overview_thumbnails.html')
 
-@app.route('/dev/assetmap', methods=['GET'])
-def asset_map():
-    return render_template('dashboard_assets_map.html')
+# @app.route('/dev/assetmap', methods=['GET'])
+# def asset_map():
+#     return render_template('dashboard_assets_map.html')
 
-@app.route('/dev/dashboard', methods=['GET'])
-@app.route('/dev/dashboard/map/<resource_id>', methods=['GET'])
-def dev_dashboard(resource_id=None):
-    return render_app_template(request.path)
+# @app.route('/dev/dashboard', methods=['GET'])
+# @app.route('/dev/dashboard/map/<resource_id>', methods=['GET'])
+# def dev_dashboard(resource_id=None):
+#     return render_app_template(request.path)
 
-@app.route('/dev/map', methods=['GET'])
-def dev_map(resource_id=None):
-    return render_template('dev_map.html')
+# @app.route('/dev/map', methods=['GET'])
+# def dev_map(resource_id=None):
+#     return render_template('dev_map.html')
 
 
-@app.route('/dev/datatable', methods=['GET'])
-def dev_datatable(resource_id=None):
-    return render_template('dev_datatable.html')
+# @app.route('/dev/datatable', methods=['GET'])
+# def dev_datatable(resource_id=None):
+#     return render_template('dev_datatable.html')
 
-@app.route('/dev/actionmenus', methods=['GET'])
-def dev_actionmenus(resource_id=None):
-    return render_template('dev_actionmenus.html')
+# @app.route('/dev/actionmenus', methods=['GET'])
+# def dev_actionmenus(resource_id=None):
+#     return render_template('dev_actionmenus.html')
 
-@app.route('/dev/editform', methods=['GET'])
-def dev_editform(resource_id=None):
-    return render_template('dev_editform.html')
+# @app.route('/dev/editform', methods=['GET'])
+# def dev_editform(resource_id=None):
+#     return render_template('dev_editform.html')
 
-@app.route('/dev/subscribe', methods=['GET'])
-def dev_subscribe():
-    time.sleep(2)
-    return "ok"
+# @app.route('/dev/subscribe', methods=['GET'])
+# def dev_subscribe():
+#     time.sleep(2)
+#     return "ok"
     
-@app.route('/dev/geospatial', methods=['GET'])
-def geospatial(resource_id=None):
-    return render_template('dev_geospatial.html')
+# @app.route('/dev/geospatial', methods=['GET'])
+# def geospatial(resource_id=None):
+#     return render_template('dev_geospatial.html')
     
-@app.route('/dev/chart', methods=['GET'])
-def chart(resource_id=None):
-    return render_template('dev_chart.html')
+# @app.route('/dev/chart', methods=['GET'])
+# def chart(resource_id=None):
+#     return render_template('dev_chart.html')
 
-@app.route('/dev/image', methods=['GET'])
-def dev_image(resource_id=None):
-    return render_template('dev_image.html')
+# @app.route('/dev/image', methods=['GET'])
+# def dev_image(resource_id=None):
+#     return render_template('dev_image.html')
 
 # -----------------------------------------------------------------------------
 # CATCH ANY UNMATCHED ROUTES
