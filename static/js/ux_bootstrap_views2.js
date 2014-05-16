@@ -26,6 +26,18 @@ IONUX2.Views.Header = Backbone.View.extend({
   }
 });*/
 
+IONUX2.Views.LoadSearchCollection = Backbone.View.extend({
+  el: '.list_mysearches',
+  template: _.template(IONUX2.getTemplate('templates/collection_search.html')),
+  initialize: function() {
+  },
+  render: function() {
+    console.log('rendering load collection searches view');
+    this.$el.html(this.template(this.collection.toJSON()));
+    return this;
+  }
+});
+
 IONUX2.Views.LoadSearches = Backbone.View.extend({
   el: '.list_mysearches',
   template: _.template(IONUX2.getTemplate('templates/load_searches.html')),
@@ -237,7 +249,34 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       //
       // add search values to saved search collection
-      IONUX2.Models.saveConfiguration.set({
+      /*IONUX2.Models.saveConfiguration.set({
+        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+        'name':  IONUX2.Models.SessionInstance.attributes.name,
+        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+        'configuration': {
+            'spatialElem': $('#spatial').is(':visible'),
+            'temporalElem': $('#temporal').is(':visible'),
+            'orgSelectorElem': $('#orgSelector').is(':visible'),
+            'regionElem': $('#region').is(':visible'),
+            'siteElem': $('#site').is(':visible'),
+            'dataTypesListElem': $('#dataTypesList').is(':visible'),
+            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+            'platformElem': $('#platform').is(':visible'),
+            'instrumentElem': $('#instrument').is(':visible')
+        },
+        'bottom_config': {
+              'accordionAssets': $('#accordionAssets .accordionContents').is(':visible'),
+              'accordionData': $('#accordionData .accordionContents').is(':visible'),
+              'accordionPlatform': $('#accordionPlatform .accordionContents').is(':visible'),
+              'accordionInstruments': $('#accordionInstruments .accordionContents').is(':visible'),
+              'accordionDataType': $('#accordionDataType .accordionContents').is(':visible')
+        },
+        //'sortable_order': sortable_order,
+        //'bottom_sortable': bottom_sortable,
+        'saved_searches': IONUX2.Collections.saveNames.toJSON()
+      });*/
+
+      IONUX2.Collections.userProfileInstance.set({
         'userId': IONUX2.Models.SessionInstance.attributes.user_id,
         'name':  IONUX2.Models.SessionInstance.attributes.name,
         'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
@@ -263,6 +302,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         //'bottom_sortable': bottom_sortable,
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
+      console.log("User Profile Collection");
+      console.log(IONUX2.Collections.userProfileInstance);
       //IONUX2.Collections.saveNames.add(values);    
 
       //remove previous input text so that name placeholder shows

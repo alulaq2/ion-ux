@@ -33,7 +33,9 @@ var UINAV = {
     loadTemporal: function(temporalModel) {
         IONUX2.Models.temporalModelInstance.updateAttributes(temporalModel);
     },
-    loadFacilities: function(facilitiesModel) {        
+    loadFacilities: function(facilitiesModel) {    
+    console.log("facilities model");
+    console.log(facilitiesModel);    
         $('.list_facilities input').each(function(index) {
             $(this).prop('checked', facilitiesModel[index].is_checked);
         });
@@ -82,15 +84,25 @@ var UINAV = {
     },
     loadConfiguration: function(configuration) {
         var configurationModel = JSON.parse(configuration.data);
+        console.log("config object");
+        console.log(configurationModel);
         var $accordion_container = $('.jspPane');
         var $bottom_accordion = $('#accordionContainerWhite');
-        var sortableOrder = configurationModel.sortable_order;
+        /*var sortableOrder = configurationModel.sortable_order;
         var bottom_sortable = configurationModel.bottom_sortable;
         var configurationList = configurationModel.configuration;
-        var bottomConfigList = configurationModel.bottom_config;
+        var bottomConfigList = configurationModel.bottom_config;*/
+        var sortableOrder = configurationModel[0].sortable_order;
+        var bottom_sortable = configurationModel[0].bottom_sortable;
+        var configurationList = configurationModel[0].configuration;
+        var bottomConfigList = configurationModel[0].bottom_config;
         this.reorder(sortableOrder, configurationList, $accordion_container);
         this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
-        IONUX2.Models.saveConfiguration.set(configurationModel);
-        IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({model: IONUX2.Models.saveConfiguration});
+        IONUX2.Collections.userProfileInstance.set(configurationModel);
+        console.log("load config collection");
+        console.log(IONUX2.Collections.userProfileInstance);
+        //IONUX2.Models.saveConfiguration.set(configurationModel);
+        //IONUX2.Views.loadSearches = new IONUX2.Views.LoadSearches({model: IONUX2.Models.saveConfiguration});
+        IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
     }
 };
