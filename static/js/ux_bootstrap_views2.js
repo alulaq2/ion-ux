@@ -275,7 +275,19 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
         //'bottom_sortable': bottom_sortable,
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });*/
-
+      //IONUX2.Collections.userProfileInstance.fetch();
+      var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
+      console.log("parse collection");
+      console.log(parsed_collection);
+      var parsed_obj = parsed_collection[0].saved_searches;
+      var parsed_array = [];
+      console.log("parse object " +  typeof(parsed_obj));
+      console.log(parsed_obj);
+      parsed_array.push(parsed_obj);
+      parsed_array.push(IONUX2.Collections.saveNames.toJSON());
+      console.log("parsed array is");
+      console.log(parsed_array);
+      //parsed_array.concat();
       IONUX2.Collections.userProfileInstance.set({
         'userId': IONUX2.Models.SessionInstance.attributes.user_id,
         'name':  IONUX2.Models.SessionInstance.attributes.name,
