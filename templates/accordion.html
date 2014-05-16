@@ -134,6 +134,9 @@
           if(IONUX2.getMapState() == "mapHidden"){
             IONUX2.setMapState('mapSplit');
           }
+          if($('#legacyFacePageTab').hasClass('active')){
+            $('#dataSearchResultsTab').click();
+          }
         });
         
       });
