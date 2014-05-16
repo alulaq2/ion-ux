@@ -188,7 +188,7 @@ class ServiceApi(object):
                      'or': []}
         queries = []
         max_search_limit = config.MAX_SEARCH_RESULTS if hasattr(config, 'MAX_SEARCH_RESULTS') else 100
-        post_data['limit'] = max_search_limit
+        post_data['limit'] = 1000 #max_search_limit
 
         if geospatial_bounds and all(geospatial_bounds.itervalues()):
             queries.append({'bottom_right': [float(geospatial_bounds['east']),
@@ -244,6 +244,10 @@ class ServiceApi(object):
 
         post_data['query'] = queries[0]
         post_data['and'] = queries[1:]
+
+        # f = open('crap.txt', 'w');
+        # f.write(jsonify(post_data));
+        # f.close();
 
         # have to manually call because normal SG post turns a list into the first object?
         url, data = build_post_request('discovery', 'query', {'query': post_data, 'id_only': False})

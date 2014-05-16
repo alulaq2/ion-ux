@@ -1,96 +1,43 @@
 <div id="saveButtons">
- <button id="saveSearch" class="textRight">Save this Search</button><button id="searchBtn" class="textRight">Search</button>
+ <button id="resetBtn" class="textRight">Reset</button>  
+ <button id="saveSearch" class="textRight">Save this Search</button>
+ <button id="searchBtn" class="textRight">Search</button>
 </div>
-<div id="customSearchName"><input class="customName" type="text" placeholder="name" /><button id="saveName" class="textRight">Save</button></div>
+<div id="customSearchName"><input class="customName" type="text" placeholder="Name" /><button id="saveName" class="textRight">Save</button></div>
 <div class="accordionContainer">
-<article class="leftAccordion accordion_fixed" id="keyword">
-  <div class="accordionLabel">Keyword</div>
-  <input class="keyword" type="text" placeholder="type search term" style="display:inline-block;"/>
-</article>
-<article class="leftAccordion" id="spatial">
-</article>
-<article class="leftAccordion" id="temporal">
-  <span class="accordionTitle">
-	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Temporal</div>
-  </span>
-	<div class="spatialDetails" style="display:none;">
-    <div class="leftNaviSelectContainer">
-      <select class="temporal_menu">
-        <option value="1">Data Collection</option>
-        <option value="2">Planned Timestamps</option>
-         <option value="3">Deployed Timestamps</option>
-         <option value="4">Activated Timestamps</option>
-      </select>
-      <div class="leftNaviSelectArrow"/>
-    </div>
-		<div>From</div>
-		<div class='date-dropdown from_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
-    </div>
-		<div>To</div>
-		<div class='date-dropdown to_date_menu'>
-			<select class="dateMenu year"></select>
-			<select class="dateMenu month"></select>
-   		<select class="dateMenu day"></select>
-      <select class="dateMenu hour"></select>
-    </div>
-	</div>
-</article>
-    <article class="leftAccordion" id="orgSelector">
-      <span class="accordionTitle">
-        <div class="expandHide arrowRight"></div><div class="accordionLabel">Facility</div>
-      </span>
-  <div class="spatialDetails" style="display:none;">
-      </div>
-    </article>
-    
-<article class="leftAccordion" id="region">
-  <span class="accordionTitle">
-    <div class="expandHide arrowRight"></div><div class="accordionLabel">Region</div>
-  </span>
-</article>
-<article class="leftAccordion" id="site">
-  <span class="accordionTitle">
-    <div class="expandHide arrowRight"></div><div class="accordionLabel">Sites</div>
-  </span>
-</article>
-<article class="leftAccordion" id="platform">
-  <span class="accordionTitle">
-    <div class="expandHide arrowRight"></div><div class="accordionLabel">Platform</div>
-  </span>
-  <div class="spatialDetails" style="display:none;">
-    More information
-  </div>
-</article>
-<article class="leftAccordion" id="instrument">
-  <span class="accordionTitle">
-    <div class="expandHide arrowRight"></div><div class="accordionLabel">Instrument</div>
-  </span>
-  <div class="spatialDetails" style="display:none;">
-    <ul class="instrument_list">
-    </ul>
-  </div>
-</article>
+  <article class="leftAccordion accordion_fixed" id="keyword">
+    <div class="accordionLabel">Keyword</div>
+    <input class="keyword" type="text" placeholder="Keyword" style="display:inline-block;"/>
+  </article>
+</div>
 
-    <article class="leftAccordion" id="dataTypesList">
-      <span class="accordionTitle">
-        <div class="expandHide arrowRight"></div><div class="accordionLabel">Data Type</div>
-      </span>
-    </article>
-    
-<article class="leftAccordion" id="boolean_expression">
-  <span class="accordionTitle">
-	 <div class="expandHide arrowRight"></div><div class="accordionLabel">Boolean Expression</div>
-  </span>
-	<div class="spatialDetails" style="display:none;">
-		More information
-	</div>
-</article>
+<form id="searchForm">
+  <input type="hidden" name="north" id="northFm"/>
+  <input type="hidden" name="south" id="southFm"/>
+  <input type="hidden" name="east" id="eastFm"/>
+  <input type="hidden" name="west" id="westFm"/>
+  <input type="hidden" name="vertical-lower-bound" id="lowerFm"/>
+  <input type="hidden" name="vertical-upper-bound" id="upperFm"/>
+  <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm"/>
+  <input type="hidden" name="temporal-to-ctrl" id="tempToFm"/>
+  <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm"/>
+</form>
+
+<form id="searchRadialForm">
+  <input type="hidden" name="north" id="northFm2"/>
+  <input type="hidden" name="south" id="southFm2"/>
+  <input type="hidden" name="east" id="eastFm2"/>
+  <input type="hidden" name="west" id="westFm2"/>
+  <input type="hidden" name="vertical-lower-bound" id="lowerFm2"/>
+  <input type="hidden" name="vertical-upper-bound" id="upperFm2"/>
+  <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm2"/>
+  <input type="hidden" name="temporal-to-ctrl" id="tempToFm2"/>
+  <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm2"/>
+  <input type="hidden" name="radius" id="radiusFm"/>
+</form>
 
 <script type="text/template" id="block_data_type_list_tmpl">{% include 'block_data_type_list2.html' %}</script>
+<script type="text/template" id="filter-item-tmpl">{% include 'block_boolean2.html' %}</script>
     
     <script>
 		IONUX2.Views.DataTypesList = Backbone.View.extend({
@@ -118,199 +65,185 @@
 		});	
 		
       $(function(){
+        IONUX2.Views.leftAccordion = new IONUX2.Views.LeftAccordion();
 
+        var accordions = {
+          'spatial': {
+              title: 'Spatial',
+              id: 'spatial'
+          },
+          'temporal': {
+            title: 'Temporal',
+            id: 'temporal'
+          },
+          'facility': {
+            title: 'Facility',
+            id: 'orgSelector'
+          },
+          'region': {
+            title: 'Region',
+            id: 'region'
+          },
+          'sites': {
+            title: 'Sites',
+            id: 'site'
+          },
+          'platform': {
+            title: 'Platform',
+            id: 'platform'
+          },
+          'instrument': {
+            title: 'Instrument',
+            id: 'instrument'
+          },
+          'dataType': {
+            title: 'Data Type',
+            id: 'dataTypesList'
+          },
+          'booleanExpression': {
+            title: 'Boolean Expression',
+            id: 'boolean_expression'
+          }
+        };
+
+        for (var accordion in accordions) {
+          IONUX2.Views.leftAccordion.addAccordion(accordions[accordion].title, accordions[accordion].id);
+        }
+
+        IONUX2.Views.spatial = new IONUX2.Views.Spatial({model: IONUX2.Models.spatialModelInstance});
+        IONUX2.Views.temporal = new IONUX2.Views.Temporal({model: IONUX2.Models.temporalModelInstance});
         IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories });
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
-		IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
-		IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
-		IONUX2.Models.DataTypeListInstance.fetch();
-		IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
-		IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
-		IONUX2.Collections.OrgsInstance.fetch();
+        IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
+		    IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
+		    IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
+		    IONUX2.Models.DataTypeListInstance.fetch();
+		    IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
+		    IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
+		    IONUX2.Collections.OrgsInstance.fetch();
 
-        $('.spatialDetails').hide();
+        IONUX2.Views.boolean.render();
+
         $('.accordionContainer').sortable({
           items: "article:not(.accordion_fixed)"
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});
-        /** Init **/
-        initDatePicker();
-        initDateDropDown();
-      
+
+        $('#searchBtn').on('click', function(){
+          search_clicked();
+        });
+        
       });
 
-      /** Date Picker **/
-      
-      function initDatePicker() {
-        	$('#datepicker').datepicker({
-          showOn: 'button',
-          buttonImage: 'calendar.png',
-          buttonImageOnly: true,
-          beforeShow: function(input, inst) {            
-            setTimeout(function() {
-              var $calendar = inst.dpDiv;            
-              $calendar.position({
-                my: 'left top',              
-                at: 'left bottom+5',
-                of: $('#date-dropdown')
-              });
-            }, 1);
-          },
-          onSelect: function() {
-            syncDateDropdownWithDatePicker();
+      function set_temporal_form(){
+
+          var tYear = $("#tempFromYear").val();
+          var tMonth = $("#tempFromMonth").val();
+          var tDay = $("#tempFromDay").val();
+
+          if(tYear.length > 0 && tMonth.length > 0 && tDay.length > 0){
+            $("#tempFromFm").val(tYear + '-' + (parseInt(tMonth) + 1) + '-' + tDay);
           }
-        });        
-      }
-      
-      
-      /** Date Dropdown **/
-      
-      function initDateDropDown() {
-        var currentDate = new Date();
-        var currentYear = currentDate.getFullYear();
-        var currentMonth = currentDate.getMonth();
-        var currentDay = currentDate.getDate();
-        var numberOfDays = daysInMonth(currentYear, currentMonth);
-        var numberofHours = 24;
-        var currentHour = currentDate.getHours();
-        
-        populateYearDropdown(1900, currentYear+10);
-        populateMonthDropdown();
-        populateDayDropdown(numberOfDays);
-        populateHourDropdown(numberofHours);
-               
-        selectYearDropdown(currentYear);
-        selectMonthDropdown(currentMonth);
-        selectDayDropdown(currentDay);
-        selectHourDropdown(currentHour);
-        
-        bindYearDropdownEvent();
-        bindMonthDropdownEvent();
-        bindDayDropdownEvent();
-        bindHourDropdownEvent();
-      }      
-      
-      function populateYearDropdown(startYear, endYear) {
-        var yearOptions = [];
-        
-        for (var y = startYear; y <= endYear; y++) {          
-          yearOptions.push('<option value="' + y + '">' + y + '</option>');
-        }
-        
-        $('.year').html(yearOptions.join());
-      }
-      
-      function populateMonthDropdown() {
-        var monthOptions = [];
-        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        for (var m = 0; m < months.length; m++) {          
-          monthOptions.push('<option value="' + m + '">' + months[m] + '</option>');
-        }
-        
-        $('.month').html(monthOptions.join());
-      }
-      
-      function populateDayDropdown(numberOfDays) {
-        var dayOptions = [];        
-        for (var d = 1; d <= numberOfDays; d++) {          
-          dayOptions.push('<option value="' + d + '">' + d + '</option>');
-        }
-        $('.day').html(dayOptions.join());
+
+          var tYear2 = $("#tempToYear").val();
+          var tMonth2 = $("#tempToMonth").val();
+          var tDay2 = $("#tempToDay").val();
+
+          if(tYear2.length > 0 && tMonth2.length > 0 && tDay2.length > 0){
+            $("#tempToFm").val(tYear2 + '-' + (parseInt(tMonth2) + 1) + '-' + tDay2);
+          }
+
+          $("#temporal-field-ctrlFm").val($("#tempSelect").val());
+
       }
 
-      function populateHourDropdown(numberOfHours) {
-        var hourOptions = [];
-        for (var h=1; h<=numberOfHours; h++) {
-          hourOptions.push('<option value="' + h + '">' + h + ':00</option>');
+        function search_clicked() {
+
+          set_temporal_form();
+
+          var form_values = $('#searchForm').serializeArray();
+          form_values.splice(0, 0, {name:'adv', value:1});
+
+          var form_values_bool = $('#booleanForm').serializeArray();
+
+          // switch into an object - much easier to access directly
+          var formObj = _.object(_.map(form_values, function(v) {
+            return [v.name, v.value];
+          }));
+          
+          // normalize into "down" facing vertical if switched to up
+          if (this.$('.vertical-bounds-positive').hasClass('toggle_sealevel_passive')) {
+            if (formObj['vertical-lower-bound']) {
+              formObj['vertical-lower-bound'] = -formObj['vertical-lower-bound'];
+            }
+            if (formObj['vertical-upper-bound']) {
+              formObj['vertical-upper-bound'] = -formObj['vertical-upper-bound'];
+            }
+            if (formObj['vertical-upper-bound'] < formObj['vertical-lower-bound']) {
+              var tmp = formObj['vertical-upper-bound'];
+              formObj['vertical-upper-bound'] = formObj['vertical-lower-bound'];
+              formObj['vertical-lower-bound'] = tmp;
+            }
+          }
+
+          //Error checking advanced search input params
+          function check_Vals() {
+
+            var bValid = true;
+            var errorString = '';
+
+            //Check geospatial bounds (all or none)
+            var all = form_values[1].value !== '' && form_values[2].value !== '' &&
+              + form_values[3].value !== '' && form_values[4].value !== '';
+
+            var none = form_values[1].value == '' && form_values[2].value == '' &&
+              + form_values[3].value == '' && form_values[4].value == '';
+
+            if (!(all || none)){
+              errorString += 'Error in GEOSPATIAL BOUNDS:\nPartially filled form\n';
+              bValid = false;
+            }
+
+            //Check vertical bounds (all or none)
+            var all_or_none = (form_values[5].value !== '' && form_values[6].value !== '') ||
+              + (form_values[5].value == '' && form_values[6].value == '');
+
+            if (!all_or_none){
+              errorString += 'Error in VERTICAL BOUNDS:\nPartially filled form\n';
+              bValid = false;
+            }
+
+            //Check temporal bounds (all or none)
+            all_or_none = (form_values[7].value !== '' && form_values[8].value !== '') ||
+              + (form_values[7].value == '' && form_values[8].value == '');
+
+            if (!all_or_none){
+              errorString += 'Error in TEMPORAL BOUNDS:\nPartially filled form\n';
+              bValid = false;
+            }
+
+            if (!bValid){
+              self.alert(errorString)
+            }
+
+            return bValid;
+          }
+
+          //Check input values
+          var bValid = check_Vals();
+          if (!bValid){
+            return;
+          }
+
+          var search_term = $.param(form_values);
+          var search_term2 = $.param(form_values_bool);
+
+          search_term = search_term + '&' + search_term2;
+
+          console.log('SEARCH CLICKED...' + search_term);
+
+          IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
+
         }
-        $('.hour').html(hourOptions.join());
-      }
-      
-      function selectYearDropdown(year) {
-        $('.year option[value=' + year + ']').attr('selected', true);
-      }
-      
-      function selectMonthDropdown(month) {
-        $('.month option[value=' + month + ']').attr('selected', true);
-      }
-      
-      function selectDayDropdown(day) {
-        $('.day option[value=' + day + ']').attr('selected', true);
-      }
 
-      function selectHourDropdown(hour) {
-        $('.hour option[value=' + hour + ']').attr('selected', true);
-      }
-      
-      function refreshDayDropdown() {
-        var year = parseInt($('.year').val());
-        var month = parseInt($('.month').val());
-        var day = parseInt($('.day').val());   
-        var numberOfDays = daysInMonth(year, month);
-        
-        populateDayDropdown(numberOfDays);
-        
-        if (day <= numberOfDays) {
-          selectDayDropdown(day);
-        } else {
-          selectDayDropdown(numberOfDays);
-        }        
-      }
-      
-      /*** Event handlers ***/
-      
-      function bindYearDropdownEvent() {
-        $('#year').on('change', function() {
-          refreshDayDropdown();
-          syncDatePickerWithDateDropdown();
-        });
-      }
-      
-      function bindMonthDropdownEvent() {
-        $('#month').on('change', function() {
-          refreshDayDropdown();
-          syncDatePickerWithDateDropdown();
-        });
-      }
-      
-      function bindDayDropdownEvent() {
-        $('#day').on('change', function() {
-          syncDatePickerWithDateDropdown();
-        });
-      }
-
-      function bindHourDropdownEvent() {
-        $('#hour').on('change', function() {
-          syncDatePickerWithDateDropdown();
-        });
-      }
-      
-      
-      /** Sync Functions **/
-      
-      function syncDateDropdownWithDatePicker() {
-        var datePickerDate = $('#datepicker').datepicker('getDate');
-        selectYearDropdown(datePickerDate.getFullYear());
-        selectMonthDropdown(datePickerDate.getMonth());
-        refreshDayDropdown();
-        selectDayDropdown(datePickerDate.getDate());
-        selectHourDropdown(dataPickerDate.getHours());
-      }
-      
-      function syncDatePickerWithDateDropdown() {
-        var dropdownYear = parseInt($('.year').val());
-        var dropdownMonth = parseInt($('.month').val());
-        var dropdownDay = parseInt($('.day').val());
-        var dropdownHour = parseInt($('.hour').val());
-        var dropdownDate = new Date(dropdownYear, dropdownMonth, dropdownDay, dropdownHour);
-        $('#datepicker').datepicker('setDate', dropdownDate);
-      }
-      
-      
-      /** Utility Function **/
-      // Reference: http://stackoverflow.com/a/315767 + fguillen's comment
-      function daysInMonth(year, month) {
-        return new Date(year, month+1, 0).getDate();
-      }
-      
     </script>
