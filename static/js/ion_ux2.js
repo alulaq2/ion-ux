@@ -67,6 +67,13 @@ IONUX2 = {
 		  _self.trigger.apply(_self, args);
 		});
 	},
+	showFacePage: function(){
+		var target = $('#legacyFacePageTab');
+		target.addClass('active').siblings().removeClass('active');
+		tab_content = target.attr("tabContent");
+		$(tab_content).siblings().hide();
+		$(tab_content).show();
+	},
 	init: function(){
 
 		Backbone.Model.prototype.initialize = function(initialize) {

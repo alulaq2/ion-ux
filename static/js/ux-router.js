@@ -302,12 +302,11 @@ dashboard_map_resource: function(resource_id) {
   page: function(resource_type, view_type, resource_id){
     $('#dashboard-container').hide();
     // Todo move into own view
-    $('#mainNewTab').hide();
-    $('#mainLegacyTab').show();
-    $('#dynamic-container').attr('style', 'background:#fff');
+    IONUX2.showFacePage();
+    $('#dynamic-container').attr('style', 'background:#384d68');
     $('#dynamic-container').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
-
+    
     var resource_extension = new IONUX.Models.ResourceExtension({resource_type: resource_type, resource_id: resource_id});
     var self = this;
     resource_extension.fetch()

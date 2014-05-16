@@ -11,7 +11,12 @@
 
 
 <script>
-	$(function() {
-		$('.leftAccordionContents').hide();
-	});
+    $(function(){
+        $(".list_facilities .resourceLink").click(function(){
+            var resource_id = $(this).attr('data-id');
+            var url = "/Org/face/"+resource_id+"/";
+            IONUX.ROUTER.navigate(url, {trigger:true});
+            $('#mapButtonHidden').click();
+        });
+    });
 </script>
