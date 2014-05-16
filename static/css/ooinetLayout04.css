@@ -296,32 +296,44 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   left: 0px;
 }
 
-#navLeftMinimizeArrow {
+#navLeftMinimizeArrow{
   position: absolute;
-  left: 0px;
+  left: 250px;
   top: 104px;
-  cursor: pointer;
-  width: 11px;height: 16px;
   /*width: 14px;height: 14px;*/
-  margin: 6px auto auto 258px;
   z-index: 1000;
-  background: url('../img/leftMinimizeArrow.png') no-repeat left;
+}
+
+#navLeftMinimizeArrow #searchChevron{
+  cursor: pointer;
+  width: 20px; height: 25px;
+  background: url('../img/leftMinimizeArrow.png') no-repeat center;
+  right:0px;
+  background-position: 5px 6px;
 }
 
 #navLeftMinimizeArrow.collapsed {
-  top: 74px;
+  top: 82px;
   left: 275px;
-  background: #384d68;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -webkit-transform: translate(0px, 9px) rotate(90deg) translate(0px, 19px);
+  background-color:#384d68;
   color:#fff;
-  width: auto;
-  height: 18px;
   line-height: 16px;
-  padding: 3px 7px;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  margin-left:-2px
+  padding: 3px 7px 3px 7px;
+  border-radius: 0px 6px 0px 0px;
+  margin-left:0px;
+  width: 53px
+  /* background-position:90%; */
+  /*  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-transform: translate(0px, 9px) rotate(90deg) translate(0px, 19px);*/
+}
+
+#navLeftMinimizeArrow.collapsed #searchChevron {
+	transform: rotate(180deg);
+	position:absolute;
+	top: -1px;
+	right: -1px;
+	background-image: url('../img/leftMinimizeArrow.png') bottom no-repeat;
+	background-position:4px 0px 0px 75px;
 }
 
 #login {
@@ -865,8 +877,8 @@ input.noPlaceholderRadius {
   display: inline-block;
   padding-left: 12px;
   padding-right: 12px;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
   background-color: #FFF;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
