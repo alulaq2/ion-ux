@@ -225,12 +225,13 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             boolean_sub_filter = "";
           }
           var boolean_input;
-          if ((boolean_main_filter == "lcstate") || (boolean_main_filter == "processing_level_code") || (boolean_main_filter == "quality_control_level")
-           || (boolean_main_filter == "name") || (boolean_main_filter == "aggregated_status") || (boolean_main_filter == "type_")) {
+          if ((boolean_main_filter == "lcstate") || (boolean_main_filter == "processing_level_code") || (boolean_main_filter == "quality_control_level") || (boolean_main_filter == "aggregated_status") || (boolean_main_filter == "type_")) {
             boolean_input = $(this).find('.booleanSelectContainer[name="filter_arg"] option:selected').attr('value');
+          console.log("boolean input is " + boolean_input);
           }
           else {
             boolean_input = $(this).find('.booleanInput').val();
+            console.log("boolean input is " + boolean_input);
           }
        
         boolean_expression_list.push({ 'boolean_main_filter' : boolean_main_filter, 'boolean_sub_filter' : boolean_sub_filter, 'boolean_input': boolean_input });
@@ -589,7 +590,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
     {field: 'instrument_family'     , label: 'Instrument Family'        , values: []} ,
     {field: 'lcstate'               , label: 'Lifecycle State'          , values: ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED']} ,
     {field: 'alt_ids'               , label: 'OOI Reference Designator' , values: []} ,
-    {field: 'name'                  , label: 'Organization'             , values: []} ,
+    {field: 'organization'                  , label: 'Organization'             , values: []} ,
     {field: 'platform_family'       , label: 'Platform Family'          , values: []} ,
     {field: 'processing_level_code' , label: 'Processing Level'         , values: [['L0 - Unprocessed Data', 'L0'],
                                                                                    ['L1 - Basic Data', 'L1'],
@@ -597,7 +598,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
     {field: 'quality_control_level' , label: 'Quality Control Level'    , values: [['a - No QC applied', 'a'],
                                                                                    ['b - Automatic QC applied', 'b'],
                                                                                    ['c - Human QC applied', 'c']]} ,
-    {field: 'name'                  , label: 'Site'                     , values: ['Coastal Endurance',
+    {field: 'site'                  , label: 'Site'                     , values: ['Coastal Endurance',
                                                                                    'Coastal Pioneer',
                                                                                    'Global Argentine Basin',
                                                                                    'Global Irminger Sea',
