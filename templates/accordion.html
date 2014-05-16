@@ -131,7 +131,7 @@
 
         IONUX2.Views.boolean.render();
 
-        if (IONUX2.Models.SessionInstance.is_logged_in) {
+        if (IONUX2.Models.SessionInstance.is_logged_in()) {
             // show save config buttons
             $('#saveConfiguration').show();
             UINAV.getUserProfile();

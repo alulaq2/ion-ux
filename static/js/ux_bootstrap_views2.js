@@ -130,7 +130,9 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       $('.customName').val(''); 
       $('#navLeftMinimizeArrow').show();
       var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
-      UINAV.postUserProfile(userProfile);
+      if (IONUX2.Models.SessionInstance.is_logged_in()) {
+        UINAV.postUserProfile(userProfile);
+      }
   },
 
   saveSearch: function() {
