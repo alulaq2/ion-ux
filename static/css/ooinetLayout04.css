@@ -291,9 +291,9 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   left: 0px;
   top: 104px;
   cursor: pointer;
-  width: 14px;
-  height: 14px;
-  margin: 5px;
+  width: 11px;height: 16px;
+  /*width: 14px;height: 14px;*/
+  margin: 6px auto auto 258px;
   z-index: 1000;
   background: url('../img/leftMinimizeArrow.png') no-repeat left;
 }
@@ -342,6 +342,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
  letter-spacing: 0px;
  color: #FFF;
  padding: 6px;
+ background-color:transparent;
 }
 
 #login a.btn-navigation:hover {
@@ -426,6 +427,9 @@ ul.dropdown-menu li:hover {
 
 .leftAccordionContents {
   margin-left: 13px;
+  /*position: relative;
+  margin: 4px 0px 6px 16px;
+  width: 238px;*/
 }
 
 .leftAccordionContents.align_left {
@@ -443,7 +447,7 @@ ul.dropdown-menu li:hover {
 #saveButtons {
   position: absolute;
   top: 0px;
-  right: 0px;
+  right: 17px;
 }
 
 .textRight {
@@ -927,7 +931,18 @@ input.noPlaceholderRadius {
 }
 
 #searchResultsContainer .jspVerticalBar {
+  right: 4px;
+}
 
+#searchResultsContainer .jspTrack {
+  background: none;
+}
+
+#searchResultsContainer .jspDrag {
+  background: #88A9CC;
+}
+
+.accordionContainer .jspVerticalBar {
   right: 4px;
 }
 
