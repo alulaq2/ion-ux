@@ -1108,10 +1108,23 @@ input.noPlaceholderRadius {
 
 /* instrument view */
 
-.instrument_list {
+.instrument_list, .dataTypeList {
   list-style: none;
   margin-left: 0;
   margin-bottom: 0;
+}
+
+.itemName {
+  display: inline-block;
+  width: 90%;
+}
+
+.alignCheckbox {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  top: 4px;
+  padding-right: 2px;
 }
 
 .accordionDetailContainer {
