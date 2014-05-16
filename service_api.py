@@ -188,7 +188,7 @@ class ServiceApi(object):
                      'or': []}
         queries = []
         max_search_limit = config.MAX_SEARCH_RESULTS if hasattr(config, 'MAX_SEARCH_RESULTS') else 100
-        post_data['limit'] = max_search_limit
+        post_data['limit'] = 1000 #max_search_limit
 
         if geospatial_bounds and all(geospatial_bounds.itervalues()):
             queries.append({'bottom_right': [float(geospatial_bounds['east']),

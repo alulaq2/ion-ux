@@ -37,6 +37,43 @@
 		$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
 
 		IONUX2.parseSearchResults = function(response_data) {
+			/* PROCESS DATA PRODUCT TYPES */
+
+			var dataList = {};
+			_.each(response_data, function(resource) {
+				_.each(dataTypesList, function(resourceType) {
+					if (resource['ooi_short_name'] == resourceType.type){
+						if (!(resourceType.type in dataList)){
+							dataList[resourceType.type] = [];
+						}
+						dataList[resourceType.type].push(resource);
+					}
+				});
+			});
+			console.log(response_data);
+			console.log('DATA PRODUCTS!!!!');
+			console.log(dataList);
+
+			var hasDataContent = false;
+			_.each(dataTypesList, function(resourceType) {
+				var accordion_contents = "#accordion" + resourceType.id;
+				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
+				var table_elem = '#table' + resourceType.id;
+				var table_data = dataList[resourceType.type];
+				console.log(table_data);
+				if(resourceType.type in dataList){
+					hasDataContent = true;
+					new IONUX.Views.DataTable({el: table_elem, data: table_data, visibility_level:2});
+					accordionLabel.html(resourceType.name + ' (' + table_data.length + ')');
+				} else {
+					accordionLabel.html(resourceType.name + ' (0)');
+				}
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
+			});
+
+			/* PROCESS ASSETS TYPES */
+			
 			var assetsList = {};
 			_.each(response_data, function(resource) {
 				_.each(assetTypesList, function(resourceType) {
@@ -51,20 +88,25 @@
 			console.log(response_data);
 			console.log('ASSETS!!!!');
 			console.log(assetsList);
-
+			var hasAssetContent = false;
 			_.each(assetTypesList, function(resourceType) {
 				var accordion_contents = "#accordion" + resourceType.id;
 				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
 				var table_elem = '#table' + resourceType.id;
 				var table_data = assetsList[resourceType.type];
 				console.log(table_data);
 				if(resourceType.type in assetsList){
+					hasAssetContent = true;
 					new IONUX.Views.DataTable({el: table_elem, data: table_data, visibility_level:2});
-					accordion.show();
+					accordionLabel.html(resourceType.name + ' (' + table_data.length + ')');
 				} else {
-					accordion.hide();
+					accordionLabel.html(resourceType.name + ' (0)');
 				}
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
 			});
+
+			/* PROCESS SITES TYPES */
 
 			var sitesList = {};
 			_.each(response_data, function(resource) {
@@ -79,36 +121,39 @@
 			});
 			console.log('SITES!!!!');
 			console.log(sitesList);
-
+			var hasSiteContent = false;
 			_.each(siteTypesList, function(resourceType) {
 				var accordion_contents = "#accordion" + resourceType.id;
 				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
 				var table_elem = '#table' + resourceType.id;
 				var table_data = sitesList[resourceType.type];
 				console.log(table_data);
 				if(resourceType.type in sitesList){
+					hasSiteContent = true;
 					new IONUX.Views.DataTable({el: table_elem, data: table_data, visibility_level:2});
-					accordion.show();
+					accordionLabel.html(resourceType.name + ' (' + table_data.length + ')');
 				} else {
-					accordion.hide();
+					accordionLabel.html(resourceType.name + ' (0)');
 				}
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
 			});
 		}
 
 		var dataTypesList = [
-			{'name':"Conductivity", 'id':"Conductivity"},
-			{'name':"Density", 'id':"Density"},
-			{'name':"Fluorometric CDOM Concentration", 'id':"CDOM"},
-			{'name':"Fluorometric Chlorophyll-a Concentration", 'id':"Chlorophyll"},
-			{'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"Absorbance"},
-			{'name':"Optical Backscatter (Red Wavelengths)", 'id':"Backscatter"},
-			{'name':"Oxygen Concentration from Stable DO Instrument", 'id':"Oxygen"},
-			{'name':"PHSEN Thermistor Temperature", 'id':"Thermistor"},
-			{'name':"Practical Salinity", 'id':"Salinity"},
-			{'name':"Pressure (Depth)", 'id':"Depth"},
-			{'name':"Temperature", 'id':"Temperature"},
-			{'name':"Velocity Profile", 'id':"Velocity"},
-			{'name':"pH",'id':"PH"}
+			{'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
+			{'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
+			{'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
+			{'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
+			{'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
+			{'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
+			{'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
+			{'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
+			{'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
+			{'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
+			{'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
+			{'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
+			{'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
 		];
 
 		var assetTypesList = [
