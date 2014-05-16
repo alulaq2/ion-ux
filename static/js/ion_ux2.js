@@ -69,8 +69,6 @@ IONUX2 = {
 	},
 	init: function(){
 
-		_.extend(this, Backbone.Events);
-
 		Backbone.Model.prototype.initialize = function(initialize) {
 			return function(){
 				IONUX2.registerEvents(this);
@@ -79,10 +77,9 @@ IONUX2 = {
 		}(Backbone.Model.prototype.initialize);
 
 		this.on("all", function(eventName){
-			console.log(this.prototype);
-			if (this instanceof IONUX2.Models.Login) {
-				console.log("Captured event: " + eventName);
-				console.log(this);
+			if (eventName.indexOf("change")>-1) {
+				// console.log("Captured event: " + eventName);
+				// console.log(this);
 			}
 		});
 
@@ -123,7 +120,7 @@ IONUX2 = {
 		});
 
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
-		$("#lowerMain").html(IONUX2.getTemplate('templates/block_accordion_white2.html')).show();
+		$("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
 
 	    // Bootstrap navigation menu
 	    $.ajax({
@@ -134,13 +131,18 @@ IONUX2 = {
 		        IONUX2.Dashboard.Observatories = new IONUX2.Collections.Observatories(_.sortBy(resp.data.observatories,function(o){return o.spatial_area_name + (o.local_name ? o.local_name : '') + o.name}));
       		},
       	});
-	    IONUX2.Views.spatial = new IONUX2.Views.Spatial();
 
 	    IONUX2.Models.SessionInstance.fetch({
       		async: false
     	});
 
 	    IONUX2.Models.SessionInstance.set_polling();
+
+	    // check if user is logged in
+	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
+	    	// show save config buttons
+	    	$('#saveConfiguration').show();
+	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;
 
@@ -184,3 +186,5 @@ IONUX2 = {
 	}
   
 };
+
+_.extend(IONUX2, Backbone.Events);

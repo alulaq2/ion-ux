@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <!-- filename ion_ux3.html proto=ion_ux2.html
-last edited 05-11 04-13 04-09 03-05 2014-03-02
+last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 -->
 <html>
 <head>
@@ -34,14 +34,14 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 	<div id="header2" align="left">
         <div>
             <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
-            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png" alt="OOI" /></a>
+            <a href="/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0" alt="OOI" /></a>
         </div>
         <div id="adminMenu">
-            <div id="myDasboard" class="adminMenuTab">My Dashboard</div>
+            <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
             <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
             <div id="instrumentManagement" class="adminMenuTab">Intrument Mgmt</div>
             <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
-            <div id="addResource" class="adminMenuTab">Add/Edit Resource</div>
+            <div id="resourceManagement" class="adminMenuTab">Resource Mgmt</div>
             <div id="deployments" class="adminMenuTab">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
@@ -53,6 +53,10 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
         </div>
     </div>
 	<div id="mainSubheader" align="left">
+        <div id="saveConfiguration">
+            <button class="textRight" id="saveConfigBtn">Save Configuration</button>
+            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
+        </div>
         <div id="searchProduction"> 
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
@@ -64,11 +68,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
-            <ul class="list_mysearches">
-                <!--<li><a href="#">Search 1 <span class="date_mysearches">04/28/2014</span></a></li>
-                <li><a href="#">Search 2 <span class="date_mysearches">04/27/2014</span></a></li>
-                <li><a href="#">Search 3 <span class="date_mysearches">04/26/2014</span></a></li>-->
-            </ul>
+        <ul class="list_mysearches">
+        </ul>
         </div>
     </div>
     <div id="main">
@@ -121,6 +122,7 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
     <script src="/static/js/ux-models-map2.js"> </script>
     <script src="/static/js/ux-views-map2.js"> </script>
     <script src="/static/js/ux-views-datatable2.js"> </script>
+    <script src="/static/js/uinav.js"> </script>
 
     {% block extra_ionux_js %}
     {% endblock %}
@@ -172,36 +174,88 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             IONUX2.Dashboard.MapView.map.setZoom(zoom);
         });
 
-
-        // update accordion views with saved data
+        IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
         
-        
-        // initializing new view with custom search name when My Searches tab is open
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
-			
-            IONUX2.Views.mySearches = new IONUX2.Views.MySearches({model: IONUX2.Models.saveCustomName});
+
+            // render my searches view
+            IONUX2.Views.mySearches.render();
             
-            $('.list_mysearches a').on('click', function(e) {
-                e.preventDefault();
-                $('.lat_long_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.spatial_dropdown + '"]').attr('selected', 'selected');
-                $('#south').val(IONUX2.Models.saveSpatialSearch.attributes.from_latitude),
-                $('.from_ns option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ns + '"]').attr('selected', 'selected');
-                $('#west').val(IONUX2.Models.saveSpatialSearch.attributes.from_longitude),
-                $('.from_ew option[value="' + IONUX2.Models.saveSpatialSearch.attributes.from_ew + '"]').attr('selected', 'selected');
-                $('.placeholder_lat').val(IONUX2.Models.saveSpatialSearch.attributes.to_latitude),
-                $('.north_south_menu option[value="' + IONUX2.Models.saveSpatialSearch.attributes.to_ns + '"]').attr('selected', 'selected');
-                $('.show_hide_longitude').val(IONUX2.Models.saveSpatialSearch.attributes.to_longitude),
-                $('.to_ew option[value="'+ IONUX2.Models.saveSpatialSearch.attributes.to_ew + '"]').attr('selected', 'selected');
-                $('.noPlaceholderRadius').val(IONUX2.Models.saveSpatialSearch.attributes.radius),
-                $('.milesKilosMenu').val(IONUX2.Models.saveSpatialSearch.attributes.miles_kilos),
-                $('[data-verticalfrom]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_from),
-                $('[data-verticalto]').val(IONUX2.Models.saveSpatialSearch.attributes.vertical_to),
-                $('.feet_miles option[value="' + IONUX2.Models.saveSpatialSearch.attributes.feet_miles + '"]').attr('selected', 'selected');
-                $('#mySearchesTabContent').hide();
-                $('#searchTabContent').show();
+            // loop through list of saved searches
+            $('.list_mysearches a').each(function(index) {
+                
+              $(this).on('click', function(e) {
+                    e.preventDefault();
+
+                    // retrieve model at current index from collection
+                    var searchModel = IONUX2.Collections.saveNames.at(index);
+
+                    // convert search model into string to pass to ajax call
+                    var body = JSON.stringify(searchModel);
+
+                    // post user profile to server
+                    //UINAV.postUserProfile(body);
+
+                    // get user profile from server
+                    //UINAV.getUserProfile();
+
+                    //var searches = JSON.stringify(searchModel);
+                    //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
+
+                    
+                    // separate accordion modules into their own models
+                    var spatialModel = searchModel.attributes.spatial,
+                        temporalModel = searchModel.attributes.temporal,
+                        facilitiesModel = searchModel.attributes.facilities,
+                        regionsModel = searchModel.attributes.regions,
+                        sitesModel = searchModel.attributes.sites,
+                        dataTypesModel = searchModel.attributes.dataTypes,
+                        sortableOrder = searchModel.attributes.sortableOrder;
+
+                    // trigger saved jquery sort order
+                    //var $accordion_container = $('.jspPane');
+                    //UINAV.reorder(sortableOrder.sortable_order, $accordion_container);
+                    
+                    // populate accordion modules with saved data
+                    UINAV.loadSpatial(spatialModel);
+                    UINAV.loadTemporal(temporalModel);
+                    UINAV.loadFacilities(facilitiesModel);
+                    UINAV.loadRegions(regionsModel);
+                    UINAV.loadSites(sitesModel);
+                    UINAV.loadDataTypes(dataTypesModel);
+
+                // open Search tab
+                $('#searchTab').trigger('click');
+            
+                });
             });
             
+        });
+
+        $("#myDashboard").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockMyDashboard.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#dataProcessing").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockDataProcessing.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#instrumentManagement").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockInstrumentManagement.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#assetTracking").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockAssetTracking.html')).show();
+            $(".mapButtonHidden").click();
+        });
+
+        $("#resourceManagement").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/blockResourceManagement.html')).show();
+            $(".mapButtonHidden").click();
         });
 
         $(".twoNavTab").click(function(e){
@@ -264,6 +318,67 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             }
         });
         
+        $('#saveConfigBtn').on('click', function(e) {
+            e.preventDefault();
+
+            var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
+            var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
+            var spatial_accordion_visible = $('#spatial').is(':visible'),
+                temporal_accordion_visible = $('#temporal').is(':visible'),
+                facility_accordion_visible = $('#orgSelector').is(':visible'),
+                region_accordion_visible = $('#region').is(':visible'),
+                site_accordion_visible = $('#site').is(':visible'),
+                datatype_accordion_visible = $('#dataTypesList').is(':visible'),
+                boolean_accordion_visible = $('#boolean_expression').is(':visible'),
+                platform_accordion_visible = $('#platform').is(':visible'),
+                instrument_accordion_visible = $('#instrument').is(':visible'),
+                assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
+                data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
+                platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
+                instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
+                datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
+
+
+            var user_profile = {
+                'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+                'name': IONUX2.Models.SessionInstance.attributes.name,
+                'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+                'configuration': {
+                    'spatialElem': spatial_accordion_visible,
+                    'temporalElem': temporal_accordion_visible,
+                    'orgSelectorElem': facility_accordion_visible,
+                    'regionElem': region_accordion_visible,
+                    'siteElem': site_accordion_visible,
+                    'dataTypesListElem': datatype_accordion_visible,
+                    'boolean_expressionElem': boolean_accordion_visible,
+                    'platformElem': platform_accordion_visible,
+                    'instrumentElem': instrument_accordion_visible
+                },
+                'bottom_config': {
+                    'accordionAssets': assets_accordion_visible,
+                    'accordionData': data_accordion_visible,
+                    'accordionPlatform': platform2_accordion_visible,
+                    'accordionInstruments': instrument2_accordion_visible,
+                    'accordionDataType': datatype2_accordion_visible
+                },
+                'sortable_order': sortable_order,
+                'bottom_sortable': bottom_sortable
+                //'saved_searches': IONUX2.Collections.saveNames.toJSON()
+            };
+
+            IONUX2.Models.saveConfiguration.set(user_profile);
+            console.log("configuration model");
+            console.log(IONUX2.Models.saveConfiguration);
+            
+            var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
+            UINAV.postUserProfile(userConfiguration);
+        });
+        
+        $('#loadConfigBtn').on('click', function(e) {
+            e.preventDefault();
+            UINAV.getUserProfile();
+        });
+
       });
       {% block document_ready %}
       {% endblock %}

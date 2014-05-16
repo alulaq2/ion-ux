@@ -5,6 +5,8 @@ IONUX2.Views.Map = Backbone.View.extend({
   icons_rank: [
     'critical','warning','ok','na'
   ],
+
+  do_change_spatial_event: true,
  
   // The cluster icons are a handily fixed 240 pixels further down the sprite from the following.
   single_icons: {
@@ -151,6 +153,10 @@ IONUX2.Views.Map = Backbone.View.extend({
     // HACK! temporarily workaround to a timing issue in Chrome/Safari.
     // this.get_sites_status();
     window.setTimeout(this.get_sites_status, 1000);
+
+    //Input to drawing manager mapping, for manual updating of inputs. Input -> Map
+    IONUX2.Models.spatialModelInstance.on('change:spatialData', this.update_inputs, this);
+
   },
   
     data_types: function(){
@@ -313,11 +319,96 @@ IONUX2.Views.Map = Backbone.View.extend({
   },
 
   clear_inputs: function(){
-    $("#south").val("");
-    $("#west").val("");
-    $("#north").val("");
-    $("#east").val("");
-    $("#radius").val("");
+    var attribute = {};
+    attribute["from_longitude"] = "";
+    attribute["from_latitude"] = "";
+    attribute["to_longitude"] = "";
+    attribute["to_latitude"] = "";
+    attribute["radius"] = "";
+    this.update_spatial_model(attribute);
+
+    $("#southFm").val("");
+    $("#westFm").val("");
+    $("#northFm").val("");
+    $("#eastFm").val("");
+    $("#radiusFm").val("");
+  },
+
+  update_inputs: function(){
+      var model = IONUX2.Models.spatialModelInstance.attributes;
+      console.log('update_inputs fired.');
+      console.log(this.do_change_spatial_event);
+      if (this.do_change_spatial_event == true){
+        var attribute = {};
+
+        console.log('updating map for model changes.');
+        console.log(model);
+
+        if(model.spatial_dropdown == "1"){
+          if(this.circle){
+            this.circle.setMap(null);
+            delete this.circle;
+          } 
+
+          var n = model.to_latitude;//$('#north').val();
+          var s = model.from_latitude;//$('#south').val();
+          var e = model.to_longitude;//$('#east').val();
+          var w = model.from_longitude;//$('#west').val();
+
+          console.log('N:' + n +" S:" + s + " E:" + e + " W:" + w);
+
+          if(model.from_ew == "2"){
+            w =  w * -1;
+          }
+          if(model.to_ew == "2"){
+            e =  e * -1;
+          }
+          if(model.to_ns == "2"){
+            n =  n * -1;
+          }
+          if(model.from_ns == "2"){
+            s =  s * -1;
+          }
+
+          $('#northFm').val(n);
+          $('#southFm').val(s);
+          $('#eastFm').val(e);
+          $('#westFm').val(w);
+
+          console.log('N:' + n +" S:" + s + " E:" + e + " W:" + w);
+          
+          this.create_rectangle(n, s, e, w);
+
+        } else if(model.spatial_dropdown == "2"){
+          if (this.rectangle) {
+            this.rectangle.setMap(null);
+            delete this.rectangle;
+          }
+
+          var s = model.from_latitude;//$('#south').val();
+          var w = model.from_longitude;//$('#west').val();
+          var r = model.radius;
+
+          if(model.from_ns == "2"){
+            s =  s * -1;
+          }
+          if(model.from_ew == "2"){
+            w =  w * -1;
+          }
+
+          $('#southFm').val(s);
+          $('#westFm').val(w);
+          $("#radiusFm").val(r);
+            
+          this.create_circle(s, w, r);
+        }
+      }
+  },
+
+  update_spatial_model: function (attribute){
+    this.do_change_spatial_event = false;
+    IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+    this.do_change_spatial_event = true;
   },
 
   update_latlon: function (ne, sw){
@@ -326,71 +417,77 @@ IONUX2.Views.Map = Backbone.View.extend({
     var e = ne.lng();
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(n.toFixed(4));
+    $("#westFm").val(e.toFixed(4));
+    $("#northFm").val(s.toFixed(4));
+    $("#eastFm").val(w.toFixed(4));
+    
+    var attribute = {};
 
     if(n >= 0){
-      $("#ne_ns").val("1");
-    } else {
-      $("#ne_ns").val("2");
+      attribute["to_ns"] = "1";
+    } else {;
+      attribute["to_ns"] = "2";
       n = n * -1;
     }
 
     if(e >= 0){
-      $("#ne_ew").val("1");
+      attribute["to_ew"] = "1";
     } else {
-      $("#ne_ew").val("2");
+      attribute["to_ew"] = "2";
       e = e * -1;
     }
 
     if(s >= 0){
-      $("#sw_ns").val("1");
+      attribute["from_ns"] = "1";
     } else {
-      $("#sw_ns").val("2");
+      attribute["from_ns"] = "2";
       s = s * -1;
     }
 
     if(w >= 0){
-      $("#sw_ew").val("1");
+      attribute["from_ew"] = "1";
     } else {
-      $("#sw_ew").val("2");
+      attribute["from_ew"] = "2";
       w = w * -1;
     }
 
-    $("#south").val(s.toFixed(2));
-    $("#west").val(w.toFixed(2));
-    $("#north").val(n.toFixed(2));
-    $("#east").val(e.toFixed(2));
-
-    //TODO: Assign actual values to input fields for form submission
-    //$("#hidden_field").val(ne.lat())
+    attribute["from_longitude"] = w.toFixed(2);
+    attribute["from_latitude"] = s.toFixed(2);
+    attribute["to_longitude"] = e.toFixed(2);
+    attribute["to_latitude"] = n.toFixed(2);
+    this.update_spatial_model(attribute);
 
   },
 
   update_pointradius: function (radius, sw){
     var s = sw.lat();
     var w = sw.lng();
+    $("#southFm").val(s.toFixed(4));
+    $("#westFm").val(w.toFixed(4));
+    $("#radiusFm").val(radius);
+
+    var attribute = {};
 
     if(s >= 0){
-      $("#sw_ns").val("1");
+      attribute["from_ns"] = "1";
     } else {
-      $("#sw_ns").val("2");
+      attribute["from_ns"] = "2";
       s = s * -1;
     }
 
     if(w >= 0){
-      $("#sw_ew").val("1");
+      attribute["from_ew"] = "1";
     } else {
-      $("#sw_ew").val("2");
+      attribute["from_ew"] = "2";
       w = w * -1;
     }
 
-    $("#south").val(s.toFixed(2));
-    $("#west").val(w.toFixed(2));
-    $("#radius").val((radius/1000).toFixed(2));
+    attribute["from_longitude"] = w.toFixed(2);
+    attribute["from_latitude"] = s.toFixed(2);
+    attribute["radius"] = (radius/1000).toFixed(2);
 
-    //TODO: Assign actual values to input fields for form submission
-    //$("#hidden_field_lat").val(sw.lat())
-    //$("#hidden_field_lng").val(sw.lng())
-    //$("#hidden_field_radius").val(radius)
+    this.update_spatial_model(attribute);
 
   },
 
@@ -419,11 +516,13 @@ IONUX2.Views.Map = Backbone.View.extend({
 
   create_circle: function(lat, lng, radius){
     var point = new google.maps.LatLng(lat, lng);
-    var radius = 0.00;
+    // var radius = 0.00;
     
-    if($("#radius").val() != null && $("#radius").val().length > 0){
-     radius = parseInt($("#radius").val())*1000;
+    if(radius != null && radius.length > 0){
+     radius = parseInt(radius)*1000;
     }
+
+    // $("#radiusFm").val(radius);
 
     var self = this;
     if (!self.circle) {
@@ -446,50 +545,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     self.drawingManager.setDrawingMode(null);
 
   },
-  
 
-  update_inputs: function(){
-
-    var self = this;
-
-    if($(".latLongMenu").val() == "1"){
-
-      var n = $('#north').val();
-      var s = $('#south').val();
-      var e = $('#east').val();
-      var w = $('#west').val();
-
-      if($("#sw_ew").val() == "2"){
-        w =  w * -1;
-      }
-      if($("#ne_ew").val() == "2"){
-        e =  e * -1;
-      }
-      if($("#ne_ns").val() == "2"){
-        n =  n * -1;
-      }
-      if($("#sw_ns").val() == "2"){
-        s =  s * -1;
-      }
-      
-      self.create_rectangle(n, s, e, w);
-
-    } else if($(".latLongMenu").val() == "2"){
-
-      var s = $('#south').val();
-      var w = $('#west').val();
-
-      if($("#sw_ns").val() == "2"){
-        s =  s * -1;
-      }
-      if($("#sw_ew").val() == "2"){
-        w =  w * -1;
-      }
-        
-      self.create_circle(s, w);
-    }
-  },
-  
   draw_map: function(map_options, container_server) {
     console.log('draw_map');
     $('#map_canvas').empty().show();
@@ -572,36 +628,26 @@ IONUX2.Views.Map = Backbone.View.extend({
     });
 
     this.spatial_open = false;
-    this.from_click = false;
-
-    $("#spatial_title").on("click", function(){
-      if(self.spatial_open){
-        self.spatial_open = false;
-      } else {
-        self.spatial_open = true;
-      }
-      
-    });
 
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
-      var mode = this.getDrawingMode();
-
+      
       if(!self.spatial_open){
-        $("#spatial_title").click();
+        $("#spatialElem").find('.accordionTitle').click();
       }
+
+      var mode = this.getDrawingMode();
+      var attribute = {};
 
       if (mode == "rectangle"){
         self.clear_inputs();
-        if(!self.from_click){
-          $(".latLongMenu").val("1").change();
-        }
-         self.from_click = false;
+        attribute["spatial_dropdown"] = "1";
+        self.update_spatial_model(attribute);
+        $('.latLongMenu').val("1");
       } else if (mode == "circle"){
         self.clear_inputs();
-        if(!self.from_click){
-          $(".latLongMenu").val("2").change();
-        }
-        self.from_click = false;
+        attribute["spatial_dropdown"] = "2";
+        self.update_spatial_model(attribute);
+        $('.latLongMenu').val("2");
       }
 
       if(mode != null){
@@ -614,28 +660,6 @@ IONUX2.Views.Map = Backbone.View.extend({
           delete self.circle;
         } 
       }
-    });
-
-    //Moved here for toggle between drop-down and drawing selector on Map
-    $('.latLongMenu').on('change', function(e) {
-      console.log('changed option ' + $(this).find('option:selected').attr('value'));
-      self.clear_inputs();
-      if ($(this).find('option:selected').attr('value') == "2") {
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').hide();
-        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').show();
-        self.from_click = true;
-        self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.CIRCLE);
-      } else {
-        $('.top_search_radius, .noPlaceholderRadius, .milesKilosMenu').hide();
-        $('.top_search_to, .placeholder_lat, .north_south_menu, .show_hide_longitude').show();
-        self.from_click = true;
-        self.drawingManager.setDrawingMode(google.maps.drawing.OverlayType.RECTANGLE);
-      }
-    });
-
-    //Input to drawing manager mapping
-    $('#west, #east, #north, #south, #radius, #ne_ns, #ne_ew, #sw_ns, #sw_ew').on('change', function(){
-      self.update_inputs();
     });
 
     google.maps.event.addListener(this.map, "bounds_changed", function(e) {
