@@ -65,7 +65,7 @@
 		});	
 		
       $(function(){
-        IONUX2.Views.leftAccordion = new IONUX2.Views.LeftAccordion();
+        IONUX2.Views.leftAccordion = new IONUX2.Views.LeftAccordion(); /* CLEAN UP THIS NAMING !! */
 
         var accordions = {
           'spatial': {
@@ -91,12 +91,13 @@
             id: 'site'
           },
           'platform': {
-            title: 'Platform',
-            id: 'platform'
+            title: 'Platform Type',
+            id: 'platformTypesList'
           },
           'instrument': {
-            title: 'Instrument',
+            title: 'Instrument Type',
             id: 'instrument'
+            /* id: 'instrumentTypesList' */ /*SUBSTITUTE THIS */
           },
           'dataType': {
             title: 'Data Type',
@@ -114,7 +115,7 @@
 
         IONUX2.Views.spatial = new IONUX2.Views.Spatial({model: IONUX2.Models.spatialModelInstance});
         IONUX2.Views.temporal = new IONUX2.Views.Temporal({model: IONUX2.Models.temporalModelInstance});
-        IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories });
+        /* IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories }); */ /*DELETE THIS */
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
         IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
 		    IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
@@ -125,6 +126,8 @@
 		    IONUX2.Collections.OrgsInstance.fetch();
 
         IONUX2.Views.boolean.render();
+
+        $("#platformTypesList").html(IONUX2.getTemplate('templates/block_platform_types2.html'));
 
         $('.accordionContainer').sortable({
           items: "article:not(.accordion_fixed)"
