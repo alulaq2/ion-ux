@@ -62,11 +62,11 @@ var UINAV = {
 
             var dataTypesList = [
             "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER"];
+             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
 
-                var assetTypesList = ["Platform", "Instrument"];
+                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
 
-                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite"];
+                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
 
                 var gotKey = function(dataList) {
                     for (var key in dataList) {
@@ -95,7 +95,7 @@ var UINAV = {
 
         if (gotKey(siteTypesList)) {
             console.log("got site tab");
-            $('#siteSearchResultsTab').click();
+            $('#sitesSearchResultsTab').click();
             var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
             console.log($bottom_accordion);
         }
