@@ -323,21 +323,21 @@ var UINAV = {
 
         var dataTypesList = [
             "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER"];
+             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
 
-        var assetTypesList = ["Platform", "Instrument"];
+                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
 
-        var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite"];
+                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
 
-        var gotKey = function(dataList) {
-            for (var key in dataList) {
-                for (item in bottomConfigList) {
-                    if (dataList[key] == $('#'+bottomConfigList[item].id).parent().attr('id')) {
-                        return true
-                    }
-                }
-            }   
-        };
+                var gotKey = function(dataList) {
+                    for (var key in dataList) {
+                        for (item in bottomConfigList) {
+                            if (dataList[key] == $('#'+bottomConfigList[item].id).parent().attr('id')) {
+                                return true
+                            }
+                        }
+                    }   
+                };
 
         if (gotKey(dataTypesList)) {
             console.log("got data");
@@ -522,10 +522,9 @@ var UINAV = {
     (function() {
       // get visibility state for bottom accordion elements and add to collection
       var accordion_list = [];
-      var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
-      tabs = tabs.substring(0, tabs.length -3);
-      var getElement = "#" + tabs + "Accordion .accordionWhite";
-      $(getElement).each(function(item) {
+      var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('tabcontent');
+      var $getElement = $(tabs + " .accordionWhite");
+      $getElement.each(function(item) {
         var accordion_id = 'accordion' + $(this).attr('id');
         var $accordion_contents = $(this).find('.accordionContents:visible').length;
           accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
