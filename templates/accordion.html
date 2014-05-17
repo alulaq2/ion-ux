@@ -143,6 +143,29 @@
             $('#dataSearchResultsTab').click();
           }
         });
+
+        $('#resetBtn').on('click', function(){
+          // clear temporal
+          $('#temporal select').val("0");
+
+          // clear spatial
+          var attribute = {};
+          attribute["from_longitude"] = "";
+          attribute["from_latitude"] = "";
+          attribute["to_longitude"] = "";
+          attribute["to_latitude"] = "";
+          attribute["radius"] = "0";
+          IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+
+          $("#southFm").val("");
+          $("#westFm").val("");
+          $("#northFm").val("");
+          $("#eastFm").val("");
+          $("#radiusFm").val("");
+
+          // clear boolean
+          IONUX2.Views.boolean.render();
+        });
         
       });
 
