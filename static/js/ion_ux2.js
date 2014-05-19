@@ -148,7 +148,7 @@ IONUX2 = {
 	    // check if user is logged in
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
-	    	$('#saveConfiguration').show();
+	    	// $('#saveConfiguration').show();
 	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;

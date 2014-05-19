@@ -329,6 +329,8 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
 
 #navLeftMinimizeArrow.collapsed #searchChevron {
 	transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
 	position:absolute;
 	top: -1px;
 	right: -1px;
@@ -459,7 +461,7 @@ ul.dropdown-menu li:hover {
   margin-left:0;
 }
 
-.list_regions, .list_sites, .list_facilities, .listDataTypes {
+.list_regions, .list_sites, .list_facilities, .listDataTypes, .listPlatformTypes{
   margin-left: 13px;
 }
 
