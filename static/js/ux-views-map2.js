@@ -541,7 +541,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     }
 
     self.circle.setCenter(point);
-    self.circle.setRadius(radius);
+    self.circle.setRadius((radius > 0 ? radius : 0.00));
     self.drawingManager.setDrawingMode(null);
 
   },
