@@ -64,7 +64,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         </div>
     </div>
 
-    <div id="navLeftMinimizeArrow"> </div>
+    <div id="navLeftMinimizeArrow"><div id="searchChevron"> </div></div>
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
@@ -283,8 +283,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     queue: false,
                     complete: function(){
                         $(this).removeClass('collapsed');
-                        $(this).attr('style', 'left:0px');
-                        $(this).html('');
+                        $(this).attr('style', 'left:250px');
+                        $(this).html('<div id="searchChevron"> </div>');
                     }
                 });
                 $('#left2').animate({
@@ -304,7 +304,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             } else {
                 $(this).addClass('collapsed');
                 $(this).attr('style', 'left:275px');
-                $(this).html('Search');
+                $(this).html('Search<div id="searchChevron"> </div>');
                 
                 $(this).animate({
                    left: '0px'
