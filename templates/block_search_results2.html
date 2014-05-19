@@ -3,7 +3,7 @@
 		<div id="dataSearchResultsTab" class="twoNavTab active" tabContent="#dataSearchResultsAccordion">Data</div>
 		<div id="assetsSearchResultsTab" class="twoNavTab" tabContent="#assetsSearchResultsAccordion">Assets</div>
 		<div id="sitesSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">Sites</div>
-		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="position:absolute; bottom:0px; right:20px;">Face Page</div>
+		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="position:absolute; bottom:0px; right:40px;">Face Page</div>
 	</div>
 </div>
 <div id="searchResultsContainer" >
@@ -39,6 +39,35 @@
 <script>
 	$(function () {
 		$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
+
+		IONUX2.clearSearchResults = function() {
+			$('.searchResultTable').html('');
+
+			_.each(dataTypesList, function(resourceType) {
+				var accordion_contents = "#accordion" + resourceType.id;
+				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
+				accordionLabel.html(resourceType.name);
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
+			});
+
+			_.each(assetTypesList, function(resourceType) {
+				var accordion_contents = "#accordion" + resourceType.id;
+				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
+				accordionLabel.html(resourceType.name);
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
+			});
+
+			_.each(siteTypesList, function(resourceType) {
+				var accordion_contents = "#accordion" + resourceType.id;
+				var accordion = $(accordion_contents).closest('.accordionWhite');
+				var accordionLabel = accordion.find('.accordionWhiteLabel');
+				accordionLabel.html(resourceType.name);
+				accordionLabel.append('<div class="expandHide arrowRight blue">');
+			});
+
+		}
 
 		IONUX2.parseSearchResults = function(response_data) {
 			/* PROCESS DATA PRODUCT TYPES */
@@ -175,7 +204,7 @@
 
 		var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
 
-		var accordionWhiteTemplate = '<div class="accordionWhite collapsed"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div id="table<%= id %>"> </div> </div> </div>';
+		var accordionWhiteTemplate = '<div class="accordionWhite collapsed"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div class="searchResultTable" id="table<%= id %>"> </div> </div> </div>';
 
 		_.each(dataTypesList, function(type) {
 			var script=document.createElement('script');
