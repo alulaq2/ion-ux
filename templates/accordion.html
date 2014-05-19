@@ -1,7 +1,7 @@
 <div id="saveButtons">
  <button id="searchBtn" class="textRight">Search</button>
  <button id="saveSearch" class="textRight">Save this Search</button>
- <button id="resetBtn" class="textRight">Reset</button>  
+ <!-- <button id="resetBtn" class="textRight">Reset</button> -->
 </div>
 <div id="customSearchName"><input class="customName" type="text" placeholder="Name" /><button id="saveName" class="textRight">Save</button></div>
 <div class="accordionContainer">
@@ -32,7 +32,7 @@
   <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm2"/>
   <input type="hidden" name="temporal-to-ctrl" id="tempToFm2"/>
   <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm2"/>
-  <input type="hidden" name="radius" id="radiusFm"/>
+  <input type="hidden" name="radius" id="radiusFm2"/>
 </form>
 
 <script type="text/template" id="block_data_type_list_tmpl">{% include 'block_data_type_list2.html' %}</script>
@@ -147,6 +147,8 @@
         });
 
         $('#resetBtn').on('click', function(){
+          IONUX2.clearSearchResults();
+
           // clear temporal
           $('#temporal select').val("0");
 
@@ -156,14 +158,14 @@
           attribute["from_latitude"] = "";
           attribute["to_longitude"] = "";
           attribute["to_latitude"] = "";
-          attribute["radius"] = "0";
+          attribute["radius"] = "0.00";
           IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
 
           $("#southFm").val("");
           $("#westFm").val("");
           $("#northFm").val("");
           $("#eastFm").val("");
-          $("#radiusFm").val("");
+          $("#radiusFm").val("0.00");
 
           // clear boolean
           IONUX2.Views.boolean.render();
@@ -194,6 +196,8 @@
       }
 
         function search_clicked() {
+
+          IONUX2.clearSearchResults();
 
           set_temporal_form();
 
