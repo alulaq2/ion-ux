@@ -14,7 +14,7 @@ todo:
 INTERACTIONS_OBJECT = {};
 INTERACTIONS_OBJECT.block_interactions = ['More Info'];
 INTERACTIONS_OBJECT.group_interactions = ['More Info', /*'Submenu', 'Edit'*/];
-INTERACTIONS_OBJECT.view_interactions = ['Subscribe', 'Lifecycle', 'Edit', /*'Submenu',*/ 'Command', 'Download', 'Report Issue', 'Refresh Page'];
+INTERACTIONS_OBJECT.view_interactions = ['Subscribe', 'Lifecycle', 'Edit', /*'Submenu',*/ 'Command', 'Download', 'Report Issue', 'Refresh Page', 'Create Resource'];
 INTERACTIONS_OBJECT.dashboard_interactions = ['Create Resource'];
 INTERACTIONS_OBJECT.event_interactions = ['Add Event'];
 INTERACTIONS_OBJECT.attachment_interactions = ['Upload Attachment'];
@@ -50,16 +50,21 @@ IONUX.Views.ActionMenu = Backbone.View.extend({
     },
 
     create_actionmenu: function(){
-        var html = _.template(this.dropdown_button_tmpl, {"dropdown_items":this.interaction_items});
-        this.$el.find('.action-menu').remove();
-        $(this.el).append(html);
+      var html = _.template(this.dropdown_button_tmpl, {"dropdown_items":this.interaction_items});
+      console.log('Create actionmenu called.');
+      console.log($(this.el));
+      $(this.el).find('.action-menu').empty();
+      $(this.el).append(html);
     },
     
     // Prepends menu at the view level
     create_view_actionmenu: function() {
       var html = _.template(this.dropdown_button_tmpl, {"dropdown_items":this.interaction_items});
-      // this.$el.append(html);
-      $('#searchResultsTabContainer').find('.action-menu').remove();
+      console.log('Create view actionmenu called.');
+      console.log($(this.el));
+      // $(this.el).find('.action-menu').empty();
+      // $(this.el).append(html);
+      $('#searchResultsTabContainer').find('.action-menu').empty();
       $('#searchResultsTabContainer').append(html);
       // Better way to bind? Issue is removing element to unbind events
       // depending on context (dashboard vs. face page, etc.)
@@ -251,6 +256,8 @@ IONUX.Views.ViewActions = IONUX.Views.ActionMenu.extend({
             this.interaction_items.splice(this.interaction_items.indexOf('Subscribe'), 1);
           }
 
+          this.interaction_items.push("Create Resource");
+
         // User is a guest and we should remove all options but "Refresh Page"
         } else {
           this.interaction_items.splice(this.interaction_items.indexOf('Command'), 1);
@@ -258,6 +265,7 @@ IONUX.Views.ViewActions = IONUX.Views.ActionMenu.extend({
           this.interaction_items.splice(this.interaction_items.indexOf('Lifecycle'), 1);
           this.interaction_items.splice(this.interaction_items.indexOf('Edit'), 1);
           this.interaction_items.splice(this.interaction_items.indexOf('Report Issue'), 1);
+          this.interaction_items.splice(this.interaction_items.indexOf('Create Resource'), 1);
         };
 
 
@@ -276,8 +284,13 @@ IONUX.Views.ViewActions = IONUX.Views.ActionMenu.extend({
         this.on("action__download", this.action__download);
         this.on("action__report_issue", this.action__report_issue);
         this.on("action__refresh_page", this.action__refresh_page);
+        this.on("action__create_resource", this.create_resource);
     },
         
+    create_resource: function(){
+      new IONUX.Views.CreateResourceView().render();
+    },
+    
     action__subscribe:function(){
         var subscribe_template = '<div id="action-modal" class="modal hide fade modal-ooi">\
                                     <div class="modal-header"><h1>Send Notification On:</h1></div>\
