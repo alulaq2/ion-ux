@@ -21,12 +21,11 @@
   <input type="hidden" name="temporal-from-ctrl"  id="tempFromFm"/>
   <input type="hidden" name="temporal-to-ctrl" id="tempToFm"/>
   <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm"/>
+  <input type="hidden" name="radius" id="radiusFm"/>
 </form>
 
 <form id="searchRadialForm">
-  <input type="hidden" name="north" id="northFm2"/>
   <input type="hidden" name="south" id="southFm2"/>
-  <input type="hidden" name="east" id="eastFm2"/>
   <input type="hidden" name="west" id="westFm2"/>
   <input type="hidden" name="vertical-lower-bound" id="lowerFm2"/>
   <input type="hidden" name="vertical-upper-bound" id="upperFm2"/>
@@ -229,16 +228,37 @@
             var bValid = true;
             var errorString = '';
 
-            //Check geospatial bounds (all or none)
-            var all = form_values[1].value !== '' && form_values[2].value !== '' &&
-              + form_values[3].value !== '' && form_values[4].value !== '';
+            if($('.latLongMenu').val() == "1"){
+              //Check geospatial bounds (all or none)
+              var all = form_values[1].value !== '' && form_values[2].value !== '' &&
+                + form_values[3].value !== '' && form_values[4].value !== '';
 
-            var none = form_values[1].value == '' && form_values[2].value == '' &&
-              + form_values[3].value == '' && form_values[4].value == '';
+              var none = form_values[1].value == '' && form_values[2].value == '' &&
+                + form_values[3].value == '' && form_values[4].value == '';
 
-            if (!(all || none)){
-              errorString += 'Error in GEOSPATIAL BOUNDS:\nPartially filled form\n';
-              bValid = false;
+              if (!(all || none)){
+                errorString += 'Error in GEOSPATIAL BOUNDS:\nPartially filled form\n';
+                bValid = false;
+              }
+            } else {
+              //Check radial form (center point and radius)
+              var all =  form_values[2].value !== '' &&
+                + form_values[4].value !== '';
+
+              var none =  form_values[2].value == '' &&
+                +  form_values[4].value == '';
+
+              if (!(all || none)){
+                errorString += 'Error in Radial Point:\nPartially filled form\n';
+                bValid = false;
+              }
+
+              if(form_values[10].value == '' || form_values[10].value.length == 0){
+                if (!(all || none)){
+                  errorString += 'Error in Radius Value:\nPartially filled form\n';
+                  bValid = false;
+                }
+              }
             }
 
             //Check vertical bounds (all or none)
