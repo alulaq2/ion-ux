@@ -100,7 +100,9 @@ dashboard_map_resource: function(resource_id) {
     if (!active_resource_attributes){
       try{
         active_resource_attributes = IONUX.Dashboard.Observatories.findWhere({_id: resource_id})['attributes']; 
-        type = 'Observatory';  
+        type = 'Observatory';
+        var url = "/Observatory/face/"+resource_id+"/";
+        this.navigate(url, {trigger:true});
       }catch(err){
 
       }
@@ -243,7 +245,6 @@ dashboard_map_resource: function(resource_id) {
   },
   
   search: function(query) {
-    console.log('LETS DO THIS SHET!!!!!!');
     var func = IONUX2.parseSearchResults;
     if (!(typeof(func) == "function")) return;
     /*
