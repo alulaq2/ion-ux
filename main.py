@@ -166,6 +166,8 @@ def search(query=None):
 
             temporal_field    = adv_query_chunks.get('temporal-field-ctrl', [''])[0];
 
+            radius            = adv_query_chunks.get('radius', [''])[0];
+
             search_criteria   = zip(adv_query_chunks.get('filter_var', []),
                                     adv_query_chunks.get('filter_operator', []),
                                     adv_query_chunks.get('filter_arg', []))
@@ -174,6 +176,7 @@ def search(query=None):
                                                       vertical_bounds,
                                                       temporal_bounds,
                                                       temporal_field,
+                                                      radius,
                                                       search_criteria)
 
         return render_json_response(search_results)

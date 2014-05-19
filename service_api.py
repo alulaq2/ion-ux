@@ -182,7 +182,7 @@ class ServiceApi(object):
         return search_json['data']
 
     @staticmethod
-    def adv_search(geospatial_bounds, vertical_bounds, temporal_bounds, temporal_field, search_criteria):
+    def adv_search(geospatial_bounds, vertical_bounds, temporal_bounds, temporal_field, radius, search_criteria):
         post_data = {'query': {},
                      'and': [],
                      'or': []}
@@ -190,7 +190,14 @@ class ServiceApi(object):
         max_search_limit = config.MAX_SEARCH_RESULTS if hasattr(config, 'MAX_SEARCH_RESULTS') else 100
         post_data['limit'] = 1000 #max_search_limit
 
-        if geospatial_bounds and all(geospatial_bounds.itervalues()):
+        if radius:
+            queries.append({'wkt': 'POINT(' + geospatial_bounds['south'] + ' ' + geospatial_bounds['west'] + ')',
+                            'field': 'geospatial_point_center',
+                            'index': 'data_products_index',
+                            'buffer': radius,
+                            'cmpop': 'within'})
+
+        elif geospatial_bounds and all(geospatial_bounds.itervalues()):
             queries.append({'bottom_right': [float(geospatial_bounds['east']),
                                              float(geospatial_bounds['south'])],
                             'top_left': [float(geospatial_bounds['west']),
