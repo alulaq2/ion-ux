@@ -1080,3 +1080,8 @@ input.noPlaceholderRadius {
   padding: 5px;
   background: #fff;
 }
+
+/* admin */
+.softwareNested, .modelNested, .marineSiteNested, .physicalNested, #lifecycleSoftware, #lifecycleDataProduct, #lifecycleModel, #lifecycleMarineSite {
+  display: none;
+}
