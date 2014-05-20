@@ -11,7 +11,7 @@
                     <select name="org">
                         <% _.each(orgs, function(o) { %>
                             <option value="<%= o._id %>"><%= o.name %></option>
-                        <% }) %>
+                        <% }); %>
                     </select>
                 </div>
             </div>
@@ -19,22 +19,20 @@
                 <label class="control-label" for="resource-type">Resource Type</label>
                 <div class="controls">
                     <select id="resourceType" name="resource-type" size="8">
-                        <option value="DataProcessDefinition">Data Process Definition</option>
-                        <option value="DataProcess">Data Process</option>
                         <option value="DataProduct">Data Product</option>
-                        <option value="ExternalDatasetAgent">Dataset Agent</option> 
-                        <option value="ExternalDatasetAgentInstance">Dataset Agent Instance</option>
-                        <option value="Deployment">Deployment</option>
-                        <option value="InstrumentAgent">Instrument Agent</option>
-                        <option value="InstrumentAgentInstance">Instrument Agent Instance</option>
-                        <option value="InstrumentDevice">Instrument Device</option>
                         <option value="MarineSite">Marine Site</option>
                         <option value="Model">Model</option>
                         <option value="Physical">Physical</option>
-                        <option value="PlatformDevice">Platform Device</option>
                         <option value="Software">Software</option>
-                        
                     </select>
+                </div>
+
+                    <div class="resourceNested">
+                            <select id="ResourseTypes" name="nested-resource-types" size="4">
+    
+                            </select>
+                    </div>
+
                     <div class="softwareNested">
                             <select id="softwareResourseTypes" name="software-resource-types" size="4">
                                 <option value="DataProductAlgorithm">Data Product Algorithm</option>
@@ -45,7 +43,21 @@
                                 <option value="PlatformAgentDriverInstance">Platform Agent Driver Instance</option>
                                 <option value="PlatformAgentDriver">Platform Agent Driver</option>
                             </select>
-                    </div> 
+                    </div>
+                    <div class="dataProductNested">
+                            <select id="dataProductResourseTypes" name="software-resource-types" size="4">
+                                <option value="DataProcessDefinition">Data Process Definition</option>
+                                <option value="DataProcess">Data Process</option>
+                                <option value="DataProduct">Data Product</option>
+                                <option value="ExternalDatasetAgent">Dataset Agent</option> 
+                                <option value="ExternalDatasetAgentInstance">Dataset Agent Instance</option>
+                                <option value="Deployment">Deployment</option>
+                                <option value="InstrumentAgent">Instrument Agent</option>
+                                <option value="InstrumentAgentInstance">Instrument Agent Instance</option>
+                                <option value="InstrumentDevice">Instrument Device</option>
+                                <option value="PlatformDevice">Platform Device</option>
+                            </select>
+                    </div>
                     <div class="modelNested">
                             <select id="modelResourseTypes" name="model-resource-types" size="2">
                                 <option value="instrumentModel">Instrument Model</option>
@@ -119,10 +131,68 @@
     </div>
 </div>
 <script type="text/javascript">
-$(function() {
+/*$(function() {
 
-    $('#resourceType option[value="Software"]').on('click', function(e) {
+    var softwareNested = [
+        {'value':'DataProductAlgorithm', 'name':'Data Product Algorithm'},
+        {'value': 'DatasetAgentDriverInstance', 'name': 'Dataset Agent Driver Instance'},
+        {'value': 'DatasetAgentDriver', 'name': 'Dataset Agent Driver'},
+        {'value': 'InstrumentAgentDriverInstance', 'name': 'Instrument Agent Driver Instance'},
+        {'value': 'InstrumentAgentDriver', 'name': 'Instrument Agent Driver'},
+        {'value': 'PlatformAgentDriverInstance', 'name': 'Platform Agent Driver Instance'},
+        {'value': 'PlatformAgentDriver', 'name': 'Platform Agent Driver'}];
+                                
+    /*var dataProductNested = [
+        {'value':'DataProcessDefinition', 'name':'Data Process Definition'},
+        {'value': 'DataProcess', 'name': 'Data Process'},
+        {'value': 'DataProduct', 'name': 'Data Product'},
+        {'value': 'ExternalDatasetAgent', 'name': 'Dataset Agent'},
+        {'value': 'ExternalDatasetAgentInstance', 'name': 'Dataset Agent Instance'},
+        {'value': 'Deployment', 'name': 'Deployment'},
+        {'value': 'InstrumentAgent', 'name': 'Instrument Agent'},
+        {'value': 'InstrumentAgentInstance', 'name': 'Instrument Agent Instance'},
+        {'value': 'InstrumentDevice', 'name': 'Instrument Device'},
+        {'value': 'PlatformDevice', 'name': 'Platform Device'}];
+
+    var modelNested = [
+        {'value':'instrumentModel', 'name':'Instrument Model'},
+        {'value': 'platformModel', 'name': 'Platform Model'}];
+
+    var physicalNested = [
+        {'value':'instrumentDevice', 'name':'Instrument Device'},
+        {'value': 'platformDevice', 'name': 'Platform Devcie'}];
+
+    var marineSiteNested = [
+        {'value':'instrumentSite', 'name':'Instrument Site'},
+        {'value': 'platformSite', 'name': 'Platform Site'},
+        {'value': 'arraySite', 'name': 'Array Site'}];*/
+                                
+    
+    /*IONUX2.Collections.SoftwareNested = Backbone.Collection.extend({});
+    IONUX2.Collections.softwareNested = new IONUX2.Collections.SoftwareNested();
+    IONUX2.Collections.softwareNested.set(softwareNested);*/
+
+    /*IONUX2.Views.SoftwareNestedMenu = Backbone.View.extend({
+        el: '#ResourceTypes',
+        template: _.template('<% _.each(this.collection.models, function(resource) { %>' + 
+                             '<option value="<%= resource.attributes.value %>"><%= resource.attributes.name %></option>' + 
+                             '<% }); %>'),
+        initialize: function() {
+            this.render();
+        },
+        render: function() {
+           this.$el.html(this.template(this.collection.toJSON());
+        } 
+    });*/
+
+    // IONUX2.Views.softwareNestedMenu = new IONUX2.Views.SoftwareNestedMenu({collection: IONUX2.Collections.softwareNested});
+    
+
+    /*$('#resourceType option[value="Software"]').on('click', function(e) {
         e.preventDefault();
+        
+
+
         $('#lifecycleModel, #lifecycleMarineSite, #lifecycleDataProduct ').hide();
         $('#lifecycleSoftware').show();
         $('#lifecycleStateSoftware option[value="Planned"]').attr('selected', 'selected');
@@ -173,5 +243,6 @@ $(function() {
         $('.physicalNested').show();
     });
     
-});
+});*/
+</script>
 
