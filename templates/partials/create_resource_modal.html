@@ -16,26 +16,28 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="resource-type">Resource Type</label>
+                <label class="control-label" for="resource-type">Group</label>
                 <div class="controls">
-                    <select name="resource-type" size="8">
-                        <option value="DataProcessDefinition">Data Process Definition</option>
-                        <option value="DataProcess">Data Process</option>
+                    <select id="resourceType" name="resource-type" size="5">
                         <option value="DataProduct">Data Product</option>
-                        <option value="ExternalDatasetAgent">Dataset Agent</option> 
-                        <option value="ExternalDatasetAgentInstance">Dataset Agent Instance</option>
-                        <option value="Deployment">Deployment</option>
-                        <option value="InstrumentAgent">Instrument Agent</option>
-                        <option value="InstrumentAgentInstance">Instrument Agent Instance</option>
-                        <option value="InstrumentDevice">Instrument Device</option>
-                        <option value="PlatformDevice">Platform Device</option>
+                        <option value="MarineSite">Marine Site</option>
+                        <option value="Model">Model</option>
+                        <option value="Physical">Physical</option>
+                        <option value="Software">Software</option>
                     </select>
                 </div>
-                <div class="resourceNested">
-                            <select id="ResourseTypes" name="nested-resource-types" size="4">
+                <label class="control-label" for="resource-type">Resource Type</label>
+                <div class="resourceNested controls">
+                    <select id="ResourceTypes" name="nested-resource-types" size="4">
     
-                            </select>
+                    </select>
+                </div>
+                <div class="control-group" id="lifeCycle">
+                    <label class="control-label" for="lifecycle-state">Lifecycle State</label>
+                    <div class="controls">
+                        <select id="lifecycleState" name="lifecycle-state"></select>
                     </div>
+                </div>
             </div>
         </form>
     </div>
@@ -45,127 +47,20 @@
     </div>
 </div>
 
-
-
-                   <div class="resourceNested">
-                            <select id="ResourseTypes" name="nested-resource-types" size="4">
-    
-                            </select>
-                    </div>
-
-                    <!--<div class="softwareNested">
-                            <select id="softwareResourseTypes" name="software-resource-types" size="4">
-                                <option value="DataProductAlgorithm">Data Product Algorithm</option>
-                                <option value="DatasetAgentDriverInstance">Dataset Agent Driver Instance</option>
-                                <option value="DatasetAgentDriver">Dataset Agent Driver</option>
-                                <option value="InstrumentAgentDriverInstance">Instrument Agent Driver Instance</option>
-                                <option value="InstrumentAgentDriver">Instrument Agent Driver</option>
-                                <option value="PlatformAgentDriverInstance">Platform Agent Driver Instance</option>
-                                <option value="PlatformAgentDriver">Platform Agent Driver</option>
-                            </select>
-                    </div>
-                    <div class="dataProductNested">
-                            <select id="dataProductResourseTypes" name="software-resource-types" size="4">
-                                <option value="DataProcessDefinition">Data Process Definition</option>
-                                <option value="DataProcess">Data Process</option>
-                                <option value="DataProduct">Data Product</option>
-                                <option value="ExternalDatasetAgent">Dataset Agent</option> 
-                                <option value="ExternalDatasetAgentInstance">Dataset Agent Instance</option>
-                                <option value="Deployment">Deployment</option>
-                                <option value="InstrumentAgent">Instrument Agent</option>
-                                <option value="InstrumentAgentInstance">Instrument Agent Instance</option>
-                                <option value="InstrumentDevice">Instrument Device</option>
-                                <option value="PlatformDevice">Platform Device</option>
-                            </select>
-                    </div>
-                    <div class="modelNested">
-                            <select id="modelResourseTypes" name="model-resource-types" size="2">
-                                <option value="instrumentModel">Instrument Model</option>
-                                <option value="platformModel">Platform Model</option>
-                            </select>
-                    </div>
-                    <div class="physicalNested">
-                            <select id="physicalResourseTypes" name="physical-resource-types" size="2">
-                                <option value="instrumentModel">Instrument Device</option>
-                                <option value="platformModel">Platform Device</option>
-                            </select>
-                    </div>
-                    <div class="marineSiteNested">
-                            <select id="marineSiteResourseTypes" name="marinesite-resource-types" size="3">
-                                <option value="instrumentSite">Instrument Site</option>
-                                <option value="platformSite">Platform Site</option>
-                                <option value="arraySite">Array Site</option>
-                            </select>
-                    </div>  
-                </div>
-            </div>
-            <div class="control-group" id="lifecycleSoftware">
-                <label class="control-label" for="software-lifecycle-state">Lifecycle State</label>
-                <div class="controls">
-                    <select id="lifecycleStateSoftware" name="lifecycle-state">
-                        <option value="Planned">Planned</option>
-                        <option value="Operational">Operational</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Deleted">Deleted</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control-group" id="lifecycleDataProduct">
-                <label class="control-label" for="dataproduct-lifecycle-state">Lifecycle State</label>
-                <div class="controls">
-                    <select id="lifecycleStateDataProduct" name="lifecycle-state">
-                        <option value="Active">Active</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Deleted">Deleted</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control-group" id="lifecycleModel">
-                <label class="control-label" for="model-lifecycle-state">Lifecycle State</label>
-                <div class="controls">
-                    <select id="lifecycleStateModel" name="lifecycle-state">
-                        <option value="Planned">Planned</option>
-                        <option value="Active">Active</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Deleted">Deleted</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control-group" id="lifecycleMarineSite">
-                <label class="control-label" for="marinesite-lifecycle-state">Lifecycle State</label>
-                <div class="controls">
-                    <select id="lifecycleStateMarineSite" name="lifecycle-state">
-                        <option value="Planned">Planned</option>
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Deleted">Deleted</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button id="create-account-cancel" data-dismiss="modal" class="btn-general btn-cancel">Cancel</button>
-        <button id="create-resource" class="btn-blue btn-save">Create Resource</button>
-    </div>
-</div>-->
+                    
 <script type="text/javascript">
-$(function() {
-
-    var softwareNested = [
-        {'value':'DataProductAlgorithm', 'name':'Data Product Algorithm'},
-        {'value': 'DatasetAgentDriverInstance', 'name': 'Dataset Agent Driver Instance'},
-        {'value': 'DatasetAgentDriver', 'name': 'Dataset Agent Driver'},
-        {'value': 'InstrumentAgentDriverInstance', 'name': 'Instrument Agent Driver Instance'},
-        {'value': 'InstrumentAgentDriver', 'name': 'Instrument Agent Driver'},
-        {'value': 'PlatformAgentDriverInstance', 'name': 'Platform Agent Driver Instance'},
-        {'value': 'PlatformAgentDriver', 'name': 'Platform Agent Driver'}];
+var softwareNested = [
+        {'value':'DataProcessDefinition', 'name':'Data Product Algorithm'},
+        {'value': 'ExternalDatasetAgentInstance', 'name': 'Dataset Agent Driver Instance'},
+        {'value': 'ExternalDatasetAgent', 'name': 'Dataset Agent Driver'},
+        {'value': 'InstrumentAgentInstance', 'name': 'Instrument Agent Driver Instance'},
+        {'value': 'InstrumentAgent', 'name': 'Instrument Agent Driver'},
+        {'value': 'PlatformAgentInstance', 'name': 'Platform Agent Driver Instance'},
+        {'value': 'PlatformAgent', 'name': 'Platform Agent Driver'}];
                                 
     var dataProductNested = [
         {'value':'DataProcessDefinition', 'name':'Data Process Definition'},
         {'value': 'DataProcess', 'name': 'Data Process'},
-        {'value': 'DataProduct', 'name': 'Data Product'},
         {'value': 'ExternalDatasetAgent', 'name': 'Dataset Agent'},
         {'value': 'ExternalDatasetAgentInstance', 'name': 'Dataset Agent Instance'},
         {'value': 'Deployment', 'name': 'Deployment'},
@@ -175,92 +70,117 @@ $(function() {
         {'value': 'PlatformDevice', 'name': 'Platform Device'}];
 
     var modelNested = [
-        {'value':'instrumentModel', 'name':'Instrument Model'},
-        {'value': 'platformModel', 'name': 'Platform Model'}];
+        {'value':'InstrumentModel', 'name':'Instrument Model'},
+        {'value': 'PlatformModel', 'name': 'Platform Model'}];
 
     var physicalNested = [
-        {'value':'instrumentDevice', 'name':'Instrument Device'},
-        {'value': 'platformDevice', 'name': 'Platform Devcie'}];
+        {'value':'InstrumentDevice', 'name':'Instrument Device'},
+        {'value': 'PlatformDevice', 'name': 'Platform Devcie'}];
 
     var marineSiteNested = [
-        {'value':'instrumentSite', 'name':'Instrument Site'},
-        {'value': 'platformSite', 'name': 'Platform Site'},
-        {'value': 'arraySite', 'name': 'Array Site'}];
-                                
+        {'value':'InstrumentSite', 'name':'Instrument Site'},
+        {'value': 'PlatformSite', 'name': 'Platform Site'},
+        {'value': 'Observatory', 'name': 'Array Site'}];
+
+    var softwareLifeCycle = [
+        {'value': 'PLANNED', 'name': 'Planned'},
+        {'value': 'OPERATIONAL', 'name': 'Operational'},
+        {'value': 'RETIRED', 'name': 'Retired'},
+        {'value': 'DELETED', 'name': 'Deleted'}];
+
+    var dataProductLifeCycle = [
+        {'value': 'ACTIVE', 'name': 'Active' },
+        {'value': 'RETIRED', 'name': 'Retired'},
+        {'value': 'DELETED', 'name': 'Deleted'}];
+
+
+    var modelLifeCycle = [
+        {'value': 'PLANNED', 'name': 'Planned'},
+        {'value': 'ACTIVE', 'name': 'Active' },
+        {'value': 'RETIRED', 'name': 'Retired'},
+        {'value': 'DELETED', 'name': 'Deleted'}];
+
+    var marineLifeCycle = [
+        {'value': 'PLANNED', 'name': 'Planned'},
+        {'value': 'ACTIVE', 'name': 'Active' },
+        {'value': 'INACTIVE', 'name': 'Inactive' },
+        {'value': 'RETIRED', 'name': 'Retired'},
+        {'value': 'DELETED', 'name': 'Deleted'}];
     
     
     IONUX2.Collections.SoftwareNested = Backbone.Collection.extend({});
     IONUX2.Collections.softwareNested = new IONUX2.Collections.SoftwareNested();
     IONUX2.Collections.softwareNested.set(softwareNested);
-    IONUX2.Views.SoftwareNestedMenu = Backbone.View.extend({
-        el: '#ResourceTypes',
-        template: _.template('<% _.each(this.collection.models, function(resource) { %>' + 
-                             '<option value="<%= resource.attributes.value %>"><%= resource.attributes.name %></option>' + 
-                             '<% }); %>'),
-        initialize: function() {
-            this.render();
-        },
-        render: function() {
-           this.$el.html(this.template(this.collection.toJSON()));
-           return this;
-        } 
-    });
-    IONUX2.Views.softwareNestedMenu = new IONUX2.Views.SoftwareNestedMenu({collection: IONUX2.Collections.softwareNested});
-    
+$(function() {
 
+    // initial state
+    $('#resourceType option[value="DataProduct"]').attr('selected', 'selected');
+    for (var item in dataProductNested) {
+            $('#ResourceTypes').append('<option value="' + dataProductNested[item].value + '">' + dataProductNested[item].name + '</option>');
+        }
+    for (var cycle in dataProductLifeCycle) {
+        $('#lifecycleState').append('<option value="' + dataProductLifeCycle[cycle].value + '">' + dataProductLifeCycle[cycle].name + '</option>');
+    }
+    $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
+
+    // click handlers
     $('#resourceType option[value="Software"]').on('click', function(e) {
         e.preventDefault();
-        
-
-
-        $('#lifecycleModel, #lifecycleMarineSite, #lifecycleDataProduct ').hide();
-        $('#lifecycleSoftware').show();
-        $('#lifecycleStateSoftware option[value="Planned"]').attr('selected', 'selected');
+        $('#ResourceTypes, #lifecycleState').empty();
+        for (var software in softwareNested) {
+            $('#ResourceTypes').append('<option value="' + softwareNested[software].value + '">' + softwareNested[software].name + '</option>');
+            //IONUX2.Views.softwareNestedMenu = new IONUX2.Views.SoftwareNestedMenu({collection: IONUX2.Collections.softwareNested});
+        }
+        for (var cycle in softwareLifeCycle) {
+            $('#lifecycleState').append('<option value="' + softwareLifeCycle[cycle].value + '">' + softwareLifeCycle[cycle].name + '</option>');
+        }
+        $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
     $('#resourceType option[value="Model"]').on('click', function(e) {
         e.preventDefault();
-        $('#lifecycleSoftware, #lifecycleMarineSite, #lifecycleDataProduct ').hide();
-        $('#lifecycleModel').show();
-        $('#lifecycleStateModel option[value="Planned"]').attr('selected', 'selected');
+        $('#ResourceTypes, #lifecycleState').empty();
+        for (var item in modelNested) {
+            $('#ResourceTypes').append('<option value="' + modelNested[item].value + '">' + modelNested[item].name + '</option>');
+        }
+        for (var cycle in modelLifeCycle) {
+            $('#lifecycleState').append('<option value="' + modelLifeCycle[cycle].value + '">' + modelLifeCycle[cycle].name + '</option>');
+        }
+        $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
     $('#resourceType option[value="MarineSite"]').on('click', function(e) {
-         e.preventDefault();
-          $('#lifecycleModel, #lifecycleSoftware, #lifecycleDataProduct ').hide();
-         $('#lifecycleMarineSite').show();
-         $('#lifecycleStateMarineSite option[value="Planned"]').attr('selected', 'selected');
+        e.preventDefault();
+        $('#ResourceTypes, #lifecycleState').empty();
+        for (var marine in marineSiteNested) {
+            $('#ResourceTypes').append('<option value="' + marineSiteNested[marine].value + '">' + marineSiteNested[marine].name + '</option>');
+        }
+        for (var cycle in marineLifeCycle) {
+            $('#lifecycleState').append('<option value="' + marineLifeCycle[cycle].value + '">' + marineLifeCycle[cycle].name + '</option>');
+        }
+        $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
 
     $('#resourceType option[value="DataProduct"]').on('click', function(e) {
         e.preventDefault();
-         $('#lifecycleModel, #lifecycleMarineSite, #lifecycleSoftware').hide();
-        $('#lifecycleDataProduct').show();
+        $('#ResourceTypes, #lifecycleState').empty();
+        for (var item in dataProductNested) {
+            $('#ResourceTypes').append('<option value="' + dataProductNested[item].value + '">' + dataProductNested[item].name + '</option>');
+        }
+        for (var cycle in dataProductLifeCycle) {
+            $('#lifecycleState').append('<option value="' + dataProductLifeCycle[cycle].value + '">' + dataProductLifeCycle[cycle].name + '</option>');
+        }
         $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
-    });
-
-
-
-    $('#resourceType option[value="Software"]').on('click', function(e) {
-        e.preventDefault();
-         $('.modelNested, .marineSiteNested, .physicalNested').hide();
-         $('.softwareNested').show();
-    });
-
-    $('#resourceType option[value="Model"]').on('click', function(e) {
-        e.preventDefault();
-        $('.softwareNested, .marineSiteNested, .physicalNested').hide();
-        $('.modelNested').show();
-    });
-
-    $('#resourceType option[value="MarineSite"]').on('click', function(e) {
-        e.preventDefault();
-        $('.softwareNested, .modelNested, .physicalNested').hide();
-        $('.marineSiteNested').show();
     });
 
     $('#resourceType option[value="Physical"]').on('click', function(e) {
         e.preventDefault();
-        $('.softwareNested, .modelNested, .marineSiteNested').hide();
-        $('.physicalNested').show();
+        $('#ResourceTypes').empty();
+        for (var physical in physicalNested) {
+            $('#ResourceTypes').append('<option value="' + physicalNested[physical].value + '">' + physicalNested[physical].name + '</option>');
+        }
+        /*for (var cycle in physicalLifeCycle) {
+            $('#lifecycleState').append('<option value="' + physicalLifeCycle[cycle].value + '">' + physicalLifeCycle[cycle].name + '</option>');
+        }
+        $('#lifecycleState option[value="Active"]').attr('selected', 'selected');*/
     });
     
 });

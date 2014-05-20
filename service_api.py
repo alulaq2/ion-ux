@@ -641,8 +641,8 @@ class ServiceApi(object):
         return extension
 
     @staticmethod
-    def create_resource(resource_type, org_id, resource_name=None):
-        prepare = ServiceApi.get_prepare(resource_type, None, None)
+    def create_resource(resource_type, org_id, lcstate, resource_name=None):
+        prepare = ServiceApi.get_prepare(resource_type, None, None, None)
         if isinstance(prepare, dict) and "GatewayError" in prepare:
             return [prepare, None]
 

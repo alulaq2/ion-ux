@@ -1284,10 +1284,12 @@ IONUX.Views.CreateResourceView = Backbone.View.extend({
   },
   createResourceClicked: function() {
     var url = window.location.protocol + "//" + window.location.host + "/create/",
-      rtype = this.$('select[name="resource-type"]').val(),
+      rtype = this.$('select[name="nested-resource-types"]').val(),
         org = this.$('select[name="org"]').val(),
+        lcstate = this.$('select[name="lifecycle-state"]').val(),
        vals = {'resource_type': rtype,
-               'org_id': org},
+               'org_id': org,
+                'lcstate': lcstate},
        self = this;
     
     self.modal.modal('hide');
