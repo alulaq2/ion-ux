@@ -648,7 +648,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       
       if(!self.spatial_open){
-        $("#spatialElem").find('.accordionTitle').click();
+        IONUX2.openSpatialAccordion();
       }
 
       var mode = this.getDrawingMode();
