@@ -407,7 +407,8 @@ IONUX2.Views.Map = Backbone.View.extend({
 
           $('#southFm').val(s);
           $('#westFm').val(w);
-          $("#radiusFm").val(r);
+          // convert meters to degrees
+          $("#radiusFm").val(r/111325);
             
           this.create_circle(s, w, r);
         }
@@ -475,7 +476,8 @@ IONUX2.Views.Map = Backbone.View.extend({
     var w = sw.lng();
     $("#southFm").val(s.toFixed(4));
     $("#westFm").val(w.toFixed(4));
-    $("#radiusFm").val(radius);
+    // convert meters to degrees
+    $("#radiusFm").val(radius/111325);
 
     var attribute = {};
 
@@ -648,7 +650,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       
       if(!self.spatial_open){
-        $("#spatialElem").find('.accordionTitle').click();
+        IONUX2.openSpatialAccordion();
       }
 
       var mode = this.getDrawingMode();
