@@ -1302,8 +1302,10 @@ IONUX.Views.CreateResourceView = Backbone.View.extend({
         var new_res_id = resp.data[0];
 
         Backbone.history.fragment = null; // Clear history fragment to allow for page "refresh".
-        IONUX.ROUTER.navigate('/' + rtype + '/face/' + new_res_id + '/edit', {trigger: true});
-      });
+        //if ((rtype != null) && (lcstate != null)) {
+          IONUX.ROUTER.navigate('/' + rtype + '/face/' + new_res_id + '/edit', {trigger: true});
+        //}
+    });
   }
 });
 
