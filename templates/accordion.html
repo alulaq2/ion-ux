@@ -147,10 +147,11 @@
         });
 
         $('#resetBtn').on('click', function(){
+          disableMapEventHandling = true;
           IONUX2.clearSearchResults();
 
           // clear keyword
-          $('#keywordIn').val("Keyword");
+          $('#keywordIn').val("");
 
           // clear temporal
           $('#temporal select').val("0");
@@ -175,14 +176,19 @@
 
           // clear boolean
           IONUX2.Views.boolean.render();
+          disableMapEventHandling = false;
         });
         
       });
 
+      var disableMapEventHandling = false;
+
       IONUX2.openSpatialAccordion = function() {
-        // if($("#spatialElem").find('.leftAccordionContents').not(':visible')){
-          $("#spatialElem").find('.accordionTitle').click();
-        // }
+        if(!disableMapEventHandling){
+          if($("#spatialElem").find('.leftAccordionContents').not(':visible')){
+            $("#spatialElem").find('.accordionTitle').click();
+          }
+        }
       }
 
       function set_temporal_form(){
