@@ -27,15 +27,11 @@
                     </select>
                 </div>
                 <label class="control-label" for="resource-type">Resource Type</label>
-                <div class="resourceNested controls">
-                    <select id="ResourceTypes" name="nested-resource-types" size="4">
-    
-                    </select>
+                <div class="resourceNested controls" id="ResourceTypes">
                 </div>
                 <div class="control-group" id="lifeCycle">
                     <label class="control-label" for="lifecycle-state">Lifecycle State</label>
-                    <div class="controls">
-                        <select id="lifecycleState" name="lifecycle-state"></select>
+                    <div class="controls" id="lifecycleState">
                     </div>
                 </div>
             </div>
@@ -106,98 +102,96 @@ var softwareNested = [
         {'value': 'INACTIVE', 'name': 'Inactive' },
         {'value': 'RETIRED', 'name': 'Retired'},
         {'value': 'DELETED', 'name': 'Deleted'}];
+
+    var physicalLifeCycle = [
+        {'value': 'ACTIVE', 'name': 'Active' },
+        {'value': 'RETIRED', 'name': 'Retired'},
+        {'value': 'DELETED', 'name': 'Deleted'}];
     
     
     IONUX2.Collections.SoftwareNested = Backbone.Collection.extend({});
     IONUX2.Collections.softwareNested = new IONUX2.Collections.SoftwareNested();
     IONUX2.Collections.softwareNested.set(softwareNested);
 
+    IONUX2.Collections.SoftwareLifeCycle = Backbone.Collection.extend({});
+    IONUX2.Collections.softwareLifeCycle = new IONUX2.Collections.SoftwareLifeCycle();
+    IONUX2.Collections.softwareLifeCycle.set(softwareLifeCycle);
+
     IONUX2.Collections.DataProductNested = Backbone.Collection.extend({});
     IONUX2.Collections.dataProductNested = new IONUX2.Collections.DataProductNested();
-    IONUX2.Collections.softwareNested.set(dataProductNested);
+    IONUX2.Collections.dataProductNested.set(dataProductNested);
+
+    IONUX2.Collections.DataProductLifeCycle = Backbone.Collection.extend({});
+    IONUX2.Collections.dataProductLifeCycle = new IONUX2.Collections.DataProductLifeCycle();
+    IONUX2.Collections.dataProductLifeCycle.set(dataProductLifeCycle);
 
     IONUX2.Collections.ModelNested = Backbone.Collection.extend({});
     IONUX2.Collections.modelNested = new IONUX2.Collections.ModelNested();
     IONUX2.Collections.modelNested.set(modelNested);
 
+    IONUX2.Collections.ModelLifeCycle = Backbone.Collection.extend({});
+    IONUX2.Collections.modelLifeCycle = new IONUX2.Collections.ModelLifeCycle();
+    IONUX2.Collections.modelLifeCycle.set(modelLifeCycle);
+
     IONUX2.Collections.PhysicalNested = Backbone.Collection.extend({});
     IONUX2.Collections.physicalNested = new IONUX2.Collections.PhysicalNested();
     IONUX2.Collections.physicalNested.set(physicalNested);
+
+    IONUX2.Collections.PhysicalLifeCycle = Backbone.Collection.extend({});
+    IONUX2.Collections.physicalLifeCycle = new IONUX2.Collections.PhysicalLifeCycle();
+    IONUX2.Collections.physicalLifeCycle.set(physicalLifeCycle);
 
     IONUX2.Collections.MarineSiteNested = Backbone.Collection.extend({});
     IONUX2.Collections.marineSiteNested = new IONUX2.Collections.MarineSiteNested();
     IONUX2.Collections.marineSiteNested.set(marineSiteNested);
 
-$(function() {
+    IONUX2.Collections.MarineSiteLifeCycle = Backbone.Collection.extend({});
+    IONUX2.Collections.marineSiteLifeCycle = new IONUX2.Collections.MarineSiteLifeCycle();
+    IONUX2.Collections.marineSiteLifeCycle.set(marineLifeCycle);
 
+
+$(function() {
+    
     // initial state
+    IONUX2.Views.dataProductMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.dataProductNested});
+    IONUX2.Views.dataProductLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.dataProductLifeCycle});
     $('#resourceType option[value="DataProduct"]').attr('selected', 'selected');
-    for (var item in dataProductNested) {
-            $('#ResourceTypes').append('<option value="' + dataProductNested[item].value + '">' + dataProductNested[item].name + '</option>');
-        }
-    for (var cycle in dataProductLifeCycle) {
-        $('#lifecycleState').append('<option value="' + dataProductLifeCycle[cycle].value + '">' + dataProductLifeCycle[cycle].name + '</option>');
-    }
     $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
 
     // click handlers
     $('#resourceType option[value="Software"]').on('click', function(e) {
         e.preventDefault();
-        $('#ResourceTypes, #lifecycleState').empty();
-        for (var software in softwareNested) {
-            $('#ResourceTypes').append('<option value="' + softwareNested[software].value + '">' + softwareNested[software].name + '</option>');
-            //IONUX2.Views.softwareNestedMenu = new IONUX2.Views.SoftwareNestedMenu({collection: IONUX2.Collections.softwareNested});
-        }
-        for (var cycle in softwareLifeCycle) {
-            $('#lifecycleState').append('<option value="' + softwareLifeCycle[cycle].value + '">' + softwareLifeCycle[cycle].name + '</option>');
-        }
+        IONUX2.Views.softwareMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.softwareNested});
+        IONUX2.Views.softwareLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.softwareLifeCycle});
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
+
     $('#resourceType option[value="Model"]').on('click', function(e) {
         e.preventDefault();
-        $('#ResourceTypes, #lifecycleState').empty();
-        for (var item in modelNested) {
-            $('#ResourceTypes').append('<option value="' + modelNested[item].value + '">' + modelNested[item].name + '</option>');
-        }
-        for (var cycle in modelLifeCycle) {
-            $('#lifecycleState').append('<option value="' + modelLifeCycle[cycle].value + '">' + modelLifeCycle[cycle].name + '</option>');
-        }
+        IONUX2.Views.modelMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.modelNested});
+        IONUX2.Views.modelLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.modelLifeCycle});
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
+
     $('#resourceType option[value="MarineSite"]').on('click', function(e) {
         e.preventDefault();
-        $('#ResourceTypes, #lifecycleState').empty();
-        for (var marine in marineSiteNested) {
-            $('#ResourceTypes').append('<option value="' + marineSiteNested[marine].value + '">' + marineSiteNested[marine].name + '</option>');
-        }
-        for (var cycle in marineLifeCycle) {
-            $('#lifecycleState').append('<option value="' + marineLifeCycle[cycle].value + '">' + marineLifeCycle[cycle].name + '</option>');
-        }
+        IONUX2.Views.marineSiteMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.marineSiteNested});
+        IONUX2.Views.marineLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.marineSiteLifeCycle});
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
 
     $('#resourceType option[value="DataProduct"]').on('click', function(e) {
         e.preventDefault();
-        $('#ResourceTypes, #lifecycleState').empty();
-        for (var item in dataProductNested) {
-            $('#ResourceTypes').append('<option value="' + dataProductNested[item].value + '">' + dataProductNested[item].name + '</option>');
-        }
-        for (var cycle in dataProductLifeCycle) {
-            $('#lifecycleState').append('<option value="' + dataProductLifeCycle[cycle].value + '">' + dataProductLifeCycle[cycle].name + '</option>');
-        }
+        IONUX2.Views.dataProductMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.dataProductNested});
+        IONUX2.Views.dataProductLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.dataProductLifeCycle});
         $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
     });
 
     $('#resourceType option[value="Physical"]').on('click', function(e) {
         e.preventDefault();
-        $('#ResourceTypes').empty();
-        for (var physical in physicalNested) {
-            $('#ResourceTypes').append('<option value="' + physicalNested[physical].value + '">' + physicalNested[physical].name + '</option>');
-        }
-        /*for (var cycle in physicalLifeCycle) {
-            $('#lifecycleState').append('<option value="' + physicalLifeCycle[cycle].value + '">' + physicalLifeCycle[cycle].name + '</option>');
-        }
-        $('#lifecycleState option[value="Active"]').attr('selected', 'selected');*/
+        IONUX2.Views.physicalMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.physicalNested});
+        IONUX2.Views.physicalLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.physicalLifeCycle});
+        $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
     });
     
 });
