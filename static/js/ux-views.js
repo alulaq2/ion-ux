@@ -1261,7 +1261,7 @@ IONUX.Views.NoConfiguredAgentInstance = Backbone.View.extend({
 });
 
 IONUX.Views.CreateResourceView = Backbone.View.extend({
-  tagName: "div",
+  el: "#createResourceContent",
   template: _.template($("#create-resource-modal-tmpl").html()),
   events: {
     'click #create-resource': 'createResourceClicked'
@@ -1271,15 +1271,17 @@ IONUX.Views.CreateResourceView = Backbone.View.extend({
       return _.contains(IONUX.createRoles(), o.org_governance_name);
     });
 
-    $('body').append(this.$el);
+    // $('body').append(this.$el);
     var modal_html = this.template({orgs:orgs});
     this.$el.append(modal_html);
 
     var self = this;
+    /*
     this.modal = $('#create-resource-overlay').modal()
       .on('hidden', function() {
         self.$el.remove();
       });
+    */
     return this;
   },
   createResourceClicked: function() {
@@ -1292,10 +1294,10 @@ IONUX.Views.CreateResourceView = Backbone.View.extend({
                 'lcstate': lcstate},
        self = this;
     
-    self.modal.modal('hide');
+    // self.modal.modal('hide');
 
-    $('#dynamic-container').html('<div id="spinner"></div>').show();
-    new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
+    // $('#dynamic-container').html('<div id="spinner"></div>').show();
+    // new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
 
     $.post(url, vals)
       .success(function(resp) {
