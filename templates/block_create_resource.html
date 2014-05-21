@@ -1,19 +1,27 @@
 <div id="createResourceTabContainer" style="position:relative; height:28px; width:100%;">
 	<div class="twoNavTabs" style="left:24px;width:calc(100% - 24px);">
-		<div id="createResourceTab" class="twoNavTab active" tabContent="#createResourceContainer">Create Resource</div>
-		<div id="editResourceTab" class="twoNavTab" tabContent="#editResourceContainer">Edit Resource</div>
+		<div id="createResourceTab" class="twoNavTab active" tabContent="#createResourceContent">Create Resource</div>
+		<div id="editResourceTab" class="twoNavTab" tabContent="#editResourceContent">Edit Resource</div>
 	</div>
 </div>
-<div id="createResourceContainer" >
-</div>
-<div id="editResourceContainer" >
-	<h5 style="color:#fff">EDIT STUFF!!!</h5>
+<div id="createResourceContainer" class="lowerMainContentContainer">
+	<div id="createResourceContent"> 
+	</div>
+	<div id="editResourceContent" style="display:none;">
+		<h5 style="color:#fff">EDIT STUFF!!!</h5>
+	</div>
 </div>
 
 <script type="text/javascript">
-	$('#createResourceContainer').html(IONUX2.getTemplate('templates/partials/create_resource_modal.html');
+
+	IONUX2.setResourceManagementTab = function(tab){
+		$("#"+tab).click();
+	}
 
 	$(function() {
+		// $('#createResourceContent').html(IONUX2.getTemplate('templates/partials/create_resource_modal.html'));
+		new IONUX.Views.CreateResourceView().render();
+
 		$("#createResourceTabContainer .twoNavTab").click(function(e){
 			var target = $(e.target);
 			target.addClass('active').siblings().removeClass('active');

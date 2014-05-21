@@ -223,8 +223,11 @@ dashboard_map_resource: function(resource_id) {
   },
 
   edit: function(resource_type, view_type, resource_id) {
+    console.log('**** Processing edit landing page!');
+    IONUX2.setPageView("resourceManagement");
+    IONUX2.setResourceManagementTab("editResourceTab");
     // Todo move into own view
-    $('#dynamic-container > .row-fluid').html('<div id="spinner"></div>').show();
+    $('#editResourceContent').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
     
     var m = new IONUX.Models.EditResourceModel({
@@ -234,11 +237,7 @@ dashboard_map_resource: function(resource_id) {
     
     m.fetch({
       success: function(resp) {
-        $('#dashboard-container').hide();
-        $('#dynamic-container').show();
-        $('#dynamic-container').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
-        $('.span9 li,.span3 li').hide();
-        $('.heading').hide();
+        $('#editResourceContent').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         new IONUX.Views.EditResource({model: resp});
       }
     });

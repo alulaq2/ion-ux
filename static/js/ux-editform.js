@@ -366,7 +366,7 @@ Backbone.Form.editors.MultiSelect = Backbone.Form.editors.Select.extend({
 });
 
 IONUX.Views.EditResource = Backbone.View.extend({
-  tagName: 'div',
+  el: '#editResourceContent',
   template: _.template($('#edit-resource-tmpl').html()),
   events: {
     'click #save-resource': 'submit_form',
@@ -396,7 +396,8 @@ IONUX.Views.EditResource = Backbone.View.extend({
   },
   render: function(){
     // Insert form but leave page header
-    $('#dynamic-container > .row-fluid').html(this.$el.html(this.template));
+    // $('#dynamic-container > .row-fluid').html(this.$el.html(this.template));
+    this.$el.html(this.template);
     $('#form-container').html(this.form.el);
 
     // HACK HACK to fix up embedded object spacing
