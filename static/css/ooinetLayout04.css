@@ -178,7 +178,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   padding:0px;
   margin:0px;
   /* height:calc(100% - 104px); */
-  height: 100%;
+  height: calc(100% - 2px);
   min-height: 300px;
   /* width:calc(100% - 275px); */
   width: 100%;
@@ -1138,5 +1138,6 @@ input.noPlaceholderRadius {
 
 .modal-footer {
   background-color: #DBDEE5;
+  text-align: left;
 }
 
