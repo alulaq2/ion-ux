@@ -1,7 +1,7 @@
 <div id="saveButtons">
- <button id="searchBtn" class="textRight">Search</button>
- <button id="saveSearch" class="textRight">Save this Search</button>
- <button id="resetBtn" class="textRight">Reset</button>
+ <button id="searchBtn" class="navButton">Search</button>
+ <button id="saveSearch" class="navButton">Save this Search</button>
+ <button id="resetBtn" class="navButton">Reset</button>
 </div>
 <div id="customSearchName"><input class="customName" type="text" placeholder="Name" /><button id="saveName" class="textRight">Save</button></div>
 <div class="accordionContainer">
@@ -138,12 +138,7 @@
 
         $('#searchBtn').on('click', function(){
           search_clicked();
-          if(IONUX2.getMapState() == "mapHidden"){
-            IONUX2.setMapState('mapSplit');
-          }
-          if($('#legacyFacePageTab').hasClass('active')){
-            $('#dataSearchResultsTab').click();
-          }
+          IONUX2.setPageView("searchResults");
         });
 
         $('#resetBtn').on('click', function(){
