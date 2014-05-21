@@ -1468,7 +1468,7 @@ ACTION MENU STYLING
   display:block;
   position: absolute;
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -180px -180px;
+  background-position: -180px -176px;
 }
 
 .hamburger:hover:before {
@@ -1479,11 +1479,11 @@ ACTION MENU STYLING
   display:block;
   position: absolute;
   background-image: url(/static/img/salt_sprite.png);
-  background-position: -240px -180px;
+  background-position: -240px -176px;
 }
 
 .btn-group.open .hamburger:before {
-  background-position: -240px -180px;
+  background-position: -240px -176px;
 }
 
 
