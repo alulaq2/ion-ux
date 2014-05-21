@@ -679,4 +679,36 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
     this.$el.html(this.template({resources: this.collection.toJSON()}));
     return this;
   }
-}); 
+});
+
+IONUX2.Views.ResourceTypeMenu = Backbone.View.extend({
+  el: '#ResourceTypes',
+  template: _.template('<select name="nested-resource-types" size="4">' + 
+                        '<% _.each(list, function(resource) { %>' + 
+                        '<option value="<%= resource.value %>"><%= resource.name %></option>' + 
+                        '<% }); %>' +
+                        '</select>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({list: this.collection.toJSON()}));
+      return this;
+  } 
+});
+
+IONUX2.Views.LifeCycleMenu = Backbone.View.extend({
+  el: '#lifecycleState',
+  template: _.template('<select name="lifecycle-state">' + 
+                        '<% _.each(lifecycle, function(cycle) { %>' + 
+                        '<option value="<%= cycle.value %>"><%= cycle.name %></option>' + 
+                        '<% }); %>' +
+                        '</select>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({lifecycle: this.collection.toJSON()}));
+    return this;
+  } 
+});  
