@@ -123,7 +123,10 @@ h2 {
   margin-left: 0;
 }
 
-#dynamic-container { background-color:#dbdee5}
+#dynamic-container { 
+background-color: #384D68;
+/* background-color:#dbdee5 */
+}
 
 #spinner {
   /* color: #fff; */
@@ -950,10 +953,9 @@ resources-view {background-color:#FF0004}
   border-right: none;
   border-top: none;
   border-bottom: none;
-  padding: 6px 0px 16px 12px;
   overflow: visible;
   color: #000;
-  height: 32px;
+  height: 20px;
 }
 
 .heading h1, h2 {
@@ -1279,7 +1281,8 @@ label {
 fieldset {
   margin-top: 20px;
   width: 80%;
-  border: 1px solid #dcdcdc;
+  border: 0px;
+  /* border: 1px solid #dcdcdc; */
   border-radius: 10px;
   padding: 20px;
   text-align: right;
@@ -1321,7 +1324,7 @@ input {
 }
 
 .controls input[type=text], .controls textarea, .controls input[type=number] {
-    width: 84%;
+    width: 86%;
 }
 .pull-left input[type=text] {
   width: 250%;
@@ -1377,7 +1380,7 @@ label {
 
 .bbf-list-modal {
   text-align: left;
-  padding-left: 60px;
+  padding-left: 78px;
 }
 
 .table-heading {
@@ -1870,6 +1873,7 @@ a.btn-navigation-plain {
 #agent-form, #resource-form, #resource-form2 {
   background: #f4f4f4;
   padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 .form-horizontal {
@@ -1899,8 +1903,8 @@ a.btn-navigation-plain {
   margin: 0;
 }
 
-.v01 h3, .v01 .block h3,
-.v02 h3, .v02 .block h3 {
+.v01 h3, .v01 .block h3, .v02 .block h3
+ {
   border-top: none;
   border-bottom: none;
   color: #FFF;
@@ -1913,6 +1917,25 @@ a.btn-navigation-plain {
   padding: 5px 10px;
   letter-spacing: 0px;
   background: #7b99b5;
+
+}
+
+.v02 h3 {
+  border-top: none;
+  border-bottom: none;
+  color: #FFF;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: bold;
+  padding: 5px 10px;
+  letter-spacing: 0px;
+  background: #7b99b5;
+
+	width: calc(100% - 11px);
+	z-index:1001;
+	display: inherit;
 
 }
 
@@ -1953,8 +1976,11 @@ a.btn-navigation-plain {
   padding: 0;
 }
 
-/* bootstrap tabbed navigation overrides */
+/* MODAL bootstrap tabbed navigation overrides */
 
+.row-fluid .span8 {width:100%}
+
+/* bootstrap tabbed navigation overrides */
 ul.nav {
   margin: 0;
 }
@@ -2499,8 +2525,11 @@ table.table tr.odd td {
 .datatable-container {}
 
 .tab-content{
-  border: 2px #384d68 solid;
-  background: #FFFFFF;
+	border-top: 2px #384d68 solid;
+	border-left: 2px #384d68 solid;
+	border-bottom: 0px #384d68 solid;
+	border-right: 0px #384d68 solid;
+	background: #FFFFFF;
 }
 	
 .dataTables_wrapper {}

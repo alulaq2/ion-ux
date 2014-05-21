@@ -313,12 +313,13 @@ dashboard_map_resource: function(resource_id) {
     resource_extension.fetch()
       .success(function(model, resp) {
         $('#dynamic-container').show();
-        $('#dynamic-container').attr('style', 'background:#dbdee5');
+        $('#dynamic-container').attr('style', 'background:#dbdee5')
         $('#dynamic-container').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         $('.span9 li,.span3 li').hide();
         self._remove_dashboard_menu();
         render_page(resource_type, resource_id, model);
         // Pull back recent events as a 2nd request.
+		// line 316 .attr('style', 'background:#dbdee5');
         fetch_events(window.MODEL_DATA['resource_type'], resource_id);
       });
 },
