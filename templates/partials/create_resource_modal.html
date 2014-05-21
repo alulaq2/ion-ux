@@ -155,6 +155,7 @@ $(function() {
     IONUX2.Views.dataProductMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.dataProductNested});
     IONUX2.Views.dataProductLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.dataProductLifeCycle});
     $('#resourceType option[value="DataProduct"]').attr('selected', 'selected');
+    $('.resourceNested option[value="DataProcessDefinition"]').attr('selected', 'selected');
     $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
 
     // click handlers
@@ -162,6 +163,7 @@ $(function() {
         e.preventDefault();
         IONUX2.Views.softwareMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.softwareNested});
         IONUX2.Views.softwareLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.softwareLifeCycle});
+        $('.resourceNested option[value="DataProcessDefinition"]').attr('selected', 'selected');
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
 
@@ -169,6 +171,7 @@ $(function() {
         e.preventDefault();
         IONUX2.Views.modelMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.modelNested});
         IONUX2.Views.modelLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.modelLifeCycle});
+        $('.resourceNested option[value="InstrumentModel"]').attr('selected', 'selected');
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
 
@@ -176,6 +179,7 @@ $(function() {
         e.preventDefault();
         IONUX2.Views.marineSiteMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.marineSiteNested});
         IONUX2.Views.marineLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.marineSiteLifeCycle});
+        $('.resourceNested option[value="InstrumentSite"]').attr('selected', 'selected');
         $('#lifecycleState option[value="Planned"]').attr('selected', 'selected');
     });
 
@@ -183,6 +187,7 @@ $(function() {
         e.preventDefault();
         IONUX2.Views.dataProductMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.dataProductNested});
         IONUX2.Views.dataProductLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.dataProductLifeCycle});
+        $('.resourceNested option[value="DataProcessDefinition"]').attr('selected', 'selected');
         $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
     });
 
@@ -190,6 +195,7 @@ $(function() {
         e.preventDefault();
         IONUX2.Views.physicalMenu = new IONUX2.Views.ResourceTypeMenu({collection: IONUX2.Collections.physicalNested});
         IONUX2.Views.physicalLifeCycle = new IONUX2.Views.LifeCycleMenu({collection: IONUX2.Collections.physicalLifeCycle});
+        $('.resourceNested option[value="InstrumentDevice"]').attr('selected', 'selected');
         $('#lifecycleState option[value="Active"]').attr('selected', 'selected');
     });
     

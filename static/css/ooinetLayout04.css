@@ -178,7 +178,7 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   padding:0px;
   margin:0px;
   /* height:calc(100% - 104px); */
-  height: 100%;
+  height: calc(100% - 2px);
   min-height: 300px;
   /* width:calc(100% - 275px); */
   width: 100%;
@@ -1126,3 +1126,27 @@ input.noPlaceholderRadius {
 .softwareNested, .modelNested, .marineSiteNested, .physicalNested, #lifecycleSoftware, #lifecycleDataProduct, #lifecycleModel, #lifecycleMarineSite {
   display: none;
 }
+
+.form-horizontal .control-group {
+  display: block;
+  width:100%;
+}
+
+.form-horizontal .control-label {
+  float: none;
+  display: inline-block;
+  width: 105px;
+  vertical-align: top;
+}
+
+.form-horizontal .controls {
+  margin-left: 20px;
+  width: 300px;
+  display: inline-block;
+}
+
+.modal-footer {
+  background-color: #DBDEE5;
+  text-align: left;
+}
+
