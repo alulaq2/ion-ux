@@ -127,7 +127,7 @@ IONUX2 = {
 		});
 
 		// $("#leftSubheader").html(IONUX2.getTemplate('templates/block_nav_tabs2.html')).show();
-		$("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
+		// $("#lowerMain").html(IONUX2.getTemplate('templates/block_search_results2.html')).show();
 
 	    // Bootstrap navigation menu
 	    $.ajax({
@@ -148,7 +148,7 @@ IONUX2 = {
 	    // check if user is logged in
 	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
 	    	// show save config buttons
-	    	$('#saveConfiguration').show();
+	    	// $('#saveConfiguration').show();
 	    }
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;

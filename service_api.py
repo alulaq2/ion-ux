@@ -191,7 +191,7 @@ class ServiceApi(object):
         post_data['limit'] = 1000 #max_search_limit
 
         if radius:
-            queries.append({'wkt': 'POINT(' + geospatial_bounds['south'] + ' ' + geospatial_bounds['west'] + ')',
+            queries.append({'wkt': 'POINT(' + geospatial_bounds['west'] + ' ' + geospatial_bounds['south'] + ')',
                             'field': 'geospatial_point_center',
                             'index': 'data_products_index',
                             'buffer': radius,

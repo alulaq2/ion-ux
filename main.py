@@ -138,6 +138,14 @@ def user_profiles(user_id):
 
         return render_json_response("{data:{status:'ok'}}")
 
+@app.route('/fag/', methods=['GET'])
+def goto_resource_management():
+    if request.is_xhr:
+        return
+    else:
+        return render_app_template(request.path)
+
+
 # -----------------------------------------------------------------------------
 # SEARCH & ATTACHMENTS
 # -----------------------------------------------------------------------------

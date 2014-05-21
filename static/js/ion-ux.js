@@ -47,8 +47,9 @@ IONUX = {
       complete: function(resp){
         // Wrapper initially hidden to prevent unformed content from appearing while
         // API calls being made to draw the dashboard;
-        $('.wrapper').show();
-        Backbone.history.start({pushState:true, hashChange: false});
+        // $('.wrapper').show();
+        // console.log('**** STARTING HISTORY!!!');
+        // Backbone.history.start({pushState:true, hashChange: false});
       },
     });
     
@@ -84,9 +85,13 @@ IONUX = {
         IONUX.set_ui_theme();
         
       }
-    });
+
+   });
     
 
+    console.log('**** STARTING HISTORY!!!');
+    Backbone.history.start({pushState:true, hashChange: false});
+    
     router.handle_navigation();
 
     return router;

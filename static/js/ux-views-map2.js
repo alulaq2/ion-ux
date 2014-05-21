@@ -396,9 +396,19 @@ IONUX2.Views.Map = Backbone.View.extend({
             w =  w * -1;
           }
 
+          var rMeters;
+          if(model.miles_kilos == "1"){
+            // kilometers to meters
+            r = r*1000;
+          } else {
+            // miles to meters
+            r = r*1609.34
+          }
+
           $('#southFm').val(s);
           $('#westFm').val(w);
-          $("#radiusFm").val(r);
+          // convert meters to degrees
+          $("#radiusFm").val(r/111325);
             
           this.create_circle(s, w, r);
         }
@@ -461,11 +471,13 @@ IONUX2.Views.Map = Backbone.View.extend({
   },
 
   update_pointradius: function (radius, sw){
+    var model = IONUX2.Models.spatialModelInstance.attributes;
     var s = sw.lat();
     var w = sw.lng();
     $("#southFm").val(s.toFixed(4));
     $("#westFm").val(w.toFixed(4));
-    $("#radiusFm").val(radius);
+    // convert meters to degrees
+    $("#radiusFm").val(radius/111325);
 
     var attribute = {};
 
@@ -485,7 +497,13 @@ IONUX2.Views.Map = Backbone.View.extend({
 
     attribute["from_longitude"] = w.toFixed(2);
     attribute["from_latitude"] = s.toFixed(2);
-    attribute["radius"] = (radius/1000).toFixed(2);
+
+    if(model.miles_kilos == "1"){
+      radius = radius/1000;
+    } else {
+      radius = radius*0.000621371
+    }
+    attribute["radius"] = radius.toFixed(2);
 
     this.update_spatial_model(attribute);
 
@@ -632,7 +650,7 @@ IONUX2.Views.Map = Backbone.View.extend({
     google.maps.event.addListener(this.drawingManager, 'drawingmode_changed', function(event) {
       
       if(!self.spatial_open){
-        $("#spatialElem").find('.accordionTitle').click();
+        IONUX2.openSpatialAccordion();
       }
 
       var mode = this.getDrawingMode();

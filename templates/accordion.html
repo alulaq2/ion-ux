@@ -1,13 +1,13 @@
 <div id="saveButtons">
- <button id="searchBtn" class="textRight">Search</button>
- <button id="saveSearch" class="textRight">Save this Search</button>
- <button id="resetBtn" class="textRight">Reset</button>  
+ <button id="searchBtn" class="navButton">Search</button>
+ <button id="saveSearch" class="navButton">Save this Search</button>
+ <button id="resetBtn" class="navButton">Reset</button>
 </div>
 <div id="customSearchName"><input class="customName" type="text" placeholder="Name" /><button id="saveName" class="textRight">Save</button></div>
 <div class="accordionContainer">
   <article class="leftAccordion accordion_fixed" id="keyword">
     <div class="accordionLabel">Keyword</div>
-    <input class="keyword" type="text" placeholder="Keyword" style="display:inline-block;"/>
+    <input id="keywordIn" class="keyword" type="text" placeholder="Keyword" style="display:inline-block;"/>
   </article>
 </div>
 
@@ -138,16 +138,15 @@
 
         $('#searchBtn').on('click', function(){
           search_clicked();
-          if(IONUX2.getMapState() == "mapHidden"){
-            IONUX2.setMapState('mapSplit');
-          }
-          if($('#legacyFacePageTab').hasClass('active')){
-            $('#dataSearchResultsTab').click();
-          }
+          IONUX2.setPageView("searchResults");
         });
 
         $('#resetBtn').on('click', function(){
+          disableMapEventHandling = true;
           IONUX2.clearSearchResults();
+
+          // clear keyword
+          $('#keywordIn').val("");
 
           // clear temporal
           $('#temporal select').val("0");
@@ -167,11 +166,25 @@
           $("#eastFm").val("");
           $("#radiusFm").val("0.00");
 
+          // clear all checkboxes
+          $('#searchTabContent').find('input').prop("checked", false);
+
           // clear boolean
           IONUX2.Views.boolean.render();
+          disableMapEventHandling = false;
         });
         
       });
+
+      var disableMapEventHandling = false;
+
+      IONUX2.openSpatialAccordion = function() {
+        if(!disableMapEventHandling){
+          if($("#spatialElem").find('.leftAccordionContents').not(':visible')){
+            $("#spatialElem").find('.accordionTitle').click();
+          }
+        }
+      }
 
       function set_temporal_form(){
 
