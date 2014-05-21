@@ -36,13 +36,13 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             <img id="img_a" src="/static/img/ooinet-header-background-02.png" border="0" />
             <a href="/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0"  /></a>
         </div>
-        <div id="adminMenu" style="display:none;">
+        <div id="adminMenu">
             <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
-            <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
-            <div id="instrumentManagement" class="adminMenuTab">Instrument Mgmt</div>
-            <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
+            <div id="dataProcessing" class="adminMenuTab" style="display:none;">Data Processing</div>
+            <div id="instrumentManagement" class="adminMenuTab" style="display:none;">Instrument Mgmt</div>
+            <div id="assetTracking" class="adminMenuTab" style="display:none;">Asset Tracking</div>
             <div id="resourceManagement" class="adminMenuTab">Resource Mgmt</div>
-            <div id="deployments" class="adminMenuTab">Deployments</div>
+            <div id="deployments" class="adminMenuTab" style="display:none;">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
     </div>
@@ -181,6 +181,47 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             IONUX2.setMapState('mapHidden');
         });
 
+        var landingPages = {
+                'searchResults': {
+                    id:'searchResultsLandingPage',
+                    block: 'templates/block_search_results2.html'
+                },
+                'resourceManagement': {
+                    id:'resourceManagementLandingPage',
+                    block: 'templates/block_resource_management2.html'
+                }
+            };
+
+        /* page view states are searchResults, resourceManagement */
+
+        IONUX2.setPageView = function(viewState) {
+            console.log(viewState);
+            console.log(landingPages[viewState]);
+            landing_id = landingPages[viewState].id;
+            if($('#'+landing_id).length == 0){
+                var newDiv = $('<div/>', {
+                    id : landing_id
+                });
+                $('#lowerMain').append(newDiv);
+                newDiv.html(IONUX2.getTemplate(landingPages[viewState].block));
+            }
+            $('#'+landing_id).show().siblings().hide();
+            switch(viewState){
+                case "searchResults": if(IONUX2.getMapState() == "mapHidden"){
+                                        IONUX2.setMapState('mapSplit');
+                                      }
+                                      if($('#legacyFacePageTab').hasClass('active')){
+                                        $('#dataSearchResultsTab').click();
+                                      }
+                                      break;
+                case "resourceManagement" : IONUX2.setMapState('mapHidden');
+                                            break;
+
+            }
+        }
+
+        IONUX2.setPageView('searchResults');
+
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
         
         $('#mySearchesTab').on('click', function(e) {
@@ -242,8 +283,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#myDashboard").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/blockMyDashboard.html')).show();
-            $(".mapButtonHidden").click();
+            // IONUX.ROUTER.navigate("", {trigger: true});
+            IONUX2.setPageView("searchResults");
         });
 
         $("#dataProcessing").click(function(e){
@@ -262,8 +303,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#resourceManagement").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/blockResourceManagement.html')).show();
-            $(".mapButtonHidden").click();
+            // IONUX.ROUTER.navigate("/fag/", {trigger: true});
+            IONUX2.setPageView("resourceManagement");
         });
 
         $(".twoNavTab").click(function(e){
