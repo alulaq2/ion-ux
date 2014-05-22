@@ -666,30 +666,13 @@ select.dateMenu.hour {
   margin-bottom: 4px;
 }
 
-.filter-item {}
-
-select.booleanSelectContainer {
-  position: relative;
-  width: 162px;
-  /* These are required to remove all browser default styling of drop down arrow */  
-  /*
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  text-indent: 0.01px;
-  text-overflow: '';
-  */
-  /*  */
-  height: 18px;
-  padding: 0px;
-  color: #fff;
-  line-height: 16px;
-  border: 1px solid #384D68;
-  border-radius: 3px;
-  background: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));
-  background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
-  background: -moz-linear-gradient(left, #88A9CC, #7890AC);
-  background: -o-linear-gradient(left, #88A9CC, #7890AC);
+#booleanForm form {margin: 0px;}
+#boolean_expression span {line-height:10px}
+#booleanForm div.filter-item-holder {width: 162px; margin-left:0px}
+#booleanForm div.filter-item {font-size: 10px; margin: 0px 0px 0px 0px; padding: 2px 0px 6px;}
+#booleanForm select.booleanSelectContainer  {position: relative;left: 0px;top: 0px;border: 1px solid #384D68;-webkit-appearance: none;  -moz-appearance: none; background: #7e99b7 url(../img/left_select_arrow.png) no-repeat 100% center;width: 162px; text-indent: 0.01px; text-overflow: ""; color: #FFF;
+border-radius: 3px;height: 18px;line-height: 16px;padding: 0px;margin:2px 0px 4px;color: #FFF;font-family: Arial;font-size: 12px;background-color: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));background-color: -webkit-linear-gradient(left, #88A9CC, #7890AC);
+background-color: -moz-linear-gradient(left, #88A9CC, #7890AC); background-color: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
 
 .leftNaviNarrowSelectContainer {
@@ -716,7 +699,7 @@ display: inline-block;
    width: 160px;
 }
 
-.leftNaviSelectArrow, .leftNaviNarrowSelectArrow {
+.leftNaviSelectArrow, .leftNaviNarrowSelectArrow{
   pointer-events:none;
   position: absolute;
   left: 0px;
@@ -734,7 +717,7 @@ display: inline-block;
   width: 40px;
 }
 
-.leftNaviSelectContainer select, .leftNaviNarrowSelectContainer select {
+.leftNaviSelectContainer select, .leftNaviNarrowSelectContainer select{
   position: absolute;
   left: 0px;
   top: 0px;
