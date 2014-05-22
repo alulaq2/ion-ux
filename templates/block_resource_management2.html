@@ -6,10 +6,10 @@
 </div>
 <div id="resourceManagementContainer" class="lowerMainContentContainer">
 	<div id="createResourcesContents"> 
-		<h5>CREATE SHIT!!!</h5>
+		<h5>CREATE STUFF!!!</h5>
 	</div>
 	<div id="editResourcesContents" style="display:none;">
-		<h5>EDIT SHIT!!!</h5>
+		<h5>EDIT STUFF!!!</h5>
 	</div>
 </div>
 
@@ -17,70 +17,12 @@
 
 	$('#resourceManagementContainer').jScrollPane({autoReinitialise: true});
 
-	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
-
-	var accordionWhiteTemplate = '<div class="accordionWhite collapsed"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div class="searchResultTable" id="table<%= id %>"> </div> </div> </div>';
-
 	$("#resourceManagementTabContainer .twoNavTab").click(function(e){
 		var target = $(e.target);
 		target.addClass('active').siblings().removeClass('active');
 		tab_content = target.attr("tabContent");
 		$(tab_content).siblings().hide();
 		$(tab_content).show();
-	});
-
-    $('.accordionContainerWhite').sortable({
-    	items: ".accordionWhite:not(.pinned)"
-    });
-
-    function toggleAccordion(accordion_contents){
-		accordion_contents.slideToggle('fast', function() {
-			if ($(this).is(':visible')) {
-				$(this).parent().removeClass('collapsed');
-				$(this).parent().find('.expandHide').removeClass('arrowRight');
-				$(this).parent().find('.expandHide').addClass('arrowDown');
-			} else {
-				$(this).parent().addClass('collapsed');
-				$(this).parent().find('.expandHide').removeClass('arrowDown');
-				$(this).parent().find('.expandHide').addClass('arrowRight');
-			}
-		});
-    }
-
-    $('.accordionWhitePin').click(function(e){
-    	e.preventDefault();
-    	var pin = $(e.currentTarget);
-    	var accordion = pin.closest('.accordionWhite');
-    	if(!accordion.hasClass('pinned')) {
-    		/*if(accordion.hasClass('collapsed')){
-    			toggleAccordion( accordion.find('.accordionContents'));
-    		}*/
-    		accordion.addClass('pinned');
-    	} else {
-    		/*if(!accordion.hasClass('collapsed')){
-    			toggleAccordion( accordion.find('.accordionContents'));
-    		}*/
-    		accordion.removeClass('pinned');
-    	}
-        $( ".accordionContainerWhite" ).sortable( "disable" );
-        $('.accordionContainerWhite').sortable({
-        	items: ".accordionWhite:not(.pinned)"
-        });
-        $( ".accordionContainerWhite" ).sortable( "enable" );
-    });
-
-	$('.accordionWhiteLabel').click(function(e){
-		e.preventDefault();
-		var link = $(e.currentTarget);
-		var accordion = link.closest('.accordionWhite');
-		if( !accordion.hasClass('pinned')){
-			// this code would collapse other non-pinned accordions
-			// when you open one, but we don't do that anymore.
-			/* if( accordion.hasClass('collapsed')){
-				toggleAccordion( accordion.siblings('.accordionWhite:not(.pinned)').find('.accordionContents:visible'));
-			} */
-			toggleAccordion( accordion.find('.accordionContents'));
-		}
 	});
 
 </script>
