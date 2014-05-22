@@ -482,18 +482,16 @@ ul.dropdown-menu li:hover {
 }
 
 .navButton {
-  height: 18px;
-  line-height: 12px;
-  margin: 5px 7px 5px auto;
-  /*text-align: right;*/
-  background-color: #7b99b5;
-  color: #fff;
-  font-family: Arial;
-  font-size: 12px; 
-  overflow: none;
-  float: right;
-  border-radius: 5px;
-  border: 1px solid #9DDFF2;
+height: 18px;
+line-height: 12px;
+margin: 5px 7px 5px auto;
+color: #FFF;
+font-family: Arial;
+font-size: 12px;
+float: right;
+border-radius: 5px;
+border: 1px solid #9DDFF2;
+background-color: #7B99B5;
 }
 
 .textRight {
