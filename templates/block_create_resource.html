@@ -1,5 +1,5 @@
-<div id="createResourceTabContainer" class="mainTabContainer" style="position:relative; height:28px; width:100%;">
-	<div class="twoNavTabs" style="left:24px;width:calc(100% - 24px);">
+<div id="createResourceTabContainer" class="mainTabContainer">
+	<div class="twoNavTabs">
 		<div id="createResourceTab" class="twoNavTab active" tabContent="#createResourceContent">Create Resource</div>
 		<div id="editResourceTab" class="twoNavTab" tabContent="#editResourceContent" style="display:none;">Edit Resource</div>
 	</div>
@@ -15,6 +15,7 @@
 <script type="text/javascript">
 
 	IONUX2.setResourceManagementTab = function(tab){
+		$("#"+tab).show();
 		$("#"+tab).click();
 	}
 

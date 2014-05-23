@@ -187,6 +187,8 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   otherwise there will be 2 vertical scroll bars (might be a browser bug). */
   background-color: transparent;
   /* background-color: #DBDEE5; */
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox 28 and earlier*/
 }
 
 #left2 {
@@ -973,6 +975,11 @@ input.noPlaceholderRadius {
   width: 100%;
 }
 
+#searchResultsTabContainer .twoNavTabs {
+  left: 24px;
+  width: calc(100% - 24px);
+}
+
 .twoNavTab {
   cursor: pointer;
   display: inline-block;
@@ -1260,12 +1267,21 @@ input.noPlaceholderRadius {
 
 .mainTabContainer {
   border-bottom: 2px solid #384d68;
+  position:relative; 
+  height:28px; 
+  width:100%;
   box-sizing:border-box;
   -moz-box-sizing:border-box; /* Firefox 28 and earlier*/
 }
 #createResourceOverlay .btn-save {
   right: 50%;
   top: 5px;
+}
+
+#legacyFacePageTab {
+  position:absolute; 
+  bottom:0px; 
+  right:36px;
 }
 
 #createResourceOverlay {

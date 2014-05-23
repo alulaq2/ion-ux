@@ -14,7 +14,7 @@ IONUX.Router = Backbone.Router.extend({
     "":                                             "dashboard_map",
     "map/:resource_id":                             "dashboard_map_resource",
     "map/data/:resource_id":                        "dashboard_map_data",
-    "hmmm":                                         "works",
+    "fag":                                          "shit",
     "resources":                                    "dashboard_list",
     "resources/:resource_id":                       "dashboard_list_resource",
     "search/:query":                                "search",
@@ -40,7 +40,7 @@ IONUX.Router = Backbone.Router.extend({
     IONUX2.setPageView("searchResults");
   },
 
-  works: function(){
+  shit: function(){
     console.log('**** Showing Resource Management yo!');
     IONUX2.setPageView("resourceManagement");
   },
@@ -232,8 +232,10 @@ dashboard_map_resource: function(resource_id) {
 
   edit: function(resource_type, view_type, resource_id) {
     console.log('**** Processing edit landing page!');
+    IONUX2.setPageView("resourceManagement");
+    IONUX2.setResourceManagementTab("editResourceTab");
     // Todo move into own view
-    $('#dynamic-container > .row-fluid').html('<div id="spinner"></div>').show();
+    $('#editResourceContent').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
     
     var m = new IONUX.Models.EditResourceModel({
@@ -243,11 +245,7 @@ dashboard_map_resource: function(resource_id) {
     
     m.fetch({
       success: function(resp) {
-        $('#dashboard-container').hide();
-        $('#dynamic-container').show();
-        $('#dynamic-container').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
-        $('.span9 li,.span3 li').hide();
-        $('.heading').hide();
+        $('#editResourceContent').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         new IONUX.Views.EditResource({model: resp});
       }
     });
@@ -313,8 +311,8 @@ dashboard_map_resource: function(resource_id) {
   
   page: function(resource_type, view_type, resource_id){
     console.log('**** Processing face landing page!');
-    IONUX2.setPageView("searchResults");
-    IONUX2.showFacePage();
+    IONUX2.setPageView("searchResults", 'legacyFacePageTab');
+    // IONUX2.showFacePage();
     $('#dashboard-container').hide();
     // Todo move into own view
     $('#dynamic-container').attr('style', 'background:#384d68');

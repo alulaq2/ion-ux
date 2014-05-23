@@ -1,7 +1,5 @@
 // renders the contents of the Header div of the page frame.
 
-
-
 IONUX2.Views.Header = Backbone.View.extend({
   el: '#header2',
   initialize: function() {

@@ -194,7 +194,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
         /* page view states are searchResults, resourceManagement */
 
-        IONUX2.setPageView = function(viewState) {
+        IONUX2.setPageView = function(viewState, tab) {
+            tab = typeof tab !== 'undefined' ? tab : "";
             console.log(viewState);
             console.log(landingPages[viewState]);
             landing_id = landingPages[viewState].id;
@@ -207,20 +208,18 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             }
             $('#'+landing_id).show().siblings().hide();
             switch(viewState){
-                case "searchResults": if(IONUX2.getMapState() == "mapHidden"){
-                                        IONUX2.setMapState('mapSplit');
-                                      }
-                                      if($('#legacyFacePageTab').hasClass('active')){
-                                        $('#dataSearchResultsTab').click();
-                                      }
+                case "searchResults": 
                                       break;
                 case "resourceManagement" : IONUX2.setMapState('mapHidden');
                                             break;
 
             }
+            if(!tab == ""){
+                $("#" + tab).click();
+            }
         }
 
-        IONUX2.setPageView('searchResults');
+        IONUX2.setPageView('searchResults', 'dataSearchResultsTab');
 
         IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
         
@@ -285,6 +284,9 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         $("#myDashboard").click(function(e){
             // IONUX.ROUTER.navigate("", {trigger: true});
             IONUX2.setPageView("searchResults");
+            if(IONUX2.getMapState() == "mapHidden"){
+                IONUX2.setMapState('mapSplit');
+            }
         });
 
         $("#dataProcessing").click(function(e){
