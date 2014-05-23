@@ -450,9 +450,10 @@ searchResultsTabContainer .pull-right {
   background-image: url(/static/img/salt_sprite.png);
   background-position: -240px -176px;
 }
-.btn-group.open .hamburger:before {
-  background-position: -240px -180px;
-}
+
+.btn-group.open .hamburger:before {background-position: -240px -180px;}
+#searchResultsTabContainer .btn-group{height:28px}
+.btn-group{height:20px}
 
 ul.dropdown-menu {
 	background: -moz-linear-gradient(left, #384d68 0%, #7b99b5 100%); /* FF3.6+ */
@@ -473,14 +474,14 @@ ul.dropdown-menu {
 	z-index: 1000;
 	display: none;
 	float: left;
-	min-width: 162px;
+	min-width: 160px;
 	margin:0px;
 	list-style: none outside none;
 	box-shadow: none;
 	border: 0px solid #384d68;
 	border-radius: 0px 0px 0px 6px;
 	box-sizing:border-box;-moz-box-sizing:border-box; /* Firefox */
-	
+
 	/* background-clip: padding-box; box-shadow: 0px 5px 10px rgba(0, 0, 255, 0.2); */
 }
 ul.dropdown-menu li {
