@@ -54,7 +54,7 @@ IONUX.Views.ActionMenu = Backbone.View.extend({
       console.log('Create actionmenu called.');
       console.log($(this.el));
       $(this.el).find('.action-menu').empty();
-      $(this.el).append(html);
+      $(this.el).prepend(html);
     },
     
     // Prepends menu at the view level
