@@ -311,8 +311,8 @@ dashboard_map_resource: function(resource_id) {
   
   page: function(resource_type, view_type, resource_id){
     console.log('**** Processing face landing page!');
-    IONUX2.setPageView("searchResults");
-    IONUX2.showFacePage();
+    IONUX2.setPageView("searchResults", 'legacyFacePageTab');
+    // IONUX2.showFacePage();
     $('#dashboard-container').hide();
     // Todo move into own view
     $('#dynamic-container').attr('style', 'background:#384d68');

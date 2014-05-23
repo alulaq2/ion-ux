@@ -139,6 +139,12 @@
         $('#searchBtn').on('click', function(){
           search_clicked();
           IONUX2.setPageView("searchResults");
+          if(IONUX2.getMapState() == "mapHidden"){
+            IONUX2.setMapState('mapSplit');
+          }
+          if($('#legacyFacePageTab').hasClass('active')){
+            $('#dataSearchResultsTab').click();
+          }
         });
 
         $('#resetBtn').on('click', function(){
