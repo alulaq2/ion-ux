@@ -42,7 +42,7 @@ IONUX.Router = Backbone.Router.extend({
 
   works: function(){
     console.log('**** Showing Resource Management yo!');
-    IONUX2.setPageView("resourceManagement");
+    IONUX2.setPageView("createResource");
   },
   
 dashboard_map_resource: function(resource_id) {
@@ -232,8 +232,7 @@ dashboard_map_resource: function(resource_id) {
 
   edit: function(resource_type, view_type, resource_id) {
     console.log('**** Processing edit landing page!');
-    IONUX2.setPageView("resourceManagement");
-    IONUX2.setResourceManagementTab("editResourceTab");
+    IONUX2.setPageView("editResource");
     // Todo move into own view
     $('#editResourceContent').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
@@ -311,7 +310,7 @@ dashboard_map_resource: function(resource_id) {
   
   page: function(resource_type, view_type, resource_id){
     console.log('**** Processing face landing page!');
-    IONUX2.setPageView("searchResults", 'legacyFacePageTab');
+    IONUX2.setPageView("facePage");
     // IONUX2.showFacePage();
     $('#dashboard-container').hide();
     // Todo move into own view

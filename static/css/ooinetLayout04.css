@@ -973,14 +973,9 @@ input.noPlaceholderRadius {
 
 .twoNavTabs {
   position: absolute;
-  left: 0px;
+  left: 5px;
   bottom: 0px;
-  width: 100%;
-}
-
-#searchResultsTabContainer .twoNavTabs {
-  left: 24px;
-  width: calc(100% - 24px);
+  width: calc(100% - 5px);
 }
 
 .twoNavTab {

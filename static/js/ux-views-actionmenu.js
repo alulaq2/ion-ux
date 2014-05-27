@@ -53,7 +53,6 @@ IONUX.Views.ActionMenu = Backbone.View.extend({
       var html = _.template(this.dropdown_button_tmpl, {"dropdown_items":this.interaction_items});
       console.log('Create actionmenu called.');
       console.log($(this.el));
-      $(this.el + ' .action-menu').remove();
       $(this.el).prepend(html);
     },
     
