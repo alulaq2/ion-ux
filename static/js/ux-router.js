@@ -14,7 +14,7 @@ IONUX.Router = Backbone.Router.extend({
     "":                                             "dashboard_map",
     "map/:resource_id":                             "dashboard_map_resource",
     "map/data/:resource_id":                        "dashboard_map_data",
-    "fag":                                          "shit",
+    "hmmm":                                         "works",
     "resources":                                    "dashboard_list",
     "resources/:resource_id":                       "dashboard_list_resource",
     "search/:query":                                "search",
@@ -40,7 +40,7 @@ IONUX.Router = Backbone.Router.extend({
     IONUX2.setPageView("searchResults");
   },
 
-  shit: function(){
+  works: function(){
     console.log('**** Showing Resource Management yo!');
     IONUX2.setPageView("resourceManagement");
   },

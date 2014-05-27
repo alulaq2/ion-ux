@@ -37,12 +37,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             <a href="/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png"  border="0"  /></a>
         </div>
         <div id="adminMenu">
-            <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
-            <div id="dataProcessing" class="adminMenuTab" style="display:none;">Data Processing</div>
-            <div id="instrumentManagement" class="adminMenuTab" style="display:none;">Instrument Mgmt</div>
-            <div id="assetTracking" class="adminMenuTab" style="display:none;">Asset Tracking</div>
-            <div id="resourceManagement" class="adminMenuTab">Resource Mgmt</div>
-            <div id="deployments" class="adminMenuTab" style="display:none;">Deployments</div>
+            <div id="myDashboard" class="adminMenuTab" style="display:inline-block;">My Dashboard</div>
+            <div id="dataProcessing" class="adminMenuTab" style="display:inline-block;">Data Processing</div>
+            <div id="instrumentManagement" class="adminMenuTab" style="display:inline-block;">Instrument Mgmt</div>
+            <div id="assetTracking" class="adminMenuTab" style="display:inline-block;">Asset Tracking</div>
+            <div id="resourceManagement" class="adminMenuTab" style="display:inline-block;">Resource Mgmt</div>
+            <div id="deployments" class="adminMenuTab" style="display:inline-block;">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
     </div>
@@ -305,7 +305,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         });
 
         $("#resourceManagement").click(function(e){
-            // IONUX.ROUTER.navigate("/fag/", {trigger: true});
+            // IONUX.ROUTER.navigate("/hmmm/", {trigger: true});
             IONUX2.setPageView("resourceManagement");
         });
 

@@ -38,6 +38,7 @@
 
 <script>
 	IONUX2.clearSearchResults = function() {
+		IONUX.ROUTER.navigate('');
 		$('.searchResultTable').html('');
 
 		_.each(dataTypesList, function(resourceType) {
