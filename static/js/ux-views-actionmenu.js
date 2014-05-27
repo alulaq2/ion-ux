@@ -53,7 +53,7 @@ IONUX.Views.ActionMenu = Backbone.View.extend({
       var html = _.template(this.dropdown_button_tmpl, {"dropdown_items":this.interaction_items});
       console.log('Create actionmenu called.');
       console.log($(this.el));
-      $(this.el).find('.action-menu').empty();
+      $(this.el + ' .action-menu').remove();
       $(this.el).prepend(html);
     },
     
@@ -64,7 +64,7 @@ IONUX.Views.ActionMenu = Backbone.View.extend({
       console.log($(this.el));
       // $(this.el).find('.action-menu').empty();
       // $(this.el).append(html);
-      $('#searchResultsTabContainer').find('.action-menu').empty();
+      $('#searchResultsTabContainer .action-menu').remove();
       $('#searchResultsTabContainer').append(html);
       // Better way to bind? Issue is removing element to unbind events
       // depending on context (dashboard vs. face page, etc.)

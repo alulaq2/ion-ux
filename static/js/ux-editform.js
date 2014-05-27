@@ -404,6 +404,7 @@ IONUX.Views.EditResource = Backbone.View.extend({
     this.$('.bbf-object').parent().prev('label').css({float:'none'});
   },
   submit_form: function(e){
+    $("#editResourceTab").first().click();
     $("#editResourceTab").hide();
     var target = $(e.target);
     target.prop("disabled", true);
@@ -451,6 +452,7 @@ IONUX.Views.EditResource = Backbone.View.extend({
     });
   },
   cancel: function(){
+    $("#editResourceTab").first().click();
     $("#editResourceTab").hide();
     IONUX.ROUTER.navigate(this.base_url,{trigger:true});
   },
