@@ -197,6 +197,19 @@ IONUX2 = {
 		var owner_match = _.findWhere(MODEL_DATA.owners, {_id: user_id}) ? true : false;
 		return owner_match;
 	},
+
+    // look through all roles for a potential match
+    has_permission: function(target_roles) {
+    	var model = IONUX2.Models.PermittedFacilitiesInstance.attributes;
+    	var roles = IONUX2.Models.SessionInstance.get('roles');
+
+		// loop through all orgs in case a user has permission to do something in one but not the other
+		var hits = 0;
+		_.each(model.orgs,function(o) {
+			hits += !_.isEmpty(_.intersection(roles[o.org_governance_name],target_roles)) ? 1 : 0;
+		});
+		return hits > 0;
+    }
 };
 
 _.extend(IONUX2, Backbone.Events);

@@ -1,3 +1,20 @@
+// For generic cases
+IONUX2.Collections.Resources = Backbone.Collection.extend({
+  //model: IONUX.Models.Resource,
+  // can't use this model type here because its parse is suited for retreive on itself, not
+  // for use with a collection.
+  initialize: function(models, options){
+      this.resource_type = options.resource_type;
+  },
+  url: function() {
+      return '/' + this.resource_type + '/list/'
+  },
+  parse: function(resp){
+    make_iso_timestamps(resp.data);
+    return resp.data;
+  } 
+});
+
 IONUX2.Models.Header = Backbone.Model.extend({
 	url: '/templates/header2.html',
 	html: '',
@@ -43,7 +60,7 @@ IONUX2.Models.Session = Backbone.Model.extend({
     },
     url: '/session/',
     initialize: function() {
-      // _.bindAll(this);
+      _.bindAll(this);
     },
     parse: function(resp){
     	console.log('got response from /session/.');
