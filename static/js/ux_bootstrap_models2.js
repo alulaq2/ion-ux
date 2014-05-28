@@ -20,6 +20,12 @@ IONUX2.Models.LoginTemplate = Backbone.Model.extend({
 	}
 });
 
+IONUX2.Models.PermittedFacilities = Backbone.Model.extend({
+  defaults: {
+    orgs: null
+  }
+});
+
 // For use with collections of Resource Types, i.e. InstrumentDevice, PlatformDevice, etc.
 IONUX2.Models.Session = Backbone.Model.extend({
     defaults: {
@@ -42,7 +48,13 @@ IONUX2.Models.Session = Backbone.Model.extend({
     parse: function(resp){
     	console.log('got response from /session/.');
     	this.trigger('change:session');
-        return resp.data;
+      var orgs = _.filter(_.pluck(IONUX2.Collections.OrgsInstance.models, 'attributes'), function(o) {
+        return _.contains(IONUX2.createRoles(), o.org_governance_name);
+      });
+
+      IONUX2.Models.PermittedFacilitiesInstance.attributes.orgs = orgs;
+      
+      return resp.data;
     },
     is_logged_in: function(){
       return this.get('is_logged_in');

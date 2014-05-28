@@ -20,6 +20,7 @@
         $(".list_sites .resourceLink").click(function(){
             var resource_id = $(this).attr('data-id');
             var url = "/Observatory/face/"+resource_id+"/";
+            IONUX.ROUTER.navigate('');
             IONUX.ROUTER.navigate(url, {trigger:true});
             $('#mapButtonHidden').click();
         });

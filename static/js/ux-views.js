@@ -1271,9 +1271,12 @@ IONUX.Views.CreateResourceView = Backbone.View.extend({
     'click #create-resource': 'createResourceClicked'
   },
   render: function() {
+    /*
     var orgs = _.filter(_.pluck(IONUX.Dashboard.Orgs.models, 'attributes'), function(o) {
       return _.contains(IONUX.createRoles(), o.org_governance_name);
     });
+    */
+    var orgs = IONUX2.Models.PermittedFacilitiesInstance.attributes.orgs;
 
     // $('body').append(this.$el);
     var modal_html = this.template({orgs:orgs});
