@@ -86,28 +86,6 @@ IONUX2 = {
 	    var router = new IONUX.Router();
 	    IONUX2.ROUTER = router;
 
-		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
-		IONUX2.Models.PermittedFacilitiesInstance = new IONUX2.Models.PermittedFacilities();
-
-		/*
-		IONUX2.Models.HeaderInstance = new IONUX2.Models.Header();
-
-		IONUX2.Views.HeaderInstance = new IONUX2.Views.Header({model: IONUX2.Models.HeaderInstance});
-
-		IONUX2.Models.HeaderInstance.fetch({
-			async: false,
-			dataType: 'html'
-		});
-		*/
-
-		IONUX2.Models.LoginTemplateInstance = new IONUX2.Models.LoginTemplate();
-		IONUX2.Models.LoginInstance = new IONUX2.Models.Login();
-		IONUX2.Models.LoginInstance.setModels(IONUX2.Models.LoginTemplateInstance, IONUX2.Models.SessionInstance);
-
-		IONUX2.Views.LoginInstance = new IONUX2.Views.Login({model: IONUX2.Models.LoginInstance});
-
-	    IONUX2.Models.LoginInstance.fetch();
-
 		/*IONUX2.Models.saveCustomName.fetch({
 			async: false,
 			dataType: 'html'
@@ -133,6 +111,19 @@ IONUX2 = {
 		        IONUX2.Dashboard.Observatories = new IONUX2.Collections.Observatories(_.sortBy(resp.data.observatories,function(o){return o.spatial_area_name + (o.local_name ? o.local_name : '') + o.name}));
       		},
       	});
+      	console.log("Created Orgs instance.");
+      	console.log(IONUX2.Collections.OrgsInstance);
+
+		IONUX2.Models.PermittedFacilitiesInstance = new IONUX2.Models.PermittedFacilities();
+		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
+
+		IONUX2.Models.LoginTemplateInstance = new IONUX2.Models.LoginTemplate();
+		IONUX2.Models.LoginInstance = new IONUX2.Models.Login();
+		IONUX2.Models.LoginInstance.setModels(IONUX2.Models.LoginTemplateInstance, IONUX2.Models.SessionInstance);
+
+		IONUX2.Views.LoginInstance = new IONUX2.Views.Login({model: IONUX2.Models.LoginInstance});
+
+	    IONUX2.Models.LoginInstance.fetch();
 
 	    IONUX2.Models.SessionInstance.fetch({
       		async: false
