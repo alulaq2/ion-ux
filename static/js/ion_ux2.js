@@ -87,6 +87,7 @@ IONUX2 = {
 	    IONUX2.ROUTER = router;
 
 		IONUX2.Models.SessionInstance = new IONUX2.Models.Session();
+		IONUX2.Models.PermittedFacilitiesInstance = new IONUX2.Models.PermittedFacilities();
 
 		/*
 		IONUX2.Models.HeaderInstance = new IONUX2.Models.Header();
@@ -128,6 +129,7 @@ IONUX2 = {
 			url: '/ui/navigation/',
 			success: function(resp) {
 		        // MAPS Sidebar (initially shown)
+		    	IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs(_.sortBy(resp.data.orgs,function(o){return o.name}));
 		        IONUX2.Dashboard.Observatories = new IONUX2.Collections.Observatories(_.sortBy(resp.data.observatories,function(o){return o.spatial_area_name + (o.local_name ? o.local_name : '') + o.name}));
       		},
       	});
@@ -183,8 +185,27 @@ IONUX2 = {
 	      IONUX2.Dashboard.MapView.draw_map();
 	      IONUX2.Dashboard.MapView.draw_markers();
 	    }
-	}
+	},
   
+	// Returns Org names with create privileges. Otherwise, it returns empty list
+	createRoles: function(){
+		if(this.is_logged_in())
+		{
+		  return _.filter(_.keys(IONUX2.Models.SessionInstance.get('roles')), function(r){
+		    return _.size(IONUX2.Models.SessionInstance.get('roles')[r]) > 1;
+		  });
+		} else {
+		  return [];
+		}
+		},
+		is_logged_in: function(){
+		return IONUX2.Models.SessionInstance.get('is_logged_in');
+		},
+		is_owner: function(){
+		var user_id = IONUX2.Models.SessionInstance.get('user_id');
+		var owner_match = _.findWhere(MODEL_DATA.owners, {_id: user_id}) ? true : false;
+		return owner_match;
+	},
 };
 
 _.extend(IONUX2, Backbone.Events);
