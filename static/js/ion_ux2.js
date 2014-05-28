@@ -141,7 +141,7 @@ IONUX2 = {
 	    IONUX2.Models.SessionInstance.set_polling();
 
 	    // check if user is logged in
-	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
+	    if (IONUX2.Models.SessionInstance.is_logged_in) {
 	    	// show save config buttons
 	    	//$('#saveConfiguration').show();
 	    	UINAV.getUserProfile();

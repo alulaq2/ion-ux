@@ -206,7 +206,7 @@
 
 	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
 
-	var accordionWhiteTemplate = '<div class="accordionWhite collapsed"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div class="searchResultTable" id="table<%= id %>"> </div> </div> </div>';
+	var accordionWhiteTemplate = '<div class="accordionWhite collapsed" id="<%= id %>"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div class="searchResultTable" id="table<%= id %>"> </div> </div> </div>';
 
 	_.each(dataTypesList, function(type) {
 		var script=document.createElement('script');
@@ -244,7 +244,13 @@
 	});
 
     $('.accordionContainerWhite').sortable({
-    	items: ".accordionWhite:not(.pinned)"
+    	items: ".accordionWhite:not(.pinned)",
+    	update: function( event, ui ) {}
+    });
+
+    $('.accordionContainerWhite').on( "sortupdate", function( event, ui ) {
+          var sortable_order = $(this).sortable( "toArray" );
+          IONUX2.Models.sortBottomModelInstance.set({'sort_order': sortable_order});
     });
 
     function toggleAccordion(accordion_contents){

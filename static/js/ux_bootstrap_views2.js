@@ -241,6 +241,18 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       IONUX2.Collections.saveBooleanExpression.set(boolean_expression_list);
     })();
 
+    (function() {
+      var accordion_list = [];
+      $('.accordionContainerWhite .accordionWhite').each(function(item) {
+        var accordion_id = 'accordion' + $(this).attr('id');
+        var accordion_contents = $(this).find('.accordionContents').is(':visible');
+        accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
+        console.log("accordion list");
+        console.log(accordion_list);
+      });
+      IONUX2.Collections.saveAccordionConfig.set(accordion_list);
+    })();
+
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
       var platformTypes = IONUX2.Collections.savePlatformSearch.toJSON();
       var sites = IONUX2.Collections.saveSiteSearch.toJSON();
@@ -267,17 +279,13 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       sortArray.push(sortable_order);
       IONUX2.Models.saveLeftOrder.set(sortArray);
       var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
-      console.log("bottom sort order");
-      console.log(bottom_sortable);
       var bottomSortArray = [];
       bottomSortArray.push(bottom_sortable);
       IONUX2.Models.saveBottomOrder.set(bottomSortArray);
+
       if (parsed_collection.length != 0) {
         var parsed_obj = parsed_collection[0].saved_searches;
         var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
-        console.log("concatenating");
-        console.log(concat_obj);
-        console.log("save names collection");
 
         IONUX2.Collections.saveNames.set(concat_obj);
       }
@@ -296,13 +304,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             'boolean_expressionElem': $('#boolean_expression').is(':visible'),
             'instrumentElem': $('#instrument').is(':visible')
         },
-        'bottom_config': {
-              'accordionAssets': $('#accordionAssets .accordionContents').is(':visible'),
-              'accordionData': $('#accordionData .accordionContents').is(':visible'),
-              'accordionPlatform': $('#accordionPlatform .accordionContents').is(':visible'),
-              'accordionInstruments': $('#accordionInstruments .accordionContents').is(':visible'),
-              'accordionDataType': $('#accordionDataType .accordionContents').is(':visible')
-        },
+        'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
         'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
         'bottom_sortable': IONUX2.Models.saveBottomOrder.toJSON(),
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
@@ -332,7 +334,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
   el: '#searchTabContent',
-  //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
   template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
    '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
   '<section class="leftAccordionContents" style="display:none;position:relative;" id="<%= id %>"></section></article>'),

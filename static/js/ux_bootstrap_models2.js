@@ -269,19 +269,6 @@ IONUX2.Models.TemporalInit = Backbone.Model.extend({
 
 IONUX2.Models.temporalModelInstance = new IONUX2.Models.TemporalInit();
 
-/*IONUX2.Models.SaveCustomName = Backbone.Model.extend({
-  defaults: {
-    name: '',
-    month: '',
-    day: '',
-    year: '',
-    hour: '',
-    minute: ''
-  }
-});
-
-IONUX2.Models.saveCustomName = new IONUX2.Models.SaveCustomName();*/
-
 IONUX2.Models.SaveConfiguration = Backbone.Model.extend({
   defaults: {
     userId: '',
@@ -344,6 +331,9 @@ IONUX2.Collections.saveDataTypeSearch = new IONUX2.Collections.SaveDataTypeSearc
 
 IONUX2.Collections.SaveBooleanExpression = Backbone.Collection.extend({});
 IONUX2.Collections.saveBooleanExpression = new IONUX2.Collections.SaveBooleanExpression();
+
+IONUX2.Collections.SaveAccordionConfig = Backbone.Collection.extend({});
+IONUX2.Collections.saveAccordionConfig = new IONUX2.Collections.SaveAccordionConfig();
 
 IONUX2.Models.Facilities = Backbone.Model.extend({});
 IONUX2.Models.facilities = new IONUX2.Models.Facilities();
