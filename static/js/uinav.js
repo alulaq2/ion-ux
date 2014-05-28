@@ -4,6 +4,7 @@ var UINAV = {
             console.log("value is " + val);
             elementContainer.append($("#"+val));
             for (item in configurationList) {
+                console.log("item is " + item);
             	if (configurationList[item]) {
             		$('#'+item + ' .leftAccordionContents').show();
             	}
@@ -44,14 +45,14 @@ var UINAV = {
             $(this).prop('checked', facilitiesModel[index].is_checked);
         });
     },
-    loadRegions: function(regionsModel) {
-        $('.list_regions input').each(function(index) {
-        	$(this).prop('checked', regionsModel[index].is_checked);
-        });
-    },
     loadSites: function(sitesModel) {
         $('.list_sites input').each(function(index) {
             $(this).prop('checked', sitesModel[index].is_checked);
+        });
+    },
+    loadPlatformTypes: function(platformTypesModel) {
+        $('.listPlatformTypes input').each(function(index) {
+            $(this).prop('checked', platformTypesModel[index].is_checked);
         });
     },
     loadDataTypes: function(dataTypesModel) {
@@ -59,6 +60,9 @@ var UINAV = {
             $(this).prop('checked', dataTypesModel[index].is_checked);
         });
     },
+    /*loadBooleanExpression: function(booleanExpressionModel) {
+        $('.')
+    }*/
     postUserProfile: function(userProfile) {
     	$.ajax({
             async: false,

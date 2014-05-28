@@ -328,20 +328,22 @@ IONUX2.Models.SortBottomOrder = Backbone.Model.extend({});
 IONUX2.Models.sortBottomModelInstance = new IONUX2.Models.SortBottomOrder();
 
 IONUX2.Collections.SaveNames = Backbone.Collection.extend({});
-
 IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
 
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();
 
-IONUX2.Collections.SaveRegionSearch = Backbone.Collection.extend({});
-IONUX2.Collections.saveRegionSearch = new IONUX2.Collections.SaveRegionSearch();
+IONUX2.Collections.SavePlatformSearch = Backbone.Collection.extend({});
+IONUX2.Collections.savePlatformSearch = new IONUX2.Collections.SavePlatformSearch();
 
 IONUX2.Collections.SaveSiteSearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveSiteSearch = new IONUX2.Collections.SaveSiteSearch();
 
 IONUX2.Collections.SaveDataTypeSearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveDataTypeSearch = new IONUX2.Collections.SaveDataTypeSearch();
+
+IONUX2.Collections.SaveBooleanExpression = Backbone.Collection.extend({});
+IONUX2.Collections.saveBooleanExpression = new IONUX2.Collections.SaveBooleanExpression();
 
 IONUX2.Models.Facilities = Backbone.Model.extend({});
 IONUX2.Models.facilities = new IONUX2.Models.Facilities();

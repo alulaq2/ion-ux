@@ -223,18 +223,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             }
         }
 
-        IONUX2.setPageView('searchResults');
-
-        //IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
+        IONUX2.setPageView('searchResults');     
         
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
-            // render my searches view
-            //IONUX2.Views.mySearches.render();
-            //IONUX2.Views.loadSearches.render();
             IONUX2.Views.loadSearchCollection.render();
-            //IONUX2.Views.mySearches.render();
             
             // loop through list of saved searches
             $('.list_mysearches a').each(function(index) {
@@ -242,68 +236,36 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
               $(this).on('click', function(e) {
                     e.preventDefault();
 
-                    // retrieve model at current index from collection
-                    //var searchModel = IONUX2.Collections.saveNames.at(index);
-                    //var searchModel = IONUX2.Models.saveConfiguration.attributes;
-                    //var searchModel = IONUX2.Collections.userProfileInstance.models.attributes.saved_searches.at(index);
                     var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
                     console.log("search model");
                     console.log(searchModel);
-                    //var searchModel = IONUX2.Collections.saveNames.at(index);
-
 
                     // convert search model into string to pass to ajax call
                     var body = JSON.stringify(searchModel);
 
-                    // post user profile to server
-                    //UINAV.postUserProfile(body);
-
-                    // get user profile from server
-                    //UINAV.getUserProfile();
-
-                    //var searches = JSON.stringify(searchModel);
-                    //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
-
-                    //objects for save names collection
-                    // separate accordion modules into their own models
-                    /*var spatialModel = searchModel.attributes.spatial,
-                        temporalModel = searchModel.attributes.temporal,
-                        facilitiesModel = searchModel.attributes.facilities,
-                        regionsModel = searchModel.attributes.regions,
-                        sitesModel = searchModel.attributes.sites,
-                        dataTypesModel = searchModel.attributes.dataTypes,
-                        sortableOrder = searchModel.attributes.sortableOrder;*/
-
                     var spatialModel = searchModel.saved_searches[index].spatial,
                         temporalModel = searchModel.saved_searches[index].temporal,
                         facilitiesModel = searchModel.saved_searches[index].facilities,
-                        regionsModel = searchModel.saved_searches[index].regions,
                         sitesModel = searchModel.saved_searches[index].sites,
+                        platformTypesModel = searchModel.saved_searches[index].platformTypes,
                         dataTypesModel = searchModel.saved_searches[index].dataTypes,
+                        booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
                         sortableOrder = searchModel.sortable_order[0],
                         bottom_sortable = searchModel.bottom_sortable[0],
                         configurationModel = searchModel.configuration,
                         bottomConfigModel = searchModel.bottom_config;
 
-                        console.log("sortable order in load");
-                        console.log(sortableOrder);
-
-                        console.log("config model in load");
+                        console.log("config model");
                         console.log(configurationModel);
-
-                        console.log("spatial model index is " + index);
-                        console.log(spatialModel);
-
-                        console.log("facilities model index is " + index);
-                        console.log(facilitiesModel);
 
                     // populate accordion modules with saved data
                     UINAV.loadSpatial(spatialModel);
                     UINAV.loadTemporal(temporalModel);
                     UINAV.loadFacilities(facilitiesModel);
-                    UINAV.loadRegions(regionsModel);
                     UINAV.loadSites(sitesModel);
+                    UINAV.loadPlatformTypes(platformTypesModel);
                     UINAV.loadDataTypes(dataTypesModel);
+                    //UINAV.loadBooleanExpression(booleanExpressionModel);
 
                     // trigger saved jquery sort order
                     var $accordion_container = $('.accordionContainer .jspPane');
