@@ -400,27 +400,29 @@ a.btn-navigation-plain {
 		#searchResultsTabContainer a.btn {
 			display: inline-block;
 			padding: 3px 12px;
-			margin-bottom: 0px;
+			margin:2px auto auto auto;
 			font-size: 14px;
-			line-height: 20px;
-			text-align: center;
-			vertical-align: middle;
+			line-height: 17px;
 			cursor: pointer;
 			color: #333;
-			text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.75);
 			background-color: #F5F5F5;
-			background-image: linear-gradient(to bottom, #FFF, #E6E6E6);
-			background-repeat: repeat-x;
-			border-width: medium;
-			border-style: none;
-			border-color: -moz-use-text-color -moz-use-text-color #B3B3B3;
-			-moz-border-top-colors: none;
-			-moz-border-right-colors: none;
-			-moz-border-bottom-colors: none;
-			-moz-border-left-colors: none;
+			/* background-image: linear-gradient(to bottom, #FFF, #E6E6E6); */
 			border-image: none;
 			border-radius: 4px 4px 0px 0px;
-			box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 1px 2px rgba(0, 0, 0, 0.05);
+			border-right:1px #e6e6e6 solid;
+			border-left:1px #e6e6e6 solid;
+			border-top:1px #e6e6e6 solid;
+			border-bottom: none;
+		}
+		#searchResultsTabContainer a.btn:hover {
+			display: inline-block;
+			cursor: pointer;
+			background-color: #e1e1e1;
+			border-radius: 4px 4px 0px 0px;
+			border-right:1px #e6e6e6 solid;
+			border-left:1px #e6e6e6 solid;
+			border-top:1px #e6e6e6 solid;
+			border-bottom: none;
 		}
 		searchResultsTabContainer .pull-right {
 			float: right;
@@ -451,6 +453,8 @@ a.btn-navigation-plain {
 		  background-image: url(/static/img/salt_sprite.png);
 		  background-position: -240px -176px;
 		}
+		
+		
 		
 		.btn-group.open .hamburger:before {background-position: -240px -180px;}
 		#searchResultsTabContainer .btn-group{height:28px}
