@@ -20,7 +20,7 @@ var UINAV = {
         console.log("element container");
         console.log(elementContainer);
         $.each(orderArray, function(key, val){
-            console.log("value is " + val);
+            //console.log("value is " + val);
             elementContainer.append($("#"+val));
             for (item in configurationList) {
                 if (configurationList[item]) {

@@ -291,7 +291,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             'temporalElem': $('#temporal').is(':visible'),
             'orgSelectorElem': $('#orgSelector').is(':visible'),
             'siteElem': $('#site').is(':visible'),
-            'platformElem': $('#platformTypesList').is(':visible'),
+            'platformTypesListElem': $('#platformTypesList').is(':visible'),
             'dataTypesListElem': $('#dataTypesList').is(':visible'),
             'boolean_expressionElem': $('#boolean_expression').is(':visible'),
             'instrumentElem': $('#instrument').is(':visible')
