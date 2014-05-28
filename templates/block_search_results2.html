@@ -1,9 +1,9 @@
-<div id="searchResultsTabContainer" style="position:relative; height:28px; width:100%;">
-	<div class="twoNavTabs" style="left:24px;width:calc(100% - 24px);">
+<div id="searchResultsTabContainer" class="mainTabContainer">
+	<div class="twoNavTabs">
 		<div id="dataSearchResultsTab" class="twoNavTab active" tabContent="#dataSearchResultsAccordion">Data</div>
 		<div id="assetsSearchResultsTab" class="twoNavTab" tabContent="#assetsSearchResultsAccordion">Assets</div>
 		<div id="sitesSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">Sites</div>
-		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="position:absolute; bottom:0px; right:36px;">Face Page</div>
+		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="display:none;">Face Page</div>
 	</div>
 </div>
 <div id="searchResultsContainer" class="lowerMainContentContainer">
@@ -206,7 +206,16 @@
 
 	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
 
-	var accordionWhiteTemplate = '<div class="accordionWhite collapsed" id="<%= id %>"> <div class="accordionWhiteLabel"> <%= name %> <div class="expandHide arrowRight blue"></div> </div> <div class="accordionWhitePin"></div> <div class="accordionContents" style="display:none;" id="accordion<%= id %>"> <div class="searchResultTable" id="table<%= id %>"> </div> </div> </div>';
+	var accordionWhiteTemplate = '<div class="accordionWhite collapsed">\
+			<div class="accordionWhiteLabel">\
+				<%= name %>\
+				<div class="expandHide arrowRight blue"> </div>\
+			</div>\
+			<div class="accordionWhitePin"> </div>\
+			<div class="accordionContents" style="display:none;" id="accordion<%= id %>">\
+				<div class="searchResultTable" id="table<%= id %>"> </div>\
+			</div>\
+		</div>';
 
 	_.each(dataTypesList, function(type) {
 		var script=document.createElement('script');

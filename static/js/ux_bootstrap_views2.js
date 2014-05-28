@@ -1,17 +1,15 @@
 // renders the contents of the Header div of the page frame.
 
-
-
 IONUX2.Views.Header = Backbone.View.extend({
-	el: '#header2',
-	initialize: function() {
-		this.model.on('change:html', this.render, this);
-	},
-	render: function(){
-		console.log('rendering header view');
-		this.$el.html(this.model.html);
-		return this;
-	}
+  el: '#header2',
+  initialize: function() {
+    this.model.on('change:html', this.render, this);
+  },
+  render: function(){
+    console.log('rendering header view');
+    this.$el.html(this.model.html);
+    return this;
+  }
 });
 
 /*IONUX2.Views.MySearches = Backbone.View.extend({
@@ -55,50 +53,50 @@ IONUX2.Views.LoadSearches = Backbone.View.extend({
 // and renders with loaded template when data (session) is
 // fetched.
 IONUX2.Views.Login = Backbone.View.extend({
-	el: '#login',
-	events: {
-		'click #userprofile': 'userprofile',
-		'click #signup': 'create_account'
-	},
-	initialize: function(){
+  el: '#login',
+  events: {
+    'click #userprofile': 'userprofile',
+    'click #signup': 'create_account'
+  },
+  initialize: function(){
     console.log('initializing login view');
     console.log(this.model);
-		this.model.on('change:html', this.setTemplate, this);
-		this.model.on('change:session', this.render, this);
-	},
-	setTemplate: function(){
-		console.log('setting login template');
-		this.template = _.template(this.model.html);
-		return this;
-	},
-	render: function(){
-		console.log('rendering login view');
-		this.$el.html(this.template(this.model.data));
-		return this;
-	}
+    this.model.on('change:html', this.setTemplate, this);
+    this.model.on('change:session', this.render, this);
+  },
+  setTemplate: function(){
+    console.log('setting login template');
+    this.template = _.template(this.model.html);
+    return this;
+  },
+  render: function(){
+    console.log('rendering login view');
+    this.$el.html(this.template(this.model.data));
+    return this;
+  }
 });
 
 IONUX2.Views.SearchTabContent = Backbone.View.extend({
-	el: '#searchTabContent',
-	events: {
-		'click .accordionTitle': 'expandHide',
+  el: '#searchTabContent',
+  events: {
+    'click .accordionTitle': 'expandHide',
     'click #saveSearch': 'saveSearch',
     'click #saveName': 'saveName'
-	},
-	initialize: function() {
-		this.model.on('change:html', this.render, this);
-	},
-	expandHide: function(e) {
-		e.preventDefault();
-		var $link = $(e.currentTarget);
-		$link.parent().children('.leftAccordionContents').slideToggle('fast', function() {
-			if ($(this).is(':visible')) {
-            	$link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
-        	} else {
-        		$link.find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
-       		}        
-		});
-	},
+  },
+  initialize: function() {
+    this.model.on('change:html', this.render, this);
+  },
+  expandHide: function(e) {
+    e.preventDefault();
+    var $link = $(e.currentTarget);
+    $link.parent().children('.leftAccordionContents').slideToggle('fast', function() {
+      if ($(this).is(':visible')) {
+              $link.find('.expandHide').removeClass('arrowRight').addClass('arrowDown');              
+          } else {
+            $link.find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+          }        
+    });
+  },
   saveName: function() {
       $('#customSearchName').hide();
       $('#saveButtons').show();
@@ -325,11 +323,11 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     $('#navLeftMinimizeArrow').hide();
   },
 
-	render: function() {
-		console.log('rendering left side view');
-		this.$el.html(this.model.html);
-		return this;
-	}
+  render: function() {
+    console.log('rendering left side view');
+    this.$el.html(this.model.html);
+    return this;
+  }
 });
 
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
@@ -450,16 +448,16 @@ IONUX2.Views.Instruments = Backbone.View.extend({
 });
 
 IONUX2.Views.Region = Backbone.View.extend({
-	el: '#region',
-	template: _.template(IONUX2.getTemplate('templates/regions.html')),
-	events: {
+  el: '#region',
+  template: _.template(IONUX2.getTemplate('templates/regions.html')),
+  events: {
       'click .checkAll': 'select_all_regions',
       'click #region_item': 'toggle_sites'
   },
-	initialize: function() {
-		console.log('initializing region view');
-		this.render();
-	},
+  initialize: function() {
+    console.log('initializing region view');
+    this.render();
+  },
 
   select_all_regions: function(e) {
     var $check = $(e.currentTarget);
@@ -484,7 +482,7 @@ IONUX2.Views.Region = Backbone.View.extend({
     }
   },
 
-	build_menu: function(){
+  build_menu: function(){
     // Grab all spatial names, then uniques; separate for clarity.
     var spatial_area_names = _.map(this.collection.models, function(resource) {
       var san = resource.get('spatial_area_name');
@@ -500,23 +498,23 @@ IONUX2.Views.Region = Backbone.View.extend({
   },
 
    render: function() {
-		console.log('rendering region');
-		//this.$el.html(this.template(this.collection.toJSON()));
-		 this.$el.removeClass('placeholder');
-		 this.$el.html(this.template({resources: this.build_menu(), title: this.title}));
-   	 	 this.$el.find('#list').jScrollPane({autoReinitialise: true});
-    	 return this;
-	}
+    console.log('rendering region');
+    //this.$el.html(this.template(this.collection.toJSON()));
+     this.$el.removeClass('placeholder');
+     this.$el.html(this.template({resources: this.build_menu(), title: this.title}));
+       this.$el.find('#list').jScrollPane({autoReinitialise: true});
+       return this;
+  }
 });
 
 IONUX2.Views.Spatial = Backbone.View.extend({
-	el: '#spatial',
-	template: _.template(IONUX2.getTemplate('templates/spatial.html')),
-	initialize: function() {
-		console.log('initializing spatial view');
+  el: '#spatial',
+  template: _.template(IONUX2.getTemplate('templates/spatial.html')),
+  initialize: function() {
+    console.log('initializing spatial view');
     this.model.on('change:spatialData', this.updateData, this);
-		this.render();
-	},
+    this.render();
+  },
   updateData: function() {
     var spatialModel = IONUX2.Models.spatialModelInstance.attributes;
     console.log("spatial model in Views Spatial");
@@ -546,11 +544,11 @@ IONUX2.Views.Spatial = Backbone.View.extend({
     $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
     $('#radius').val(spatialModel.radius);
   },
-	render: function() {
-		console.log('rendering spatial');
-		this.$el.html(this.template());
-		return this;
-	},
+  render: function() {
+    console.log('rendering spatial');
+    this.$el.html(this.template());
+    return this;
+  },
   
 });
 
@@ -750,10 +748,10 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
   events: {
     'click .checkAllFacilities': 'select_all_facilities'
   },
-	initialize: function() {
-		console.log('initializing org selector view');
-		this.collection.on('change:data', this.render, this);
-	},
+  initialize: function() {
+    console.log('initializing org selector view');
+    this.collection.on('change:data', this.render, this);
+  },
   select_all_facilities: function(e) {
     var $check = $(e.currentTarget);
     if ($check.is(':checked')) {
@@ -763,8 +761,40 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
       $('.list_facilities').find('input').prop('checked', false);
     }
   },
-	render: function(){
-		this.$el.html(this.template({resources: this.collection.toJSON()}));
-		return this;
-	}
-});	
+  render: function(){
+    this.$el.html(this.template({resources: this.collection.toJSON()}));
+    return this;
+  }
+});
+
+IONUX2.Views.ResourceTypeMenu = Backbone.View.extend({
+  el: '#ResourceTypes',
+  template: _.template('<select name="nested-resource-types" size="4">' + 
+                        '<% _.each(list, function(resource) { %>' + 
+                        '<option value="<%= resource.value %>"><%= resource.name %></option>' + 
+                        '<% }); %>' +
+                        '</select>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({list: this.collection.toJSON()}));
+      return this;
+  } 
+});
+
+IONUX2.Views.LifeCycleMenu = Backbone.View.extend({
+  el: '#lifecycleState',
+  template: _.template('<select name="lifecycle-state">' + 
+                        '<% _.each(lifecycle, function(cycle) { %>' + 
+                        '<option value="<%= cycle.value %>"><%= cycle.name %></option>' + 
+                        '<% }); %>' +
+                        '</select>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({lifecycle: this.collection.toJSON()}));
+    return this;
+  } 
+});  
