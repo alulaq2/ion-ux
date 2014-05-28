@@ -43,7 +43,7 @@ IONUX2.Models.Session = Backbone.Model.extend({
     },
     url: '/session/',
     initialize: function() {
-      _.bindAll(this);
+      // _.bindAll(this);
     },
     parse: function(resp){
     	console.log('got response from /session/.');
