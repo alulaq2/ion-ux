@@ -280,8 +280,10 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         regionsModel = searchModel.saved_searches[index].regions,
                         sitesModel = searchModel.saved_searches[index].sites,
                         dataTypesModel = searchModel.saved_searches[index].dataTypes,
-                        sortableOrder = searchModel.sortable_order[0];
-                        configurationModel = searchModel.configuration[0];
+                        sortableOrder = searchModel.sortable_order[0],
+                        bottom_sortable = searchModel.bottom_sortable[0],
+                        configurationModel = searchModel.configuration,
+                        bottomConfigModel = searchModel.bottom_config;
 
                         console.log("sortable order in load");
                         console.log(sortableOrder);
@@ -304,11 +306,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     UINAV.loadDataTypes(dataTypesModel);
 
                     // trigger saved jquery sort order
-                    //var $accordion_container = $('.jspPane');
-                    //UINAV.reorder(sortableOrder, configurationModel, $accordion_container);
-                    
-                    
+                    var $accordion_container = $('.accordionContainer .jspPane');
+                    UINAV.reorder(sortableOrder, configurationModel, $accordion_container);
 
+                    var $bottom_accordion = $('.accordionContainerWhite .jspPane');
+                    UINAV.reorder_bottom(bottom_sortable, bottomConfigModel, $bottom_accordion);
+                    
                 // open Search tab
                 $('#searchTab').trigger('click');
                 $('#searchBtn').click();

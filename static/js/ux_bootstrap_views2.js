@@ -314,16 +314,14 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       });*/
       //IONUX2.Collections.userProfileInstance.fetch();
       var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
-      console.log("parse collection");
-      console.log(parsed_collection + " " + parsed_collection.length);
       // store accordion sortable order
       var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
       var sortArray = [];
       sortArray.push(sortable_order);
       IONUX2.Models.saveLeftOrder.set(sortArray);
-      console.log("sortable order " + typeof(sortable_order));
-      console.log(sortable_order);
-      var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
+      var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
+      console.log("bottom sort order");
+      console.log(bottom_sortable);
       var bottomSortArray = [];
       bottomSortArray.push(bottom_sortable);
       IONUX2.Models.saveBottomOrder.set(bottomSortArray);
@@ -363,7 +361,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
               'accordionDataType': $('#accordionDataType .accordionContents').is(':visible')
         },
         'sortable_order': IONUX2.Models.saveLeftOrder.toJSON(),
-        //'bottom_sortable': bottomSortArray,
+        'bottom_sortable': IONUX2.Models.saveBottomOrder.toJSON(),
         'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
       console.log("User Profile Collection");

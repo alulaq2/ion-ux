@@ -1,9 +1,5 @@
 var UINAV = {
 	reorder: function(orderArray, configurationList, elementContainer) {
-        console.log("order array in reorder");
-        console.log(orderArray);
-        console.log("element container");
-        console.log(elementContainer);
         $.each(orderArray, function(key, val){
             console.log("value is " + val);
             elementContainer.append($("#"+val));
@@ -18,7 +14,11 @@ var UINAV = {
      	});
     },
     reorder_bottom: function(orderArray, configurationList, elementContainer) {
-        $.each(orderArray[0], function(key, val){
+        console.log("bottom order array in reorder_bottom");
+        console.log(orderArray);
+        console.log("element container");
+        console.log(elementContainer);
+        $.each(orderArray, function(key, val){
             console.log("value is " + val);
             elementContainer.append($("#"+val));
             for (item in configurationList) {
