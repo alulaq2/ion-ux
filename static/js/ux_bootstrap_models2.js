@@ -1,3 +1,20 @@
+// For generic cases
+IONUX2.Collections.Resources = Backbone.Collection.extend({
+  //model: IONUX.Models.Resource,
+  // can't use this model type here because its parse is suited for retreive on itself, not
+  // for use with a collection.
+  initialize: function(models, options){
+      this.resource_type = options.resource_type;
+  },
+  url: function() {
+      return '/' + this.resource_type + '/list/'
+  },
+  parse: function(resp){
+    make_iso_timestamps(resp.data);
+    return resp.data;
+  } 
+});
+
 IONUX2.Models.Header = Backbone.Model.extend({
 	url: '/templates/header2.html',
 	html: '',
@@ -18,6 +35,12 @@ IONUX2.Models.LoginTemplate = Backbone.Model.extend({
 		this.trigger('change:html');
 		return resp;
 	}
+});
+
+IONUX2.Models.PermittedFacilities = Backbone.Model.extend({
+  defaults: {
+    orgs: null
+  }
 });
 
 // For use with collections of Resource Types, i.e. InstrumentDevice, PlatformDevice, etc.
@@ -42,7 +65,13 @@ IONUX2.Models.Session = Backbone.Model.extend({
     parse: function(resp){
     	console.log('got response from /session/.');
     	this.trigger('change:session');
-        return resp.data;
+      var orgs = _.filter(_.pluck(IONUX2.Collections.OrgsInstance.models, 'attributes'), function(o) {
+        return _.contains(IONUX2.createRoles(), o.org_governance_name);
+      });
+
+      IONUX2.Models.PermittedFacilitiesInstance.attributes.orgs = orgs;
+      
+      return resp.data;
     },
     is_logged_in: function(){
       return this.get('is_logged_in');
