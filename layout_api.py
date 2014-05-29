@@ -28,7 +28,7 @@ DEFINED_VIEWS = [
 class LayoutApi(object):
     @staticmethod
     def get_new_layout_schema():
-        layout_schema = service_gateway_get('directory', 'get_ui_specs', params={'user_id': 'tboteler'})
+        layout_schema = service_gateway_get('directory', 'get_ui_specs', params={'user_id': 'tampe'})
         return layout_schema
     
     # Brute force method to quickly experiment with different rendering strategies
