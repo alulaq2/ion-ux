@@ -61,6 +61,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
+            <h2>My Saved Searches</h2>
         <ul class="list_mysearches">
         </ul>
         </div>
@@ -336,7 +337,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             IONUX2.Views.loadSearchCollection.render();
             
             // loop through list of saved searches
-            $('.list_mysearches a').each(function(index) {
+            $('.savedSearch').each(function(index) {
                 
               $(this).on('click', function(e) {
                     e.preventDefault();
@@ -385,7 +386,26 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 $('#searchBtn').click();
                 });
             });
+            
+            $('.list_mysearches li').each(function(index) {
+                $(this).find('.deleteSearch').on('click', function(e) {
+                    e.preventDefault();
+                    console.log("index is " + index);
+                    console.log("deleting search");
+                    console.log(e.currentTarget);
+                    console.log("id is " + $(this).parent().find('.savedSearch').data('id'));
+                    console.log(IONUX2.Collections.userProfileInstance.at(index));
+                });
+            });
+            /*$('.deleteSearch').on('click', function(e) {
+                e.preventDefault();
+                console.log("deleting search");
+                console.log(e.currentTarget);
+                console.log("id is " + $(this).parent().find('.savedSearch').data('id'));
+            });*/
         });
+
+        
 
             // ********** Nav Tabs support **************
             // tab support for the nav section.
