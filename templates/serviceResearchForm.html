@@ -1,26 +1,36 @@
 <html>
 <head>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<style type="text/css">
+input, textarea {width:90%}
+</style>
 </head>
+
+
 <body>
+<div style="width:90%; margin:10px">
 	<form action="http://localhost:3000/profile/test1234/" method="POST">
 		Service:<br/>
-		<input name="service" type="text" id="service" size="100"/><br/>
+	  <input name="service" type="text" id="service" size="100" value="discovery"/><br/>
 		Method:<br/>
-		<input name="method" type="text" id="method" size="100"/><br/>
+	  <input name="method" type="text" id="method" size="100" value="query"/><br/>
 		Parameters:<br/>
-		<textarea name="params" cols="140" rows="20" id="params"></textarea><br/>
+	  <textarea name="params" cols="140" rows="9" id="params">query={'and':[],'or':[],'query':{'field': 'ooi_product_name', 'value':'Conductivity'}}
+id_only=false</textarea><br/>
 	</form>
 	<span id="submit" style="width:auto;background:#008800;border: 1px solid #000;border-radius:6px;color:#fff;padding:4px;cursor:pointer;">Submit</span>
-
+<p></p>
+<hr>
 <pre>
-http://ooinet.oceanobservatories.org/search/?adv=1&north=47.0402&west=-138.1641&east=-101.6016&south=21.943&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&filter_var=name&filter_operator=contains&filter_arg=
+<strong>Confluence:</strong> <a href="https://confluence.oceanobservatories.org/display/CIDev/Discovery+Service+Query+Format" target="_blank">https://confluence.oceanobservatories.org/display/CIDev/Discovery+Service+Query+Format</a>
 
-query={'and':[],'or':[],'query':{'field': 'product_type', 'value':'Mooring'}}
-id_only=false
+<strong>samples:</strong>
+ 
+http://ooinet.oceanobservatories.org/search/?adv=1&north=47.0402&west=-138.1641&east=-101.6016&south=21.943&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&filter_var=name&filter_operator=contains&filter_arg=
 
 query={'and':[],'or':[],'query':{'field': 'ooi_product_name', 'value':'Conductivity'}}
 id_only=false
+
 </pre>
 <script>
 	$(function(){
@@ -31,9 +41,10 @@ id_only=false
 			var query_string = params_list.join('&');
 			url += query_string;
 			console.log(url);
-			window.location.assign(url);
+			window.open(url,'_blank');
 		});
 	});
 </script>
+</div>
 </body>
 </html>

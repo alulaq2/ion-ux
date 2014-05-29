@@ -31,18 +31,18 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
 </head>
 
 <body>
-	<div id="header2" align="left" style="background-color:#000">
+	<div id="header2" align="left">
         <div>
-            <img id="img_a" src="" alt="" border="0" />
-            <a href="http://localhost:3000" title="OOI SERVICES_RESEARCH"><h1 style="color:#FFF; margin:12px 10px">OOI SERVICES_RESEARCH</h1></a>
+            <img id="img_a" src="/static/img/ooinet-header-background-02.png" alt="background" border="0" />
+            <a href="http://www.oceanobservatories.org/" title="Ocean Observatories Initiative"><img id="ooi-logo" src="/static/img/newbanner_ooilogo.png" alt="OOI" /></a>
         </div>
         <div id="adminMenu">
-            <div id="selectService" class="adminMenuTab">Craft Service Call</div>
-            <div id="findResources" class="adminMenuTab">Find Resources ID</div>
-            <div id="instrumentManagement" class="adminMenuTab">...</div>
-            <div id="assetTracking" class="adminMenuTab">...</div>
-            <div id="addResource" class="adminMenuTab">...</div>
-            <div id="deployments" class="adminMenuTab">...</div>
+            <div id="myDashboard" class="adminMenuTab">My Dashboard</div>
+            <div id="dataProcessing" class="adminMenuTab">Data Processing</div>
+            <div id="instrumentManagement" class="adminMenuTab">Intrument Mgmt</div>
+            <div id="assetTracking" class="adminMenuTab">Asset Tracking</div>
+            <div id="addResource" class="adminMenuTab">Add/Edit Resource</div>
+            <div id="deployments" class="adminMenuTab">Deployments</div>
         </div>
         <div id="login"> login </div> <!-- User navigation -->
     </div>
@@ -54,9 +54,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
     </div>
 	<div id="mainSubheader" align="left">
         <div id="saveConfiguration">
-            <!--<button class="textRight" id="saveConfigBtn">Save Configuration</button>
-            <button class="textRight" id="loadConfigBtn">Load Configuration</button> 
-            -->
+            <button class="textRight" id="saveConfigBtn">Save Configuration</button>
+            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
         </div>
         <div id="searchProduction"> 
             <div class="mapButtonFull" title="Full Map View"> </div>
@@ -234,13 +233,8 @@ last edited 05-11 04-13 04-09 03-05 2014-03-02
             
         });
 
-        $("#findResources").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/find_resources_service.html')).show();
-            $(".mapButtonHidden").click();
-        });
-		
-		$("#selectService").click(function(e){
-            $("#lowerMain").html(IONUX2.getTemplate('templates/serviceResearchForm.html')).show();
+        $("#myDashboard").click(function(e){
+            $("#lowerMain").html(IONUX2.getTemplate('templates/block_peter_is_awesome2.html')).show();
             $(".mapButtonHidden").click();
         });
 

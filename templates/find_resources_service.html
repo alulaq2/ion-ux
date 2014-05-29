@@ -1,0 +1,545 @@
+<style type="text/css">
+a:link, a:visited{color:#0A00FF;}
+table{
+	width: 100%;
+	height: 100%;
+	margin:0px 5px;
+	padding: 0;
+	color: #08304a;
+}
+tr:last-child td:last-child{-moz-border-radius-bottomright:0;-webkit-border-bottom-right-radius:0;border-bottom-right-radius:0;}
+table tr:first-child td:first-child{-moz-border-radius-topleft:0;-webkit-border-top-left-radius:0;border-top-left-radius:0;}
+table tr:first-child td:last-child{-moz-border-radius-topright:0;-webkit-border-top-right-radius:0;border-top-right-radius:0;}
+tr:last-child td:first-child{-moz-border-radius-bottomleft:0;-webkit-border-bottom-left-radius:0;border-bottom-left-radius:0;}
+td{vertical-align:middle;border:1px solid #CCCCCC;border-width:0 1px 1px 0;text-align:left;padding:7px;font-size:14px;font-family:arial;font-weight:normal;color:#000;}
+tr:nth-child(odd){ background-color:#e5e5e5; }
+tr:nth-child(even){ background-color:#ffffff; }
+tr:last-child td{border-width:0 1px 0 0;}
+tr td:last-child{border-width:0 0 1px;}
+tr:last-child td:last-child{border-width:0;}
+tr:first-child td{background:0;background:0 color-stop(1,#b2b2b2) );background:0;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc",endColorstr="#b2b2b2");background:0;background-color:#08304a;border:0 solid #CCCCCC;text-align:left;border-width:0 0 1px 1px;font-size:14px;font-family:arial;font-weight:bold;color:#FFF;}
+tr:first-child td:first-child{border-width:0 0 1px;}
+tr:first-child td:last-child{border-width:0 0 1px 0px;}
+</style>
+
+<table width=95%>
+  <tr height=17>
+    <td>find_resources service</td>
+    <td>data results</td>
+    <td>json results</td>
+  </tr>
+  <tr height=17>
+    <td height="21" colspan="3" style="font-size: 18px"><strong style="color: #08304a">Sensing and
+      Acquisition Subsystem </strong></td>
+  </tr>
+  <tr height=17>
+    <td>(SA Resources
+      and Associations)</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr height=17>
+    <td width="269" height=17><em>Resource</em></td>
+    <td width="161"><em>Data (Results Count)</em></td>
+    <td><em>URL</em></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Observatory</strong></td>
+    <td >45</td>
+    <td ><a
+  href="http://localhost:3000/Observatory/display/" target="_blank">http://localhost:3000/Observatory/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SubSite</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Platform</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PlatformModel</strong></td>
+    <td >36</td>
+    <td ><a href="http://localhost:3000/PlatformModel/display/" target="_blank">http://localhost:3000/PlatformModel/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PlatformSite</strong></td>
+    <td >109</td>
+    <td ><a href="http://localhost:3000/PlatformSite/display/" target="_blank">http://localhost:3000/PlatformSite/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PlatformDevice</strong></td>
+    <td >43</td>
+    <td ><a href="http://localhost:3000/PlatformDevice/display/" target="_blank">http://localhost:3000/PlatformDevice/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PlatformAgentInstance</strong></td>
+    <td >1</td>
+    <td ><a href="http://localhost:3000/PlatformAgentInstance/display/" target="_blank">http://localhost:3000/PlatformAgentInstance/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PlatformAgent</strong></td>
+    <td >1</td>
+    <td ><a href="http://localhost:3000/PlatformAgent/display/" target="_blank">http://localhost:3000/PlatformAgent/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>InstrumentSite</strong></td>
+    <td >79</td>
+    <td ><a href="http://localhost:3000/InstrumentSite/display/" target="_blank">http://localhost:3000/InstrumentSite/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>InstrumentModel</strong></td>
+    <td >37</td>
+    <td ><a href="http://localhost:3000/InstrumentModel/display/" target="_blank">http://localhost:3000/InstrumentModel/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>InstrumentDevice</strong></td>
+    <td >79</td>
+    <td ><a href="http://localhost:3000/InstrumentDevice/display/" target="_parent">http://localhost:3000/InstrumentDevice/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>InstrumentAgentInstance</strong></td>
+    <td >3</td>
+    <td ><a href="http://localhost:3000/InstrumentAgentInstance/display/" target="_blank">http://localhost:3000/InstrumentAgentInstance/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>InstrumentAgent</strong></td>
+    <td >3</td>
+    <td ><a href="http://localhost:3000/InstrumentAgent/display/" target="_blank">http://localhost:3000/InstrumentAgent/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Sensor</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SensorDevice</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SensorModel</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSource</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataProducer</strong></td>
+    <td >184</td>
+    <td ><a href="http://localhost:3000/DataProducer/display/" target="_blank">http://localhost:3000/DataProducer/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DMResources::DataSet</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataProduct</strong></td>
+    <td >314</td>
+    <td ><a href="http://localhost:3000/DataProduct/display/" target="_blank">http://localhost:3000/DataProduct/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataProductVersion</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataProcess</strong></td>
+    <td >882</td>
+    <td ><a href="http://localhost:3000/DataProcess/display/" target="_blank">http://localhost:3000/DataProcess/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataProcessDefinition</strong></td>
+    <td >33</td>
+    <td ><a href="http://localhost:3000/DataProcessDefinition/display/" target="_blank">http://localhost:3000/DataProcessDefinition/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DMResources::Transform</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Deployment</strong></td>
+    <td >34</td>
+    <td ><a href="http://localhost:3000/Deployment/display/" target="_blank">http://localhost:3000/Deployment/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=21 colspan="3"><strong style="color: #08304a; font-size: medium;">Data Management
+      Subsystem</strong></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><em>Resource</em></td>
+    <td ><em>Data (Results Count)</em></td>
+    <td ><em>URL</em></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>View</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Catalog</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Index</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataStore</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PersistenceSystem</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>PersistentArchive</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>tags</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Collection</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Resources::Resource</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SAResources::DataProcess</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SAResources::DataProducer</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSet</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>IngestionConfiguration</strong></td>
+    <td >1</td>
+    <td ><a
+  href="http://localhost:3000/IngestionConfiguration/display/">http://localhost:3000/IngestionConfiguration/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSetIngestionConfiguration</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Transform</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Stream</strong></td>
+    <td >314</td>
+    <td ><a href="http://localhost:3000/Stream/display/" target="_blank">http://localhost:3000/Stream/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSet</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>StreamDefinition</strong></td>
+    <td >362</td>
+    <td ><a href="http://localhost:3000/StreamDefinition/display/" target="_blank">http://localhost:3000/StreamDefinition/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>TopicTopology</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>CEIResources::ProcessDefinition</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ProcessDefinition</strong></td>
+    <td >20</td>
+    <td ><a href="http://localhost:3000/ProcessDefinition/display/" target="_blank">http://localhost:3000/ProcessDefinition/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Subscription</strong></td>
+    <td >62</td>
+    <td ><a href="http://localhost:3000/Subscription/display/">http://localhost:3000/Subscription/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>COIResources::ExchangePoint</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 colspan="3" >&nbsp;</td>
+  </tr>
+  <tr height=17>
+    <td height=21 colspan="3"><strong style="color: #08304a; font-size: 18px;">External
+    Observatory Integration Subsystem</strong></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><em>Resource</em></td>
+    <td ><em>Data (Results Count)</em></td>
+    <td ><em>URL</em></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExternalDataProvider</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>SAResources::DataSource</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExternalDataSet</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSourceAgentInstance</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DataSourceAgent</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExternalDatasetModel</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExternalDataSourceModel</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 colspan="3" >&nbsp;</td>
+  </tr>
+  <tr height=17>
+    <td height=21 colspan="3" style="color: #08304a; font-size: 18px;"><strong>Common
+    Operating Infrastructure Subsystem</strong></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><em>Resource</em></td>
+    <td ><em>Data (Results Count)</em></td>
+    <td ><em>URL</em></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>AgentInstance</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=34>
+    <td height=34 ><strong>ExchangeBroker</strong></td>
+    <td >1</td>
+    <td ><a href="http://localhost:3000/ExchangeBroker/display/" target="_blank">http://localhost:3000/ExchangeBroker/display/</a></td>
+  </tr>
+  <tr height=34>
+    <td height=34 ><strong>ExchangePoint</strong></td>
+    <td >2</td>
+    <td ><a href="http://localhost:3000/ExchangePoint/display/" target="_blank">http://localhost:3000/ExchangePoint/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ResourceType</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ObjectType</strong></td>
+    <td >542</td>
+    <td ><a href="http://localhost:3000/ObjectType/display/" target="_blank">http://localhost:3000/ObjectType/display/</a></td>
+  <tr height=17>
+    <td height=17 ><strong>ConversationRole</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>AgentDefinition</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExchangeName</strong></td>
+    <td >62</td>
+    <td ><a href="http://localhost:3000/ExchangeName/display/" target="_blank">http://localhost:3000/ExchangeName/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExchangeSpace</strong></td>
+    <td >1</td>
+    <td ><a href="http://localhost:3000/ExchangeSpace/display/" target="_blank">http://localhost:3000/ExchangeSpace/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Negotiation</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ResourceLifecycle</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Conversation</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Policy</strong></td>
+    <td >38</td>
+    <td ><a
+  href="http://localhost:3000/Policy/display/">http://localhost:3000/Policy/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Resources</strong></td>
+    <td >0 </td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Org</strong></td>
+    <td >5</td>
+    <td ><a href="http://localhost:3000/Org/display/" target="_blank">http://localhost:3000/Org/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ActorIdentity</strong></td>
+    <td >30</td>
+    <td ><a href="http://localhost:3000/ActorIdentity/display/" target="_blank">http://localhost:3000/ActorIdentity/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>UserCredentials</strong></td>
+    <td >28</td>
+    <td ><a href="http://localhost:3000/UserCredentials/display/" target="_blank">http://localhost:3000/UserCredentials/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ConversationType</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Attachment</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Commitment</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>UserRole</strong></td>
+    <td >23</td>
+    <td ><a href="http://localhost:3000/UserRole/display/" target="_blank">http://localhost:3000/UserRole/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>UserInfo</strong></td>
+    <td >28</td>
+    <td ><a href="http://localhost:3000/UserInfo/display/" target="_blank">http://localhost:3000/UserInfo/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ServiceDefinition</strong></td>
+    <td >59</td>
+    <td ><a href="http://localhost:3000/ServiceDefinition/display/" target="_blank">http://localhost:3000/ServiceDefinition/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 colspan="3" >&nbsp;</td>
+  </tr>
+  <tr height=17>
+    <td height=21 colspan="3" style="font-size: 18px; color: #08304a;"><strong>Common
+    Execution Infrastructure Subsystem</strong></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><em>Resource</em></td>
+    <td ><em>Data (Results Count)</em></td>
+    <td ><em>URL</em></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>EPUPolicy</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExecutableResource</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>EPUDefinition</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>EPU</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>HAService</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>DeployableType</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>OperationalUnit</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExecutionEngine</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ExecutionEngineDefinition</strong></td>
+    <td >0</td>
+    <td > </td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>ProcessDefinition</strong></td>
+    <td >20</td>
+    <td ><a href="http://localhost:3000/ProcessDefinition/display/">http://localhost:3000/ProcessDefinition/display/</a></td>
+  </tr>
+  <tr height=17>
+    <td height=17 ><strong>Process</strong></td>
+    <td >166</td>
+    <td ><a href="http://localhost:3000/Process/display/" target="_blank">http://localhost:3000/Process/display/</a></td>
+  </tr>
+  
+  <tr height=0>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+</table>
