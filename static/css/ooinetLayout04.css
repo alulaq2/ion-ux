@@ -61,9 +61,13 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   'outline:1px solid #F00;
 }
 
+#adminMenu a:link, #adminMenu a:visited {
+  color: #fff;
+}
+
 .adminMenuTab {
   display:inline-block;
-    color:#fff;
+  color:#fff;
   height:19px;
   padding:0px 8px;
   max-width:120px;

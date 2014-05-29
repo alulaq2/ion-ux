@@ -89,12 +89,12 @@ IONUX = {
    });
     
 
-    console.log('**** STARTING HISTORY!!!');
-    Backbone.history.start({pushState:true, hashChange: false});
+    //console.log('**** STARTING HISTORY!!!');
+    //Backbone.history.start({pushState:true, hashChange: false});
     
-    router.handle_navigation();
+    //router.handle_navigation();
 
-    return router;
+    //return router;
   },
   setup_ajax_error: function(){
     $(document).ajaxError(function(evt, resp){

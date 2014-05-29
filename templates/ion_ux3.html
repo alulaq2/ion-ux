@@ -110,7 +110,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     {% block inherit_ionux_js %} {% endblock %}
 
     <script src="/static/js/ion_ux2.js"> </script>
-    <!-- <script src="/static/js/ux-router2.js"> </script> -->
+    <script src="/static/js/ux-router2.js"> </script>
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
@@ -125,24 +125,16 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     <script>
         function buildAdminMenu(){
             $('#adminMenu').html('');
-            $('#adminMenu').append('<div id="myDashboard" class="adminMenuTab" style="display:inline-block;">My Dashboard</div>');
-
-            $("#myDashboard").click(function(e){
-                // IONUX.ROUTER.navigate("", {trigger: true});
-                IONUX2.setPageView("searchResults");
-                if(IONUX2.getMapState() == "mapHidden"){
-                    IONUX2.setMapState('mapSplit');
-                }
-            });
+            $('#adminMenu').append('<a id="myDashboard" class="adminMenuTab" href="#/dashboard" style="display:inline-block;">My Dashboard</a>');
 
             // ***** These menu items not added yet until functionality is available for them. ****
             if(false){
                 // commenting out the temporary load lines so the page doesn't do unexpected shocking
                 // things that might upset testers and customers.
 
-                $('#adminMenu').append('<div id="dataProcessing" class="adminMenuTab" style="display:none;">Data Processing</div>');
+                $('#adminMenu').append('<a id="dataProcessing" class="adminMenuTab" href="#/dataprocessing" style="display:none;">Data Processing</a>');
 
-                $('#adminMenu').append('<div id="instrumentManagement" class="adminMenuTab" style="display:none;">Instrument Mgmt</div>');
+                $('#adminMenu').append('<a id="instrumentManagement" class="adminMenuTab" href="#/instrumentmgmt" style="display:none;">Instrument Mgmt</a>');
             
                 $("#dataProcessing").click(function(e){
                     // $("#lowerMain").html(IONUX2.getTemplate('templates/blockDataProcessing.html')).show();
@@ -157,20 +149,10 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
             if(IONUX2.has_permission(['INSTRUMENT_OPERATOR','DATA_OPERATOR','OBSERVATORY_OPERATOR','ORG_MANAGER','ION_MANAGER'])){
 
-                $('#adminMenu').append('<div id="assetTracking" class="adminMenuTab" style="display:inline-block;">Asset Tracking</div>');
+                $('#adminMenu').append('<a id="assetTracking" class="adminMenuTab" href="#/assettracking" style="display:inline-block;">Asset Tracking</a>');
 
-                $('#adminMenu').append('<div id="resourceManagement" class="adminMenuTab" style="display:inline-block;">Resource Mgmt</div>');
+                $('#adminMenu').append('<a id="resourceManagement" class="adminMenuTab" href="#/resourcemgmt" style="display:inline-block;">Resource Mgmt</a>');
 
-                $("#assetTracking").click(function(e){
-                    // $("#lowerMain").html(IONUX2.getTemplate('templates/blockAssetTracking.html')).show();
-                    // $(".mapButtonHidden").click();
-                    IONUX2.setPageView("assetTracking");
-                });
-
-                $("#resourceManagement").click(function(e){
-                    // IONUX.ROUTER.navigate("/hmmm/", {trigger: true});
-                    IONUX2.setPageView("createResource");
-                });
             }
 
             // ***** These menu items not added yet until functionality is available for them. ****
@@ -310,11 +292,14 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
         // Initialize the page now.
         $(function(){
+            
             IONUX2.init();
 
             buildAdminMenu();
 
             IONUX2.setPageView('searchResults');
+
+            Backbone.history.start(/*{pushState:true, hashChange: false}*/);
 
             $(".mapButtonFull").click(function(){
                 IONUX2.setMapState('mapFull');
@@ -327,6 +312,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             $(".mapButtonHidden").click(function(){
                 IONUX2.setMapState('mapHidden');
             });
+
+            
 
            
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
