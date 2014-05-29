@@ -12,18 +12,6 @@ IONUX2.Views.Header = Backbone.View.extend({
   }
 });
 
-/*IONUX2.Views.MySearches = Backbone.View.extend({
-  el: '.list_mysearches',
-  template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
-  initialize: function() {
-  },
-  render: function() {
-    console.log('rendering my searches view');
-    this.$el.html(this.template(this.collection.toJSON()));
-    return this;
-  }
-});*/
-
 IONUX2.Views.LoadSearchCollection = Backbone.View.extend({
   el: '.list_mysearches',
   template: _.template(IONUX2.getTemplate('templates/collection_search.html')),
@@ -229,24 +217,25 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     (function() {
       // get boolean expression input values and add to collection
       var boolean_expression_list = [];
-      $('#boolean_expression .filter_item').each(function(data) {
+      $('#boolean_expression .filter-item').each(function(index) {
         var boolean_main_filter = $(this).find('.booleanSelectContainer[name="filter_var"] option:selected').attr('value'),
           boolean_sub_filter = $(this).find('.booleanSelectContainer[name="filter_operator"] option:selected').attr('value'),
           boolean_input = $(this).find('.booleanInput').val();
        
         boolean_expression_list.push({ 'boolean_main_filter' : boolean_main_filter, 'boolean_sub_filter' : boolean_sub_filter, 'boolean_input': boolean_input });
+        console.log("boolean expression list");
+        console.log(boolean_expression_list);
       });
       IONUX2.Collections.saveBooleanExpression.set(boolean_expression_list);
     })();
 
     (function() {
+      // get visibility state for bottom accordion elements and add to collection
       var accordion_list = [];
       $('.accordionContainerWhite .accordionWhite').each(function(item) {
         var accordion_id = 'accordion' + $(this).attr('id');
         var accordion_contents = $(this).find('.accordionContents').is(':visible');
         accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
-        console.log("accordion list");
-        console.log(accordion_list);
       });
       IONUX2.Collections.saveAccordionConfig.set(accordion_list);
     })();
@@ -700,7 +689,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
         var sel_operator = $('<select class="booleanSelectContainer" name="filter_operator"></select>');
         filter_container.find('.filter-add').before(sel_operator);
         _.each(operators, function(o) {
-          sel_operator.append('<option>' + o + '</option>');
+          sel_operator.append('<option value="' + o + '">' + o + '</option>');
         });
       }
 

@@ -350,15 +350,17 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         console.log("config model");
                         console.log(configurationModel);
 
+                        console.log("boolean expression model");
+                        console.log(booleanExpressionModel);
 
                     // populate accordion modules with saved data
                     UINAV.loadSpatial(spatialModel);
                     UINAV.loadTemporal(temporalModel);
                     UINAV.loadFacilities(facilitiesModel);
                     UINAV.loadSites(sitesModel);
-                    //UINAV.loadPlatformTypes(platformTypesModel);
+                    UINAV.loadPlatformTypes(platformTypesModel);
                     UINAV.loadDataTypes(dataTypesModel);
-                    //UINAV.loadBooleanExpression(booleanExpressionModel);
+                    UINAV.loadBooleanExpression(booleanExpressionModel);
 
                     // trigger saved jquery sort order
                     var $accordion_container = $('.accordionContainer .jspPane');

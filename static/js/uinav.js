@@ -53,9 +53,11 @@ var UINAV = {
             $(this).prop('checked', dataTypesModel[index].is_checked);
         });
     },
-    /*loadBooleanExpression: function(booleanExpressionModel) {
-        $('.')
-    }*/
+    loadBooleanExpression: function(booleanExpressionModel) {
+        $('select[name="filter_var"]').val(booleanExpressionModel[0].boolean_main_filter);
+        $('select[name="filter_operator"]').val(booleanExpressionModel[0].boolean_sub_filter);
+        $('.booleanInput').val(booleanExpressionModel[0].boolean_input);
+    },
     postUserProfile: function(userProfile) {
     	$.ajax({
             async: false,
