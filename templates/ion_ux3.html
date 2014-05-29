@@ -459,22 +459,26 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 e.preventDefault();
 
                 var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-                var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
+                var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
+                console.log("bottom_sortable");
+                console.log(bottom_sortable);
                 var spatial_accordion_visible = $('#spatial').is(':visible'),
                     temporal_accordion_visible = $('#temporal').is(':visible'),
                     facility_accordion_visible = $('#orgSelector').is(':visible'),
-                    region_accordion_visible = $('#region').is(':visible'),
                     site_accordion_visible = $('#site').is(':visible'),
+                    platform_accordion_visible = $('#platformTypesList').is(':visible'),
                     datatype_accordion_visible = $('#dataTypesList').is(':visible'),
-                    boolean_accordion_visible = $('#boolean_expression').is(':visible'),
-                    platform_accordion_visible = $('#platform').is(':visible'),
-                    instrument_accordion_visible = $('#instrument').is(':visible'),
-                    assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
-                    data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
-                    platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
-                    instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
-                    datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
+                    boolean_accordion_visible = $('#boolean_expression').is(':visible');
 
+                (function() {
+                    var accordion_list = [];
+                    $('.accordionContainerWhite .accordionWhite').each(function(item) {
+                        var accordion_id = 'accordion' + $(this).attr('id');
+                        var accordion_contents = $(this).find('.accordionContents').is(':visible');
+                        accordion_list.push({'id' : accordion_id, 'is_visible' : accordion_contents});
+                    });
+                    IONUX2.Collections.saveAccordionConfig.set(accordion_list);
+                })();
 
                 var user_profile = {
                     'userId': IONUX2.Models.SessionInstance.attributes.user_id,
@@ -484,37 +488,25 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         'spatialElem': spatial_accordion_visible,
                         'temporalElem': temporal_accordion_visible,
                         'orgSelectorElem': facility_accordion_visible,
-                        'regionElem': region_accordion_visible,
                         'siteElem': site_accordion_visible,
-                        'dataTypesListElem': datatype_accordion_visible,
-                        'boolean_expressionElem': boolean_accordion_visible,
                         'platformElem': platform_accordion_visible,
-                        'instrumentElem': instrument_accordion_visible
+                        'dataTypesListElem': datatype_accordion_visible,
+                        'boolean_expressionElem': boolean_accordion_visible
                     },
-                    'bottom_config': {
-                        'accordionAssets': assets_accordion_visible,
-                        'accordionData': data_accordion_visible,
-                        'accordionPlatform': platform2_accordion_visible,
-                        'accordionInstruments': instrument2_accordion_visible,
-                        'accordionDataType': datatype2_accordion_visible
-                    },
+                    'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
                     'sortable_order': sortable_order,
                     'bottom_sortable': bottom_sortable
-                    //'saved_searches': IONUX2.Collections.saveNames.toJSON()
                 };
 
-                /*IONUX2.Models.saveConfiguration.set(user_profile);
+                IONUX2.Models.saveConfiguration.set(user_profile);
                 console.log("configuration model");
-                console.log(IONUX2.Models.saveConfiguration);*/
+                console.log(IONUX2.Models.saveConfiguration);
                 
-                //var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
+                var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
                 
-                IONUX2.Collections.userProfileInstance.set(user_profile);
-                console.log("configuration collection");
-                console.log(IONUX2.Collections.userProfileInstance);
-        
-                var userConfiguration = JSON.stringify(IONUX2.Collections.userProfileInstance);
-                UINAV.postUserProfile(userConfiguration);
+                //IONUX2.Collections.userProfileInstance.set(user_profile);
+                //var userConfiguration = JSON.stringify(IONUX2.Collections.userProfileInstance);
+                //UINAV.postUserProfile(userConfiguration);
 
             });
             

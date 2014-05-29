@@ -129,7 +129,7 @@ IONUX2 = {
 	    // check if user is logged in
 	    if (IONUX2.Models.SessionInstance.is_logged_in) {
 	    	// show save config buttons
-	    	//$('#saveConfiguration').show();
+	    	$('#saveConfiguration').show();
 	    	UINAV.getUserProfile();
 	    }
 	    

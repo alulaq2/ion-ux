@@ -627,6 +627,20 @@ a.btn-navigation-plain {
   display: none;
 }
 
+#saveConfigBtn {
+  height: 18px;
+  line-height: 12px;
+  margin: 5px 7px 5px auto;
+  background-color: #7b99b5;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  overflow: none;
+  float: right;
+  border-radius: 5px;
+  border: 1px solid #9DDFF2;
+}
+
 .leftAccordion {
   background-color: #3b5e7e;
   background: -webkit-gradient(linear, left top, right top, from(#5687AF), to(#3B5E7E));
