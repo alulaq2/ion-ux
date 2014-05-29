@@ -341,7 +341,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 
               $(this).on('click', function(e) {
                     e.preventDefault();
-
                     var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
                     console.log("search model");
                     console.log(searchModel);
@@ -370,7 +369,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     UINAV.loadTemporal(temporalModel);
                     UINAV.loadFacilities(facilitiesModel);
                     UINAV.loadSites(sitesModel);
-                    UINAV.loadPlatformTypes(platformTypesModel);
+                    //UINAV.loadPlatformTypes(platformTypesModel);
                     UINAV.loadDataTypes(dataTypesModel);
                     //UINAV.loadBooleanExpression(booleanExpressionModel);
 
@@ -387,22 +386,25 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 });
             });
             
+            // delete saved search
             $('.list_mysearches li').each(function(index) {
                 $(this).find('.deleteSearch').on('click', function(e) {
                     e.preventDefault();
-                    console.log("index is " + index);
-                    console.log("deleting search");
-                    console.log(e.currentTarget);
-                    console.log("id is " + $(this).parent().find('.savedSearch').data('id'));
-                    console.log(IONUX2.Collections.userProfileInstance.at(index));
+                    // store saved search in temp collection
+                    IONUX2.Collections.deleteSearch.set(IONUX2.Collections.userProfileInstance.models[0].attributes.saved_searches);
+                    // get model to delete
+                    var deleteModel = IONUX2.Collections.deleteSearch.at(index);
+                    // remove model from temp collection
+                    IONUX2.Collections.deleteSearch.remove(deleteModel);
+                    // set temp collection to main collection
+                    IONUX2.Collections.userProfileInstance.models[0].set({saved_searches: IONUX2.Collections.deleteSearch});
+                    // remove model from the view
+                    $(this).parent().remove();
+                    // post main collection to server
+                    var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
+                    UINAV.postUserProfile(userProfile);
                 });
             });
-            /*$('.deleteSearch').on('click', function(e) {
-                e.preventDefault();
-                console.log("deleting search");
-                console.log(e.currentTarget);
-                console.log("id is " + $(this).parent().find('.savedSearch').data('id'));
-            });*/
         });
 
         

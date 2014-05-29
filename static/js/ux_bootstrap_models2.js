@@ -369,3 +369,6 @@ IONUX2.Models.facilities = new IONUX2.Models.Facilities();
 
 IONUX2.siteData = [];
 IONUX2.siteDataObj = {};
+
+IONUX2.Collections.DeleteSearch = Backbone.Collection.extend({});
+IONUX2.Collections.deleteSearch = new IONUX2.Collections.DeleteSearch();
