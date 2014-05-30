@@ -163,10 +163,43 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
    		font-weight:normal;
  }
 
+/* legacy facepage */
+
 #legacyFacePage {
   position: relative;
   width: 100%;
   background: #384d68;
+}
+
+.row-fluid .span8 {width: 67%;}
+.v02 .block h3 {
+	padding: 5px 6px 5px 5px;
+	line-height: 11px;
+	background: #7b99b5; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #7b99b5 58%, #607187 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(58%,#7b99b5), color-stop(100%,#607187)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg,  #7b99b5 58%,#607187 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg,  #7b99b5 58%,#607187 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg,  #7b99b5 58%,#607187 100%); /* IE10+ */
+	background: linear-gradient(135deg,  #7b99b5 58%,#607187 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7b99b5', endColorstr='#607187',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	}
+.v02 .block {
+	margin:0px;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #ffffff 0%, #f6f6f6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#ffffff), color-stop(100%,#f6f6f6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg,  #ffffff 0%,#f6f6f6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg,  #ffffff 0%,#f6f6f6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg,  #ffffff 0%,#f6f6f6 100%); /* IE10+ */
+	background: linear-gradient(135deg,  #ffffff 0%,#f6f6f6 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	}
+.tab-content {
+    border-width: 2px 0px 0px 0px;
+    border-style: solid;
+    border-color: #384D68;
+    background: none repeat scroll 0% 0% #FFF;
 }
 
 #dynamic-container {  /* same as main */
@@ -395,115 +428,141 @@ a.btn-navigation-plain {
  border: solid transparent 1px;
 }
 
+.hamburger:before {
+  content: '';
+  width: 16px;
+  height: 20px;
+  left: 8px;
+  display:block;
+  position: absolute;
+  background-image: url(/static/img/salt_sprite.png);
+  background-position: -180px -180px;
+}
+
+.hamburger:hover:before {
+  content: '';
+  width: 16px;
+  height: 20px;
+  left: 8px;
+  display:block;
+  position: absolute;
+  background-image: url(/static/img/salt_sprite.png);
+  background-position: -240px -180px;
+}
+
+.btn-group.open .hamburger:before {
+  background-position: -240px -180px;
+}
+
 /* EDIT RESOURCE - HAMBURGER ICON */
 
-		#searchResultsTabContainer a.btn {
-			display: inline-block;
-			padding: 3px 12px;
-			margin:2px auto auto auto;
-			font-size: 14px;
-			line-height: 17px;
-			cursor: pointer;
-			color: #333;
-			background-color: #F5F5F5;
-			/* background-image: linear-gradient(to bottom, #FFF, #E6E6E6); */
-			border-image: none;
-			border-radius: 4px 4px 0px 0px;
-			border-right:1px #e6e6e6 solid;
-			border-left:1px #e6e6e6 solid;
-			border-top:1px #e6e6e6 solid;
-			border-bottom: none;
-		}
-		#searchResultsTabContainer a.btn:hover {
-			display: inline-block;
-			cursor: pointer;
-			background-color: #ececec;
-			border-radius: 4px 4px 0px 0px;
-			border-right:1px #e6e6e6 solid;
-			border-left:1px #e6e6e6 solid;
-			border-top:1px #e6e6e6 solid;
-			border-bottom: none;
-		}
-		searchResultsTabContainer .pull-right {
-			float: right;
-			margin-right: 3px;
-		}
-		
-		.pull-right .dropdown-menu {
-			left: auto;
-			right: 0px;
-		}
-		#searchResultsTabContainer .hamburger:before{
-			content: "";
-			width: 16px;
-			height: 20px;
-			left: 8px;
-			display: block;
-			position: absolute;
-			background-image: url('/static/img/salt_sprite.png');
-			background-position: -180px -176px;
-		}
-		#searchResultsTabContainer .hamburger:hover:before{
-		  content: '';
-		  width: 16px;
-		  height: 20px;
-		  left: 8px;
-		  display:block;
-		  position: absolute;
-		  background-image: url(/static/img/salt_sprite.png);
-		  background-position: -240px -176px;
-		}
-		
-		
-		
-		.btn-group.open .hamburger:before {background-position: -240px -180px;}
-		#searchResultsTabContainer .btn-group{height:28px}
-		.btn-group{height:20px}
-		
-		ul.dropdown-menu {
-			background: -moz-linear-gradient(left, #384d68 0%, #7b99b5 100%); /* FF3.6+ */
-			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#384d68), color-stop(100%,#7b99b5)); /* Chrome,Safari4+ */
-			background: -webkit-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* Chrome10+,Safari5.1+ */
-			background: -o-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* Opera 11.10+ */
-			background: -ms-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* IE10+ */
-			background: linear-gradient(to right, #384d68 0%,#7b99b5 100%); /* W3C */
-			padding:4px 0px 4px 4px;
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-			font-size:10px;
-			font-weight:400;
-			letter-spacing:1px;
-			color:#FFF;
-			position: absolute;
-			top: 100%;
-			left: 0px;
-			z-index: 1000;
-			display: none;
-			float: left;
-			min-width: 160px;
-			margin:0px;
-			list-style: none outside none;
-			box-shadow: none;
-			border: 0px solid #384d68;
-			border-radius: 0px 0px 0px 6px;
-			box-sizing:border-box;-moz-box-sizing:border-box; /* Firefox */
-		
-			/* background-clip: padding-box; box-shadow: 0px 5px 10px rgba(0, 0, 255, 0.2); */
-		}
-		ul.dropdown-menu li {
-		 padding: 0px 0px 0px 3px;
-		 font-size: 11px;
-		 text-transform: uppercase;
-		 cursor: pointer;
-		 color: #FFF;
-		 box-shadow: none;
-		}
-		
-		ul.dropdown-menu li:hover {
-		 color: #fff;
-		 background: #00aedb;
-		 text-shadow: none;
-		 padding-right:3px;
-		}
+#searchResultsTabContainer a.btn {
+	display: inline-block;
+	padding: 3px 12px;
+	margin:2px auto auto auto;
+	font-size: 14px;
+	line-height: 17px;
+	cursor: pointer;
+	color: #333;
+	background-color: #F5F5F5;
+	/* background-image: linear-gradient(to bottom, #FFF, #E6E6E6); */
+	border-image: none;
+	border-radius: 4px 4px 0px 0px;
+	border-right:1px #e6e6e6 solid;
+	border-left:1px #e6e6e6 solid;
+	border-top:1px #e6e6e6 solid;
+	border-bottom: none;
+}
+#searchResultsTabContainer a.btn:hover {
+	display: inline-block;
+	cursor: pointer;
+	background-color: #ececec;
+	border-radius: 4px 4px 0px 0px;
+	border-right:1px #e6e6e6 solid;
+	border-left:1px #e6e6e6 solid;
+	border-top:1px #e6e6e6 solid;
+	border-bottom: none;
+}
+searchResultsTabContainer .pull-right {
+	float: right;
+	margin-right: 3px;
+}
+
+.pull-right .dropdown-menu {
+	left: auto;
+	right: 0px;
+}
+#searchResultsTabContainer .hamburger:before{
+	content: "";
+	width: 16px;
+	height: 20px;
+	left: 8px;
+	display: block;
+	position: absolute;
+	background-image: url('/static/img/salt_sprite.png');
+	background-position: -180px -176px;
+}
+#searchResultsTabContainer .hamburger:hover:before{
+  content: '';
+  width: 16px;
+  height: 20px;
+  left: 8px;
+  display:block;
+  position: absolute;
+  background-image: url(/static/img/salt_sprite.png);
+  background-position: -240px -176px;
+}
+
+
+
+.btn-group.open .hamburger:before {background-position: -240px -180px;}
+#searchResultsTabContainer .btn-group{height:28px}
+.btn-group{height:20px}
+
+ul.dropdown-menu {
+	background: -moz-linear-gradient(left, #384d68 0%, #7b99b5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#384d68), color-stop(100%,#7b99b5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, #384d68 0%,#7b99b5 100%); /* IE10+ */
+	background: linear-gradient(to right, #384d68 0%,#7b99b5 100%); /* W3C */
+	padding:4px 0px 4px 4px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:10px;
+	font-weight:400;
+	letter-spacing:1px;
+	color:#FFF;
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	margin:0px;
+	list-style: none outside none;
+	box-shadow: none;
+	border: 0px solid #384d68;
+	border-radius: 0px 0px 0px 6px;
+	box-sizing:border-box;-moz-box-sizing:border-box; /* Firefox */
+
+	/* background-clip: padding-box; box-shadow: 0px 5px 10px rgba(0, 0, 255, 0.2); */
+}
+ul.dropdown-menu li {
+ padding: 0px 0px 0px 3px;
+ font-size: 11px;
+ text-transform: uppercase;
+ cursor: pointer;
+ color: #FFF;
+ box-shadow: none;
+}
+
+ul.dropdown-menu li:hover {
+ color: #fff;
+ background: #00aedb;
+ text-shadow: none;
+ padding-right:3px;
+}
 
 .edit-group label, .edit-group select, label, input, button, select, textarea {
     font-weight: 300;
