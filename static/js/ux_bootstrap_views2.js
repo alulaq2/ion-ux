@@ -269,8 +269,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       if (parsed_collection.length != 0) {
         var parsed_obj = parsed_collection[0].saved_searches;
-        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
-        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
+        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
+        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
 
         IONUX2.Collections.saveNames.set(concat_obj);
       }

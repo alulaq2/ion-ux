@@ -5,15 +5,12 @@ var UINAV = {
         // load configuration and sortable order for left accordion
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
-            
      	});
 
         for (item in configurationList) {
             if (configurationList[item]) {
                 $('#'+item + ' .leftAccordionContents').show();
-            }
-            else {
-                $('#'+item + ' .leftAccordionContents').hide();
+                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -24,12 +21,12 @@ var UINAV = {
             elementContainer.append($("#"+val));
         });
 
-        for (item2 in configurationList) {
-            if (configurationList[item2].is_visible) {
-                $('#'+configurationList[item2].id).show();
-            }
-            else {
-                $('#'+configurationList[item2].id).hide();
+        for (item in configurationList) {
+            if (configurationList[item].is_visible) {
+                $('#'+configurationList[item].id).show();
+                console.log("config id is");
+                console.log($('#'+configurationList[item].id));
+                $('#'+configurationList[item].id).parent().find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -37,6 +34,7 @@ var UINAV = {
         for (item in configurationList) {
             if (configurationList[item]) {
                 $('#'+item + ' .leftAccordionContents').show();
+                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -45,6 +43,7 @@ var UINAV = {
         for (item in configurationList) {
             if (configurationList[item].is_visible) {
                 $('#'+configurationList[item].id).show();
+                $('#'+configurationList[item].id).parent().find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -74,10 +73,24 @@ var UINAV = {
             $(this).prop('checked', dataTypesModel[index].is_checked);
         });
     },
-    loadBooleanExpression: function(booleanExpressionModel) {
-        $('select[name="filter_var"]').val(booleanExpressionModel[0].boolean_main_filter);
-        $('select[name="filter_operator"]').val(booleanExpressionModel[0].boolean_sub_filter);
-        $('.booleanInput').val(booleanExpressionModel[0].boolean_input);
+    loadBooleanExpression: function(booleanExpressionCollection) {
+        $('.filter-item').each(function(index) {
+            if (index != 0) {
+                this.remove();
+            }
+        });
+        var numFilters = (booleanExpressionCollection.length - $('.filter-item').length);
+        if (numFilters > 0)  {
+            for (var i=0; i<booleanExpressionCollection.length-1; i++) {
+                $('.filter-add').eq(i).click();
+            }
+        }
+        _.each(booleanExpressionCollection, function(booleanModel, key) {
+            console.log("index is " + key);
+            $('.filter-item').eq(key).find('select[name="filter_var"]').val(booleanModel.boolean_main_filter);
+            $('.filter-item').eq(key).find('select[name="filter_operator"]').val(booleanModel.boolean_sub_filter);
+            $('.filter-item').eq(key).find('.booleanInput').val(booleanModel.boolean_input);
+        });
     },
     postUserProfile: function(userProfile) {
     	$.ajax({
@@ -161,39 +174,17 @@ var UINAV = {
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
         var dataTypesList = [
-            {'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
-            {'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
-            {'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
-            {'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
-            {'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
-            {'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
-            {'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
-            {'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
-            {'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
-            {'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
-            {'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
-            {'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
-            {'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
-        ];
+            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
+             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER"];
 
-        var assetTypesList = [
-            {'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
-            {'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"}
-        ];
+        var assetTypesList = ["Platform", "Instrument"];
 
-        var siteTypesList = [
-            {'name':"Facility", 'id':"Facility", 'type':"Org"},
-            {'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
-            {'name':"Station", 'id':"StationSite", 'type':"StationSite"},
-            {'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
-            {'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
-        ];
+        var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite"];
 
         var gotKey = function(dataList) {
             for (var key in dataList) {
                 for (item in bottomConfigList) {
-                    if (dataList[key].id == $('#'+bottomConfigList[item].id).parent().attr('id')) {
-                        console.log("config id is " + $('#'+bottomConfigList[item].id).parent().attr('id'));
+                    if (dataList[key] == $('#'+bottomConfigList[item].id).parent().attr('id')) {
                         return true
                     }
                 }

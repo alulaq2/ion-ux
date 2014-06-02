@@ -110,7 +110,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     {% block inherit_ionux_js %} {% endblock %}
 
     <script src="/static/js/ion_ux2.js"> </script>
-    <script src="/static/js/ux-router2.js"> </script>
+    <!--<script src="/static/js/ux-router2.js"> </script>-->
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
@@ -299,7 +299,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
             IONUX2.setPageView('searchResults');
 
-            Backbone.history.start(/*{pushState:true, hashChange: false}*/);
+            //Backbone.history.start(/*{pushState:true, hashChange: false}*/);
 
             $(".mapButtonFull").click(function(){
                 IONUX2.setMapState('mapFull');
