@@ -233,12 +233,17 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     (function() {
       // get visibility state for bottom accordion elements and add to collection
       var accordion_list = [];
-      $('.accordionContainerWhite .accordionWhite').each(function(item) {
+      var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
+      tabs = tabs.substring(0, tabs.length -3);
+      var getElement = "#" + tabs + "Accordion .accordionWhite";
+      $(getElement).each(function(item) {
         var accordion_id = 'accordion' + $(this).attr('id');
         var $accordion_contents = $(this).find('.accordionContents:visible').length;
           accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
         });
         IONUX2.Collections.saveAccordionConfig.set(accordion_list);
+        console.log("accordion config is");
+        console.log(IONUX2.Collections.saveAccordionConfig);
     })();
 
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
@@ -264,7 +269,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
       if (parsed_collection.length != 0) {
         var parsed_obj = parsed_collection[0].saved_searches;
-        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
+        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
+        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
 
         IONUX2.Collections.saveNames.set(concat_obj);
       }

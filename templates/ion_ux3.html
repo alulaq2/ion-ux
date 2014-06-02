@@ -473,20 +473,22 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 e.preventDefault();
 
                 var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-                var bottom_sortable = $(".accordionContainerWhite").sortable("toArray");
+                var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
+                tabs = tabs.substring(0, tabs.length -3);
+                var sortAccordion = "#" + tabs + "Accordion";
+                var bottom_sortable = $(sortAccordion + " .accordionContainerWhite").sortable("toArray");
                 console.log("bottom_sortable");
                 console.log(bottom_sortable);
-                
-                (function() {
-                    // get visibility state for bottom accordion elements and add to collection
-                    var accordion_list = [];
-                    $('.accordionContainerWhite .accordionWhite').each(function(item) {
-                        var accordion_id = 'accordion' + $(this).attr('id');
-                        var $accordion_contents = $(this).find('.accordionContents:visible').length;
-                        accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
-                    });
-                    IONUX2.Collections.saveAccordionConfig.set(accordion_list);
-                })();
+
+                // get visibility state for bottom accordion elements and add to collection
+                var accordion_list = [];
+                var getElement = "#" + tabs + "Accordion .accordionWhite";
+                $(getElement).each(function(item) {
+                    var accordion_id = 'accordion' + $(this).attr('id');
+                    var $accordion_contents = $(this).find('.accordionContents:visible').length;
+                    accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
+                });
+                IONUX2.Collections.saveAccordionConfig.set(accordion_list);
 
                 IONUX2.Collections.userConfiguration.set({
                     'configuration': {

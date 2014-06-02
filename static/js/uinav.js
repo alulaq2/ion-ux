@@ -19,13 +19,42 @@ var UINAV = {
     },
     reorder_bottom: function(orderArray, configurationList, elementContainer) {
         // load configuration and sortable order for bottom accordion
+
+        var dataTypesList = [
+        {'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
+        {'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
+        {'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
+        {'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
+        {'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
+        {'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
+        {'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
+        {'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
+        {'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
+        {'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
+        {'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
+        {'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
+        {'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
+    ];
+
+    var assetTypesList = [
+        {'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
+        {'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"}
+    ];
+
+    var siteTypesList = [
+        {'name':"Facility", 'id':"Facility", 'type':"Org"},
+        {'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
+        {'name':"Station", 'id':"StationSite", 'type':"StationSite"},
+        {'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
+        {'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
+    ];
+        
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
             
         });
 
         for (item in configurationList) {
-            console.log("item in accordion is " + configurationList[item].is_visible);
             if (configurationList[item].is_visible) {
                 $('#'+configurationList[item].id).show();
             }
@@ -37,7 +66,6 @@ var UINAV = {
     loadVisibility: function(configurationList) {
         for (item in configurationList) {
             if (configurationList[item]) {
-                console.log("item visible is " + item);
                 $('#'+item + ' .leftAccordionContents').show();
             }
         }
@@ -45,8 +73,8 @@ var UINAV = {
     loadAccordionVisibility: function(configurationList) {
         // load configuration for bottom accordion
         for (item in configurationList) {
-            if (configurationList[item]) {
-                $('#'+item + ' .leftAccordionContents').show();
+            if (configurationList[item].is_visible) {
+                $('#'+configurationList[item].id).show();
             }
         }
     },
