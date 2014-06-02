@@ -20,46 +20,16 @@ var UINAV = {
     reorder_bottom: function(orderArray, configurationList, elementContainer) {
         // load configuration and sortable order for bottom accordion
 
-        var dataTypesList = [
-        {'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
-        {'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
-        {'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
-        {'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
-        {'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
-        {'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
-        {'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
-        {'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
-        {'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
-        {'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
-        {'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
-        {'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
-        {'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
-    ];
-
-    var assetTypesList = [
-        {'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
-        {'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"}
-    ];
-
-    var siteTypesList = [
-        {'name':"Facility", 'id':"Facility", 'type':"Org"},
-        {'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
-        {'name':"Station", 'id':"StationSite", 'type':"StationSite"},
-        {'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
-        {'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
-    ];
-        
         $.each(orderArray, function(key, val){
             elementContainer.append($("#"+val));
-            
         });
 
-        for (item in configurationList) {
-            if (configurationList[item].is_visible) {
-                $('#'+configurationList[item].id).show();
+        for (item2 in configurationList) {
+            if (configurationList[item2].is_visible) {
+                $('#'+configurationList[item2].id).show();
             }
             else {
-                $('#'+configurationList[item].id).hide();
+                $('#'+configurationList[item2].id).hide();
             }
         }
     },
@@ -190,7 +160,68 @@ var UINAV = {
         var $accordion_container = $('.accordionContainer .jspPane');
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
-        var $bottom_accordion = $('.accordionContainerWhite');
+        var dataTypesList = [
+            {'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
+            {'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
+            {'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
+            {'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
+            {'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
+            {'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
+            {'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
+            {'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
+            {'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
+            {'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
+            {'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
+            {'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
+            {'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
+        ];
+
+        var assetTypesList = [
+            {'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
+            {'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"}
+        ];
+
+        var siteTypesList = [
+            {'name':"Facility", 'id':"Facility", 'type':"Org"},
+            {'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
+            {'name':"Station", 'id':"StationSite", 'type':"StationSite"},
+            {'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
+            {'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
+        ];
+
+        var gotKey = function(dataList) {
+            for (var key in dataList) {
+                for (item in bottomConfigList) {
+                    if (dataList[key].id == $('#'+bottomConfigList[item].id).parent().attr('id')) {
+                        console.log("config id is " + $('#'+bottomConfigList[item].id).parent().attr('id'));
+                        return true
+                    }
+                }
+            }   
+        };
+
+        if (gotKey(dataTypesList)) {
+            console.log("got data");
+            $('#dataSearchResultsTab').click();
+            var $bottom_accordion = $('#dataSearchResultsAccordion .accordionContainerWhite');
+            console.log("bottom accordion is");
+            console.log($bottom_accordion);
+        }
+    
+        if (gotKey(assetTypesList)) {
+            console.log("got asset tab");
+            $('#assetsSearchResultsTab').click();
+            var $bottom_accordion = $('#assetsSearchResultsAccordion .accordionContainerWhite');
+            console.log($bottom_accordion);
+        }
+
+        if (gotKey(siteTypesList)) {
+            console.log("got site tab");
+            $('#siteSearchResultsTab').click();
+            var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
+            console.log($bottom_accordion);
+        }
+
         this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
     }
 };
