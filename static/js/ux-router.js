@@ -249,6 +249,7 @@ dashboard_map_resource: function(resource_id) {
       success: function(resp) {
         $('#editResourceContent').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         new IONUX.Views.EditResource({model: resp});
+        IONUX.Router.navigate('/#' + resource_type + '/face/' + resource_id + "/edit");
       }
     });
   },
