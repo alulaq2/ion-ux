@@ -90,7 +90,7 @@ IONUX = {
     
 
     //console.log('**** STARTING HISTORY!!!');
-    Backbone.history.start({pushState:true, hashChange: false});
+    Backbone.history.start(/*{pushState:true, hashChange: false}*/);
     
     router.handle_navigation();
 

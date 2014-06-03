@@ -24,6 +24,8 @@ IONUX.Router = Backbone.Router.extend({
     ":resource_type/:view_type/:resource_id/edit" : "edit",
     "userprofile" :                                 "user_profile",
     "create_account":                               "create_account",
+    "dashboard":                                    "showDashboard",
+    "assettracking":                                "assetTracking",
     "resourcemgmt":                                 "resource_management"
   },
   
@@ -374,7 +376,19 @@ dashboard_map_resource: function(resource_id) {
     new IONUX.Views.CreateAccountView().render();
   },
 
+  showDashboard: function() {
+    IONUX2.setPageView("searchResults");
+      if(IONUX2.getMapState() == "mapHidden"){
+          IONUX2.setMapState('mapSplit');
+      }
+  },
+
+  assetTracking: function() {
+    IONUX2.setPageView("assetTracking");
+  },
+
   resource_management: function() {
+    console.log("routing resource management")
     IONUX2.setPageView("createResource");
   },
 
