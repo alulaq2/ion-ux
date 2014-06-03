@@ -93,13 +93,30 @@ var UINAV = {
              (booleanModel.boolean_main_filter == "quality_control_level") || (booleanModel.boolean_main_filter == "name") ||
               (booleanModel.boolean_main_filter == "aggregated_status") || (booleanModel.boolean_main_filter == "type_")) {
                 $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').hide();
-                //var elementLength = $('.filter-item').eq(key).find('select[name="filter_arg"]:visible').length;
-                //if (elementLength == 0) {
+                
                 var lcstateValues= ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED'];
                 var processingValues = [
                     ['L0 - Unprocessed Data', 'L0'], ['L1 - Basic Data', 'L1'], ['L2 - Derived Data', 'L2']
                 ];
-                $('.filter-item').append('<select class="booleanSelectContainer" name="filter_arg"></select>');
+                var qualityControl = [
+                    ['a - No QC applied', 'a'], ['b - Automatic QC applied', 'b'], ['c - Human QC applied', 'c']
+                ];
+                var siteValues = ['Coastal Endurance', 'Coastal Pioneer', 'Global Argentine Basin', 'Global Irminger Sea', 'Global Southern Ocean',
+                                'Global Station Papa', 'Regional Axial', 'Regional Hydrate Ridge', 'Regional Mid Plate'];
+                var statusValues = ['Critical', 'OK', 'None expected', 'Warning'];
+                var typeValues = [
+                ['Attachment','Attachment'], ['Data Agent Instance','ExternalDatasetAgentInstance'], ['Data Agent','ExternalDatasetAgent'], ['Data Process','Data Process'],
+                ['Data Product','DataProduct'], ['Data Transform','DataProcessDefinition'], ['Dataset Agent Instance','ExternalDatasetAgentInstance'], ['Dataset Agent','ExternalDatasetAgent'],
+                ['Deployment','Deployment'], ['Event Type','EventType'], ['Event','Event'], ['Instrument Agent Instance','InstrumentAgentInstance'],
+                ['Instrument Agent','InstrumentAgent'], ['Instrument Model','InstrumentModel'], ['Instrument','InstrumentDevice'], ['Organization [Facility]','Org'],
+                ['Platform Agent Instance','PlatformAgentInstance'], ['Platform Agent','PlatformAgent'], ['Platform Model','PlatformModel'],
+                ['Platform Port','PlatformSite'], ['Platform','PlatformDevice'], ['Port','InstrumentSite'], ['Role','UserRole'], ['Site','Observatory'], ['Station','StationSite'],
+                ['Subscription','NotificationRequest'], ['User','UserInfo']
+                ];
+                var elementLength = $('.filter-item').eq(key).find('select[name="filter_arg"]:visible').length;
+                if (elementLength == 0) {
+                    $('.filter-add').before('<select class="booleanSelectContainer" name="filter_arg"></select>');
+                }
                 if (booleanModel.boolean_main_filter == "lcstate") {
                     for (val in lcstateValues) {
                         $('select[name="filter_arg"]').append('<option value="' + lcstateValues[val] + '">' + lcstateValues[val] + '</option');
@@ -110,6 +127,27 @@ var UINAV = {
                         $('select[name="filter_arg"]').append('<option value="' + processingValues[val][1] + '">' + processingValues[val][0] + '</option');
                     }
                 }
+                if (booleanModel.boolean_main_filter == "quality_control_level") {
+                    for (val in qualityControl) {
+                        $('select[name="filter_arg"]').append('<option value="' + qualityControl[val][1] + '">' + qualityControl[val][0] + '</option');
+                    }
+                }
+                if (booleanModel.boolean_main_filter == "name") {
+                    for (val in siteValues) {
+                        $('select[name="filter_arg"]').append('<option value="' + siteValues[val] + '">' + siteValues[val] + '</option');
+                    }
+                }
+                if (booleanModel.boolean_main_filter == "aggregated_status") {
+                    for (val in statusValues) {
+                        $('select[name="filter_arg"]').append('<option value="' + statusValues[val] + '">' + statusValues[val] + '</option');
+                    }
+                }
+                if (booleanModel.boolean_main_filter == "type_") {
+                    for (val in typeValues) {
+                        $('select[name="filter_arg"]').append('<option value="' + typeValues[val][1] + '">' + typeValues[val][0] + '</option');
+                    }
+                }
+
                 $('.filter-item').eq(key).find('select[name="filter_arg"]').val(booleanModel.boolean_input);
                 $('.filter-item').eq(key).find('select[name="filter_var"]').on('change', function() {
                     $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').show();

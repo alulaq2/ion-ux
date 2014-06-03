@@ -575,6 +575,20 @@ a.btn-navigation-plain {
   right: 17px;
 }
 
+#saveName {
+  height: 18px;
+  line-height: 12px;
+  margin: 5px 7px 5px auto;
+  background-color: #7b99b5;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  overflow: none;
+  float: right;
+  border-radius: 5px;
+  border: 1px solid #9DDFF2;
+}
+
 .navButton:hover {
   border: 1px solid #fff;
 }

@@ -225,7 +225,8 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
             boolean_sub_filter = "";
           }
           var boolean_input;
-          if (boolean_main_filter == "lcstate") {
+          if ((boolean_main_filter == "lcstate") || (boolean_main_filter == "processing_level_code") || (boolean_main_filter == "quality_control_level")
+           || (boolean_main_filter == "name") || (boolean_main_filter == "aggregated_status") || (boolean_main_filter == "type_")) {
             boolean_input = $(this).find('.booleanSelectContainer[name="filter_arg"] option:selected').attr('value');
           }
           else {
