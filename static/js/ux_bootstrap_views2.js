@@ -220,8 +220,17 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       var boolean_expression_list = [];
       $('#boolean_expression .filter-item').each(function(index) {
         var boolean_main_filter = $(this).find('.booleanSelectContainer[name="filter_var"] option:selected').attr('value'),
-          boolean_sub_filter = $(this).find('.booleanSelectContainer[name="filter_operator"] option:selected').attr('value'),
-          boolean_input = $(this).find('.booleanInput').val();
+          boolean_sub_filter = $(this).find('.booleanSelectContainer[name="filter_operator"] option:selected').attr('value');
+          if (boolean_sub_filter == undefined) {
+            boolean_sub_filter = "";
+          }
+          var boolean_input;
+          if (boolean_main_filter == "lcstate") {
+            boolean_input = $(this).find('.booleanSelectContainer[name="filter_arg"] option:selected').attr('value');
+          }
+          else {
+            boolean_input = $(this).find('.booleanInput').val();
+          }
        
         boolean_expression_list.push({ 'boolean_main_filter' : boolean_main_filter, 'boolean_sub_filter' : boolean_sub_filter, 'boolean_input': boolean_input });
         console.log("boolean expression list");

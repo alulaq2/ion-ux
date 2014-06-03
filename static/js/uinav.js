@@ -88,8 +88,37 @@ var UINAV = {
         _.each(booleanExpressionCollection, function(booleanModel, key) {
             console.log("index is " + key);
             $('.filter-item').eq(key).find('select[name="filter_var"]').val(booleanModel.boolean_main_filter);
-            $('.filter-item').eq(key).find('select[name="filter_operator"]').val(booleanModel.boolean_sub_filter);
-            $('.filter-item').eq(key).find('.booleanInput').val(booleanModel.boolean_input);
+
+            if ((booleanModel.boolean_main_filter == "lcstate") || (booleanModel.boolean_main_filter == "processing_level_code") ||
+             (booleanModel.boolean_main_filter == "quality_control_level") || (booleanModel.boolean_main_filter == "name") ||
+              (booleanModel.boolean_main_filter == "aggregated_status") || (booleanModel.boolean_main_filter == "type_")) {
+                $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').hide();
+                //var elementLength = $('.filter-item').eq(key).find('select[name="filter_arg"]:visible').length;
+                //if (elementLength == 0) {
+                var lcstateValues= ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED'];
+                var processingValues = [
+                    ['L0 - Unprocessed Data', 'L0'], ['L1 - Basic Data', 'L1'], ['L2 - Derived Data', 'L2']
+                ];
+                $('.filter-item').append('<select class="booleanSelectContainer" name="filter_arg"></select>');
+                if (booleanModel.boolean_main_filter == "lcstate") {
+                    for (val in lcstateValues) {
+                        $('select[name="filter_arg"]').append('<option value="' + lcstateValues[val] + '">' + lcstateValues[val] + '</option');
+                    }
+                }
+                if (booleanModel.boolean_main_filter == "processing_level_code") {
+                    for (val in processingValues) {
+                        $('select[name="filter_arg"]').append('<option value="' + processingValues[val][1] + '">' + processingValues[val][0] + '</option');
+                    }
+                }
+                $('.filter-item').eq(key).find('select[name="filter_arg"]').val(booleanModel.boolean_input);
+                $('.filter-item').eq(key).find('select[name="filter_var"]').on('change', function() {
+                    $('.filter-item').eq(key).find('select[name="filter_operator"], .booleanInput').show();
+                });
+            }
+            else {
+                $('.filter-item').eq(key).find('select[name="filter_operator"]').val(booleanModel.boolean_sub_filter);
+                $('.filter-item').eq(key).find('.booleanInput').val(booleanModel.boolean_input);
+            }
         });
     },
     postUserProfile: function(userProfile) {
