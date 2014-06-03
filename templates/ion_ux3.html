@@ -400,7 +400,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     // remove model from temp collection
                     IONUX2.Collections.deleteSearch.remove(deleteModel);
                     // set temp collection to main collection
-                    IONUX2.Collections.userProfileInstance.models[0].set({saved_searches: IONUX2.Collections.deleteSearch});
+                    IONUX2.Collections.userProfileInstance.models[0].set({saved_searches: IONUX2.Collections.deleteSearch.toJSON()});
                     // remove model from the view
                     $(this).parent().remove();
                     // post main collection to server
