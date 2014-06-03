@@ -24,6 +24,7 @@ IONUX.Router = Backbone.Router.extend({
     ":resource_type/:view_type/:resource_id/edit" : "edit",
     "userprofile" :                                 "user_profile",
     "create_account":                               "create_account",
+    "resourcemgmt":                                 "resource_management"
   },
   
   dashboard_map: function(){
@@ -371,6 +372,10 @@ dashboard_map_resource: function(resource_id) {
 
   create_account: function() {
     new IONUX.Views.CreateAccountView().render();
+  },
+
+  resource_management: function() {
+    IONUX2.setPageView("createResource");
   },
 
   signin_from_expired_session: function() {
