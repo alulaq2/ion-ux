@@ -450,11 +450,15 @@ IONUX.Views.EditResource = Backbone.View.extend({
       target.prop('disabled', false);
       target.text("Save");
     });
+    self.undelegateEvents();
+    self.$el.empty();
   },
   cancel: function(){
     $("#editResourceTab").first().click();
     $("#editResourceTab").hide();
     IONUX.ROUTER.navigate(this.base_url,{trigger:true});
+    self.undelegateEvents();
+    self.$el.empty();
   },
 });
 
@@ -532,6 +536,8 @@ IONUX.Views.EditUserRegistration = IONUX.Views.EditResource.extend({
           new IONUX.Views.Topbar({model: IONUX.SESSION_MODEL}).render().el
         });
     });
+    self.undelegateEvents();
+    self.$el.empty();
   },
 
 });
