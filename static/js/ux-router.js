@@ -235,21 +235,21 @@ dashboard_map_resource: function(resource_id) {
 
   edit: function(resource_type, view_type, resource_id) {
     console.log('**** Processing edit landing page!');
+    
     IONUX2.setPageView("editResource");
     // Todo move into own view
     $('#editResourceContent').html('<div id="spinner"></div>').show();
     new Spinner(IONUX.Spinner.large).spin(document.getElementById('spinner'));
-    
-    var m = new IONUX.Models.EditResourceModel({
+    IONUX.Models.m = new IONUX.Models.EditResourceModel({
       resource_type: resource_type,
       resource_id: resource_id
     });
+    var m = IONUX.Models.m;
     
     m.fetch({
       success: function(resp) {
         $('#editResourceContent').html($('#' + AVAILABLE_LAYOUTS[view_type]).html());
         new IONUX.Views.EditResource({model: resp});
-        IONUX.Router.navigate('/#' + resource_type + '/face/' + resource_id + "/edit");
       }
     });
   },

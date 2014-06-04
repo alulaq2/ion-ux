@@ -22,6 +22,7 @@
 	$(function() {
 		// $('#createResourceContent').html(IONUX2.getTemplate('templates/partials/create_resource_modal.html'));
 		new IONUX.Views.CreateResourceView().render();
+		IONUX.router = new IONUX.Router();
 
 		$("#createResourceTabContainer .twoNavTab").click(function(e){
 			var target = $(e.target);
@@ -29,6 +30,12 @@
 			tab_content = target.attr("tabContent");
 			$(tab_content).siblings().hide();
 			$(tab_content).show();
-		});    
+		});
+		$('#editResourceTab').on('click', function(e) {
+			//route to edit resource page
+			e.preventDefault();
+			IONUX.router.navigate('/' + IONUX.Models.m.resource_type + '/face/' +
+			 IONUX.Models.m.resource_id + '/edit', {trigger: true});
+		}); 
 	});
 </script>
