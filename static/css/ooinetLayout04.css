@@ -1156,7 +1156,7 @@ input.noPlaceholderRadius {
   position:absolute;
   top:28px;
   left:0px;
-  height:calc(100% - 28px);
+  height:calc(100% - 27px);
   width:100%;
   overflow:auto;
   background:#384d68;
