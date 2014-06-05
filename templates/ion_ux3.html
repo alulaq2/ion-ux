@@ -405,15 +405,24 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             $('.recentSearch').each(function(index) {
                 $(this).on('click', function(e) {
                     e.preventDefault();
-                    var searchModel = IONUX2.Collections.recentSearches.models[index].attributes;
+                    var searchModel = IONUX2.Collections.recentSearches.models[0].attributes;
 
-                    var spatialModel = searchModel.saved_searches[0].spatial,
+                    /*var spatialModel = searchModel.saved_searches[0].spatial,
                         temporalModel = searchModel.saved_searches[0].temporal,
                         facilitiesModel = searchModel.saved_searches[0].facilities,
                         sitesModel = searchModel.saved_searches[0].sites,
                         platformTypesModel = searchModel.saved_searches[0].platformTypes,
                         dataTypesModel = searchModel.saved_searches[0].dataTypes,
                         booleanExpressionModel = searchModel.saved_searches[0].booleanExpression,
+                        configurationModel = searchModel.configuration,
+                        bottomConfigModel = searchModel.bottom_config;*/
+                    var spatialModel = searchModel.saved_searches[index].spatial,
+                        temporalModel = searchModel.saved_searches[index].temporal,
+                        facilitiesModel = searchModel.saved_searches[index].facilities,
+                        sitesModel = searchModel.saved_searches[index].sites,
+                        platformTypesModel = searchModel.saved_searches[index].platformTypes,
+                        dataTypesModel = searchModel.saved_searches[index].dataTypes,
+                        booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
                         configurationModel = searchModel.configuration,
                         bottomConfigModel = searchModel.bottom_config;
 
