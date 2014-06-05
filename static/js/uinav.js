@@ -47,6 +47,30 @@ var UINAV = {
             }
         }
     },
+
+    loadLeftNav: function(searchModel, index) {
+        var spatialModel = searchModel.saved_searches[index].spatial,
+            temporalModel = searchModel.saved_searches[index].temporal,
+            facilitiesModel = searchModel.saved_searches[index].facilities,
+            sitesModel = searchModel.saved_searches[index].sites,
+            platformTypesModel = searchModel.saved_searches[index].platformTypes,
+            dataTypesModel = searchModel.saved_searches[index].dataTypes,
+            booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
+            configurationModel = searchModel.configuration,
+            bottomConfigModel = searchModel.bottom_config;
+
+            // populate accordion modules with saved data
+            this.loadSpatial(spatialModel);
+            this.loadTemporal(temporalModel);
+            this.loadFacilities(facilitiesModel);
+            this.loadSites(sitesModel);
+            this.loadPlatformTypes(platformTypesModel);
+            this.loadDataTypes(dataTypesModel);
+            this.loadBooleanExpression(booleanExpressionModel);
+            this.loadVisibility(configurationModel);
+            this.loadAccordionVisibility(bottomConfigModel);
+    },
+
     loadSpatial: function(spatialModel) {
         IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
     },

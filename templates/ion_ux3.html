@@ -347,46 +347,11 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
               $(this).on('click', function(e) {
                     e.preventDefault();
                     var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
-                    console.log("search model");
-                    console.log(searchModel);
 
                     // convert search model into string to pass to ajax call
                     var body = JSON.stringify(searchModel);
 
-                    var spatialModel = searchModel.saved_searches[index].spatial,
-                        temporalModel = searchModel.saved_searches[index].temporal,
-                        facilitiesModel = searchModel.saved_searches[index].facilities,
-                        sitesModel = searchModel.saved_searches[index].sites,
-                        platformTypesModel = searchModel.saved_searches[index].platformTypes,
-                        dataTypesModel = searchModel.saved_searches[index].dataTypes,
-                        booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
-                        configurationModel = searchModel.configuration,
-                        bottomConfigModel = searchModel.bottom_config;
-
-                        console.log("config model");
-                        console.log(configurationModel);
-
-                        console.log("boolean expression model");
-                        console.log(booleanExpressionModel);
-
-                    // populate accordion modules with saved data
-                    UINAV.loadSpatial(spatialModel);
-                    UINAV.loadTemporal(temporalModel);
-                    UINAV.loadFacilities(facilitiesModel);
-                    UINAV.loadSites(sitesModel);
-                    UINAV.loadPlatformTypes(platformTypesModel);
-                    UINAV.loadDataTypes(dataTypesModel);
-                    UINAV.loadBooleanExpression(booleanExpressionModel);
-
-                    UINAV.loadVisibility(configurationModel);
-                    UINAV.loadAccordionVisibility(bottomConfigModel);
-
-                    // trigger saved jquery sort order
-                    /*var $accordion_container = $('.accordionContainer .jspPane');
-                    UINAV.reorder(sortableOrder, configurationModel, $accordion_container);
-
-                    var $bottom_accordion = $('.accordionContainerWhite');
-                    UINAV.reorder_bottom(bottom_sortable, bottomConfigModel, $bottom_accordion);*/
+                    UINAV.loadLeftNav(searchModel, index);
                     
                     // open Search tab
                     $('#searchTab').trigger('click');
@@ -396,7 +361,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         if ($(this).find('input').next().attr('name') == "filter_arg") {
                             $(this).find('input').next().remove();
                         }
-                        //console.log("found arg" + $(this).find('input').next().attr('name'));//('select[name="filter_arg"].eq(1)').remove();
                     });
 
                 });
@@ -407,39 +371,9 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     e.preventDefault();
                     var searchModel = IONUX2.Collections.recentSearches.models[0].attributes;
 
-                    /*var spatialModel = searchModel.saved_searches[0].spatial,
-                        temporalModel = searchModel.saved_searches[0].temporal,
-                        facilitiesModel = searchModel.saved_searches[0].facilities,
-                        sitesModel = searchModel.saved_searches[0].sites,
-                        platformTypesModel = searchModel.saved_searches[0].platformTypes,
-                        dataTypesModel = searchModel.saved_searches[0].dataTypes,
-                        booleanExpressionModel = searchModel.saved_searches[0].booleanExpression,
-                        configurationModel = searchModel.configuration,
-                        bottomConfigModel = searchModel.bottom_config;*/
-                    var spatialModel = searchModel.saved_searches[index].spatial,
-                        temporalModel = searchModel.saved_searches[index].temporal,
-                        facilitiesModel = searchModel.saved_searches[index].facilities,
-                        sitesModel = searchModel.saved_searches[index].sites,
-                        platformTypesModel = searchModel.saved_searches[index].platformTypes,
-                        dataTypesModel = searchModel.saved_searches[index].dataTypes,
-                        booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
-                        configurationModel = searchModel.configuration,
-                        bottomConfigModel = searchModel.bottom_config;
-
-                    // populate accordion modules with saved data
-                    UINAV.loadSpatial(spatialModel);
-                    UINAV.loadTemporal(temporalModel);
-                    UINAV.loadFacilities(facilitiesModel);
-                    UINAV.loadSites(sitesModel);
-                    UINAV.loadPlatformTypes(platformTypesModel);
-                    UINAV.loadDataTypes(dataTypesModel);
-                    UINAV.loadBooleanExpression(booleanExpressionModel);
-
-                    UINAV.loadVisibility(configurationModel);
-                    UINAV.loadAccordionVisibility(bottomConfigModel);
+                    UINAV.loadLeftNav(searchModel, index);
 
                     $('#searchTab').trigger('click');
-
                     $('#booleanForm .filter-item').each(function(index) {
                         if ($(this).find('input').next().attr('name') == "filter_arg") {
                             $(this).find('input').next().remove();
