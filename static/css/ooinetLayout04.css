@@ -323,7 +323,8 @@ ul.nav {margin-top: 15px;}
  height:40%;
  background-color:#DBDEE5;
  z-index:4;
- overflow:auto;
+ /* overflow:auto; */
+ overflow:hidden;
 }
 
 .innerMain {
