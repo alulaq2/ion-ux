@@ -38,6 +38,17 @@ IONUX2.Views.LoadSearches = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.LoadRecentSearches = Backbone.View.extend({
+  el: '.recent_searches',
+  template: _.template(IONUX2.getTemplate('templates/recent_searches.html')),
+  initialize: function() {
+  },
+  render: function() {
+    this.$el.html(this.template(this.collection.toJSON()));
+    return this;
+  }
+});
+
 // responds to model in two ways.  Captures fetched template
 // and renders with loaded template when data (session) is
 // fetched.
@@ -89,6 +100,16 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
   saveName: function() {
     var name = $('.customName').val();
     UINAV.saveEntireSearch(name);
+    var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
+
+      if (parsed_collection.length != 0) {
+        var parsed_obj = parsed_collection[0].saved_searches.reverse();
+        var temp = parsed_obj;
+        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
+        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
+
+        IONUX2.Collections.saveNames.set(concat_obj);
+      }
     IONUX2.Collections.userProfileInstance.set({
         'userId': IONUX2.Models.SessionInstance.attributes.user_id,
         'name':  IONUX2.Models.SessionInstance.attributes.name,
@@ -112,229 +133,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       $('#navLeftMinimizeArrow').show();
       var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
       UINAV.postUserProfile(userProfile);
-      /*$('#customSearchName').hide();
-      $('#saveButtons').show();
-
-      var name = $('.customName').val();
-      var d = new Date();
-      var month = d.getMonth() + 1;
-      var day = d.getDate();
-      var year = d.getFullYear();
-      var hour = d.getHours();
-      var minute = d.getMinutes();
-      var time = d.getTime();
-
-      // store spatial input values and set to model
-      var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
-        from_latitude = $('#south').val(),
-        from_ns = $('.from_ns option:selected').val(),
-        from_longitude = $('#west').val(),
-        from_ew = $('.from_ew option:selected').val(),
-        to_latitude = $('.placeholder_lat').val(),
-        to_ns = $('.north_south_menu option:selected').val(),
-        to_longitude = $('.show_hide_longitude').val(),
-        to_ew = $('.to_ew option:selected').val(),
-        radius = $('#radius').val(),
-        miles_kilos = $('.milesKilosMenu').val(),
-        vertical_from = $('[data-verticalfrom]').val(),
-        vertical_to = $('[data-verticalto]').val(),
-        feet_miles = $('.feet_miles option:selected').val();
-
-    // save temporal input values and set to model
-    var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
-      from_year = $('.from_date_menu .year').val(),
-      from_month = $('.from_date_menu .month').val(),
-      from_day = $('.from_date_menu .day').val(),
-      from_hour = $('.from_date_menu .hour').val(),
-      to_year = $('.to_date_menu .year').val(),
-      to_month = $('.to_date_menu .month').val(),
-      to_day = $('.to_date_menu .day').val(),
-      to_hour = $('.to_date_menu .hour').val();
-
-    
-
-    var searchName = {
-      'time': time,
-      'name': name,
-      'month': month,
-      'day': day,
-      'year': year,
-      'hour': hour,
-      'minute': minute
-    };
-
-    var spatial = {
-      'spatial_dropdown': spatial_dropdown,
-      'from_latitude': from_latitude,
-      'from_ns': from_ns,
-      'from_longitude': from_longitude,
-      'from_ew': from_ew,
-      'to_latitude': to_latitude,
-      'to_ns': to_ns,
-      'to_longitude': to_longitude,
-      'to_ew': to_ew,
-      'radius': radius,
-      'miles_kilos': miles_kilos,
-      'vertical_from': vertical_from,
-      'vertical_to': vertical_to,
-      'feet_miles': feet_miles
-    };
-
-    IONUX2.Models.spatialModelInstance.set(spatial);
-
-    var temporal = {
-      'temporal_dropdown': temporal_dropdown,
-      'from_year': from_year,
-      'from_month': from_month,
-      'from_day': from_day,
-      'from_hour': from_hour,
-      'to_year': to_year,
-      'to_month': to_month,
-      'to_day': to_day,
-      'to_hour': to_hour
-    };
-
-    IONUX2.Models.temporalModelInstance.set(temporal);
-
-    // get facility checkbox values and add to collection
-    (function() {
-      var facilities_checked = [];
-      $('.list_facilities input').each(function(data) {
-        var facility_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        facilities_checked.push({ 'value' : facility_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
-    })();
-
-
-    (function() {
-      // get sites checkbox values and add to collection
-      var sites_checked = [];
-      $('.list_sites input').each(function(data) {
-        var site_id = $(this).data('id');
-        var is_checked = $(this).prop('checked');
-        sites_checked.push({ 'id' : site_id, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveSiteSearch.set(sites_checked);
-    })();
-
-    (function() {
-      // get platform types checkbox values and add to collection
-      var platform_checked = [];
-      $('.listPlatformTypes input').each(function(data) {
-        var is_checked = $(this).prop('checked');
-        platform_checked.push({ 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.savePlatformSearch.set(platform_checked);
-    })();
-
-    (function() {
-      // get data type checkbox values and add to collection
-      var datatype_checked = [];
-      $('.listDataTypes input').each(function(data) {
-        var datatype_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        datatype_checked.push({ 'datatype_value' : datatype_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveDataTypeSearch.set(datatype_checked);
-    })();
-
-    (function() {
-      // get boolean expression input values and add to collection
-      var boolean_expression_list = [];
-      $('#boolean_expression .filter-item').each(function(index) {
-        var boolean_main_filter = $(this).find('.booleanSelectContainer[name="filter_var"] option:selected').data('name'),
-          boolean_sub_filter = $(this).find('.booleanSelectContainer[name="filter_operator"] option:selected').attr('value');
-          if (boolean_sub_filter == undefined) {
-            boolean_sub_filter = "";
-          }
-          var boolean_input;
-          if ((boolean_main_filter == "lcstate") || (boolean_main_filter == "processing_level_code") || (boolean_main_filter == "quality_control_level") || (boolean_main_filter == "site") || (boolean_main_filter == "aggregated_status") || (boolean_main_filter == "type_")) {
-            boolean_input = $(this).find('.booleanSelectContainer[name="filter_arg"] option:selected').attr('value');
-          console.log("boolean input is " + boolean_input);
-          }
-          else {
-            boolean_input = $(this).find('.booleanInput').val();
-            console.log("boolean input is " + boolean_input);
-          }
-       
-        boolean_expression_list.push({ 'boolean_main_filter' : boolean_main_filter, 'boolean_sub_filter' : boolean_sub_filter, 'boolean_input': boolean_input });
-        console.log("boolean expression list");
-        console.log(boolean_expression_list);
-      });
-      IONUX2.Collections.saveBooleanExpression.set(boolean_expression_list);
-    })();
-
-    (function() {
-      // get visibility state for bottom accordion elements and add to collection
-      var accordion_list = [];
-      var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
-      tabs = tabs.substring(0, tabs.length -3);
-      var getElement = "#" + tabs + "Accordion .accordionWhite";
-      $(getElement).each(function(item) {
-        var accordion_id = 'accordion' + $(this).attr('id');
-        var $accordion_contents = $(this).find('.accordionContents:visible').length;
-          accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
-        });
-        IONUX2.Collections.saveAccordionConfig.set(accordion_list);
-        console.log("accordion config is");
-        console.log(IONUX2.Collections.saveAccordionConfig);
-    })();
-
-      var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
-      var platformTypes = IONUX2.Collections.savePlatformSearch.toJSON();
-      var sites = IONUX2.Collections.saveSiteSearch.toJSON();
-      var dataTypes = IONUX2.Collections.saveDataTypeSearch.toJSON();
-      var booleanExpression = IONUX2.Collections.saveBooleanExpression.toJSON();
-
-      var values = {
-        'searchName': searchName,
-        'spatial' : spatial,
-        'temporal': temporal,
-        'facilities' : facilities,
-        'sites': sites,
-        'platformTypes': platformTypes,
-        'dataTypes': dataTypes,
-        'booleanExpression': booleanExpression
-      };
-
-      IONUX2.Collections.saveNames.set(values);
-
-      var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
-
-      if (parsed_collection.length != 0) {
-        var parsed_obj = parsed_collection[0].saved_searches.reverse();
-        var temp = parsed_obj;
-        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
-        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
-
-        IONUX2.Collections.saveNames.set(concat_obj);
-      }
-      
-      IONUX2.Collections.userProfileInstance.set({
-        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-        'name':  IONUX2.Models.SessionInstance.attributes.name,
-        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-        'configuration': {
-            'spatialElem': $('#spatial').is(':visible'),
-            'temporalElem': $('#temporal').is(':visible'),
-            'orgSelectorElem': $('#orgSelector').is(':visible'),
-            'siteElem': $('#site').is(':visible'),
-            'platformTypesListElem': $('#platformTypesList').is(':visible'),
-            'dataTypesListElem': $('#dataTypesList').is(':visible'),
-            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
-            'instrumentElem': $('#instrument').is(':visible')
-        },
-        'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
-        'saved_searches': IONUX2.Collections.saveNames.toJSON()
-      });
-
-      //remove previous input text so that name placeholder shows
-      $('.customName').val(''); 
-      $('#navLeftMinimizeArrow').show();
-      var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
-      UINAV.postUserProfile(userProfile);*/
   },
 
   saveSearch: function() {

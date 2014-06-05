@@ -61,6 +61,9 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
+            <h2>Recent Searches</h2>
+            <ul class="recent_searches">
+            </ul>
             <h2>My Saved Searches</h2>
         <ul class="list_mysearches">
         </ul>
@@ -329,12 +332,14 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         
            
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+        IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
 
 
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
             IONUX2.Views.loadSearchCollection.render();
+            IONUX2.Views.loadRecentSearches.render();
             
             // loop through list of saved searches
             $('.savedSearch').each(function(index) {
@@ -394,6 +399,43 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         //console.log("found arg" + $(this).find('input').next().attr('name'));//('select[name="filter_arg"].eq(1)').remove();
                     });
 
+                });
+            });
+
+            $('.recentSearch').each(function(index) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var searchModel = IONUX2.Collections.recentSearches.models[index].attributes;
+
+                    var spatialModel = searchModel.saved_searches[0].spatial,
+                        temporalModel = searchModel.saved_searches[0].temporal,
+                        facilitiesModel = searchModel.saved_searches[0].facilities,
+                        sitesModel = searchModel.saved_searches[0].sites,
+                        platformTypesModel = searchModel.saved_searches[0].platformTypes,
+                        dataTypesModel = searchModel.saved_searches[0].dataTypes,
+                        booleanExpressionModel = searchModel.saved_searches[0].booleanExpression,
+                        configurationModel = searchModel.configuration,
+                        bottomConfigModel = searchModel.bottom_config;
+
+                    // populate accordion modules with saved data
+                    UINAV.loadSpatial(spatialModel);
+                    UINAV.loadTemporal(temporalModel);
+                    UINAV.loadFacilities(facilitiesModel);
+                    UINAV.loadSites(sitesModel);
+                    UINAV.loadPlatformTypes(platformTypesModel);
+                    UINAV.loadDataTypes(dataTypesModel);
+                    UINAV.loadBooleanExpression(booleanExpressionModel);
+
+                    UINAV.loadVisibility(configurationModel);
+                    UINAV.loadAccordionVisibility(bottomConfigModel);
+
+                    $('#searchTab').trigger('click');
+
+                    $('#booleanForm .filter-item').each(function(index) {
+                        if ($(this).find('input').next().attr('name') == "filter_arg") {
+                            $(this).find('input').next().remove();
+                        }
+                    });
                 });
             });
             

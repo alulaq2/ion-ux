@@ -482,40 +482,6 @@ var UINAV = {
       };
 
       IONUX2.Collections.saveNames.set(values);
-
-      var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
-
-      if (parsed_collection.length != 0) {
-        var parsed_obj = parsed_collection[0].saved_searches.reverse();
-        var temp = parsed_obj;
-        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
-        //var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON());
-
-        IONUX2.Collections.saveNames.set(concat_obj);
-      }
       
-      /*IONUX2.Collections.userProfileInstance.set({
-        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-        'name':  IONUX2.Models.SessionInstance.attributes.name,
-        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-        'configuration': {
-            'spatialElem': $('#spatial').is(':visible'),
-            'temporalElem': $('#temporal').is(':visible'),
-            'orgSelectorElem': $('#orgSelector').is(':visible'),
-            'siteElem': $('#site').is(':visible'),
-            'platformTypesListElem': $('#platformTypesList').is(':visible'),
-            'dataTypesListElem': $('#dataTypesList').is(':visible'),
-            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
-            'instrumentElem': $('#instrument').is(':visible')
-        },
-        'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
-        'saved_searches': IONUX2.Collections.saveNames.toJSON()
-      });
-
-      //remove previous input text so that name placeholder shows
-      $('.customName').val(''); 
-      $('#navLeftMinimizeArrow').show();
-      var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
-      UINAV.postUserProfile(userProfile);*/
     }
 };

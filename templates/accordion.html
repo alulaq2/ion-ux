@@ -154,7 +154,6 @@
           console.log(IONUX2.Models.sortModelInstance);
         });
 
-
         $('#searchBtn').on('click', function(){
           search_clicked();
           IONUX2.setPageView("searchResults");
@@ -164,9 +163,12 @@
           if($('#legacyFacePageTab').hasClass('active')){
             $('#dataSearchResultsTab').click();
           }
+
+          //save recent searches
           var name = "";
           UINAV.saveEntireSearch(name);
-          IONUX2.Collections.recentSearches.set({
+          
+          IONUX2.Collections.recentSearches.add({
             'userId': IONUX2.Models.SessionInstance.attributes.user_id,
             'name':  name,
             'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,

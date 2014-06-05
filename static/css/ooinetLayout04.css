@@ -983,11 +983,11 @@ input.noPlaceholderRadius {
   color: #fff;
 }
 
-.list_mysearches {
+.list_mysearches, .recent_searches {
   list-style: none;
 }
 
-.list_mysearches a {
+.list_mysearches a, .recent_searches a {
   color: #fff;
 }
 
