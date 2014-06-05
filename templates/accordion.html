@@ -164,6 +164,25 @@
           if($('#legacyFacePageTab').hasClass('active')){
             $('#dataSearchResultsTab').click();
           }
+          var name = "";
+          UINAV.saveEntireSearch(name);
+          IONUX2.Collections.recentSearches.set({
+            'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+            'name':  name,
+            'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+            'configuration': {
+              'spatialElem': $('#spatial').is(':visible'),
+              'temporalElem': $('#temporal').is(':visible'),
+              'orgSelectorElem': $('#orgSelector').is(':visible'),
+              'siteElem': $('#site').is(':visible'),
+              'platformTypesListElem': $('#platformTypesList').is(':visible'),
+              'dataTypesListElem': $('#dataTypesList').is(':visible'),
+              'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+              'instrumentElem': $('#instrument').is(':visible')
+            },
+            'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
+            'saved_searches': IONUX2.Collections.saveNames.toJSON()
+          });
         });
 
         $('#resetBtn').on('click', function(){

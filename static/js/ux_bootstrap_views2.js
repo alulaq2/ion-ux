@@ -87,7 +87,32 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     });
   },
   saveName: function() {
-      $('#customSearchName').hide();
+    var name = $('.customName').val();
+    UINAV.saveEntireSearch(name);
+    IONUX2.Collections.userProfileInstance.set({
+        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+        'name':  IONUX2.Models.SessionInstance.attributes.name,
+        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+        'configuration': {
+            'spatialElem': $('#spatial').is(':visible'),
+            'temporalElem': $('#temporal').is(':visible'),
+            'orgSelectorElem': $('#orgSelector').is(':visible'),
+            'siteElem': $('#site').is(':visible'),
+            'platformTypesListElem': $('#platformTypesList').is(':visible'),
+            'dataTypesListElem': $('#dataTypesList').is(':visible'),
+            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+            'instrumentElem': $('#instrument').is(':visible')
+        },
+        'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
+        'saved_searches': IONUX2.Collections.saveNames.toJSON()
+      });
+
+      //remove previous input text so that name placeholder shows
+      $('.customName').val(''); 
+      $('#navLeftMinimizeArrow').show();
+      var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
+      UINAV.postUserProfile(userProfile);
+      /*$('#customSearchName').hide();
       $('#saveButtons').show();
 
       var name = $('.customName').val();
@@ -309,7 +334,7 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
       $('.customName').val(''); 
       $('#navLeftMinimizeArrow').show();
       var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
-      UINAV.postUserProfile(userProfile);
+      UINAV.postUserProfile(userProfile);*/
   },
 
   saveSearch: function() {

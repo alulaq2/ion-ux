@@ -367,6 +367,9 @@ IONUX2.Collections.saveBooleanExpression = new IONUX2.Collections.SaveBooleanExp
 IONUX2.Collections.SaveAccordionConfig = Backbone.Collection.extend({});
 IONUX2.Collections.saveAccordionConfig = new IONUX2.Collections.SaveAccordionConfig();
 
+IONUX2.Collections.RecentSearches = Backbone.Collection.extend({});
+IONUX2.Collections.recentSearches = new IONUX2.Collections.RecentSearches();
+
 IONUX2.Models.Facilities = Backbone.Model.extend({});
 IONUX2.Models.facilities = new IONUX2.Models.Facilities();
 
