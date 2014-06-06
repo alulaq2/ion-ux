@@ -976,7 +976,7 @@ input.noPlaceholderRadius {
 }
 
 #mySearchesTabContent h2 {
-  margin: 0 0 20px 24px;
+  margin: 0 0 10px 24px;
   padding: 0;
   line-height: 16px;
   font-size: 16px;
@@ -989,6 +989,10 @@ input.noPlaceholderRadius {
 
 .list_mysearches a, .recent_searches a {
   color: #fff;
+}
+
+.recent_searches {
+  margin-bottom: 18px;
 }
 
 .deleteSearch {
