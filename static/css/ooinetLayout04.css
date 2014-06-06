@@ -27,7 +27,7 @@ body {
  padding:0px;
 }
 
-a:focus, object:focus {outline:none; -moz-outline-style:none}
+a:focus, object:focus, div:focus {outline:none; -moz-outline-style:none}
 
 #header2 {
  position:fixed;
