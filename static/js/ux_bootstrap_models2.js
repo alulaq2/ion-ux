@@ -171,10 +171,10 @@ IONUX2.Models.SearchTabContent = Backbone.Model.extend({
   initialize: function() {
     console.log('initializing left sidebar model');
   },
-  url: '/templates/accordion.html',
+  url: '/templates/left_nav.html',
   html: '',
   parse: function(resp){
-    console.log('got response from /bootstrap/accordion.html.');
+    console.log('got response from /templates/left_nav.html.');
     this.html = resp;
     this.trigger('change:html');
     return resp;
