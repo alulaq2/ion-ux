@@ -1454,6 +1454,7 @@ input.noPlaceholderRadius {
   box-sizing:border-box;
   -moz-box-sizing:border-box; /* Firefox 28 and earlier*/
 }
+
 .editResourceFooter {
   position: relative;
   text-align:center;
