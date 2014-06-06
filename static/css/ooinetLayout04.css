@@ -166,10 +166,17 @@ a:focus, object:focus, div:focus {outline:none; -moz-outline-style:none}
 
 /* legacy facepage */
 
-#legacyFacePage {
-  position: relative;
-  width: 100%;
-  background: #384d68;
+#legacyFacePageTab {
+position:absolute;
+bottom:0px;
+right:36px;
+}
+
+#legacyFacePageContent {
+position: relative;
+background: #384d68;
+width:100%;
+overflow: auto;
 }
 
 a.paginate_disabled_previous, a.paginate_disabled_next {
@@ -287,6 +294,7 @@ ul.nav {margin-top: 15px;}
   /* background-color: #DBDEE5; */
   box-sizing:border-box;
   -moz-box-sizing:border-box; /* Firefox 28 and earlier*/
+  border:none;
 }
 
 #left2 {
@@ -296,7 +304,7 @@ ul.nav {margin-top: 15px;}
  left:0px;
  height:calc(100% - 104px);
  width:275px;
- overflow: auto;
+ overflow: hidden;
  z-index: 10;
 }
 
@@ -676,6 +684,13 @@ ul.dropdown-menu li:hover {
   display: inline-block;
 }
 
+#keyword .accordionLabel { /* related to 'input.keyword' */
+  color: #FFF;
+  padding: 0px;
+  display: inline-block;
+  margin: 0px 6px auto 7px;
+}
+
 .leftAccordionContents {
   margin-left: 13px;
   /*position: relative;
@@ -833,8 +848,8 @@ input.latlong {
   line-height:12px;
 }
 
- input.keyword {
-  width: calc(100% - 58px);
+ input.keyword { /* related to '#keyword .accordionLabel' */
+  width: calc(100% - 70px);
   margin-left: 4px;
   margin-bottom: 2px;
 }
@@ -990,7 +1005,8 @@ input.noPlaceholderRadius {
 }
 
 .leftAccordionContents select option {
-  background-color: #88A9CC;
+  background-color: #7b95b3;
+  color:#FFF;
 }
 
 .leftAccordionContents h5 {
@@ -1000,7 +1016,8 @@ input.noPlaceholderRadius {
 
 .labelThrough {
   display: block;
-  margin:0px
+  line-height: 8px;
+  margin-top: 8px;
 }
 
 .arrowDown { /* not called in another file */
@@ -1183,6 +1200,7 @@ input.noPlaceholderRadius {
 /* jscroll overrides - start */
 
 #searchResultsContainer .jspVerticalBar {right: 4px;}
+.jspVerticalBar {right: 4px;}
 #searchResultsContainer .jspTrack {background: none;}
 #searchResultsContainer .jspDrag {background: #88A9CC;}
 .accordionContainer .jspVerticalBar {right: 4px;}
@@ -1356,12 +1374,6 @@ input.noPlaceholderRadius {
 #createResourceOverlay .btn-save {
   right: 50%;
   top: 5px;
-}
-
-#legacyFacePageTab {
-  position:absolute; 
-  bottom:0px; 
-  right:36px;
 }
 
 #createResourceOverlay {
