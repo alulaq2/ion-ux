@@ -1,9 +1,11 @@
 var UINAV = {
 	reorder: function(orderArray, configurationList, elementContainer) {
         console.log("reordering");
+        console.log(orderArray);
         console.log(elementContainer);
         // load configuration and sortable order for left accordion
         $.each(orderArray, function(key, val){
+            console.log("leftnav value is " + val);
             elementContainer.append($("#"+val));
      	});
 
@@ -273,7 +275,7 @@ var UINAV = {
         console.log(bottomConfigList);
         
         // trigger saved jquery sort order
-        var $accordion_container = $('.accordionContainer .jspPane');
+        var $accordion_container = $('.accordionContainer');
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
         var dataTypesList = [
