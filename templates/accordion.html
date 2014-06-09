@@ -66,6 +66,8 @@
       $(function(){
         IONUX2.Views.leftAccordion = new IONUX2.Views.LeftAccordion(); /* CLEAN UP THIS NAMING !! */
 
+
+
         var accordions = {
           'spatial': {
               title: 'Spatial',
@@ -129,12 +131,28 @@
 
         IONUX2.Views.boolean.render();
 
+        if (IONUX2.Models.SessionInstance.is_logged_in) {
+            // show save config buttons
+            $('#saveConfiguration').show();
+            UINAV.getUserProfile();
+            UINAV.getUserConfiguration();
+        }
+
         $("#platformTypesList").html(IONUX2.getTemplate('templates/block_platform_types2.html'));
 
         $('.accordionContainer').sortable({
-          items: "article:not(.accordion_fixed)"
+          items: "article:not(.accordion_fixed)",
+          update: function( event, ui ) {
+          }
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});
+
+        $(".accordionContainer" ).on( "sortupdate", function( event, ui ) {
+          var sortable_order = $(this).sortable( "toArray" );
+          IONUX2.Models.sortModelInstance.set({'sort_order': sortable_order});
+          console.log("sort order model");
+          console.log(IONUX2.Models.sortModelInstance);
+        });
 
         $('#searchBtn').on('click', function(){
           search_clicked();
@@ -145,6 +163,41 @@
           if($('#legacyFacePageTab').hasClass('active')){
             $('#dataSearchResultsTab').click();
           }
+
+          //save recent searches
+          var name = "";
+          UINAV.saveEntireSearch(name);
+          var maxLength = 5;
+          var parsed_collection = IONUX2.Collections.recentSearches.toJSON();
+
+          if (parsed_collection.length != 0) {
+            var collection_length = parsed_collection.length;
+            var search_length = parsed_collection[0].saved_searches.length;
+            console.log("search collection length is " + search_length);
+            if (search_length == maxLength) {
+               IONUX2.Collections.recentSearches.models[0].attributes.saved_searches.shift();
+            }
+            var parsed_obj = parsed_collection[0].saved_searches.reverse();
+            var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
+            IONUX2.Collections.saveNames.set(concat_obj);
+          }
+          IONUX2.Collections.recentSearches.set({
+            'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+            'name':  name,
+            'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+            'configuration': {
+              'spatialElem': $('#spatial').is(':visible'),
+              'temporalElem': $('#temporal').is(':visible'),
+              'orgSelectorElem': $('#orgSelector').is(':visible'),
+              'siteElem': $('#site').is(':visible'),
+              'platformTypesListElem': $('#platformTypesList').is(':visible'),
+              'dataTypesListElem': $('#dataTypesList').is(':visible'),
+              'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+              'instrumentElem': $('#instrument').is(':visible')
+            },
+            'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
+            'saved_searches': IONUX2.Collections.saveNames.toJSON()
+          });
         });
 
         $('#resetBtn').on('click', function(){
@@ -183,6 +236,8 @@
       });
 
       var disableMapEventHandling = false;
+
+
 
       IONUX2.openSpatialAccordion = function() {
         if(!disableMapEventHandling){

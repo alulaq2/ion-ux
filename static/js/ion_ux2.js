@@ -86,11 +86,6 @@ IONUX2 = {
 	    var router = new IONUX.Router();
 	    IONUX2.ROUTER = router;
 
-		/*IONUX2.Models.saveCustomName.fetch({
-			async: false,
-			dataType: 'html'
-		});*/
-
 		IONUX2.Models.SearchTabContentInstance = new IONUX2.Models.SearchTabContent();
 		IONUX2.Views.SearchTabContentInstance = new IONUX2.Views.SearchTabContent({model: IONUX2.Models.SearchTabContentInstance});
 		IONUX2.Models.SearchTabContentInstance.fetch({
@@ -131,11 +126,7 @@ IONUX2 = {
 
 	    IONUX2.Models.SessionInstance.set_polling();
 
-	    // check if user is logged in
-	    if (IONUX2.Models.SessionInstance.attributes.user_id != null) {
-	    	// show save config buttons
-	    	// $('#saveConfiguration').show();
-	    }
+	    
 	    
         //new IONUX.Views.OrgSelector({collection: IONUX.Dashboard.Orgs, title: 'Facility'}).render().el;
 
