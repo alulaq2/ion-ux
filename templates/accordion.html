@@ -142,8 +142,7 @@
 
         $('.accordionContainer').sortable({
           items: "article:not(.accordion_fixed)",
-          update: function( event, ui ) {
-          }
+          distance: 5
         });
         $('.accordionContainer').jScrollPane({autoReinitialise: true});
 
