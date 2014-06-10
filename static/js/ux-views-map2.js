@@ -427,10 +427,19 @@ IONUX2.Views.Map = Backbone.View.extend({
     var e = ne.lng();
     var s = sw.lat();
     var w = sw.lng();
-    $("#southFm").val(n.toFixed(4));
-    $("#westFm").val(e.toFixed(4));
-    $("#northFm").val(s.toFixed(4));
-    $("#eastFm").val(w.toFixed(4));
+    
+    if (n != "") {
+      $("#southFm").val(n.toFixed(4));
+    }
+    if (e != "") {
+      $("#westFm").val(e.toFixed(4));
+    }
+    if (s != "") {
+      $("#northFm").val(s.toFixed(4));
+    }
+    if (w != "") {
+      $("#eastFm").val(w.toFixed(4));
+    }
     
     var attribute = {};
 
@@ -461,11 +470,10 @@ IONUX2.Views.Map = Backbone.View.extend({
       attribute["from_ew"] = "2";
       w = w * -1;
     }
-
-    attribute["from_longitude"] = w.toFixed(2);
-    attribute["from_latitude"] = s.toFixed(2);
-    attribute["to_longitude"] = e.toFixed(2);
-    attribute["to_latitude"] = n.toFixed(2);
+    if (w != "") { attribute["from_longitude"] = w.toFixed(2); }
+    if (s != "") { attribute["from_latitude"] = s.toFixed(2); }
+    if (e != "") { attribute["to_longitude"] = e.toFixed(2); }
+    if (n != "") { attribute["to_latitude"] = n.toFixed(2); }
     this.update_spatial_model(attribute);
 
   },
@@ -474,8 +482,9 @@ IONUX2.Views.Map = Backbone.View.extend({
     var model = IONUX2.Models.spatialModelInstance.attributes;
     var s = sw.lat();
     var w = sw.lng();
-    $("#southFm").val(s.toFixed(4));
-    $("#westFm").val(w.toFixed(4));
+
+    if (s != "") { $("#southFm").val(s.toFixed(4)); }
+    if (w != "") { $("#westFm").val(w.toFixed(4)); }
     // convert meters to degrees
     $("#radiusFm").val(radius/111325);
 
@@ -495,16 +504,17 @@ IONUX2.Views.Map = Backbone.View.extend({
       w = w * -1;
     }
 
-    attribute["from_longitude"] = w.toFixed(2);
-    attribute["from_latitude"] = s.toFixed(2);
+    if (w != "") { attribute["from_longitude"] = w.toFixed(2); }
+    if (s != "") { attribute["from_latitude"] = s.toFixed(2); }
 
     if(model.miles_kilos == "1"){
       radius = radius/1000;
     } else {
       radius = radius*0.000621371
     }
+    if (radius != "") {
     attribute["radius"] = radius.toFixed(2);
-
+  }
     this.update_spatial_model(attribute);
 
   },
