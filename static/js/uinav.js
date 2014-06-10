@@ -185,8 +185,13 @@ var UINAV = {
                 
             }
             else {
-                $('.argument, select[name="filter_operator"], .booleanInput').remove();
-                $('.filter-add').before('<select class="booleanSelectContainer" name="filter_operator"><option value="contains">contains</option><option value="like">like</option><option value="matches">matches</option><option value="starts with">starts with</option><option value="ends with">ends with</option></select><input type="text" class="booleanInput" name="filter_arg" value="">');
+                var argument = $('.filter-item').eq(key).find('.argument').length;
+                console.log("argument");
+                console.log("key is " + key + " and argument is " + argument);
+                if (argument == 1) {
+                    $('.filter-add').eq(key).before('<select class="booleanSelectContainer" name="filter_operator"><option value="contains">contains</option><option value="like">like</option><option value="matches">matches</option><option value="starts with">starts with</option><option value="ends with">ends with</option></select><input type="text" class="booleanInput" name="filter_arg" value="">');
+                    $('.filter-item').eq(key).find('.argument').remove();
+                }
                 $('.filter-item').eq(key).find('select[name="filter_operator"]').val(booleanModel.boolean_sub_filter);
                 $('.filter-item').eq(key).find('.booleanInput').val(booleanModel.boolean_input);
             }
@@ -332,6 +337,9 @@ var UINAV = {
       var year = d.getFullYear();
       var hour = d.getHours();
       var minute = d.getMinutes();
+      if ((minute.length) == 1) {
+        minute = '0' + minute;
+      }
       var time = d.getTime();
 
       // store spatial input values and set to model
