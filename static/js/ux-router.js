@@ -24,6 +24,7 @@ IONUX.Router = Backbone.Router.extend({
     ":resource_type/:view_type/:resource_id/edit" : "edit",
     "userprofile" :                                 "user_profile",
     "create_account":                               "create_account",
+    "asset_tracking":                               "asset_tracking" 
   },
   
   dashboard_map: function(){
@@ -331,6 +332,10 @@ dashboard_map_resource: function(resource_id) {
         // Pull back recent events as a 2nd request.
         fetch_events(window.MODEL_DATA['resource_type'], resource_id);
       });
+  },
+
+  asset_tracking: function() {
+    IONUX2.setPageView("assetTracking");
   },
   
   command: function(resource_type, resource_id){
