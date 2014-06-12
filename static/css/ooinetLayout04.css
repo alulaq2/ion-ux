@@ -61,9 +61,13 @@ a:focus, object:focus {outline:none; -moz-outline-style:none}
   'outline:1px solid #F00;
 }
 
+#adminMenu a:link, #adminMenu a:visited {
+  color: #fff;
+}
+
 .adminMenuTab {
   display:inline-block;
-    color:#fff;
+  color:#fff;
   height:19px;
   padding:0px 8px;
   max-width:120px;
@@ -685,6 +689,20 @@ ul.dropdown-menu li:hover {
   right: 17px;
 }
 
+#saveName {
+  height: 18px;
+  line-height: 12px;
+  margin: 5px 7px 5px auto;
+  background-color: #7b99b5;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  overflow: none;
+  float: right;
+  border-radius: 5px;
+  border: 1px solid #9DDFF2;
+}
+
 .navButton:hover {
   border: 1px solid #fff;
 }
@@ -737,10 +755,21 @@ background-color: #7B99B5;
 #saveConfiguration {
   margin-top: 2px;
   position: absolute;
+  display: none;
 }
 
-#saveConfiguration {
-  display: none;
+#saveConfigBtn {
+  height: 18px;
+  line-height: 12px;
+  margin: 5px 7px 5px auto;
+  background-color: #7b99b5;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  overflow: none;
+  float: right;
+  border-radius: 5px;
+  border: 1px solid #9DDFF2;
 }
 
 .leftAccordion {
@@ -1059,10 +1088,50 @@ input.noPlaceholderRadius {
 
 /* instrument view */
 
-.instrument_list {
+#mySearchesTabContent h2 {
+  margin: 0 0 10px 24px;
+  padding: 0;
+  line-height: 16px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.list_mysearches, .recent_searches {
+  list-style: none;
+}
+
+.list_mysearches a, .recent_searches a {
+  color: #fff;
+}
+
+.recent_searches {
+  margin-bottom: 18px;
+}
+
+.deleteSearch {
+  float: right;
+  margin-right: 10px;
+}
+
+/* instrument view */
+
+.instrument_list, .dataTypeList {
   list-style: none;
   margin-left: 0;
   margin-bottom: 0;
+}
+
+.itemName {
+  display: inline-block;
+  width: 90%;
+}
+
+.alignCheckbox {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  top: 4px;
+  padding-right: 2px;
 }
 
 .accordionDetailContainer {

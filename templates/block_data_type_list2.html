@@ -3,8 +3,12 @@
 </div>
 <div class="listDataTypes">
 	<form action="">
+		<ul class="dataTypeList">
         <% _.each(resources, function(name) { %>
-            <input type="checkbox" value="<%= name %>"/><span> <%= name %></span><br/>
+        	<li>
+            	<input type="checkbox" class="alignCheckbox" value="<%= name %>"/><span class="itemName"> <%= name %></span>
+        	</li>
         <% }) %>
+    	</ul>
     </form>
 </div>

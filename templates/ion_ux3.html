@@ -46,10 +46,9 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             <div id="mySearchesTab" class="twoNavTab" href="#mySearchesTabContent">My Searches</div>
         </div>
     </div>
-	<div id="mainSubheader" align="left">
+    <div id="mainSubheader" align="left">
         <div id="saveConfiguration" style="display:none;">
             <button class="textRight" id="saveConfigBtn">Save Configuration</button>
-            <button class="textRight" id="loadConfigBtn">Load Configuration</button>
         </div>
         <div id="mapToolbar" state="mapSplit">  <!-- states are mapFull, mapSplit, and mapHidden -->
             <div class="mapButtonFull" title="Full Map View"> </div>
@@ -62,6 +61,10 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     <div id="left2">
         <div id="searchTabContent"> </div>
         <div id="mySearchesTabContent" style="display:none;">
+            <h2>Recent Searches</h2>
+            <ul class="recent_searches">
+            </ul>
+            <h2>My Saved Searches</h2>
         <ul class="list_mysearches">
         </ul>
         </div>
@@ -110,7 +113,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     {% block inherit_ionux_js %} {% endblock %}
 
     <script src="/static/js/ion_ux2.js"> </script>
-    <!-- <script src="/static/js/ux-router2.js"> </script> -->
     <script src="/static/js/ux_bootstrap_models2.js"> </script>
     <script src="/static/js/ux_bootstrap_views2.js"> </script>
     <script src="/static/js/ux-models-map2.js"> </script>
@@ -126,16 +128,13 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         function buildAdminMenu(){
             $('#adminMenu').html('');
             $('#adminMenu').append('<div id="myDashboard" class="adminMenuTab" style="display:inline-block;">My Dashboard</div>');
-
-            $("#myDashboard").click(function(e){
-                // IONUX.ROUTER.navigate("", {trigger: true});
+            $('#myDashboard').click(function(e) {
                 IONUX2.setPageView("searchResults");
                 if(IONUX2.getMapState() == "mapHidden"){
                     IONUX2.setMapState('mapSplit');
                 }
             });
-
-            // ***** These menu items not added yet until functionality is available for them. ****
+            
             if(false){
                 // commenting out the temporary load lines so the page doesn't do unexpected shocking
                 // things that might upset testers and customers.
@@ -161,14 +160,12 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
                 $('#adminMenu').append('<div id="resourceManagement" class="adminMenuTab" style="display:inline-block;">Resource Mgmt</div>');
 
-                $("#assetTracking").click(function(e){
-                    // $("#lowerMain").html(IONUX2.getTemplate('templates/blockAssetTracking.html')).show();
-                    // $(".mapButtonHidden").click();
+                $('#assetTracking').click(function(e) {
                     IONUX2.setPageView("assetTracking");
                 });
-
-                $("#resourceManagement").click(function(e){
-                    // IONUX.ROUTER.navigate("/hmmm/", {trigger: true});
+                
+                $('#adminMenu').append('<div id="resourceManagement" class="adminMenuTab" style="display:inline-block;">Resource Mgmt</div>');
+                $('#resourceManagement').click(function(e) {
                     IONUX2.setPageView("createResource");
                 });
             }
@@ -310,11 +307,14 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
         // Initialize the page now.
         $(function(){
+
             IONUX2.init();
 
             buildAdminMenu();
 
             IONUX2.setPageView('searchResults');
+
+            //Backbone.history.start(/*{pushState:true, hashChange: false}*/);
 
             $(".mapButtonFull").click(function(){
                 IONUX2.setMapState('mapFull');
@@ -328,65 +328,79 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 IONUX2.setMapState('mapHidden');
             });
 
-            IONUX2.Views.mySearches = new IONUX2.Views.MySearches({collection: IONUX2.Collections.saveNames});      
+           
+        IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+        IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
+
+
+        $('#mySearchesTab').on('click', function(e) {
+            e.preventDefault();
+
+            IONUX2.Views.loadSearchCollection.render();
+            IONUX2.Views.loadRecentSearches.render();
             
-            $('#mySearchesTab').on('click', function(e) {
-                e.preventDefault();
-
-                // render my searches view
-                IONUX2.Views.mySearches.render();
+            // loop through list of saved searches
+            $('.savedSearch').each(function(index) {
                 
-                // loop through list of saved searches
-                $('.list_mysearches a').each(function(index) {
+              $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
+
+                    // convert search model into string to pass to ajax call
+                    var body = JSON.stringify(searchModel);
+
+                    UINAV.loadLeftNav(searchModel, index);
                     
-                  $(this).on('click', function(e) {
-                        e.preventDefault();
-
-                        // retrieve model at current index from collection
-                        var searchModel = IONUX2.Collections.saveNames.at(index);
-
-                        // convert search model into string to pass to ajax call
-                        var body = JSON.stringify(searchModel);
-
-                        // post user profile to server
-                        //UINAV.postUserProfile(body);
-
-                        // get user profile from server
-                        //UINAV.getUserProfile();
-
-                        //var searches = JSON.stringify(searchModel);
-                        //IONUX2.Models.ProfileInstance.attributes.saveNames = searches;
-
-                        
-                        // separate accordion modules into their own models
-                        var spatialModel = searchModel.attributes.spatial,
-                            temporalModel = searchModel.attributes.temporal,
-                            facilitiesModel = searchModel.attributes.facilities,
-                            regionsModel = searchModel.attributes.regions,
-                            sitesModel = searchModel.attributes.sites,
-                            dataTypesModel = searchModel.attributes.dataTypes,
-                            sortableOrder = searchModel.attributes.sortableOrder;
-
-                        // trigger saved jquery sort order
-                        //var $accordion_container = $('.jspPane');
-                        //UINAV.reorder(sortableOrder.sortable_order, $accordion_container);
-                        
-                        // populate accordion modules with saved data
-                        UINAV.loadSpatial(spatialModel);
-                        UINAV.loadTemporal(temporalModel);
-                        UINAV.loadFacilities(facilitiesModel);
-                        UINAV.loadRegions(regionsModel);
-                        UINAV.loadSites(sitesModel);
-                        UINAV.loadDataTypes(dataTypesModel);
-
                     // open Search tab
                     $('#searchTab').trigger('click');
                     $('#searchBtn').click();
-                
+
+                    $('#booleanForm .filter-item').each(function(index) {
+                        if ($(this).find('input').next().attr('name') == "filter_arg") {
+                            $(this).find('input').next().remove();
+                        }
+                    });
+
+                });
+            });
+
+            $('.recentSearch').each(function(index) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var searchModel = IONUX2.Collections.recentSearches.models[0].attributes;
+
+                    UINAV.loadLeftNav(searchModel, index);
+
+                    $('#searchTab').trigger('click');
+                    $('#booleanForm .filter-item').each(function(index) {
+                        if ($(this).find('input').next().attr('name') == "filter_arg") {
+                            $(this).find('input').next().remove();
+                        }
                     });
                 });
-                
             });
+            
+            // delete saved search
+            $('.list_mysearches li').each(function(index) {
+                $(this).find('.deleteSearch').on('click', function(e) {
+                    e.preventDefault();
+                    // store saved search in temp collection
+                    IONUX2.Collections.deleteSearch.set(IONUX2.Collections.userProfileInstance.models[0].attributes.saved_searches);
+                    // get model to delete
+                    var deleteModel = IONUX2.Collections.deleteSearch.at(index);
+                    // remove model from temp collection
+                    IONUX2.Collections.deleteSearch.remove(deleteModel);
+                    // set temp collection to main collection
+                    IONUX2.Collections.userProfileInstance.models[0].set({saved_searches: IONUX2.Collections.deleteSearch.toJSON()});
+                    // remove model from the view
+                    $(this).parent().remove();
+                    // post main collection to server
+                    var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
+                    UINAV.postUserProfile(userProfile);
+                });
+            });
+        });
+
 
             // ********** Nav Tabs support **************
             // tab support for the nav section.
@@ -460,56 +474,42 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 e.preventDefault();
 
                 var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-                var bottom_sortable = $( "#accordionContainerWhite" ).sortable( "toArray" );
-                var spatial_accordion_visible = $('#spatial').is(':visible'),
-                    temporal_accordion_visible = $('#temporal').is(':visible'),
-                    facility_accordion_visible = $('#orgSelector').is(':visible'),
-                    region_accordion_visible = $('#region').is(':visible'),
-                    site_accordion_visible = $('#site').is(':visible'),
-                    datatype_accordion_visible = $('#dataTypesList').is(':visible'),
-                    boolean_accordion_visible = $('#boolean_expression').is(':visible'),
-                    platform_accordion_visible = $('#platform').is(':visible'),
-                    instrument_accordion_visible = $('#instrument').is(':visible'),
-                    assets_accordion_visible = $('#accordionAssets .accordionContents').is(':visible'),
-                    data_accordion_visible = $('#accordionData .accordionContents').is(':visible'),
-                    platform2_accordion_visible = $('#accordionPlatform .accordionContents').is(':visible'),
-                    instrument2_accordion_visible = $('#accordionInstruments .accordionContents').is(':visible'),
-                    datatype2_accordion_visible = $('#accordionDataType .accordionContents').is(':visible');
 
+                var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
+                tabs = tabs.substring(0, tabs.length -3);
+                var sortAccordion = "#" + tabs + "Accordion";
+                var bottom_sortable = $(sortAccordion + " .accordionContainerWhite").sortable("toArray");
+                console.log("bottom_sortable");
+                console.log(bottom_sortable);
 
-                var user_profile = {
-                    'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-                    'name': IONUX2.Models.SessionInstance.attributes.name,
-                    'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+                // get visibility state for bottom accordion elements and add to collection
+                var accordion_list = [];
+                var getElement = "#" + tabs + "Accordion .accordionWhite";
+                $(getElement).each(function(item) {
+                    var accordion_id = 'accordion' + $(this).attr('id');
+                    var $accordion_contents = $(this).find('.accordionContents:visible').length;
+                    accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
+                });
+                IONUX2.Collections.saveAccordionConfig.set(accordion_list);
+
+                IONUX2.Collections.userConfiguration.set({
                     'configuration': {
-                        'spatialElem': spatial_accordion_visible,
-                        'temporalElem': temporal_accordion_visible,
-                        'orgSelectorElem': facility_accordion_visible,
-                        'regionElem': region_accordion_visible,
-                        'siteElem': site_accordion_visible,
-                        'dataTypesListElem': datatype_accordion_visible,
-                        'boolean_expressionElem': boolean_accordion_visible,
-                        'platformElem': platform_accordion_visible,
-                        'instrumentElem': instrument_accordion_visible
+                        'spatialElem': $('#spatial').is(':visible'),
+                        'temporalElem': $('#temporal').is(':visible'),
+                        'orgSelectorElem': $('#orgSelector').is(':visible'),
+                        'siteElem': $('#site').is(':visible'),
+                        'platformTypesListElem': $('#platformTypesList').is(':visible'),
+                        'dataTypesListElem': $('#dataTypesList').is(':visible'),
+                        'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+                        'instrumentElem': $('#instrument').is(':visible')
                     },
-                    'bottom_config': {
-                        'accordionAssets': assets_accordion_visible,
-                        'accordionData': data_accordion_visible,
-                        'accordionPlatform': platform2_accordion_visible,
-                        'accordionInstruments': instrument2_accordion_visible,
-                        'accordionDataType': datatype2_accordion_visible
-                    },
+                    'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
                     'sortable_order': sortable_order,
                     'bottom_sortable': bottom_sortable
-                    //'saved_searches': IONUX2.Collections.saveNames.toJSON()
-                };
+                });
 
-                IONUX2.Models.saveConfiguration.set(user_profile);
-                console.log("configuration model");
-                console.log(IONUX2.Models.saveConfiguration);
-                
-                var userConfiguration = JSON.stringify(IONUX2.Models.saveConfiguration);
-                UINAV.postUserProfile(userConfiguration);
+                var userConfiguration = JSON.stringify(IONUX2.Collections.userConfiguration);
+                UINAV.postUserConfiguration(userConfiguration);
             });
             
             // ************ Load UI state. *************

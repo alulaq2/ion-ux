@@ -88,7 +88,6 @@ IONUX = {
 
    });
     
-
     console.log('**** STARTING HISTORY!!!');
     Backbone.history.start({pushState:true, hashChange: false});
     
