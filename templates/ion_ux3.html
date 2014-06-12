@@ -470,11 +470,10 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             // ************ Save UI state. *************
             // Collect information about UI state which is then put into one big
             // JSON to be sent to server and saved there (by whatever means it chooses.)
-            $('#saveConfigBtn').on('click', function(e) {
+           $('#saveConfigBtn').on('click', function(e) {
                 e.preventDefault();
 
                 var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-
                 var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('id');
                 tabs = tabs.substring(0, tabs.length -3);
                 var sortAccordion = "#" + tabs + "Accordion";
