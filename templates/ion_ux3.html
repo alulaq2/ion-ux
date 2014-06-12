@@ -333,11 +333,17 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
 
 
+        var disableMapEventHandling = false;
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
-             //reset search results
-             /*disableMapEventHandling = true;
+             
+
+            IONUX2.Views.loadSearchCollection.render();
+            IONUX2.Views.loadRecentSearches.render();
+
+            //reset search results
+             disableMapEventHandling = true;
              IONUX2.clearSearchResults();
 
             // clear keyword
@@ -367,10 +373,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
           // clear boolean
           IONUX2.Views.boolean.render();
-          disableMapEventHandling = false;*/
-
-            IONUX2.Views.loadSearchCollection.render();
-            IONUX2.Views.loadRecentSearches.render();
+          disableMapEventHandling = false;
             
             // loop through list of saved searches
             $('.savedSearch').each(function(index) {

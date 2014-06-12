@@ -66,6 +66,8 @@
       $(function(){
         IONUX2.Views.leftAccordion = new IONUX2.Views.LeftAccordion(); /* CLEAN UP THIS NAMING !! */
 
+
+
         var accordions = {
           'spatial': {
               title: 'Spatial',
@@ -235,6 +237,8 @@
 
       var disableMapEventHandling = false;
 
+
+
       IONUX2.openSpatialAccordion = function() {
         if(!disableMapEventHandling){
           if($("#spatialElem").find('.leftAccordionContents').not(':visible')){
@@ -273,7 +277,11 @@
 
           var form_values = $('#searchForm').serializeArray();
           form_values.splice(0, 0, {name:'adv', value:1});
-
+          console.log("checking form values");
+          if (form_values[form_values.length-1].value == 0) {
+            form_values[form_values.length - 1].value = "";
+          }
+          console.log(form_values);
           var form_values_bool = $('#booleanForm').serializeArray();
 
           // switch into an object - much easier to access directly
@@ -367,10 +375,6 @@
           }
 
           var search_term = $.param(form_values);
-
-          if (search_term == "adv=1&north=&south=&east=&west=&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&radius=0") {
-            search_term = "adv=1&north=&south=&east=&west=&vertical-lower-bound=&vertical-upper-bound=&temporal-from-ctrl=&temporal-to-ctrl=&temporal-field-ctrl=temporal_range&radius="
-          }
 
           var search_term2 = $.param(form_values_bool);
 
