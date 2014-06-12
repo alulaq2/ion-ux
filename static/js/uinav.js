@@ -7,8 +7,10 @@ var UINAV = {
 
         for (item in configurationList) {
             if (configurationList[item]) {
-                $('#'+item + ' .leftAccordionContents').show();
-                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+                if (item != "spatialElem") {
+                    $('#'+item + ' .leftAccordionContents').show();
+                    $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+                }
             }
         }
     },

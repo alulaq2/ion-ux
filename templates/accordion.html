@@ -153,6 +153,9 @@
           console.log(IONUX2.Models.sortModelInstance);
         });
 
+        $('#spatialElem .leftAccordionContents').show();
+        $('#spatialElem .expandHide').removeClass('arrowRight').addClass('arrowDown');
+
         $('#searchBtn').on('click', function(){
           search_clicked();
           IONUX2.setPageView("searchResults");
