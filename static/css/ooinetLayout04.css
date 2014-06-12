@@ -1,7 +1,7 @@
 /*
 ooinet-04.css  proto=ooinetLayout04.css
 by Peter Rosti
-last edited 05-29 04-22 04-14 04-09 03-06 03-05 2014-03-03
+last edited 06-12 05-29 04-22 04-14 04-09 03-06 03-05 2014-03-03
 
 This layout uses calc() to set height and width values
 Note: calc must have spaces in the formula, to accomodate IE bug,
@@ -749,7 +749,7 @@ background-color: #7B99B5;
   background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
   background: -moz-linear-gradient(left, #5687AF, #3B5E7E);
   background: -o-linear-gradient(left, #5687AF, #3B5E7E);
-  padding: 4px 5px 4px 4px;
+  padding: 2px 5px 2px 4px;
   /*width: 217px;*/
   margin-bottom: 5px;
   margin-right: 3px;
