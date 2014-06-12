@@ -71,7 +71,7 @@ var UINAV = {
 
     loadSpatial: function(spatialModel) {
         IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
-        IONUX2.Dashboard.MapView.map.setCenter(spatialModel.center);
+        IONUX2.Dashboard.MapView.map.setCenter(new google.maps.LatLng(spatialModel.center["k"], spatialModel.center["A"]));
     },
     loadTemporal: function(temporalModel) {
         IONUX2.Models.temporalModelInstance.updateAttributes(temporalModel);
@@ -262,6 +262,8 @@ var UINAV = {
     loadSavedSearches: function(savedSearch) {
         console.log("loading saved searches");
         var savedSearchList = JSON.parse(savedSearch.data);
+        //console.log("savedSearchList");
+
         var $accordion_container = $('.jspPane');
         var sortableOrder = savedSearchList[0].sortable_order;
         var bottom_sortable = savedSearchList[0].bottom_sortable;

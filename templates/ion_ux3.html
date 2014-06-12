@@ -336,6 +336,39 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
+             //reset search results
+             /*disableMapEventHandling = true;
+             IONUX2.clearSearchResults();
+
+            // clear keyword
+            $('#keywordIn').val("");
+
+            // clear temporal
+            $('#temporal select').val("0");
+
+            // clear spatial
+            var attribute = {};
+            attribute["from_longitude"] = "";
+            attribute["from_latitude"] = "";
+            attribute["to_longitude"] = "";
+            attribute["to_latitude"] = "";
+            attribute["radius"] = "";
+            IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+
+          $("#southFm").val("");
+          $("#westFm").val("");
+          $("#northFm").val("");
+          $("#eastFm").val("");
+          $("#radiusFm").val("");
+          $('#radius').val("");
+
+          // clear all checkboxes
+          $('#searchTabContent').find('input').prop("checked", false);
+
+          // clear boolean
+          IONUX2.Views.boolean.render();
+          disableMapEventHandling = false;*/
+
             IONUX2.Views.loadSearchCollection.render();
             IONUX2.Views.loadRecentSearches.render();
             

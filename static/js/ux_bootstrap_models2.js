@@ -264,7 +264,7 @@ IONUX2.Models.SpatialInit = Backbone.Model.extend({
       miles_kilos: "1",
       vertical_from: "",
       vertical_to: "",
-      feet_miles: "1"
+      feet_miles: "1",
   },
   updateAttributes: function(attributes) {
     console.log("attributes in spatial model");
