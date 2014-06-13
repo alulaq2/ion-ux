@@ -818,7 +818,7 @@ input.latlong {
 }
 
  input.keyword {
-  width: calc(100% - 58px);
+  width: calc(100% - 64px);
   margin-left: 4px;
   margin-bottom: 2px;
 }
