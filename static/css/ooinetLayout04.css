@@ -750,7 +750,7 @@ background-color: #7B99B5;
   background: -moz-linear-gradient(left, #5687AF, #3B5E7E);
   background: -o-linear-gradient(left, #5687AF, #3B5E7E);
   padding: 2px 5px 2px 4px;
-  width: 249px;  /* DONT MESS WITH THIS !! */
+  /* width: 249px;  DONT MESS WITH THIS !! */
   margin-bottom: 3px;
   margin-right: 3px;
   margin-left: 3px;
