@@ -648,6 +648,14 @@ ul.dropdown-menu li:hover {
     line-height: 20px;
 }
 
+.edit-group select, select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+	line-height: 16px;
+}
+
 /* Legacy Overide - end */
 
 
@@ -794,7 +802,7 @@ background-color: #7B99B5;
 #boolean_expression span {line-height:10px}
 #booleanForm div.filter-item-holder {width: 162px; margin-left:0px}
 #booleanForm div.filter-item {font-size: 10px; margin: 0px 0px 0px 0px; padding: 2px 0px 6px;}
-#booleanForm select.booleanSelectContainer  {position: relative;left: 0px;top: 0px;border: 1px solid #384D68;-webkit-appearance: none;  -moz-appearance: none; background: #7e99b7 url(../img/left_select_arrow.png) no-repeat 100% center;width: 162px; text-indent: 0.01px; text-overflow: ""; color: #FFF;
+#booleanForm select.booleanSelectContainer  {position: relative;left: 0px;top: 0px;border: 1px solid #384D68;-webkit-appearance: none;  -moz-appearance: window; background: #7e99b7 url(../img/left_select_arrow.png) no-repeat 100% center;width: 162px; text-indent: 0.01px; text-overflow: ""; color: #FFF;
 border-radius: 3px;height: 18px;line-height: 16px;padding: 0px;margin:2px 0px 4px;color: #FFF;font-family: Arial;font-size: 12px;background-color: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));background-color: -webkit-linear-gradient(left, #88A9CC, #7890AC);
 background-color: -moz-linear-gradient(left, #88A9CC, #7890AC); background-color: -o-linear-gradient(left, #88A9CC, #7890AC);
 }
@@ -894,6 +902,12 @@ select.dateMenu.hour {width:56px;}
   font-family: Arial;
   font-size: 11px; 
 }
+select, select option {
+  height: 10px;
+  line-height: 10px;
+  padding: 0px;
+  margin: 0px;
+}
 
 .leftNaviSelectContainer {
   position: relative;
@@ -924,20 +938,9 @@ margin-bottom: 4px;
 display: inline-block;
 }
 
-.leftNaviNarrowSelectContainer {
-  width: 40px;
-  top: 9px;
-  height:16px;
-}
-
-.leftNaviNarrowSelectArrow {
-  width: 40px;
-}
-
-.leftNaviSelectArrow {
-   width: 160px;
-}
-
+.leftNaviNarrowSelectContainer {width: 40px; top: 9px; height:16px}
+.leftNaviNarrowSelectArrow {width: 40px;}
+.leftNaviSelectArrow {width: 160px;}
 .leftNaviSelectArrow, .leftNaviNarrowSelectArrow{
   pointer-events:none;
   position: absolute;
@@ -947,25 +950,18 @@ display: inline-block;
   background: transparent;
   background: url('../img/left_select_arrow.png') no-repeat right;
 }
-
-.leftNaviSelectContainer select {
-  width: 160px;
-}
-
-.leftNaviNarrowSelectContainer select {
-  width: 40px;
-}
-
+.leftNaviSelectContainer select {width: 160px;}
+.leftNaviNarrowSelectContainer select {width: 40px;}
 .leftNaviSelectContainer select, .leftNaviNarrowSelectContainer select{
   position: absolute;
   left: 0px;
   top: 0px;
   border: 0px;  
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  text-indent: 0.01px;
+  -moz-appearance: window;
+   text-indent: 0.01px;
   text-overflow: '';
+  appearance: none;
   height: 16px !important;
   padding: 0px;
   color: #fff;
@@ -976,6 +972,15 @@ display: inline-block;
   background: -webkit-linear-gradient(left, #88A9CC, #7890AC);
   background: -moz-linear-gradient(left, #88A9CC, #7890AC);
   background: -o-linear-gradient(left, #88A9CC, #7890AC);
+}
+
+.leftNaviSelectContainer select option {
+  background-color: #7b95b3;
+  color:#FFF;
+  line-height:16px;
+  height:16px;
+  margin:0px;
+  padding:0px;
 }
 
 input.argument2 {
@@ -1007,6 +1012,10 @@ input.noPlaceholderRadius {
 .leftAccordionContents select option {
   background-color: #7b95b3;
   color:#FFF;
+  line-height:16px;
+  height:16px;
+  margin:0px;
+  padding:0px;
 }
 
 .leftAccordionContents h5 {
