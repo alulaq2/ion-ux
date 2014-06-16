@@ -1,4 +1,5 @@
 var UINAV = {
+    disableMapEventHandling: false,
 	reorder: function(orderArray, configurationList, elementContainer) {
         // load configuration and sortable order for left accordion
         $.each(orderArray, function(key, val){
@@ -7,10 +8,9 @@ var UINAV = {
 
         for (item in configurationList) {
             if (configurationList[item]) {
-                if (item != "spatialElem") {
-                    $('#'+item + ' .leftAccordionContents').show();
-                    $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
-                }
+                this.disableMapEventHandling = true;
+                $('#'+item + ' .leftAccordionContents').show();
+                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },

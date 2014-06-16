@@ -153,8 +153,6 @@
           console.log(IONUX2.Models.sortModelInstance);
         });
 
-        $('#spatialElem .leftAccordionContents').show();
-        $('#spatialElem .expandHide').removeClass('arrowRight').addClass('arrowDown');
 
         $('#searchBtn').on('click', function(){
           search_clicked();
@@ -203,7 +201,7 @@
         });
 
         $('#resetBtn').on('click', function(){
-          disableMapEventHandling = true;
+          UINAV.disableMapEventHandling = true;
           IONUX2.clearSearchResults();
 
           // clear keyword
@@ -233,17 +231,17 @@
 
           // clear boolean
           IONUX2.Views.boolean.render();
-          disableMapEventHandling = false;
+          UINAV.disableMapEventHandling = false;
         });
         
       });
 
-      var disableMapEventHandling = false;
+      UINAV.disableMapEventHandling = false;
 
 
 
       IONUX2.openSpatialAccordion = function() {
-        if(!disableMapEventHandling){
+        if(!UINAV.disableMapEventHandling){
           if($("#spatialElem").find('.leftAccordionContents').not(':visible')){
             $("#spatialElem").find('.accordionTitle').click();
           }
