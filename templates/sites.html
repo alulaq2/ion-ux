@@ -6,10 +6,17 @@
 
         <% _.each(resources, function(nested_resources, san) { %>
 
-            <div id="regionName"><span><%= san %></span><br/>
-                <ul>
+            <div id="regionName">
+                <div class="expandHide arrowDown"></div> <%= san %><br/>
+                <ul class="showSites">
                 <% _.each(nested_resources, function(r) { %>
-                    <li> <%= r.name %></li>
+                    <li><input type="checkbox">
+                        <% if (r.local_name) { %>
+                            <%= r.local_name %><br/>
+                        <% } else { %>
+                            <%= r.name %><br/>
+                        <% }; %>
+                    </li>
                 <% }) %>
                 </ul>
             </div>
@@ -29,6 +36,17 @@
             $('#mapButtonHidden').click();
         });
 
-
+        $('#regionName .expandHide').on('click', function(e) {
+            e.preventDefault();
+            var $link = $(e.currentTarget);
+            $link.parent().children('.showSites').slideToggle('fast', function() {
+                console.log($(this) + " and " + $link);
+                if ($(this).is(':visible')) {
+                    $link.removeClass('arrowRight').addClass('arrowDown');              
+                } else {
+                    $link.removeClass('arrowDown').addClass('arrowRight');
+                }        
+            });
+        });
     });
 </script>

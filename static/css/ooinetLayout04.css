@@ -675,12 +675,17 @@ ul.dropdown-menu li:hover {
   margin-left:0;
 }
 
-.list_regions, .list_sites, .list_facilities, .listDataTypes, .listPlatformTypes{
+.list_regions, .list_facilities, .listDataTypes, .listPlatformTypes{
   margin-left: 13px;
 }
 
 .list_sites a, .list_facilities a {
   color: #fff;
+}
+
+.showSites {
+  list-style: none;
+  margin: 0 0 10px 15px;
 }
 
 #saveButtons {
