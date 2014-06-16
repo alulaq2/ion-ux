@@ -215,9 +215,25 @@ IONUX2.Views.Sites = Backbone.View.extend({
     }
   },
 
+  build_menu: function(){
+    // Grab all spatial names, then uniques; separate for clarity.
+    var spatial_area_names = _.map(this.collection.models, function(resource) {
+      var san = resource.get('spatial_area_name');
+      if (san != '') return san;
+    });
+    var unique_spatial_area_names = _.uniq(spatial_area_names);
+
+    var resource_list = {};
+    _.each(unique_spatial_area_names, function(san) {
+      resource_list[san] = _.map(this.collection.where({spatial_area_name: san}), function(resource) { console.log("resource is"); console.log(resource); return resource.toJSON()});
+    }, this);
+    return resource_list;
+  },
+
   render: function() {
     console.log('rendering sites');
-    this.$el.html(this.template(this.collection.toJSON()));
+    this.$el.html(this.template({resources: this.build_menu(), title: this.title}));
+    //this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
 });

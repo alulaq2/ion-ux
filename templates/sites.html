@@ -3,15 +3,19 @@
 </div>
 <div class="list_sites">
     <form action="">
-        <% _.each(this.collection.models, function(site) { %>
-        	<input id="site_item" class="resource_id" data-id="<%= site.attributes._id %>" data-sites="<%= site.attributes.spatial_area_name %>" type="checkbox"/><div class="resourceLink" data-id="<%= site.attributes._id %>">
-        	<% if (site.attributes.local_name) { %>
-        		<%= site.attributes.local_name %><br/>
-            <% } else { %>
-    			<%= site.attributes.name %><br/>
-            <% }; %>
-            </div><br/>
+
+        <% _.each(resources, function(nested_resources, san) { %>
+
+            <div id="regionName"><span><%= san %></span><br/>
+                <ul>
+                <% _.each(nested_resources, function(r) { %>
+                    <li> <%= r.name %></li>
+                <% }) %>
+                </ul>
+            </div>
         <% }) %>
+
+       
     </form>
 </div>
 
@@ -24,5 +28,7 @@
             IONUX.ROUTER.navigate(url, {trigger:true});
             $('#mapButtonHidden').click();
         });
+
+
     });
 </script>
