@@ -337,55 +337,55 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         $('#mySearchesTab').on('click', function(e) {
             e.preventDefault();
 
-             
-
             IONUX2.Views.loadSearchCollection.render();
             IONUX2.Views.loadRecentSearches.render();
 
-            //reset search results
-             disableMapEventHandling = true;
-             IONUX2.clearSearchResults();
-
-            // clear keyword
-            $('#keywordIn').val("");
-
-            // clear temporal
-            $('#temporal select').val("0");
-
-            // clear spatial
-            var attribute = {};
-            attribute["from_longitude"] = "";
-            attribute["from_latitude"] = "";
-            attribute["to_longitude"] = "";
-            attribute["to_latitude"] = "";
-            attribute["radius"] = "";
-            IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
-
-          $("#southFm").val("");
-          $("#westFm").val("");
-          $("#northFm").val("");
-          $("#eastFm").val("");
-          $("#radiusFm").val("");
-          $('#radius').val("");
-
-          // clear all checkboxes
-          $('#searchTabContent').find('input').prop("checked", false);
-
-          // clear boolean
-          IONUX2.Views.boolean.render();
-          disableMapEventHandling = false;
+           
             
             // loop through list of saved searches
             $('.savedSearch').each(function(index) {
                 
               $(this).on('click', function(e) {
-                    e.preventDefault();
-                    var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
+                e.preventDefault();
+                //reset search results
+                disableMapEventHandling = true;
+                IONUX2.clearSearchResults();
 
-                    // convert search model into string to pass to ajax call
-                    var body = JSON.stringify(searchModel);
+                // clear keyword
+                $('#keywordIn').val("");
 
-                    UINAV.loadLeftNav(searchModel, index);
+                // clear temporal
+                $('#temporal select').val("0");
+
+                // clear spatial
+                var attribute = {};
+                attribute["from_longitude"] = "";
+                attribute["from_latitude"] = "";
+                attribute["to_longitude"] = "";
+                attribute["to_latitude"] = "";
+                attribute["radius"] = "";
+                IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
+
+                $("#southFm").val("");
+                $("#westFm").val("");
+                $("#northFm").val("");
+                $("#eastFm").val("");
+                $("#radiusFm").val("");
+                $('#radius').val("");
+
+                // clear all checkboxes
+                $('#searchTabContent').find('input').prop("checked", false);
+
+                // clear boolean
+                IONUX2.Views.boolean.render();
+                disableMapEventHandling = false;
+                
+                var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
+
+                // convert search model into string to pass to ajax call
+                var body = JSON.stringify(searchModel);
+
+                UINAV.loadLeftNav(searchModel, index);
                     
                     // open Search tab
                     $('#searchTab').trigger('click');
