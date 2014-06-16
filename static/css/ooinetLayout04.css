@@ -675,7 +675,7 @@ ul.dropdown-menu li:hover {
   margin-left:0;
 }
 
-.list_regions, .list_facilities, .listDataTypes, .listPlatformTypes{
+.list_regions, .list_facilities, .listDataTypes, .listPlatformTypes, .listInstrumentTypes {
   margin-left: 13px;
 }
 
@@ -1129,6 +1129,7 @@ input.noPlaceholderRadius {
 .itemName {
   display: inline-block;
   width: 90%;
+  padding-left: 3px;
 }
 
 .alignCheckbox {

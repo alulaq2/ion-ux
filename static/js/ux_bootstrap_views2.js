@@ -608,6 +608,18 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.InstrumentTypesMenu = Backbone.View.extend({
+  el: '#instrumentTypesList',
+  template: _.template(IONUX2.getTemplate('templates/block_instrument_types.html')),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template);
+    return this;
+  }
+});
+
 IONUX2.Views.ResourceTypeMenu = Backbone.View.extend({
   el: '#ResourceTypes',
   template: _.template('<select name="nested-resource-types" size="4">' + 

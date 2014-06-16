@@ -95,14 +95,10 @@
             title: 'Platform Type',
             id: 'platformTypesList'
           },
-          /*
-          'instrument': {
+          'instrumentType': {
             title: 'Instrument Type',
-            id: 'instrument'
-          */
-            /* id: 'instrumentTypesList' */ /*SUBSTITUTE THIS */
-          /*}, */
-          
+            id: 'instrumentTypesList'
+          },
           'dataType': {
             title: 'Data Type',
             id: 'dataTypesList'
@@ -121,6 +117,7 @@
         IONUX2.Views.temporal = new IONUX2.Views.Temporal({model: IONUX2.Models.temporalModelInstance});
         /* IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories }); */ /*DELETE THIS */
         IONUX2.Views.SitesList = new IONUX2.Views.Sites({collection: IONUX2.Dashboard.Observatories });
+        IONUX2.Views.InstrumentTypesList = new IONUX2.Views.InstrumentTypesMenu();
         IONUX2.Views.boolean = new IONUX2.Views.BooleanSearch();
 		    IONUX2.Models.DataTypeListInstance = new IONUX2.Models.DataTypeList();
 		    IONUX2.Views.DataTypesListInstance = new IONUX2.Views.DataTypesList({model: IONUX2.Models.DataTypeListInstance });
