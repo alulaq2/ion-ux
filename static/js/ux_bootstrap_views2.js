@@ -541,7 +541,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       filter_container.find('input[name="filter_arg"]').remove();
 
       if (filter_container.find('input[name="filter_operator"]').length == 0) {
-        var sel_operator = '<input type="text" class="argument" style="visibility:hidden;" name="filter_operator" value="matches" />';
+        var sel_operator = '<input type="text" class="argument" style="display:none;" name="filter_operator" value="matches" />';
         filter_container.find('.filter-add').before(sel_operator);
       }
 

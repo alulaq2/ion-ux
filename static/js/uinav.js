@@ -151,37 +151,40 @@ var UINAV = {
                 ['Subscription','NotificationRequest'], ['User','UserInfo']
                 ];
                 var elementLength = $('.filter-item').eq(key).find('select[name="filter_arg"]:visible').length;
+                console.log("element lenght is " + elementLength);
                 if (elementLength == 0) {
                     $('.filter-add').before('<select class="booleanSelectContainer" name="filter_arg"></select>');
                 }
+                $('.filter-item').eq(key).find('select[name="filter_arg"]').empty();
                 if (booleanModel.boolean_main_filter == "lcstate") {
+                    console.log()
                     for (val in lcstateValues) {
-                        $('select[name="filter_arg"]').append('<option value="' + lcstateValues[val] + '">' + lcstateValues[val] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + lcstateValues[val] + '">' + lcstateValues[val] + '</option');
                     }
                 }
                 if (booleanModel.boolean_main_filter == "processing_level_code") {
                     for (val in processingValues) {
-                        $('select[name="filter_arg"]').append('<option value="' + processingValues[val][1] + '">' + processingValues[val][0] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + processingValues[val][1] + '">' + processingValues[val][0] + '</option');
                     }
                 }
                 if (booleanModel.boolean_main_filter == "quality_control_level") {
                     for (val in qualityControl) {
-                        $('select[name="filter_arg"]').append('<option value="' + qualityControl[val][1] + '">' + qualityControl[val][0] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + qualityControl[val][1] + '">' + qualityControl[val][0] + '</option');
                     }
                 }
                 if (booleanModel.boolean_main_filter == "site") {
                     for (val in siteValues) {
-                        $('select[name="filter_arg"]').append('<option value="' + siteValues[val] + '">' + siteValues[val] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + siteValues[val] + '">' + siteValues[val] + '</option');
                     }
                 }
                 if (booleanModel.boolean_main_filter == "aggregated_status") {
                     for (val in statusValues) {
-                        $('select[name="filter_arg"]').append('<option value="' + statusValues[val] + '">' + statusValues[val] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + statusValues[val] + '">' + statusValues[val] + '</option');
                     }
                 }
                 if (booleanModel.boolean_main_filter == "type_") {
                     for (val in typeValues) {
-                        $('select[name="filter_arg"]').append('<option value="' + typeValues[val][1] + '">' + typeValues[val][0] + '</option');
+                        $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + typeValues[val][1] + '">' + typeValues[val][0] + '</option');
                     }
                 }
 
