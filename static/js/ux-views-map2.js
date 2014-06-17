@@ -516,10 +516,8 @@ IONUX2.Views.Map = Backbone.View.extend({
       radius = radius*0.000621371
     }
 
-    if (radius != "") {
     attribute["radius"] = radius.toFixed(2);
-  }
-  
+    
     this.update_spatial_model(attribute);
 
   },

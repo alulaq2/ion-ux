@@ -279,7 +279,7 @@
           var form_values = $('#searchForm').serializeArray();
           form_values.splice(0, 0, {name:'adv', value:1});
           console.log("checking form values");
-          if (form_values[form_values.length-1].value == 0) {
+          if (form_values[form_values.length-1].value == 0.00) {
             form_values[form_values.length - 1].value = "";
           }
           console.log(form_values);
