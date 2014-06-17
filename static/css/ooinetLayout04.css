@@ -679,13 +679,19 @@ ul.dropdown-menu li:hover {
   margin-left: 13px;
 }
 
-.list_sites a, .list_facilities a {
+.list_sites a, .list_facilities a, .expandAllSites, .expandAllSites:hover, .hideAllSites, .hideAllSites:hover, .expandAllSites:visited, .hideAllSites:visited {
   color: #fff;
 }
 
 .showSites {
   list-style: none;
   margin: 0 0 10px 15px;
+  display: none;
+}
+
+.expandAllSites {
+  margin-left:50px;
+  margin-right: 8px;
 }
 
 #saveButtons {

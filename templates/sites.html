@@ -1,5 +1,5 @@
 <div class="select_all">
-    <input class="checkAllSites" type="checkbox"/> Select All
+    <input class="checkAllSites" type="checkbox"/> Select All <a href="#" class="expandAllSites">Expand All</a> <a href="#" class="hideAllSites">Hide All</a>
 </div>
 <div class="list_sites">
     <form action="">
@@ -7,7 +7,7 @@
         <% _.each(resources, function(nested_resources, san) { %>
 
             <div id="regionName">
-                <div class="expandHide arrowDown"></div> <%= san %><br/>
+                <div class="expandHide arrowRight"></div> <%= san %> Sites<br/>
                 <ul class="showSites">
                 <% _.each(nested_resources, function(r) { %>
                     <li><input type="checkbox">
@@ -42,11 +42,23 @@
             $link.parent().children('.showSites').slideToggle('fast', function() {
                 console.log($(this) + " and " + $link);
                 if ($(this).is(':visible')) {
-                    $link.removeClass('arrowRight').addClass('arrowDown');              
+                    $link.removeClass('arrowDown').addClass('arrowRight');              
                 } else {
-                    $link.removeClass('arrowDown').addClass('arrowRight');
+                    $link.removeClass('arrowRight').addClass('arrowDown');
                 }        
             });
+        });
+
+        $('.expandAllSites').on('click', function(e) {
+            e.preventDefault();
+            $('.list_sites').find('.showSites').show();
+            $('.list_sites').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+        });
+
+        $('.hideAllSites').on('click', function(e) {
+            e.preventDefault();
+            $('.list_sites').find('.showSites').hide();
+            $('.list_sites').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
         });
     });
 </script>
