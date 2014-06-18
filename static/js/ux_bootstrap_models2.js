@@ -188,6 +188,14 @@ IONUX2.Collections.Observatories = Backbone.Collection.extend({
   }
 });
 
+IONUX2.Collections.ObservatoryList = Backbone.Collection.extend({
+  url: '/observatories',
+  data: '',
+  parse: function(resp) {
+    return resp.data;
+  }
+});
+
 IONUX2.Models.DataTypeList = Backbone.Model.extend({
 	url: '/get_data_product_group_list/',
 	data: '',

@@ -81,6 +81,10 @@
             title: 'Facility',
             id: 'orgSelector'
           },
+          'observatory': {
+            title: 'Observatories',
+            id: 'observatoryList'
+          },
           /*
            'region': {
             title: 'Region',
@@ -124,7 +128,10 @@
 		    IONUX2.Models.DataTypeListInstance.fetch();
 		    IONUX2.Collections.OrgsInstance = new IONUX2.Collections.Orgs();
 		    IONUX2.Views.OrgSelectorInstance = new IONUX2.Views.OrgSelector({collection: IONUX2.Collections.OrgsInstance});
+        IONUX2.Collections.observatoryInstance = new IONUX2.Collections.ObservatoryList();
+        IONUX2.Views.observatoryInstance = new IONUX2.Views.Observatories({collection: IONUX2.Collections.observatoryInstance});
 		    IONUX2.Collections.OrgsInstance.fetch();
+        IONUX2.Collections.observatoryInstance.fetch();
 
         IONUX2.Views.boolean.render();
 
