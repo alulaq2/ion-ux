@@ -707,16 +707,16 @@ ul.dropdown-menu li:hover {
   cursor: pointer;
   width: 12px;
   height: 12px;
-  line-height: 10px;
-  text-align: center;
+  line-height: 11px;
+  text-align: left;
   vertical-align: middle;
   font-family: Courier;
-  padding: 0px;
+  padding: 0em 0em 0em 0.12em;
   margin: 0px;
-  margin-bottom: 4px;
-  background: #fff;
-  color: #384d68;
-  border: 1px solid #384d68;
+  margin: 0px 4px 4px;
+  background: none repeat scroll 0% 0% none;
+  color: #FFF;
+  border: 1px solid #FFF;
   display: inline-block;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
@@ -937,6 +937,10 @@ select.dateMenu.hour {width:56px;}
   margin: 0px;
   font-family: Arial;
   font-size: 11px; 
+}
+
+.accordionContainer input[type="checkbox"] {
+    margin: 0px 0px 0px 3px;
 }
 
 .accordionContainer select {
