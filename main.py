@@ -138,6 +138,32 @@ def user_profiles(user_id):
 
         return render_json_response("{data:{status:'ok'}}")
 
+@app.route('/profile/<user_id>_ui/', methods=['GET', 'POST'])
+def user_configuration(user_id):
+    if request.method == "GET":
+        # return user configuration json here!
+        path = os.path.join('profiles', "{0}_ui.json".format(user_id))
+        if not os.path.exists(path):
+            return jsonify({'data':False})
+        else:
+            user_file = open(path, 'r')
+            profile = user_file.read()
+            user_file.close()
+            return render_json_response(profile)
+    elif request.method == "POST":
+        # store the user configuration json here!
+        path = os.path.join('profiles', "{0}_ui.json".format(user_id))
+        if not os.path.exists('profiles'):
+            os.makedirs('profiles')
+        user_file = open(path, 'w')
+        print request.form
+        profile = request.form['data']
+        print profile
+        user_file.write(profile)
+        user_file.close()
+
+        return render_json_response("{data:{status:'ok'}}")
+
 @app.route('/hmmm/', methods=['GET'])
 def goto_resource_management():
     if request.is_xhr:

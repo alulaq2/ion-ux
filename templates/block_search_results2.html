@@ -2,7 +2,7 @@
 	<div class="twoNavTabs">
 		<div id="dataSearchResultsTab" class="twoNavTab active" tabContent="#dataSearchResultsAccordion">Data</div>
 		<div id="assetsSearchResultsTab" class="twoNavTab" tabContent="#assetsSearchResultsAccordion">Assets</div>
-		<div id="sitesSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">Sites</div>
+		<div id="siteSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">Sites</div>
 		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="display:none;">Face Page</div>
 	</div>
 </div>
@@ -206,7 +206,7 @@
 
 	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
 
-	var accordionWhiteTemplate = '<div class="accordionWhite collapsed">\
+	var accordionWhiteTemplate = '<div class="accordionWhite collapsed" id="<%= id %>">\
 			<div class="accordionWhiteLabel">\
 				<%= name %>\
 				<div class="expandHide arrowRight blue"> </div>\
@@ -253,7 +253,13 @@
 	});
 
     $('.accordionContainerWhite').sortable({
-    	items: ".accordionWhite:not(.pinned)"
+    	items: ".accordionWhite:not(.pinned)",
+    	update: function( event, ui ) {}
+    });
+
+    $('.accordionContainerWhite').on( "sortupdate", function( event, ui ) {
+          var sortable_order = $(this).sortable( "toArray" );
+          IONUX2.Models.sortBottomModelInstance.set({'sort_order': sortable_order});
     });
 
     function toggleAccordion(accordion_contents){

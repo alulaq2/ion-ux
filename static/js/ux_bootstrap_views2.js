@@ -12,13 +12,38 @@ IONUX2.Views.Header = Backbone.View.extend({
   }
 });
 
-IONUX2.Views.MySearches = Backbone.View.extend({
+IONUX2.Views.LoadSearchCollection = Backbone.View.extend({
   el: '.list_mysearches',
-  template: _.template(IONUX2.getTemplate('templates/my_searches.html')),
+  template: _.template(IONUX2.getTemplate('templates/collection_search.html')),
   initialize: function() {
   },
   render: function() {
-    console.log('rendering my searches view');
+    console.log('rendering load collection searches view');
+    this.$el.html(this.template(this.collection.toJSON()));
+    return this;
+  }
+});
+
+IONUX2.Views.LoadSearches = Backbone.View.extend({
+  el: '.list_mysearches',
+  template: _.template(IONUX2.getTemplate('templates/load_searches.html')),
+  initialize: function() {
+  },
+  render: function() {
+    console.log('rendering load searches view');
+    console.log(this.model);
+    //this.$el.html(this.template(this.model.data));
+    this.$el.html(this.template(this.collection.toJSON()));
+    return this;
+  }
+});
+
+IONUX2.Views.LoadRecentSearches = Backbone.View.extend({
+  el: '.recent_searches',
+  template: _.template(IONUX2.getTemplate('templates/recent_searches.html')),
+  initialize: function() {
+  },
+  render: function() {
     this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
@@ -73,165 +98,54 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     });
   },
   saveName: function() {
-      $('#customSearchName').hide();
-      $('#saveButtons').show();
+    var name = $('.customName').val();
+    UINAV.saveEntireSearch(name);
+    var parsed_collection = IONUX2.Collections.userProfileInstance.toJSON();
 
-      var name = $('.customName').val();
-      var d = new Date();
-      var month = d.getMonth() + 1;
-      var day = d.getDate();
-      var year = d.getFullYear();
-      var hour = d.getHours();
-      var minute = d.getMinutes();
-      var time = d.getTime();
+      if (parsed_collection.length != 0) {
+        var parsed_obj = parsed_collection[0].saved_searches.reverse();
+        var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
 
-      // store spatial input values and set to model
-      var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
-        from_latitude = $('#south').val(),
-        from_ns = $('.from_ns option:selected').val(),
-        from_longitude = $('#west').val(),
-        from_ew = $('.from_ew option:selected').val(),
-        to_latitude = $('.placeholder_lat').val(),
-        to_ns = $('.north_south_menu option:selected').val(),
-        to_longitude = $('.show_hide_longitude').val(),
-        to_ew = $('.to_ew option:selected').val(),
-        radius = $('#radius').val(),
-        miles_kilos = $('.milesKilosMenu').val(),
-        vertical_from = $('[data-verticalfrom]').val(),
-        vertical_to = $('[data-verticalto]').val(),
-        feet_miles = $('.feet_miles option:selected').val();
-
-      // save temporal input values and set to model
-      var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
-        from_year = $('.from_date_menu .year').val(),
-        from_month = $('.from_date_menu .month').val(),
-        from_day = $('.from_date_menu .day').val(),
-        from_hour = $('.from_date_menu .hour').val(),
-        to_year = $('.to_date_menu .year').val(),
-        to_month = $('.to_date_menu .month').val(),
-        to_day = $('.to_date_menu .day').val(),
-        to_hour = $('.to_date_menu .hour').val();
-
-    var searchName = {
-      'time': time,
-      'name': name,
-      'month': month,
-      'day': day,
-      'year': year,
-      'hour': hour,
-      'minute': minute
-    };
-
-    var spatial = {
-      'spatial_dropdown': spatial_dropdown,
-      'from_latitude': from_latitude,
-      'from_ns': from_ns,
-      'from_longitude': from_longitude,
-      'from_ew': from_ew,
-      'to_latitude': to_latitude,
-      'to_ns': to_ns,
-      'to_longitude': to_longitude,
-      'to_ew': to_ew,
-      'radius': radius,
-      'miles_kilos': miles_kilos,
-      'vertical_from': vertical_from,
-      'vertical_to': vertical_to,
-      'feet_miles': feet_miles
-    };
-
-    IONUX2.Models.spatialModelInstance.set(spatial);
-    console.log("spatial model");
-    console.log(IONUX2.Models.spatialModelInstance);
-
-    var temporal = {
-      'temporal_dropdown': temporal_dropdown,
-      'from_year': from_year,
-      'from_month': from_month,
-      'from_day': from_day,
-      'from_hour': from_hour,
-      'to_year': to_year,
-      'to_month': to_month,
-      'to_day': to_day,
-      'to_hour': to_hour
-    };
-
-    IONUX2.Models.temporalModelInstance.set(temporal);
-    console.log("temporal model");
-    console.log(IONUX2.Models.temporalModelInstance);
-
-    // get facility checkbox values and add to collection
-    (function() {
-      var facilities_checked = [];
-      $('.list_facilities input').each(function(data) {
-        var facility_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        facilities_checked.push({/*'facility_accordion_visible' : facility_accordion_visible,*/ 'value' : facility_value, 'is_checked' : is_checked });
+        IONUX2.Collections.saveNames.set(concat_obj);
+      }
+    IONUX2.Collections.userProfileInstance.set({
+        'userId': IONUX2.Models.SessionInstance.attributes.user_id,
+        'name':  IONUX2.Models.SessionInstance.attributes.name,
+        'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
+        'configuration': {
+            'spatialElem': $('#spatial').is(':visible'),
+            'temporalElem': $('#temporal').is(':visible'),
+            'orgSelectorElem': $('#orgSelector').is(':visible'),
+            'siteElem': $('#site').is(':visible'),
+            'platformTypesListElem': $('#platformTypesList').is(':visible'),
+            'dataTypesListElem': $('#dataTypesList').is(':visible'),
+            'boolean_expressionElem': $('#boolean_expression').is(':visible'),
+            'instrumentElem': $('#instrument').is(':visible')
+        },
+        'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
+        'saved_searches': IONUX2.Collections.saveNames.toJSON()
       });
-      IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
-    })();
-
-    // get region checkbox values and add to collection
-    (function() {
-      var regions_checked = [];
-      $('.list_regions input').each(function(data) {
-        var region_name = $(this).data('spatial');
-        var is_checked = $(this).prop('checked');
-        regions_checked.push({/*'region_accordion_visible' : region_accordion_visible,*/ 'region_name' : region_name, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveRegionSearch.set(regions_checked);
-    })();
-
-    (function() {
-      // get sites checkbox values and add to collection
-      var sites_checked = [];
-      $('.list_sites input').each(function(data) {
-        var site_id = $(this).data('id');
-        var is_checked = $(this).prop('checked');
-        sites_checked.push({/*'sites_accordion_visible' : sites_accordion_visible,*/ 'id' : site_id, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveSiteSearch.set(sites_checked);
-    })();
-
-    (function() {
-      // get data type checkbox values and add to collection
-      var datatype_checked = [];
-      $('.listDataTypes input').each(function(data) {
-        var datatype_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        datatype_checked.push({/*'datatype_accordion_visible' : datatype_accordion_visible,*/ 'datatype_value' : datatype_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveDataTypeSearch.set(datatype_checked);
-    })();
-
-      var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
-      var regions = IONUX2.Collections.saveRegionSearch.toJSON();
-      var sites = IONUX2.Collections.saveSiteSearch.toJSON();
-      var dataTypes = IONUX2.Collections.saveDataTypeSearch.toJSON();
-
-      var values = {
-        'searchName': searchName,
-        'spatial' : spatial,
-        'temporal': temporal,
-        'facilities' : facilities,
-        'regions': regions,
-        'sites': sites,
-        'dataTypes': dataTypes
-      };
-
-      // add search values to saved search collection
-      IONUX2.Collections.saveNames.add(values);
-      console.log("saved search collection");
-      console.log(IONUX2.Collections.saveNames);     
 
       //remove previous input text so that name placeholder shows
       $('.customName').val(''); 
       $('#navLeftMinimizeArrow').show();
+
+      var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
+      if (IONUX2.Models.SessionInstance.is_logged_in()) {
+        UINAV.postUserProfile(userProfile);
+      }
   },
 
   saveSearch: function() {
     $('#saveButtons').hide();
     $('#customSearchName').show();
+    $('.customName').focus();
     $('#navLeftMinimizeArrow').hide();
+
+    /*$('.customName, #saveName').on('blur', function(e) {
+      $('#customSearchName').hide();
+      $('#saveButtons').show();
+    });*/
   },
 
   render: function() {
@@ -243,7 +157,6 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
 
 IONUX2.Views.LeftAccordion = Backbone.View.extend({
   el: '#searchTabContent',
-  //template: _.template(IONUX2.getTemplate('templates/leftAccordions.html')),
   template: _.template('<article class="leftAccordion" id="<%= id %>Elem"><span class="accordionTitle">' +
    '<div class="expandHide arrowRight"></div><div class="accordionLabel"><%= title %></div></span>' +
   '<section class="leftAccordionContents" style="display:none;position:relative;" id="<%= id %>"></section></article>'),
@@ -500,21 +413,21 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
     "change select[name='filter_var']": "filter_field_changed"
   },
   filter_fields: [
-    {field: 'name'                  , label: 'Name'                     , values: []} ,
-    {field: 'ooi_short_name'        , label: 'OOI Data Product Code'    , values: []} ,
-    {field: 'ooi_product_name'      , label: 'Data Product Type'        , values: []} ,
-    {field: 'description'           , label: 'Description'              , values: []} ,
-    {field: 'instrument_family'     , label: 'Instrument Family'        , values: []} ,
-    {field: 'lcstate'               , label: 'Lifecycle State'          , values: ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED']} ,
-    {field: 'alt_ids'               , label: 'OOI Reference Designator' , values: []} ,
-    {field: 'name'                  , label: 'Organization'             , values: []} ,
-    {field: 'platform_family'       , label: 'Platform Family'          , values: []} ,
+    {field: 'name'                  , label: 'Name'                     , values: [], name: 'name'} ,
+    {field: 'ooi_short_name'        , label: 'OOI Data Product Code'    , values: [], name: 'ooi_short_name'} ,
+    {field: 'ooi_product_name'      , label: 'Data Product Type'        , values: [], name: 'ooi_product_name'} ,
+    {field: 'description'           , label: 'Description'              , values: [], name: 'description'} ,
+    {field: 'instrument_family'     , label: 'Instrument Family'        , values: [], name: 'instrument_family'} ,
+    {field: 'lcstate'               , label: 'Lifecycle State'          , values: ['DRAFT','PLANNED','DEVELOPED','INTEGRATED','DEPLOYED','RETIRED'], name: 'lcstate'} ,
+    {field: 'alt_ids'               , label: 'OOI Reference Designator' , values: [], name: 'alt_ids'} ,
+    {field: 'name'                  , label: 'Organization'             , values: [], name: 'organization'} ,
+    {field: 'platform_family'       , label: 'Platform Family'          , values: [], name: 'platform_family'} ,
     {field: 'processing_level_code' , label: 'Processing Level'         , values: [['L0 - Unprocessed Data', 'L0'],
                                                                                    ['L1 - Basic Data', 'L1'],
-                                                                                   ['L2 - Derived Data', 'L2']]} ,
+                                                                                   ['L2 - Derived Data', 'L2']], name: 'processing_level_code'} ,
     {field: 'quality_control_level' , label: 'Quality Control Level'    , values: [['a - No QC applied', 'a'],
                                                                                    ['b - Automatic QC applied', 'b'],
-                                                                                   ['c - Human QC applied', 'c']]} ,
+                                                                                   ['c - Human QC applied', 'c']], name: 'quality_control_level'} ,
     {field: 'name'                  , label: 'Site'                     , values: ['Coastal Endurance',
                                                                                    'Coastal Pioneer',
                                                                                    'Global Argentine Basin',
@@ -523,8 +436,8 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
                                                                                    'Global Station Papa',
                                                                                    'Regional Axial',
                                                                                    'Regional Hydrate Ridge',
-                                                                                   'Regional Mid Plate']} ,
-    {field: 'aggregated_status'     , label: 'Status'                   , values: ['Critical', 'OK', 'None expected', 'Warning']} ,
+                                                                                   'Regional Mid Plate'], name: 'site'} ,
+    {field: 'aggregated_status'     , label: 'Status'                   , values: ['Critical', 'OK', 'None expected', 'Warning'], name: 'aggregated_status'} ,
     {field: 'type_'                 , label: 'Type'                     , values: [
       ['Attachment','Attachment'],
       ['Data Agent Instance','ExternalDatasetAgentInstance'],
@@ -552,7 +465,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       ['Site','Observatory'],
       ['Station','StationSite'],
       ['Subscription','NotificationRequest'],
-      ['User','UserInfo']]},
+      ['User','UserInfo']], name: 'type_'},
   ],
   initialize: function() {
     console.log('initializing boolean view');
@@ -612,7 +525,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
         var sel_operator = $('<select class="booleanSelectContainer" name="filter_operator"></select>');
         filter_container.find('.filter-add').before(sel_operator);
         _.each(operators, function(o) {
-          sel_operator.append('<option>' + o + '</option>');
+          sel_operator.append('<option value="' + o + '">' + o + '</option>');
         });
       }
 
@@ -628,7 +541,7 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
       filter_container.find('input[name="filter_arg"]').remove();
 
       if (filter_container.find('input[name="filter_operator"]').length == 0) {
-        var sel_operator = '<input type="text" class="argument" style="visibility:hidden;" name="filter_operator" value="matches" />';
+        var sel_operator = '<input type="text" class="argument" style="display:none;" name="filter_operator" value="matches" />';
         filter_container.find('.filter-add').before(sel_operator);
       }
 
