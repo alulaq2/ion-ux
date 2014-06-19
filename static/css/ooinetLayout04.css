@@ -702,13 +702,29 @@ ul.dropdown-menu li:hover {
   color: #fff;
 }
 
-.expandAll,
-.hideAll {
+.expandBtn,
+.hideBtn {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  line-height: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: Courier;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 4px;
+  background: #fff;
   color: #384d68;
-  background: #88A9CC;
-  border-radius: 4px;
-  width: 10px;
-  height: 10px;
+  border: 1px solid #384d68;
+  display: inline-block;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+}
+
+.expandBtn:hover,
+.hideBtn:hover {
+  border: 1px solid #88A9CC;
 }
 
 .expandAll {

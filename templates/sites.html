@@ -1,24 +1,25 @@
 <div class="select_all">
-    <input class="checkAllSites" type="checkbox"/> Select All 
-    <div class="expandAll sitesExpander">Expand All</div> 
-    <div class="hideAll sitesHider">Hide All</div>
+    <div class="expandBtn sitesExpandToggle">+</div> Show / Hide All</br>
+    <input class="checkAllSites" type="checkbox"/> Select All
 </div>
 <div class="listSites">
     <form action="">
 
         <% _.each(resources, function(nestedResources, san) { %>
-            <div class="expandHide arrowRight"></div> <%= san %> Sites<br/>
-            <div class="nestedNavList showSites" style="display:none;">
-            <% _.each(nestedResources, function(r) { %>
-                <input type="checkbox">
-                    <div class="resourceLink" data-id="<%= r._id %>">
-                        <% if (r.local_name) { %>
-                            <%= r.local_name %>
-                        <% } else { %>
-                            <%= r.name %>
-                        <% }; %>
-                    </div></br>
-            <% }) %>
+            <div>
+                <div class="expandHide expandBtn">+</div> <%= san %> Sites<br/>
+                <div class="nestedNavList showSites" style="display:none;">
+                <% _.each(nestedResources, function(r) { %>
+                    <input type="checkbox">
+                        <div class="resourceLink" data-id="<%= r._id %>">
+                            <% if (r.local_name) { %>
+                                <%= r.local_name %>
+                            <% } else { %>
+                                <%= r.name %>
+                            <% }; %>
+                        </div></br>
+                <% }) %>
+                </div>
             </div>
         <% }) %>
        
@@ -50,23 +51,24 @@
             $link.parent().children('.showSites').slideToggle('fast', function() {
                 console.log($(this) + " and " + $link);
                 if ($(this).is(':visible')) {
-                    $link.removeClass('arrowRight').addClass('arrowDown');
+                    $link.removeClass('expandBtn').addClass('hideBtn').html('-');              
                 } else {
-                    $link.removeClass('arrowDown').addClass('arrowRight');
-                }
+                    $link.removeClass('hideBtn').addClass('expandBtn').html('+');
+                }        
             });
         });
 
-        $('.sitesExpander').on('click', function(e) {
+        $('.sitesExpandToggle').click(function(e) {
             e.preventDefault();
-            $('.listSites').find('.showSites').show();
-            $('.listSites').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
-        });
-
-        $('.sitesHider').on('click', function(e) {
-            e.preventDefault();
-            $('.listSites').find('.showSites').hide();
-            $('.listSites').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+            if($(this).hasClass('expandBtn')) {
+                $('.listSites').find('.showSites').show();
+                $('.listSites').find('.expandHide').removeClass('expandBtn').addClass('hideBtn').html('-');
+                $(this).removeClass('expandBtn').addClass('hideBtn').html('-');
+            } else {
+                $('.listSites').find('.showSites').hide();
+                $('.listSites').find('.expandHide').removeClass('hideBtn').addClass('expandBtn').html('+');
+                $(this).removeClass('hideBtn').addClass('expandBtn').html('+');
+            }
         });
     });
 </script>
