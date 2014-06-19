@@ -5,7 +5,13 @@
 	<form action="">
 		<% _.each(resources, function(resource) { %>
             <% if (resource.name !== 'ION') { %>
-                <input type="checkbox" value="<%= resource._id %>" style="display:inline-block;"/><div class="resourceLink" data-id="<%= resource._id %>" style="display:inline-block;"> <%= IONUX2.facilityLabels[resource.name] %></div><br/>
+                <input type="checkbox" value="<%= resource._id %>" style="display:inline-block;"/><div class="resourceLink" data-id="<%= resource._id %>" style="display:inline-block;"> 
+                <% if (!(resource.name in IONUX2.facilityLabels)) { %>
+                    <%= resource.name %>
+                <% } else { %>
+                    <%= IONUX2.facilityLabels[resource.name] %>
+                <% } %>
+                </div><br/>
             <% } %>
         <% }) %>
     </form>
