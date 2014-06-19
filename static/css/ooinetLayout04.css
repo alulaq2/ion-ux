@@ -1,7 +1,7 @@
 /*
 ooinet-04.css  proto=ooinetLayout04.css
 by Peter Rosti
-last edited 05-29 04-22 04-14 04-09 03-06 03-05 2014-03-03
+last edited 06-13 06-12 05-29 04-22 04-14 04-09 03-06 03-05 2014-03-03
 
 This layout uses calc() to set height and width values
 Note: calc must have spaces in the formula, to accomodate IE bug,
@@ -675,12 +675,67 @@ ul.dropdown-menu li:hover {
   margin-left:0;
 }
 
-.list_regions, .list_sites, .list_facilities, .listDataTypes, .listPlatformTypes{
+.list_regions, 
+.list_facilities, 
+.listDataTypes, 
+.listPlatformTypes, 
+.listInstrumentTypes {
   margin-left: 13px;
 }
 
-.list_sites a, .list_facilities a {
+.list_facilities a,
+.select_all a,
+.expandAll:hover, 
+.expandAll:visited, 
+.hideAll:hover, 
+.hideAll:visited {
   color: #fff;
+}
+
+.nestedNavList {
+  list-style: none;
+  margin: 0 0 10px 15px;
+}
+
+.expandAll:hover,
+.hideAll:hover {
+  color: #fff;
+}
+
+.expandBtn,
+.hideBtn {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  line-height: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: Courier;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 4px;
+  background: #fff;
+  color: #384d68;
+  border: 1px solid #384d68;
+  display: inline-block;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+}
+
+.expandBtn:hover,
+.hideBtn:hover {
+  border: 1px solid #88A9CC;
+}
+
+.expandAll {
+  cursor: pointer;
+  margin-left:50px;
+  display: inline-block;
+}
+
+.hideAll {
+  cursor: pointer;
+  display: inline-block;
 }
 
 #saveButtons {
@@ -778,11 +833,11 @@ background-color: #7B99B5;
   background: -webkit-linear-gradient(left, #5687AF, #3B5E7E);
   background: -moz-linear-gradient(left, #5687AF, #3B5E7E);
   background: -o-linear-gradient(left, #5687AF, #3B5E7E);
-  padding: 4px 5px 4px 4px;
-  /*width: 217px;*/
-  margin-bottom: 5px;
+  padding: 2px 5px 2px 4px;
+  /* width: 249px;  DONT MESS WITH THIS !! */
+  margin-bottom: 3px;
   margin-right: 3px;
-  margin-left: 3px; 
+  margin-left: 3px;
   border: 1px solid #5687AF;
   border-left: 0px;
   border-radius: 7px;
@@ -790,7 +845,7 @@ background-color: #7B99B5;
 
 #booleanForm form {margin: 0px;}
 #boolean_expression span {line-height:10px}
-#booleanForm div.filter-item-holder {width: 100%; margin-left:0px}
+#booleanForm div.filter-item-holder {width: 162px; margin-left:0px}
 #booleanForm div.filter-item {font-size: 10px; margin: 0px 0px 0px 0px; padding: 2px 0px 6px;}
 #booleanForm select.booleanSelectContainer  {position: relative;left: 0px;top: 0px;border: 1px solid #384D68;-webkit-appearance: none;  -moz-appearance: none; background: #7e99b7 url(../img/left_select_arrow.png) no-repeat 100% center;width: 162px; text-indent: 0.01px; text-overflow: ""; color: #FFF;
 border-radius: 3px;height: 18px;line-height: 16px;padding: 0px;margin:2px 0px 4px;color: #FFF;font-family: Arial;font-size: 12px;background-color: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));background-color: -webkit-linear-gradient(left, #88A9CC, #7890AC);
@@ -847,7 +902,7 @@ input.latlong {
 }
 
  input.keyword {
-  width: calc(100% - 58px);
+  width: calc(100% - 64px);
   margin-left: 4px;
   margin-bottom: 2px;
 }
@@ -906,7 +961,7 @@ select.dateMenu.hour {width:56px;}
 
 #booleanForm form {margin: 0px;}
 #boolean_expression span {line-height:10px}
-#booleanForm div.filter-item-holder {width: 100%; margin-left:0px}
+#booleanForm div.filter-item-holder {width: 162px; margin-left:0px}
 #booleanForm div.filter-item {font-size: 10px; margin: 0px 0px 0px 0px; padding: 2px 0px 6px;}
 #booleanForm select.booleanSelectContainer  {position: relative;left: 0px;top: 0px;border: 1px solid #384D68;-webkit-appearance: none;  -moz-appearance: none; background: #7e99b7 url(../img/left_select_arrow.png) no-repeat 100% center;width: 162px; text-indent: 0.01px; text-overflow: ""; color: #FFF;
 border-radius: 3px;height: 18px;line-height: 16px;padding: 0px;margin:2px 0px 4px;color: #FFF;font-family: Arial;font-size: 12px;background-color: -webkit-gradient(linear, left top, right top, from(#88A9CC), to(#7890AC));background-color: -webkit-linear-gradient(left, #88A9CC, #7890AC);
@@ -1125,6 +1180,7 @@ input.noPlaceholderRadius {
 .itemName {
   display: inline-block;
   width: 90%;
+  padding-left: 3px;
 }
 
 .alignCheckbox {

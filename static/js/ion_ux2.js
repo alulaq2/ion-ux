@@ -195,6 +195,20 @@ IONUX2 = {
 			hits += !_.isEmpty(_.intersection(roles[o.org_governance_name],target_roles)) ? 1 : 0;
 		});
 		return hits > 0;
+    },
+
+    observatoryFacilityLabels: {
+    	'Bench Test Facility' : 'Bench Test',
+    	'CGSN Facility' : 'Coastal/Global Scale Nodes (CGSN)',
+    	'EA Facility' : 'Endurance Array (EA)',
+    	'RSN Facility' : 'Regional Scale Nodes (RSN)'
+    },
+
+    facilityLabels: {
+    	'Bench Test Facility' : 'Bench Test Facility',
+    	'CGSN Facility' : 'Coastal/Global Scale Nodes (CGSN)',
+    	'EA Facility' : 'Endurance Array (EA)',
+    	'RSN Facility' : 'Regional Scale Nodes (RSN)'
     }
 };
 

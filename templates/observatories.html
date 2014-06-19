@@ -1,0 +1,67 @@
+<div class="select_all">
+    <div class="expandBtn observatoryExpandToggle">+</div> Show / Hide All</br>
+    <input class="checkAllObservatories" type="checkbox"/> Select All 
+</div>
+<div class="listObservatories">
+    <form action="">
+        <% _.each(resources, function(resource, name) { %>
+            <% if ( name !== 'ION') { %>
+                <div>
+                    <div class="expandHide expandBtn">+</div> <%= IONUX2.observatoryFacilityLabels[name] %> Facility<br/>
+                    <div class="nestedNavList showObservatory" style="display:none;">
+                    <% _.each(resource, function(nestedResource) { %>
+                        <input type="checkbox"> <%= nestedResource %></br>
+                    <% }); %>
+                    </div>
+                </div>
+            <% } %>
+        <% }); %>
+    </form>
+</div>
+
+<script>
+    $(function(){
+        $(".listObservatories .resourceLink").click(function(){
+            var resource_id = $(this).attr('data-id');
+            var url = "/Observatory/face/"+resource_id+"/";
+            IONUX.ROUTER.navigate('');
+            IONUX.ROUTER.navigate(url, {trigger:true});
+        });
+
+        $('.listObservatories .expandHide').on('click', function(e) {
+            e.preventDefault();
+            var $link = $(e.currentTarget);
+            $link.parent().children('.showObservatory').slideToggle('fast', function() {
+                console.log($(this) + " and " + $link);
+                if ($(this).is(':visible')) {
+                    $link.removeClass('expandBtn').addClass('hideBtn').html('-');              
+                } else {
+                    $link.removeClass('hideBtn').addClass('expandBtn').html('+');
+                }        
+            });
+        });
+
+        $('.checkAllObservatories').click(function(e){
+            var $check = $(e.currentTarget);
+            if ($check.is(':checked')) {
+              $('.listObservatories').find('input').prop('checked', true);
+            }
+            else {
+              $('.listObservatories').find('input').prop('checked', false);
+            }
+        });
+
+        $('.observatoryExpandToggle').click(function(e) {
+            e.preventDefault();
+            if($(this).hasClass('expandBtn')) {
+                $('.listObservatories').find('.showObservatory').show();
+                $('.listObservatories').find('.expandHide').removeClass('expandBtn').addClass('hideBtn').html('-');
+                $(this).removeClass('expandBtn').addClass('hideBtn').html('-');
+            } else {
+                $('.listObservatories').find('.showObservatory').hide();
+                $('.listObservatories').find('.expandHide').removeClass('hideBtn').addClass('expandBtn').html('+');
+                $(this).removeClass('hideBtn').addClass('expandBtn').html('+');
+            }
+        });
+    });
+</script>

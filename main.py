@@ -462,6 +462,11 @@ def related_sites(resource_id):
     related_sites = ServiceApi.find_related_sites(resource_id)
     return render_json_response(related_sites)
 
+@app.route('/observatories/', methods=['GET'])
+def observatories_tree():
+    observatories_tree = ServiceApi.find_facilities_observatories()
+    return render_json_response(observatories_tree)
+
 @app.route('/related_objects_has_resource/<resource_id>/', methods=['GET'])
 def related_objects_has_resource(resource_id):
     related_objects_has_resource = ServiceApi.find_related_objects_has_resource(resource_id)

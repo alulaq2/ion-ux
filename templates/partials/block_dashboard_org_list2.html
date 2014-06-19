@@ -4,7 +4,9 @@
 <div class="list_facilities">
 	<form action="">
 		<% _.each(resources, function(resource) { %>
-            <input type="checkbox" value="<%= resource._id %>"/><div class="resourceLink" data-id="<%= resource._id %>"> <%= resource.name %></div><br/>
+            <% if (resource.name !== 'ION') { %>
+                <input type="checkbox" value="<%= resource._id %>" style="display:inline-block;"/><div class="resourceLink" data-id="<%= resource._id %>" style="display:inline-block;"> <%= IONUX2.facilityLabels[resource.name] %></div><br/>
+            <% } %>
         <% }) %>
     </form>
 </div>

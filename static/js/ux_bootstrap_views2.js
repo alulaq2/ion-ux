@@ -170,27 +170,30 @@ IONUX2.Views.LeftAccordion = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.Observatories = Backbone.View.extend({
+  el: '#observatoryList',
+  template: _.template(IONUX2.getTemplate('templates/observatories.html')),
+  initialize: function() {
+    this.model.on('change:data', this.render, this);
+  },
+
+  render: function() {
+    _.each(this.model.data, function(item) {
+      console.log("observatory data is");
+      console.log(item);
+    });
+    this.$el.html(this.template({resources: this.model.data}));
+    return this;
+  }
+});
+
 IONUX2.Views.Sites = Backbone.View.extend({
   el: '#site',
   template: _.template(IONUX2.getTemplate('templates/sites.html')),
-  events: {
-    'click .checkAllSites': 'select_all_sites',
-    'click .resource_id': 'get_instrument'
-  },
 
   initialize: function() {
     console.log('initializing sites view');
     this.render();
-  },
-
-  select_all_sites: function(e) {
-    var $check = $(e.currentTarget);
-    if ($check.is(':checked')) {
-      $('.list_sites').find('input').prop('checked', true);
-    }
-    else {
-      $('.list_sites').find('input').prop('checked', false);
-    }
   },
 
   get_instrument: function(e) {
@@ -215,9 +218,25 @@ IONUX2.Views.Sites = Backbone.View.extend({
     }
   },
 
+  build_menu: function(){
+    // Grab all spatial names, then uniques; separate for clarity.
+    var spatial_area_names = _.map(this.collection.models, function(resource) {
+      var san = resource.get('spatial_area_name');
+      if (san != '') return san;
+    });
+    var unique_spatial_area_names = _.uniq(spatial_area_names);
+
+    var resource_list = {};
+    _.each(unique_spatial_area_names, function(san) {
+      resource_list[san] = _.map(this.collection.where({spatial_area_name: san}), function(resource) { console.log("resource is"); console.log(resource); return resource.toJSON()});
+    }, this);
+    return resource_list;
+  },
+
   render: function() {
     console.log('rendering sites');
-    this.$el.html(this.template(this.collection.toJSON()));
+    this.$el.html(this.template({resources: this.build_menu(), title: this.title}));
+    //this.$el.html(this.template(this.collection.toJSON()));
     return this;
   }
 });
@@ -588,6 +607,18 @@ IONUX2.Views.OrgSelector = Backbone.View.extend({
   },
   render: function(){
     this.$el.html(this.template({resources: this.collection.toJSON()}));
+    return this;
+  }
+});
+
+IONUX2.Views.InstrumentTypesMenu = Backbone.View.extend({
+  el: '#instrumentTypesList',
+  template: _.template(IONUX2.getTemplate('templates/block_instrument_types.html')),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template);
     return this;
   }
 });
