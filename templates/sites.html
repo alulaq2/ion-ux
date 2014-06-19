@@ -1,64 +1,72 @@
 <div class="select_all">
-    <input class="checkAllSites" type="checkbox"/> Select All <a href="#" class="expandAllSites">Expand All</a> <a href="#" class="hideAllSites">Hide All</a>
+    <input class="checkAllSites" type="checkbox"/> Select All 
+    <div class="expandAll sitesExpander">Expand All</div> 
+    <div class="hideAll sitesHider">Hide All</div>
 </div>
-<div class="list_sites">
+<div class="listSites">
     <form action="">
 
-        <% _.each(resources, function(nested_resources, san) { %>
-
-            <div id="regionName">
-                <div class="expandHide arrowRight"></div> <%= san %> Sites<br/>
-                <ul class="showSites">
-                <% _.each(nested_resources, function(r) { %>
-                    <li><input type="checkbox">
+        <% _.each(resources, function(nestedResources, san) { %>
+            <div class="expandHide arrowRight"></div> <%= san %> Sites<br/>
+            <div class="nestedNavList showSites" style="display:none;">
+            <% _.each(nestedResources, function(r) { %>
+                <input type="checkbox">
+                    <div class="resourceLink" data-id="<%= r._id %>">
                         <% if (r.local_name) { %>
-                            <%= r.local_name %><br/>
+                            <%= r.local_name %>
                         <% } else { %>
-                            <%= r.name %><br/>
+                            <%= r.name %>
                         <% }; %>
-                    </li>
-                <% }) %>
-                </ul>
+                    </div></br>
+            <% }) %>
             </div>
         <% }) %>
-
        
     </form>
 </div>
 
 <script>
     $(function(){
-        $(".list_sites .resourceLink").click(function(){
+        $(".listSites .resourceLink").click(function(){
             var resource_id = $(this).attr('data-id');
             var url = "/Observatory/face/"+resource_id+"/";
             IONUX.ROUTER.navigate('');
             IONUX.ROUTER.navigate(url, {trigger:true});
-            $('#mapButtonHidden').click();
         });
 
-        $('#regionName .expandHide').on('click', function(e) {
+        $('.checkAllSites').click(function(e){
+            var $check = $(e.currentTarget);
+            if ($check.is(':checked')) {
+              $('.listSites').find('input').prop('checked', true);
+            }
+            else {
+              $('.listSites').find('input').prop('checked', false);
+            }
+        });
+
+        $('.listSites .expandHide').on('click', function(e) {
             e.preventDefault();
             var $link = $(e.currentTarget);
             $link.parent().children('.showSites').slideToggle('fast', function() {
                 console.log($(this) + " and " + $link);
                 if ($(this).is(':visible')) {
-                    $link.removeClass('arrowDown').addClass('arrowRight');              
-                } else {
                     $link.removeClass('arrowRight').addClass('arrowDown');
-                }        
+                } else {
+                    $link.removeClass('arrowDown').addClass('arrowRight');
+                }
             });
         });
 
-        $('.expandAllSites').on('click', function(e) {
+        $('.sitesExpander').on('click', function(e) {
             e.preventDefault();
-            $('.list_sites').find('.showSites').show();
-            $('.list_sites').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+            $('.listSites').find('.showSites').show();
+            $('.listSites').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
         });
 
-        $('.hideAllSites').on('click', function(e) {
+        $('.sitesHider').on('click', function(e) {
             e.preventDefault();
-            $('.list_sites').find('.showSites').hide();
-            $('.list_sites').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('.listSites').find('.showSites').hide();
+            $('.listSites').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
         });
     });
 </script>

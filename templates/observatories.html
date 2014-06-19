@@ -1,54 +1,67 @@
 <div class="select_all">
-    <input class="checkAllSites" type="checkbox"/> Select All <a href="#" class="expandAllSites">Expand All</a> <a href="#" class="hideAllSites">Hide All</a>
+    <input class="checkAllObservatories" type="checkbox"/> Select All 
+    <div class="expandAll observatoryExpander">+</div> /
+    <div class="hideAll observatoryHider">-</div>
 </div>
-<div class="list_sites">
+<div class="listObservatories">
     <form action="">
-        <% _.each(resources, function(resource) { %>
-            <div id="observatoryName">
-                <div class="expandHide arrowRight"></div> <%= resource %><br/>
-                <ul class="showObservatory">
-                <% _.each(resource, function(nested_resource) { %>
-                    <li><input type="checkbox"> <%= nested_resource %><br/></li>
-                <% }); %>
-                </ul>
-            </div>
+        <% _.each(resources, function(resource, name) { %>
+            <% if ( name !== 'ION') { %>
+                <div id="observatoryName">
+                    <div class="expandHide arrowRight"> </div> <%= name %><br/>
+                    <div class="nestedNavList showObservatory" style="display:none;">
+                    <% _.each(resource, function(nestedResource) { %>
+                        <input type="checkbox"> <%= nestedResource %></br>
+                    <% }); %>
+                    </div>
+                </div>
+            <% } %>
         <% }); %>
     </form>
 </div>
 
 <script>
     $(function(){
-        $(".list_sites .resourceLink").click(function(){
+        $(".listObservatories .resourceLink").click(function(){
             var resource_id = $(this).attr('data-id');
             var url = "/Observatory/face/"+resource_id+"/";
             IONUX.ROUTER.navigate('');
             IONUX.ROUTER.navigate(url, {trigger:true});
-            $('#mapButtonHidden').click();
         });
 
-        $('#regionName .expandHide').on('click', function(e) {
+        $('#observatoryName .expandHide').on('click', function(e) {
             e.preventDefault();
             var $link = $(e.currentTarget);
-            $link.parent().children('.showSites').slideToggle('fast', function() {
+            $link.parent().children('.showObservatory').slideToggle('fast', function() {
                 console.log($(this) + " and " + $link);
                 if ($(this).is(':visible')) {
-                    $link.removeClass('arrowDown').addClass('arrowRight');              
+                    $link.removeClass('arrowRight').addClass('arrowDown');              
                 } else {
-                    $link.removeClass('arrowRight').addClass('arrowDown');
+                    $link.removeClass('arrowDown').addClass('arrowRight');
                 }        
             });
         });
 
-        $('.expandAllSites').on('click', function(e) {
-            e.preventDefault();
-            $('.list_sites').find('.showSites').show();
-            $('.list_sites').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+        $('.checkAllObservatories').click(function(e){
+            var $check = $(e.currentTarget);
+            if ($check.is(':checked')) {
+              $('.listObservatories').find('input').prop('checked', true);
+            }
+            else {
+              $('.listObservatories').find('input').prop('checked', false);
+            }
         });
 
-        $('.hideAllSites').on('click', function(e) {
+        $('.observatoryExpander').on('click', function(e) {
             e.preventDefault();
-            $('.list_sites').find('.showSites').hide();
-            $('.list_sites').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+            $('.listObservatories').find('.showObservatory').show();
+            $('.listObservatories').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+        });
+
+        $('.observatoryHider').on('click', function(e) {
+            e.preventDefault();
+            $('.listObservatories').find('.showObservatory').hide();
+            $('.listObservatories').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
         });
     });
 </script>

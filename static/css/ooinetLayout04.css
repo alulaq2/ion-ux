@@ -675,23 +675,51 @@ ul.dropdown-menu li:hover {
   margin-left:0;
 }
 
-.list_regions, .list_facilities, .listDataTypes, .listPlatformTypes, .listInstrumentTypes {
+.list_regions, 
+.list_facilities, 
+.listDataTypes, 
+.listPlatformTypes, 
+.listInstrumentTypes {
   margin-left: 13px;
 }
 
-.list_sites a, .list_facilities a, .expandAllSites, .expandAllSites:hover, .hideAllSites, .hideAllSites:hover, .expandAllSites:visited, .hideAllSites:visited {
+.list_facilities a,
+.select_all a,
+.expandAll:hover, 
+.expandAll:visited, 
+.hideAll:hover, 
+.hideAll:visited {
   color: #fff;
 }
 
-.showSites {
+.nestedNavList {
   list-style: none;
   margin: 0 0 10px 15px;
-  display: none;
 }
 
-.expandAllSites {
+.expandAll:hover,
+.hideAll:hover {
+  color: #fff;
+}
+
+.expandAll,
+.hideAll {
+  color: #384d68;
+  background: #88A9CC;
+  border-radius: 4px;
+  width: 10px;
+  height: 10px;
+}
+
+.expandAll {
+  cursor: pointer;
   margin-left:50px;
-  margin-right: 8px;
+  display: inline-block;
+}
+
+.hideAll {
+  cursor: pointer;
+  display: inline-block;
 }
 
 #saveButtons {
