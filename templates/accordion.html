@@ -1,14 +1,16 @@
+<!-- filename="accordion.html" -->
 <div id="saveButtons">
  <button id="searchBtn" class="navButton">Search</button>
  <button id="saveSearch" class="navButton">Save this Search</button>
  <button id="resetBtn" class="navButton">Reset</button>
 </div>
-<div id="customSearchName"><input class="customName" type="text" placeholder="Name" maxlength="15" /><button id="saveName" class="textRight">Save</button></div>
+<div id="customSearchName"><input class="customName" type="text" placeholder="Name" /><button id="saveName" class="textRight">Save</button></div>
 <div class="accordionContainer">
   <article class="leftAccordion accordion_fixed" id="keyword">
     <div class="accordionLabel">Keyword</div>
-    <input id="keywordIn" class="keyword" type="text" placeholder="Keyword" style="display:inline-block;"/>
+    <input id="keywordIn" class="keyword" type="text" placeholder="Enter keyword" style="display:inline-block;"/>
   </article>
+  <!-- other accordions placed here dynamically -->
 </div>
 
 <form id="searchForm">
@@ -34,6 +36,8 @@
   <input type="hidden" name="temporal-field-ctrl" id="temporal-field-ctrlFm2"/>
   <input type="hidden" name="radius" id="radiusFm2"/>
 </form>
+
+<!-- end filename="accordion.html" -->
 
 <script type="text/template" id="block_data_type_list_tmpl">{% include 'block_data_type_list2.html' %}</script>
 <script type="text/template" id="filter-item-tmpl">{% include 'block_boolean2.html' %}</script>
