@@ -835,7 +835,7 @@ background-color: #7B99B5;
   display: none;
 }
 
-#saveConfigBtn {
+#saveConfigBtn, #resetConfigBtn {
   height: 18px;
   line-height: 12px;
   margin: 5px 7px 5px auto;

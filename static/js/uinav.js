@@ -322,6 +322,7 @@ var UINAV = {
             contentType: 'application/x-www-form-urlencoded'
         });
     },
+
     loadSavedSearches: function(savedSearch) {
         console.log("loading saved searches");
         var savedSearchList = JSON.parse(savedSearch.data);
