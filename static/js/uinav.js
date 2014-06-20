@@ -21,14 +21,6 @@ var UINAV = {
             elementContainer.append($("#"+val));
         });
 
-        for (item in configurationList) {
-            if (configurationList[item].is_visible) {
-                $('#'+configurationList[item].id).show();
-                console.log("config id is");
-                console.log($('#'+configurationList[item].id));
-                $('#'+configurationList[item].id).parent().find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
-            }
-        }
     },
     loadVisibility: function(configurationList) {
         for (item in configurationList) {
@@ -43,7 +35,6 @@ var UINAV = {
         for (item in configurationList) {
             if (configurationList[item].is_visible) {
                 $('#'+configurationList[item].id).show();
-                $('#'+configurationList[item].id).parent().find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -68,7 +59,48 @@ var UINAV = {
             this.loadDataTypes(dataTypesModel);
             this.loadBooleanExpression(booleanExpressionModel);
             this.loadVisibility(configurationModel);
-            this.loadAccordionVisibility(bottomConfigModel);
+
+            var dataTypesList = [
+            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
+             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER"];
+
+                var assetTypesList = ["Platform", "Instrument"];
+
+                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite"];
+
+                var gotKey = function(dataList) {
+                    for (var key in dataList) {
+                        for (item in bottomConfigModel) {
+                            if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
+                                return true
+                            }
+                        }
+                    }   
+                };
+
+        if (gotKey(dataTypesList)) {
+            console.log("got data");
+            $('#dataSearchResultsTab').click();
+            var $bottom_accordion = $('#dataSearchResultsAccordion .accordionContainerWhite');
+            console.log("bottom accordion is");
+            console.log($bottom_accordion);
+        }
+    
+        if (gotKey(assetTypesList)) {
+            console.log("got asset tab");
+            $('#assetsSearchResultsTab').click();
+            var $bottom_accordion = $('#assetsSearchResultsAccordion .accordionContainerWhite');
+            console.log($bottom_accordion);
+        }
+
+        if (gotKey(siteTypesList)) {
+            console.log("got site tab");
+            $('#siteSearchResultsTab').click();
+            var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
+            console.log($bottom_accordion);
+        }
+
+        this.loadAccordionVisibility(bottomConfigModel);
     },
 
     loadSpatial: function(spatialModel) {
@@ -83,11 +115,7 @@ var UINAV = {
             $(this).prop('checked', facilitiesModel[index].is_checked);
         });
     },
-    /*loadRegions: function(regionsModel) {
-        $('.list_regions input').each(function(index) {
-        	$(this).prop('checked', regionsModel[index].is_checked);
-        });
-    },*/
+    
     loadSites: function(sitesModel) {
         $('.list_sites input').each(function(index) {
             $(this).prop('checked', sitesModel[index].is_checked);
@@ -276,7 +304,7 @@ var UINAV = {
         var bottomConfigList = savedSearchList[0].bottom_config;
         IONUX2.Collections.userProfileInstance.set(savedSearchList);
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
-        
+
     },
     loadConfiguration: function(configuration) {
         console.log("loading configuration");
@@ -313,7 +341,6 @@ var UINAV = {
 
         if (gotKey(dataTypesList)) {
             console.log("got data");
-            $('#dataSearchResultsTab').click();
             var $bottom_accordion = $('#dataSearchResultsAccordion .accordionContainerWhite');
             console.log("bottom accordion is");
             console.log($bottom_accordion);
@@ -321,14 +348,12 @@ var UINAV = {
     
         if (gotKey(assetTypesList)) {
             console.log("got asset tab");
-            $('#assetsSearchResultsTab').click();
             var $bottom_accordion = $('#assetsSearchResultsAccordion .accordionContainerWhite');
             console.log($bottom_accordion);
         }
 
         if (gotKey(siteTypesList)) {
             console.log("got site tab");
-            $('#siteSearchResultsTab').click();
             var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
             console.log($bottom_accordion);
         }
