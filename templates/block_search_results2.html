@@ -262,7 +262,6 @@
 				<%= name %>\
 				<div class="expandHide arrowRight blue"> </div>\
 			</div>\
-			<div class="accordionWhitePin"> </div>\
 			<div class="accordionContents" style="display:none;" id="accordion<%= id %>">\
 				<div class="searchResultTable" id="table<%= id %>"> </div>\
 			</div>\
@@ -316,7 +315,7 @@
 	});
 
     $('.accordionContainerWhite').sortable({
-    	items: ".accordionWhite:not(.pinned)",
+    	items: ".accordionWhite",
     	update: function( event, ui ) {}
     });
 
@@ -339,40 +338,11 @@
 		});
     }
 
-    $('.accordionWhitePin').click(function(e){
-    	e.preventDefault();
-    	var pin = $(e.currentTarget);
-    	var accordion = pin.closest('.accordionWhite');
-    	if(!accordion.hasClass('pinned')) {
-    		/*if(accordion.hasClass('collapsed')){
-    			toggleAccordion( accordion.find('.accordionContents'));
-    		}*/
-    		accordion.addClass('pinned');
-    	} else {
-    		/*if(!accordion.hasClass('collapsed')){
-    			toggleAccordion( accordion.find('.accordionContents'));
-    		}*/
-    		accordion.removeClass('pinned');
-    	}
-        $( ".accordionContainerWhite" ).sortable( "disable" );
-        $('.accordionContainerWhite').sortable({
-        	items: ".accordionWhite:not(.pinned)"
-        });
-        $( ".accordionContainerWhite" ).sortable( "enable" );
-    });
-
 	$('.accordionWhiteLabel').click(function(e){
 		e.preventDefault();
 		var link = $(e.currentTarget);
 		var accordion = link.closest('.accordionWhite');
-		if( !accordion.hasClass('pinned')){
-			// this code would collapse other non-pinned accordions
-			// when you open one, but we don't do that anymore.
-			/* if( accordion.hasClass('collapsed')){
-				toggleAccordion( accordion.siblings('.accordionWhite:not(.pinned)').find('.accordionContents:visible'));
-			} */
-			toggleAccordion( accordion.find('.accordionContents'));
-		}
+		toggleAccordion( accordion.find('.accordionContents'));
 	});
 
 </script>
