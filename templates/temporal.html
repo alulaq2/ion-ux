@@ -63,10 +63,11 @@
     var currentMonth = currentDate.getMonth();
     var currentDay = currentDate.getDate();
     var numberOfDays = daysInMonth(currentYear, currentMonth);
+	var numberOfDays = 31;
     var numberofHours = 24;
     var currentHour = currentDate.getHours();
     
-    populateYearDropdown(1900, currentYear+10);
+    populateYearDropdown(2004, currentYear+10);
     populateMonthDropdown();
     populateDayDropdown(numberOfDays, '');
     populateHourDropdown(numberofHours);
