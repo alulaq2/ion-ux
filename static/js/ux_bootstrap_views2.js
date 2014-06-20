@@ -142,10 +142,10 @@ IONUX2.Views.SearchTabContent = Backbone.View.extend({
     $('.customName').focus();
     $('#navLeftMinimizeArrow').hide();
 
-    /*$('.customName, #saveName').on('blur', function(e) {
+    $('#cancelName').on('click', function(e) {
       $('#customSearchName').hide();
       $('#saveButtons').show();
-    });*/
+    });
   },
 
   render: function() {

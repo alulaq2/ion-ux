@@ -744,7 +744,7 @@ ul.dropdown-menu li:hover {
   right: 17px;
 }
 
-#saveName {
+#saveName, #cancelName {
   height: 18px;
   line-height: 12px;
   margin: 5px 7px 5px auto;
@@ -756,6 +756,11 @@ ul.dropdown-menu li:hover {
   float: right;
   border-radius: 5px;
   border: 1px solid #9DDFF2;
+}
+
+#saveName {
+  position: relative;
+  top: -23px;
 }
 
 .navButton:hover {
@@ -805,6 +810,7 @@ background-color: #7B99B5;
   margin: 5px 5px 0 0;
   font-family: Arial;
   font-size: 12px;
+  width: 150px;
 }
 
 #saveConfiguration {
