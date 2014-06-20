@@ -184,7 +184,13 @@ width:100%;
 overflow: auto;
 }
 
-a.paginate_disabled_previous, a.paginate_disabled_next {
+a.paginate_enabled_previous,
+a.paginate_enabled_next {
+    margin-right: 3px;
+}
+
+a.paginate_disabled_previous,
+a.paginate_disabled_next {
     text-decoration: none;
     background: none repeat scroll 0% 0% #96A8BC;
     cursor: not-allowed;
