@@ -1274,6 +1274,11 @@ input.noPlaceholderRadius {
   font-weight: bold;
 }
 
+#mapToolbar {
+  height:32px;
+  line-height:32px;
+}
+
 .mapButtonSplit {
   cursor: pointer;
   width: 39px;
