@@ -48,9 +48,11 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
     </div>
     <div id="mainSubheader" align="left">
         <div id="saveConfiguration" style="display:none;">
+            <button class="textRight" id="resetConfigBtn">Reset Configuration</button>
             <button class="textRight" id="saveConfigBtn">Save Configuration</button>
         </div>
         <div id="mapToolbar" state="mapSplit">  <!-- states are mapFull, mapSplit, and mapHidden -->
+            <div id="mapResizeText"><img src="../static/img/rightBlueArrow.png" border="0" /></div>
             <div class="mapButtonFull" title="Full Map View"> </div>
             <div class="mapButtonSplit" title="Split View"> </div>
             <div class="mapButtonHidden" title="Hidden Map View"> </div>
@@ -558,9 +560,9 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             // ************ Load UI state. *************
             // !! Intended to be temporary for testing!!!
             // Load server JSON of UI state (and saved searches) and then set UI to match.
-            $('#loadConfigBtn').on('click', function(e) {
+            $('#resetConfigBtn').on('click', function(e) {
                 e.preventDefault();
-                UINAV.getUserProfile();
+                UINAV.postUserConfiguration("");
             });
 
         });

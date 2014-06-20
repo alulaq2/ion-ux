@@ -26,7 +26,7 @@ var UINAV = {
         for (item in configurationList) {
             if (configurationList[item]) {
                 $('#'+item + ' .leftAccordionContents').show();
-                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+                $('#'+item).children('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             }
         }
     },
@@ -43,40 +43,58 @@ var UINAV = {
         var spatialModel = searchModel.saved_searches[index].spatial,
             temporalModel = searchModel.saved_searches[index].temporal,
             facilitiesModel = searchModel.saved_searches[index].facilities,
+            observatoriesModel = searchModel.saved_searches[index].observatories,
+            instrumentTypesModel = searchModel.saved_searches[index].instrumentTypes,
             sitesModel = searchModel.saved_searches[index].sites,
             platformTypesModel = searchModel.saved_searches[index].platformTypes,
             dataTypesModel = searchModel.saved_searches[index].dataTypes,
             booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
             configurationModel = searchModel.configuration,
             bottomConfigModel = searchModel.bottom_config;
+            console.log("bottom config model");
+            console.log(bottomConfigModel);
 
             // populate accordion modules with saved data
             this.loadSpatial(spatialModel);
             this.loadTemporal(temporalModel);
             this.loadFacilities(facilitiesModel);
+            this.loadObservatories(observatoriesModel);
+            this.loadInstrumentTypes(instrumentTypesModel);
             this.loadSites(sitesModel);
             this.loadPlatformTypes(platformTypesModel);
             this.loadDataTypes(dataTypesModel);
             this.loadBooleanExpression(booleanExpressionModel);
             this.loadVisibility(configurationModel);
 
-            var dataTypesList = [
-            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
+            var dataTypesList = [];
+            for (var item in IONUX2.dataTypesList) {
+                dataTypesList.push(IONUX2.dataTypesList[item].id);
+            }
+            
+            var assetTypesList = [];
+            for (var item in IONUX2.assetTypesList) {
+                assetTypesList.push(IONUX2.assetTypesList[item].id);
+            }
 
-                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
+            var siteTypesList = [];
+            for (var item in IONUX2.siteTypesList) {
+                siteTypesList.push(IONUX2.siteTypesList[item].id);
+            }
 
-                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
+            console.log("asset types list");
+            console.log(assetTypesList);
+            console.log("site types list");
+            console.log(siteTypesList);
 
-                var gotKey = function(dataList) {
-                    for (var key in dataList) {
-                        for (item in bottomConfigModel) {
-                            if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
-                                return true
-                            }
+            var gotKey = function(dataList) {
+                for (var key in dataList) {
+                    for (item in bottomConfigModel) {
+                        if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
+                            return true
                         }
-                    }   
-                };
+                    }
+                }   
+            };
 
         if (gotKey(dataTypesList)) {
             console.log("got data");
@@ -115,9 +133,21 @@ var UINAV = {
             $(this).prop('checked', facilitiesModel[index].is_checked);
         });
     },
+
+    loadObservatories: function(observatoriesModel) {       
+        $('.listObservatories input').each(function(index) {
+            $(this).prop('checked', observatoriesModel[index].is_checked);
+        });
+    },
+
+    loadInstrumentTypes: function(instrumentTypesModel) {
+        $('.listInstrumentTypes input').each(function(index) {
+            $(this).prop('checked', instrumentTypesModel[index].is_checked);
+        });
+    },
     
     loadSites: function(sitesModel) {
-        $('.list_sites input').each(function(index) {
+        $('.listSites input').each(function(index) {
             $(this).prop('checked', sitesModel[index].is_checked);
         });
     },
@@ -292,6 +322,7 @@ var UINAV = {
             contentType: 'application/x-www-form-urlencoded'
         });
     },
+
     loadSavedSearches: function(savedSearch) {
         console.log("loading saved searches");
         var savedSearchList = JSON.parse(savedSearch.data);
@@ -321,13 +352,20 @@ var UINAV = {
         var $accordion_container = $('.accordionContainer');
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
-        var dataTypesList = [
-            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
+        var dataTypesList = [];
+            for (var item in IONUX2.dataTypesList) {
+                dataTypesList.push(IONUX2.dataTypesList[item].id);
+            }
+            
+            var assetTypesList = [];
+            for (var item in IONUX2.assetTypesList) {
+                assetTypesList.push(IONUX2.assetTypesList[item].id);
+            }
 
-                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
-
-                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
+            var siteTypesList = [];
+            for (var item in IONUX2.siteTypesList) {
+                siteTypesList.push(IONUX2.siteTypesList[item].id);
+            }
 
                 var gotKey = function(dataList) {
                     for (var key in dataList) {
@@ -460,11 +498,22 @@ var UINAV = {
       IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
     })();
 
+    // get observatory checkbox values
+    (function() {
+      var observatories_checked = [];
+      $('.listObservatories input').each(function(data) {
+        var observatory_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        observatories_checked.push({ 'value' : observatory_value, 'is_checked' : is_checked });
+      });
+      IONUX2.Collections.saveObservatorySearch.set(observatories_checked);
+    })();
+
 
     (function() {
       // get sites checkbox values and add to collection
       var sites_checked = [];
-      $('.list_sites input').each(function(data) {
+      $('.listSites input').each(function(data) {
         var site_id = $(this).data('id');
         var is_checked = $(this).prop('checked');
         sites_checked.push({ 'id' : site_id, 'is_checked' : is_checked });
@@ -480,6 +529,17 @@ var UINAV = {
         platform_checked.push({ 'is_checked' : is_checked });
       });
       IONUX2.Collections.savePlatformSearch.set(platform_checked);
+    })();
+
+    // get instrument types checkbox values and add to collection
+    (function() {
+      var instrumentTypes_checked = [];
+      $('.listInstrumentTypes input').each(function(data) {
+        var instrumentType_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        instrumentTypes_checked.push({ 'value' : instrumentType_value, 'is_checked' : is_checked });
+      });
+      IONUX2.Collections.saveInstrumentTypeSearch.set(instrumentTypes_checked);
     })();
 
     (function() {
@@ -535,7 +595,9 @@ var UINAV = {
     })();
 
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
+      var observatories = IONUX2.Collections.saveObservatorySearch.toJSON();
       var platformTypes = IONUX2.Collections.savePlatformSearch.toJSON();
+      var instrumentTypes = IONUX2.Collections.saveInstrumentTypeSearch.toJSON();
       var sites = IONUX2.Collections.saveSiteSearch.toJSON();
       var dataTypes = IONUX2.Collections.saveDataTypeSearch.toJSON();
       var booleanExpression = IONUX2.Collections.saveBooleanExpression.toJSON();
@@ -545,6 +607,8 @@ var UINAV = {
         'spatial' : spatial,
         'temporal': temporal,
         'facilities' : facilities,
+        'observatories': observatories,
+        'instrumentTypes': instrumentTypes,
         'sites': sites,
         'platformTypes': platformTypes,
         'dataTypes': dataTypes,
