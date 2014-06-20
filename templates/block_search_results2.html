@@ -1,8 +1,8 @@
 <div id="searchResultsTabContainer" class="mainTabContainer">
 	<div class="twoNavTabs">
 		<div id="dataSearchResultsTab" class="twoNavTab active" tabContent="#dataSearchResultsAccordion">Data</div>
-		<div id="assetsSearchResultsTab" class="twoNavTab" tabContent="#assetsSearchResultsAccordion">Assets</div>
-		<div id="siteSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">Sites</div>
+		<div id="assetsSearchResultsTab" class="twoNavTab" tabContent="#assetsSearchResultsAccordion">Platform &amp; Instrument</div>
+		<div id="sitesSearchResultsTab" class="twoNavTab" tabContent="#siteSearchResultsAccordion">All</div>
 		<div id="legacyFacePageTab" class="twoNavTab" tabContent="#legacyFacePage" style="display:none;">Face Page</div>
 	</div>
 </div>
@@ -27,6 +27,19 @@
 <script id="TABLE_searchResults">
 
 	var TABLE_searchResults=[
+		["text_short_ooi", "Name", "name", "T05", "0", "level-zero"], 
+		["text_extended_ooi", "Description", "description", "T09", "0", "level-zero"], 
+		["text_short_ooi", "Created", "ts_created", "T10", "2", "level-two"], 
+		["text_short_ooi", "Modified", "ts_updated", "T11", "0", "level-zero"], 
+		["text_short_ooi", "Lifecycle State", "lcstate", "T13", "0", "level-zero"]
+	];
+
+</script>
+
+<script id="TABLE_allSearchResults">
+
+	var TABLE_allSearchResults=[
+		["text_short_ooi", "Type", "ooi_product_name", "T04", "0", "level-zero"],
 		["text_short_ooi", "Name", "name", "T05", "0", "level-zero"], 
 		["text_extended_ooi", "Description", "description", "T09", "0", "level-zero"], 
 		["text_short_ooi", "Created", "ts_created", "T10", "2", "level-two"], 
@@ -71,6 +84,7 @@
 		/* PROCESS DATA PRODUCT TYPES */
 
 		var dataList = {};
+		dataList['ALL_DATA'] = [];
 		_.each(response_data, function(resource) {
 			_.each(dataTypesList, function(resourceType) {
 				if (resource['ooi_short_name'] == resourceType.type){
@@ -80,6 +94,7 @@
 					dataList[resourceType.type].push(resource);
 				}
 			});
+			dataList['ALL_DATA'].push(resource);
 		});
 		console.log(response_data);
 		console.log('DATA PRODUCTS!!!!');
@@ -106,6 +121,7 @@
 		/* PROCESS ASSETS TYPES */
 		
 		var assetsList = {};
+		assetsList['ALL_DATA'] = [];
 		_.each(response_data, function(resource) {
 			_.each(assetTypesList, function(resourceType) {
 				if (resource['type_'] == resourceType.type){
@@ -115,6 +131,7 @@
 					assetsList[resourceType.type].push(resource);
 				}
 			});
+			assetsList['ALL_DATA'].push(resource);
 		});
 		console.log(response_data);
 		console.log('ASSETS!!!!');
@@ -186,12 +203,14 @@
 		{'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
 		{'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
 		{'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
-		{'name':"pH",'id':"PHWATER", 'type':"PHWATER"}
+		{'name':"pH",'id':"PHWATER", 'type':"PHWATER"},
+		{'name':"All", 'id':"ALL_DATA", 'type':"ALL_DATA"}
 	];
 
 	var assetTypesList = [
 		{'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
-		{'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"}
+		{'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"},
+		{'name':"All", 'id':"ALL_ASSETS", 'type':"ALL_ASSETS"}
 	];
 
 	var siteTypesList = [
@@ -199,12 +218,14 @@
 		{'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
 		{'name':"Station", 'id':"StationSite", 'type':"StationSite"},
 		{'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
-		{'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"}
+		{'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"},
+		{'name':"All", 'id':"ALL_RESULTS", 'type':"ALL_RESULTS"}
 	];
 
 	$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
 
 	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
+	var tableAllScriptTemplate = 'var TABLE_table<%= id %> = TABLE_allSearchResults;';
 
 	var accordionWhiteTemplate = '<div class="accordionWhite collapsed" id="<%= id %>">\
 			<div class="accordionWhiteLabel">\
@@ -220,7 +241,11 @@
 	_.each(dataTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
-		script.text=_.template(tableScriptTemplate, type);
+		if(type.id == "ALL_DATA") {
+			script.text=_.template(tableAllScriptTemplate, type);
+		} else {
+			script.text=_.template(tableScriptTemplate, type);
+		}
 		$("#searchResultsTabContainer").parent().append(script);
 		var blah = $(_.template(accordionWhiteTemplate, type));
 	    $('#dataSearchResultsAccordion').children('.accordionContainerWhite').append(blah);
@@ -229,7 +254,11 @@
 	_.each(assetTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
-		script.text=_.template(tableScriptTemplate, type);
+		if(type.id == "ALL_ASSETS") {
+			script.text=_.template(tableAllScriptTemplate, type);
+		} else {
+			script.text=_.template(tableScriptTemplate, type);
+		}
 		$("#searchResultsTabContainer").parent().append(script);
 		var blah = $(_.template(accordionWhiteTemplate, type));
 	    $('#assetsSearchResultsAccordion').children('.accordionContainerWhite').append(blah);
@@ -238,7 +267,11 @@
 	_.each(siteTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
-		script.text=_.template(tableScriptTemplate, type);
+		if(type.id == "ALL_RESULTS") {
+			script.text=_.template(tableAllScriptTemplate, type);
+		} else {
+			script.text=_.template(tableScriptTemplate, type);
+		}
 		$("#searchResultsTabContainer").parent().append(script);
 		var blah = $(_.template(accordionWhiteTemplate, type));
 	    $('#siteSearchResultsAccordion').children('.accordionContainerWhite').append(blah);
