@@ -50,11 +50,43 @@
 </script>
 
 <script>
+	IONUX2.dataTypesList = [
+		{'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
+		{'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
+		{'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
+		{'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
+		{'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
+		{'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
+		{'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
+		{'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
+		{'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
+		{'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
+		{'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
+		{'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
+		{'name':"pH",'id':"PHWATER", 'type':"PHWATER"},
+		{'name':"All", 'id':"ALL_DATA", 'type':"ALL_DATA"}
+	];
+
+	IONUX2.assetTypesList = [
+		{'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
+		{'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"},
+		{'name':"All", 'id':"ALL_ASSETS", 'type':"ALL_ASSETS"}
+	];
+
+	IONUX2.siteTypesList = [
+		{'name':"Facility", 'id':"Facility", 'type':"Org"},
+		{'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
+		{'name':"Station", 'id':"StationSite", 'type':"StationSite"},
+		{'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
+		{'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"},
+		{'name':"All", 'id':"ALL_RESULTS", 'type':"ALL_RESULTS"}
+	];
+
 	IONUX2.clearSearchResults = function() {
 		IONUX.ROUTER.navigate('');
 		$('.searchResultTable').html('');
 
-		_.each(dataTypesList, function(resourceType) {
+		_.each(IONUX2.dataTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -62,7 +94,7 @@
 			accordionLabel.append('<div class="expandHide arrowRight blue">');
 		});
 
-		_.each(assetTypesList, function(resourceType) {
+		_.each(IONUX2.assetTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -70,7 +102,7 @@
 			accordionLabel.append('<div class="expandHide arrowRight blue">');
 		});
 
-		_.each(siteTypesList, function(resourceType) {
+		_.each(IONUX2.siteTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -86,7 +118,7 @@
 		var dataList = {};
 		dataList['ALL_DATA'] = [];
 		_.each(response_data, function(resource) {
-			_.each(dataTypesList, function(resourceType) {
+			_.each(IONUX2.dataTypesList, function(resourceType) {
 				if (resource['ooi_short_name'] == resourceType.type){
 					if (!(resourceType.type in dataList)){
 						dataList[resourceType.type] = [];
@@ -101,7 +133,7 @@
 		console.log(dataList);
 
 		var hasDataContent = false;
-		_.each(dataTypesList, function(resourceType) {
+		_.each(IONUX2.dataTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -123,7 +155,7 @@
 		var assetsList = {};
 		assetsList['ALL_DATA'] = [];
 		_.each(response_data, function(resource) {
-			_.each(assetTypesList, function(resourceType) {
+			_.each(IONUX2.assetTypesList, function(resourceType) {
 				if (resource['type_'] == resourceType.type){
 					if (!(resourceType.type in assetsList)){
 						assetsList[resourceType.type] = [];
@@ -137,7 +169,7 @@
 		console.log('ASSETS!!!!');
 		console.log(assetsList);
 		var hasAssetContent = false;
-		_.each(assetTypesList, function(resourceType) {
+		_.each(IONUX2.assetTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -158,7 +190,7 @@
 
 		var sitesList = {};
 		_.each(response_data, function(resource) {
-			_.each(siteTypesList, function(resourceType) {
+			_.each(IONUX2.siteTypesList, function(resourceType) {
 				if (resource['type_'] == resourceType.type){
 					if (!(resourceType.type in sitesList)){
 						sitesList[resourceType.type] = [];
@@ -170,7 +202,7 @@
 		console.log('SITES!!!!');
 		console.log(sitesList);
 		var hasSiteContent = false;
-		_.each(siteTypesList, function(resourceType) {
+		_.each(IONUX2.siteTypesList, function(resourceType) {
 			var accordion_contents = "#accordion" + resourceType.id;
 			var accordion = $(accordion_contents).closest('.accordionWhite');
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
@@ -190,38 +222,6 @@
 
 	console.log('****  parseSearchResults instantiated!');
 
-	var dataTypesList = [
-		{'name':"Conductivity", 'id':"CONDWAT", 'type':"CONDWAT"},
-		{'name':"Density", 'id':"DENSITY", 'type':"DENSITY"},
-		{'name':"Fluorometric CDOM Concentration", 'id':"CDOMFLO", 'type':"CDOMFLO"},
-		{'name':"Fluorometric Chlorophyll-a Concentration", 'id':"CHLAFLO", 'type':"CHLAFLO"},
-		{'name':"Optical Absorbance Signal Intensity at 578nm", 'id':"PH578SI", 'type':"PH578SI"},
-		{'name':"Optical Backscatter (Red Wavelengths)", 'id':"FLUBSCT", 'type':"FLUBSCT"},
-		{'name':"Oxygen Concentration from Stable DO Instrument", 'id':"DOCONCS", 'type':"DOCONCS"},
-		{'name':"PHSEN Thermistor Temperature", 'id':"ABSTHRM", 'type':"ABSTHRM"},
-		{'name':"Practical Salinity", 'id':"PRACSAL", 'type':"PRACSAL"},
-		{'name':"Pressure (Depth)", 'id':"PRESWAT", 'type':"PRESWAT"},
-		{'name':"Temperature", 'id':"TEMPWAT", 'type':"TEMPWAT"},
-		{'name':"Velocity Profile", 'id':"VELPROF", 'type':"VELPROF"},
-		{'name':"pH",'id':"PHWATER", 'type':"PHWATER"},
-		{'name':"All", 'id':"ALL_DATA", 'type':"ALL_DATA"}
-	];
-
-	var assetTypesList = [
-		{'name':"Platform", 'id':"Platform", 'type':"PlatformDevice"},
-		{'name':"Instrument", 'id':"Instrument", 'type':"InstrumentDevice"},
-		{'name':"All", 'id':"ALL_ASSETS", 'type':"ALL_ASSETS"}
-	];
-
-	var siteTypesList = [
-		{'name':"Facility", 'id':"Facility", 'type':"Org"},
-		{'name':"Observatory", 'id':"Observatory", 'type':"Observatory"},
-		{'name':"Station", 'id':"StationSite", 'type':"StationSite"},
-		{'name':"Platform Site", 'id':"PlatformSite", 'type':"PlatformSite"},
-		{'name':"Instrument Site", 'id':"InstrumentSite", 'type':"InstrumentSite"},
-		{'name':"All", 'id':"ALL_RESULTS", 'type':"ALL_RESULTS"}
-	];
-
 	$('#searchResultsContainer').jScrollPane({autoReinitialise: true});
 
 	var tableScriptTemplate = 'var TABLE_table<%= id %> = TABLE_searchResults;';
@@ -238,7 +238,7 @@
 			</div>\
 		</div>';
 
-	_.each(dataTypesList, function(type) {
+	_.each(IONUX2.dataTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
 		if(type.id == "ALL_DATA") {
@@ -251,7 +251,7 @@
 	    $('#dataSearchResultsAccordion').children('.accordionContainerWhite').append(blah);
 	});
 
-	_.each(assetTypesList, function(type) {
+	_.each(IONUX2.assetTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
 		if(type.id == "ALL_ASSETS") {
@@ -264,7 +264,7 @@
 	    $('#assetsSearchResultsAccordion').children('.accordionContainerWhite').append(blah);
 	});
 
-	_.each(siteTypesList, function(type) {
+	_.each(IONUX2.siteTypesList, function(type) {
 		var script=document.createElement('script');
 		script.id='TABLE_table' + type.id;
 		if(type.id == "ALL_RESULTS") {
