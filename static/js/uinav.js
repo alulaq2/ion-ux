@@ -487,28 +487,26 @@ var UINAV = {
 
     IONUX2.Models.temporalModelInstance.set(temporal);
 
-    // get facility checkbox values and add to collection
-    (function() {
-      var facilities_checked = [];
-      $('.list_facilities input').each(function(data) {
-        var facility_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        facilities_checked.push({ 'value' : facility_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
-    })();
+    // get accordion checkbox values and add to collection
+    function dynamicAccordions ($elem, collection) {
+        var resources_checked = [];
+        $elem.each(function(data) {
+            var resource_value = $(this).val();
+            var is_checked = $(this).prop('checked');
+            resources_checked.push({ 'value' : resource_value, 'is_checked' : is_checked });
+        });
+        collection.set(resources_checked);
+    }
 
-    // get observatory checkbox values
-    (function() {
-      var observatories_checked = [];
-      $('.listObservatories input').each(function(data) {
-        var observatory_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        observatories_checked.push({ 'value' : observatory_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveObservatorySearch.set(observatories_checked);
-    })();
+    var $facilityInput = $('.list_facilities input');
+    var $observatoryInput = $('.listObservatories input');
+    var $instrumentTypesInput = $('.listInstrumentTypes input');
+    var $dataTypesInput = $('.listDataTypes input');
 
+    dynamicAccordions($facilityInput, IONUX2.Collections.saveFacilitySearch);
+    dynamicAccordions($observatoryInput, IONUX2.Collections.saveObservatorySearch);
+    dynamicAccordions($instrumentTypesInput, IONUX2.Collections.saveInstrumentTypeSearch);
+    dynamicAccordions($dataTypesInput, IONUX2.Collections.saveDataTypeSearch);
 
     (function() {
       // get sites checkbox values and add to collection
@@ -529,28 +527,6 @@ var UINAV = {
         platform_checked.push({ 'is_checked' : is_checked });
       });
       IONUX2.Collections.savePlatformSearch.set(platform_checked);
-    })();
-
-    // get instrument types checkbox values and add to collection
-    (function() {
-      var instrumentTypes_checked = [];
-      $('.listInstrumentTypes input').each(function(data) {
-        var instrumentType_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        instrumentTypes_checked.push({ 'value' : instrumentType_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveInstrumentTypeSearch.set(instrumentTypes_checked);
-    })();
-
-    (function() {
-      // get data type checkbox values and add to collection
-      var datatype_checked = [];
-      $('.listDataTypes input').each(function(data) {
-        var datatype_value = $(this).val();
-        var is_checked = $(this).prop('checked');
-        datatype_checked.push({ 'datatype_value' : datatype_value, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveDataTypeSearch.set(datatype_checked);
     })();
 
     (function() {
