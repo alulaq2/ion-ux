@@ -39,7 +39,16 @@ def get_versions():
         except IOError:
             pass
 
-    return g.ion_ux_version
+    if not hasattr(g, "r3_ux_version"):
+        g.r3_ux_version = "unknown"
+
+        try:
+            with open(os.path.join(PORTAL_ROOT, "R3VERSION.txt")) as f:
+                g.r3_ux_version = f.readline().strip()
+        except IOError:
+            pass
+
+    return g
 
 def clean_session():
     session.clear()
@@ -823,10 +832,13 @@ def logout():
 def session_info():
     # get version info from service gateway
     remote_version = ServiceApi.get_version()
-    ion_ux_version = get_versions()
+    theG = get_versions()
+    ion_ux_version = g.ion_ux_version
+    r3_ux_version = g.r3_ux_version
 
     # ion ux must be first
     version = [{ 'lib': 'ux-release', 'version': ion_ux_version }]
+    version.append({ 'lib': 'r3-dev', 'version': r3_ux_version })
 
     # coi services should be second
     version.append({'lib':'coi-services-release', 'version': remote_version.pop('coi-services-release', 'unknown')})
