@@ -370,6 +370,9 @@ IONUX2.Collections.saveRegionSearch = new IONUX2.Collections.SaveRegionSearch();
 IONUX2.Collections.SavePlatformSearch = Backbone.Collection.extend({});
 IONUX2.Collections.savePlatformSearch = new IONUX2.Collections.SavePlatformSearch();
 
+IONUX2.Collections.SaveInstrumentTypeSearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveInstrumentTypeSearch = new IONUX2.Collections.SaveInstrumentTypeSearch();
+
 IONUX2.Collections.SaveSiteSearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveSiteSearch = new IONUX2.Collections.SaveSiteSearch();
 
