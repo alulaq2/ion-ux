@@ -49,6 +49,8 @@ var UINAV = {
             booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
             configurationModel = searchModel.configuration,
             bottomConfigModel = searchModel.bottom_config;
+            console.log("bottom config model");
+            console.log(bottomConfigModel);
 
             // populate accordion modules with saved data
             this.loadSpatial(spatialModel);
@@ -60,23 +62,35 @@ var UINAV = {
             this.loadBooleanExpression(booleanExpressionModel);
             this.loadVisibility(configurationModel);
 
-            var dataTypesList = [
-            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
+            var dataTypesList = [];
+            for (var item in IONUX2.dataTypesList) {
+                dataTypesList.push(IONUX2.dataTypesList[item].id);
+            }
+            
+            var assetTypesList = [];
+            for (var item in IONUX2.assetTypesList) {
+                assetTypesList.push(IONUX2.assetTypesList[item].id);
+            }
 
-                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
+            var siteTypesList = [];
+            for (var item in IONUX2.siteTypesList) {
+                siteTypesList.push(IONUX2.siteTypesList[item].id);
+            }
 
-                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
+            console.log("asset types list");
+            console.log(assetTypesList);
+            console.log("site types list");
+            console.log(siteTypesList);
 
-                var gotKey = function(dataList) {
-                    for (var key in dataList) {
-                        for (item in bottomConfigModel) {
-                            if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
-                                return true
-                            }
+            var gotKey = function(dataList) {
+                for (var key in dataList) {
+                    for (item in bottomConfigModel) {
+                        if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
+                            return true
                         }
-                    }   
-                };
+                    }
+                }   
+            };
 
         if (gotKey(dataTypesList)) {
             console.log("got data");
@@ -321,13 +335,20 @@ var UINAV = {
         var $accordion_container = $('.accordionContainer');
         this.reorder(sortableOrder, configurationList, $accordion_container);
 
-        var dataTypesList = [
-            "CONDWAT", "DENSITY", "CDOMFLO", "CHLAFLO", "PH578SI", "FLUBSCT",
-             "DOCONCS", "ABSTHRM", "PRACSAL", "PRESWAT", "TEMPWAT", "VELPROF", "PHWATER", "ALL_DATA"];
+        var dataTypesList = [];
+            for (var item in IONUX2.dataTypesList) {
+                dataTypesList.push(IONUX2.dataTypesList[item].id);
+            }
+            
+            var assetTypesList = [];
+            for (var item in IONUX2.assetTypesList) {
+                assetTypesList.push(IONUX2.assetTypesList[item].id);
+            }
 
-                var assetTypesList = ["Platform", "Instrument", "ALL_ASSETS"];
-
-                var siteTypesList = ["Facility", "Observatory", "StationSite", "PlatformSite", "InstrumentSite", "ALL_RESULTS"];
+            var siteTypesList = [];
+            for (var item in IONUX2.siteTypesList) {
+                siteTypesList.push(IONUX2.siteTypesList[item].id);
+            }
 
                 var gotKey = function(dataList) {
                     for (var key in dataList) {
@@ -458,6 +479,16 @@ var UINAV = {
         facilities_checked.push({ 'value' : facility_value, 'is_checked' : is_checked });
       });
       IONUX2.Collections.saveFacilitySearch.set(facilities_checked);
+    })();
+
+    (function() {
+      var observatories_checked = [];
+      $('.listObservatories input').each(function(data) {
+        var observatory_value = $(this).val();
+        var is_checked = $(this).prop('checked');
+        observatories_checked.push({ 'value' : observatory_value, 'is_checked' : is_checked });
+      });
+      IONUX2.Collections.saveObservatorySearch.set(observatories_checked);
     })();
 
 

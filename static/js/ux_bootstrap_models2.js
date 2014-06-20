@@ -361,6 +361,9 @@ IONUX2.Collections.saveNames = new IONUX2.Collections.SaveNames();
 IONUX2.Collections.SaveFacilitySearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveFacilitySearch = new IONUX2.Collections.SaveFacilitySearch();
 
+IONUX2.Collections.SaveObservatorySearch = Backbone.Collection.extend({});
+IONUX2.Collections.saveObservatorySearch = new IONUX2.Collections.SaveObservatorySearch();
+
 IONUX2.Collections.SaveRegionSearch = Backbone.Collection.extend({});
 IONUX2.Collections.saveRegionSearch = new IONUX2.Collections.SaveRegionSearch();
 
