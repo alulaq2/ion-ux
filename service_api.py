@@ -210,7 +210,7 @@ class ServiceApi(object):
         if radius:
             queries.append({'wkt': 'POINT(' + geospatial_bounds['west'] + ' ' + geospatial_bounds['south'] + ')',
                             'field': 'geospatial_point_center',
-                            'index': 'data_products_index',
+                            'index': 'resources_index', #data_products_index
                             'buffer': radius,
                             'cmpop': 'within'})
 
@@ -220,24 +220,24 @@ class ServiceApi(object):
                             'top_left': [float(geospatial_bounds['west']),
                                          float(geospatial_bounds['north'])],
                             'field': 'geospatial_point_center',
-                            'index': 'data_products_index'})
+                            'index': 'resources_index'})
 
         if vertical_bounds and all(vertical_bounds.itervalues()):
             queries.append({'vertical_bounds': {'from': float(vertical_bounds['lower']),
                                                 'to': float(vertical_bounds['upper'])},
                             'field': 'geospatial_bounds',
-                            'index': 'data_products_index'})
+                            'index': 'resources_index'})
 
         if temporal_bounds and all(temporal_bounds.itervalues()) and temporal_field:
             queries.append({'time': {'from': temporal_bounds['from'],
                                      'to': temporal_bounds['to']},
                             'field': temporal_field,
-                            'index': 'data_products_index'})
+                            'index': 'resources_index'})
 
         if search_criteria:
             for item in search_criteria:
 
-                q = {'index': 'data_products_index', 'field': str(item[0])}
+                q = {'index': 'resources_index', 'field': str(item[0])}
 
                 #Remove non alphanumeric characters but keep spaces
                 delchars = ''.join(c for c in map(chr, range(256)) if not c.isalnum() and not c.isspace())
