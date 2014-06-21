@@ -933,10 +933,7 @@ input.latlong {
 }
 
 .accordionContainer input.booleanInput {
-  width: calc(100% - 90px);
-  /*margin-left: 4px;
-  margin-bottom: 2px;*/
-  margin-right: 9px;
+  width: calc(100% - 58px);
 }
 
 #spatial input {
