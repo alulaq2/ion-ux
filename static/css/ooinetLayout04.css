@@ -971,7 +971,7 @@ select.dateMenu.hour {width:56px;}
   font-size: 11px; 
 }
 select, select option {
-  height: 10px;
+  /*height: 10px;*/
   line-height: 10px;
   padding: 0px;
   margin: 0px;
