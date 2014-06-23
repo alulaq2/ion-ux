@@ -173,12 +173,11 @@ def user_configuration(user_id):
 
         return render_json_response("{data:{status:'ok'}}")
 
-@app.route('/hmmm/', methods=['GET'])
-def goto_resource_management():
-    if request.is_xhr:
-        return
-    else:
-        return render_app_template(request.path)
+@app.route('/test_query/', methods=['POST'])
+def test_query_post_passthrough():
+    query_string = request.form['payload']
+    results = ServiceApi.test_query_post_passthrough(query_string)
+    return render_json_response(results)
 
 
 # -----------------------------------------------------------------------------
@@ -225,6 +224,17 @@ def search(query=None):
         return render_json_response(search_results)
     else:
         return render_app_template(request.path)
+
+@app.route('/wgc_view/<wgc_view_id>/', methods=['GET', 'POST'])
+def wgc_view(wgc_view_id):
+    if request.method == "GET":
+        return render_template("<html><body><center><h1>Got Get.</br>ID:{0}</h1></center></body></html>".format(wgc_view_id))
+    else:
+        return render_template("<html><body><center><h1>Got Get.</br>ID:{0}</h1></center></body></html>".format(wgc_view_id))
+
+@app.route('/wgc/<wgc_view_id>/', methods=['GET'])
+def wgc(wgc_view_id):
+    return render_template("<html><body><center><h1>Got Get.</br>ID:{0}</h1></center></body></html>".format(wgc_view_id))
 
 @app.route('/attachment/<attachment_id>/', methods=['GET'])
 def attachment(attachment_id):

@@ -283,6 +283,16 @@ class ServiceApi(object):
         return search_json['data']
 
     @staticmethod
+    def test_query_post_passthrough(query):
+        query_json = json.loads(query)
+        url, data = build_post_request('discovery', 'query', {'query': query_json})
+        resp = requests.post(url, data)
+        resp_json = json.loads(resp.content)
+        if resp_json['data'].has_key('GatewayResponse'):
+            return resp_json['data']['GatewayResponse']
+        return resp_json['data']
+
+    @staticmethod
     def update_resource(resource_type, resource_obj, resource_assocs):
 
         # grab the schema again - if this is cached, this will be quick!
