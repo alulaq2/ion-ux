@@ -16,8 +16,13 @@
                     <br/>
                     <div class="nestedNavList showObservatory" style="display:none;">
                     <% _.each(resource, function(nestedResource) { %>
-                        <input type="checkbox"> <%= nestedResource %></br>
+                        <input type="checkbox" spatialAreaName="<%= nestedResource %>">
+                        <div class="leftNavListItem"> <%= nestedResource %>
+                        </div></br>
                     <% }); %>
+                    <input type="checkbox" class="unassigned" facilityName="<%= name %>" spatialAreaName="<% _.each(resource, function(nestedResource) { %><%= nestedResource %>, <% }); %>">
+                        <div class="leftNavListItem"> Unassigned Assets
+                        </div></br>
                     </div>
                 </div>
             <% } %>

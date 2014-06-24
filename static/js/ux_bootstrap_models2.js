@@ -396,3 +396,25 @@ IONUX2.siteDataObj = {};
 
 IONUX2.Collections.DeleteSearch = Backbone.Collection.extend({});
 IONUX2.Collections.deleteSearch = new IONUX2.Collections.DeleteSearch();
+
+IONUX2.Models.SearchParameters = Backbone.Model.extend({
+defaults: {
+        keyword: null,
+        spatial: {},
+        temporal: {},
+        boolean: {},
+        checkbox_sections: {}
+    },
+    reset: function(){
+      this.keyword = null;
+      this.spatial = {};
+      this.temporal = {};
+      this.boolean = {};
+      _.each(this.checkbox_sections, function(section, name){
+        this.checkbox_sections[name] = {};
+      });
+      this.trigger('change:data');
+    }
+});
+
+IONUX2.Models.searchParametersInstance = new IONUX2.Models.SearchParameters();

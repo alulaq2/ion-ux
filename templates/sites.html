@@ -10,18 +10,18 @@
                 <div class="expandHide expandBtn">+</div> <%= san %> Sites<br/>
                 <div class="nestedNavList showSites" style="display:none;">
                 <% _.each(nestedResources, function(r) { %>
-                    <input type="checkbox">
-                        <div class="resourceLink" data-id="<%= r._id %>">
+                    <input type="checkbox" observatory_id="<%= r._id %>">
+                        <div class="resourceLink leftNavListItem" data-id="<%= r._id %>">
                             <% if (r.local_name) { %>
                                 <%= r.local_name %>
                             <% } else { %>
                                 <%= r.name %>
                             <% }; %>
                         </div></br>
-                <% }) %>
+                <% }); %>
                 </div>
             </div>
-        <% }) %>
+        <% }); %>
        
     </form>
 </div>

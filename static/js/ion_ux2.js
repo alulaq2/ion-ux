@@ -200,7 +200,7 @@ IONUX2 = {
     observatoryFacilityLabels: {
     	'Bench Test Facility' : 'Bench Test',
     	'CGSN Facility' : 'Coastal/Global Scale Nodes (CGSN)',
-    	/* 'EA Facility' : 'Endurance Array (EA)', */
+    	'EA Facility' : 'Endurance Array (EA)',
     	'RSN Facility' : 'Regional Scale Nodes (RSN)'
     },
 
