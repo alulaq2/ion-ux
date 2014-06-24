@@ -612,8 +612,8 @@ IONUX2.Views.InstrumentTypesMenu = Backbone.View.extend({
   }
 });
 
-IONUX2.Views.FormMenu = Backbone.View.extend({
-  template: _.template('<select name="" size="">' + 
+IONUX2.Views.FormSelectMenu = Backbone.View.extend({
+  template: _.template('<select class="blockSelect" size="1">' + 
                        '<% _.each(list, function(resource) { %>' + 
                         '<option value="<%= resource.value %>"><%= resource.name %></option>' + 
                         '<% }); %>' +

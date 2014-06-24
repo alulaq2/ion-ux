@@ -1501,6 +1501,33 @@ input.noPlaceholderRadius {
     font-size: 14px;
 }
 
+#formContainer {
+  height: 100%;
+  width: 100%;
+  min-width: 600px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: auto;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
+#formInnerContainer {
+  min-width: 600px;
+  position: absolute;
+  top: 0px;
+  margin: 0 auto;
+  padding: 10px;
+  height: calc(100% - 20px);
+}
+
+.blockSelect {
+  padding: 10px;
+  line-height: 15px;
+}
+
 /* legacy overrides - end*/
 
 .adminButtonGrey {

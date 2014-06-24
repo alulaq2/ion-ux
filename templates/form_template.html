@@ -1,17 +1,29 @@
-<div id="formContainer">
-    <div id="formInnerContainer">
-        <div class="control-group">
-            <label class="control-label" for=""></label>
-            <div class="controls" id="softwareList"></div>
+<div id="createResourceOverlay">
+
+    <form class="form-horizontal">
+        <div id="formContainer">
+            <div id="formInnerContainer">
+                <div class="control-group">
+                    <label class="control-label" for="name">Name</label>
+                    <div class="controls" id="nameField">
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="software">Software</label>
+                    <div class="controls" id="softwareList"></div>
+                </div>
+                <div class="submitFooter">
+                    <button id="" class="adminButtonBlue btn-save">Submit</button>
+                </div>
+            </div>
         </div>
-        <div class="submitFooter">
-            <button id="" class="adminButtonBlue btn-save"></button>
-        </div>
-    </div>
+    </form>
 </div>
 
 <script type="text/javascript">
 
+// value and name pairs for software select menu
 var softwareMenu = [
         {'value':'DataProcessDefinition', 'name':'Data Product Algorithm'},
         {'value': 'ExternalDatasetAgentInstance', 'name': 'Dataset Agent Driver Instance'},
@@ -21,17 +33,12 @@ var softwareMenu = [
         {'value': 'PlatformAgentInstance', 'name': 'Platform Agent Driver Instance'},
         {'value': 'PlatformAgent', 'name': 'Platform Agent Driver'}];
 
+// add data from softwareMenu to software collection
 IONUX2.Collections.Software = Backbone.Collection.extend({});
 IONUX2.Collections.softwareInstance = new IONUX2.Collections.Software();
 IONUX2.Collections.softwareInstance.set(softwareMenu);
 
-IONUX2.Views.softwareMenu = new IONUX2.Views.FormMenu({el: '#softwareList', collection: IONUX2.Collections.softwareInstance});
+// create and render the software view passing in the software id
+IONUX2.Views.softwareMenu = new IONUX2.Views.FormSelectMenu({el: '#softwareList', collection: IONUX2.Collections.softwareInstance});
 
-/*var controlGroup = {
-    'labelFor': '',
-    'selectId': '',
-    'selectName': '',
-    'selectSize': 0,
-    'optionValue': ''
-}*/
 </script>
