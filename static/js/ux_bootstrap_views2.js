@@ -624,6 +624,30 @@ IONUX2.Views.InstrumentTypesMenu = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.FormMenu = Backbone.View.extend({
+  template: _.template('<select name="" size="">' + 
+                       '<% _.each(list, function(resource) { %>' + 
+                        '<option value="<%= resource.value %>"><%= resource.name %></option>' + 
+                        '<% }); %>' +
+                        '</select>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({list: this.collection.toJSON()}));
+    return this;
+  }
+});
+
+IONUX.Views.CreateFormView = Backbone.View.extend({
+  el: "#_firstTabContent",
+  template: _.template(IONUX2.getTemplate('templates/form_template.html')),
+  render: function() {
+    this.$el.html(this.template);
+    return this;
+  }
+});
+
 IONUX2.Views.ResourceTypeMenu = Backbone.View.extend({
   el: '#ResourceTypes',
   template: _.template('<select name="nested-resource-types" size="4">' + 
