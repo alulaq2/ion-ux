@@ -10,7 +10,7 @@
                 <div class="expandHide expandBtn">+</div> <%= san %> Sites<br/>
                 <div class="nestedNavList showSites" style="display:none;">
                 <% _.each(nestedResources, function(r) { %>
-                    <input type="checkbox" observatory_id="<%= r._id %>">
+                    <input type="checkbox" observatoryId="<%= r._id %>">
                         <div class="resourceLink leftNavListItem" data-id="<%= r._id %>">
                             <% if (r.local_name) { %>
                                 <%= r.local_name %>
@@ -35,7 +35,7 @@
         // add click event handlers to update the model.
         $(".listSites input[type=checkbox]").click(function(e){
             var $checkbox = $(e.currentTarget);
-            var resource_id = $checkbox.attr('value');
+            var resource_id = $checkbox.attr('observatoryId');
             if($checkbox.is(':checked')){
                 siteParamSettings[resource_id] = true;
             } else {
@@ -53,7 +53,7 @@
             select_all = $checkbox_all.is(':checked');
             $('.listSites input[type=checkbox]').each(function(index){
                 var $checkbox = $(this);
-                var resource_id = $checkbox.attr('value');
+                var resource_id = $checkbox.attr('observatoryId');
                 if(select_all){
                     $checkbox.prop('checked', true);
                     siteParamSettings[resource_id] = true;
