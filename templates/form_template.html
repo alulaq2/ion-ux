@@ -1,5 +1,3 @@
-<div id="createResourceOverlay">
-
     <form class="form-horizontal">
         <div id="formContainer">
             <div id="formInnerContainer">
@@ -10,17 +8,40 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="software">Software</label>
-                    <div class="controls" id="softwareList"></div>
+                    <label class="control-label" for="date">Date</label>
+                    <div class="controls" id="dateField">
+                        <input type="date">
+                    </div>
                 </div>
-                <div class="submitFooter">
+                <div class="control-group">
+                    <label class="control-label" for="email">Email</label>
+                    <div class="controls" id="emailField">
+                        <input type="email">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="software">Software</label>
+                    <div class="controls" id="softwareList">
+                        <div class="formSelectContainer">
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="checkboxes">Checkboxes</label>
+                    <div class="controls alignSelection" id="checkboxList">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="checkboxes">Radio Buttons</label>
+                    <div class="controls alignSelection" id="radioButtonList">
+                    </div>
+                </div>
+                <div class="buttonFooter">
                     <button id="" class="adminButtonBlue btn-save">Submit</button>
                 </div>
             </div>
         </div>
     </form>
-</div>
-
 <script type="text/javascript">
 
 // value and name pairs for software select menu
@@ -33,12 +54,38 @@ var softwareMenu = [
         {'value': 'PlatformAgentInstance', 'name': 'Platform Agent Driver Instance'},
         {'value': 'PlatformAgent', 'name': 'Platform Agent Driver'}];
 
+var checkboxMenu = [
+        {'value': 'Selection1', 'name': 'Selection 1'},
+        {'value': 'Selection2', 'name': 'Selection 2'},
+        {'value': 'Selection3', 'name': 'Selection 3'}];
+
+var radioButtonMenu = [
+        {'value': 'Selection1', 'name': 'radioGroup'},
+        {'value': 'Selection2', 'name': 'radioGroup'},
+        {'value': 'Selection3', 'name': 'radioGroup'}];
+
 // add data from softwareMenu to software collection
 IONUX2.Collections.Software = Backbone.Collection.extend({});
 IONUX2.Collections.softwareInstance = new IONUX2.Collections.Software();
 IONUX2.Collections.softwareInstance.set(softwareMenu);
 
+// add data from checkboxMenu to checkbox collection
+IONUX2.Collections.Checkboxes = Backbone.Collection.extend({});
+IONUX2.Collections.checkboxInstance = new IONUX2.Collections.Checkboxes();
+IONUX2.Collections.checkboxInstance.set(checkboxMenu);
+
+// add data from checkboxMenu to checkbox collection
+IONUX2.Collections.RadioButtons = Backbone.Collection.extend({});
+IONUX2.Collections.radioButtonInstance = new IONUX2.Collections.RadioButtons();
+IONUX2.Collections.radioButtonInstance.set(radioButtonMenu);
+
 // create and render the software view passing in the software id
-IONUX2.Views.softwareMenu = new IONUX2.Views.FormSelectMenu({el: '#softwareList', collection: IONUX2.Collections.softwareInstance});
+IONUX2.Views.softwareMenu = new IONUX2.Views.FormSelectMenu({el: '#softwareList .formSelectContainer', collection: IONUX2.Collections.softwareInstance});
+
+// create and render the checkbox view passing in the checkbox id
+IONUX2.Views.checkboxMenu = new IONUX2.Views.FormCheckboxMenu({el: '#checkboxList', collection: IONUX2.Collections.checkboxInstance});
+
+// create and render the radio button view passing in the radio button id
+IONUX2.Views.radioButtonMenu = new IONUX2.Views.FormRadioButtonMenu({el: '#radioButtonList', collection: IONUX2.Collections.checkboxInstance});
 
 </script>

@@ -617,7 +617,37 @@ IONUX2.Views.FormSelectMenu = Backbone.View.extend({
                        '<% _.each(list, function(resource) { %>' + 
                         '<option value="<%= resource.value %>"><%= resource.name %></option>' + 
                         '<% }); %>' +
-                        '</select>'),
+                        '</select><div class="formSelectArrow"></div>'),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({list: this.collection.toJSON()}));
+    return this;
+  }
+});
+
+IONUX2.Views.FormCheckboxMenu = Backbone.View.extend({
+  template: _.template( '<% _.each(list, function(resource) { %>' + 
+                        '<input type="checkbox" value="<%= resource.value %>" name="<%= resource.name %>"><span class="alignSelection">' + 
+                        '<%= resource.name %></span><br/>' + 
+                        '<% }); %>'
+                      ),
+  initialize: function() {
+    this.render();
+  },
+  render: function() {
+    this.$el.html(this.template({list: this.collection.toJSON()}));
+    return this;
+  }
+});
+
+IONUX2.Views.FormRadioButtonMenu = Backbone.View.extend({
+  template: _.template( '<% _.each(list, function(resource) { %>' + 
+                        '<input type="radio" value="<%= resource.value %>" name="<%= resource.name %>"><span class="alignRadio">' + 
+                        '<%= resource.value %></span><br/>' + 
+                        '<% }); %>'
+                      ),
   initialize: function() {
     this.render();
   },
