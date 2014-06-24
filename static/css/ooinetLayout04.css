@@ -1263,10 +1263,13 @@ input.noPlaceholderRadius {
   color: #fff;
 }
 
-.resourceLink {
-  cursor: pointer;
+.leftNavListItem {
   display:inline-block;
   margin-left: 3px;
+}
+
+.resourceLink {
+  cursor: pointer;
   font-weight: normal;
 }
 

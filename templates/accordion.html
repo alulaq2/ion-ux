@@ -283,6 +283,61 @@
 
           IONUX2.clearSearchResults();
 
+          var search_sections = 0;
+
+          var full_url = '/test_query/';
+
+          var facilities = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Facilities'];
+
+          if(facilities){
+            search_sections++;
+            var facilityList = [];
+            _.each(facilities, function(bool, name){
+              facilityList.push(name);
+            });
+            facilities_json = ["exp:or", [["assop:associated", [null, null, "hasResource", "O", ["xop:in", ["id", facilityList]]]], ["exp:and", [["op:eq", ["type_", "Org"]], ["xop:in", ["id", facilityList]]]]]];
+          }
+
+          var observatories = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Observatories'];
+
+          if(observatories){
+            search_sections++;
+            var observatoryList = [];
+            _.each(observatories, function(val, name){
+              if(typeof val === 'boolean'){
+                observatoryList.push(name);
+              }
+            });
+            observatories_criteria = ["xop:in", ["spatial_area_name", [observatoryList]]];
+            observatories_json = ["exp:or", [["assop:associated", [null, null, "hasSite", "O", observatories_criteria]], ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]], ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]], ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]], ["assop:associated", [null, null, "hasSource", "S", ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]]]], ["assop:associated", [null, null, "hasSource", "S", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]], ["exp:and", [["op:eq", ["type_", "Observatory"]], observatories_criteria]]]];
+          }
+
+          var query_json = {};
+
+          if(search_sections > 1){
+            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",[facilities_json,observatories_json]], "order_by": {}};
+          } else {
+            if(facilities){
+              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":facilities_json, "order_by": {}};
+            } else {
+              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":observatories_json, "order_by": {}};
+            }
+          }
+
+          $.ajax({
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({payload: query_json}),
+              dataType: 'json',
+              url: '/test_query/',
+              global: false,
+              success: function(response) {
+                  IONUX2.parseSearchResults(response.data);
+              }
+          });
+
+          return;
+
           set_temporal_form();
 
           var form_values = $('#searchForm').serializeArray();

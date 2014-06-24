@@ -590,21 +590,9 @@ IONUX2.Views.BooleanSearch = Backbone.View.extend({
 IONUX2.Views.OrgSelector = Backbone.View.extend({
   el: '#orgSelector',
   template: _.template(IONUX2.getTemplate('templates/partials/block_dashboard_org_list2.html')),
-  events: {
-    'click .checkAllFacilities': 'select_all_facilities'
-  },
   initialize: function() {
     console.log('initializing org selector view');
     this.collection.on('change:data', this.render, this);
-  },
-  select_all_facilities: function(e) {
-    var $check = $(e.currentTarget);
-    if ($check.is(':checked')) {
-      $('.list_facilities').find('input').prop('checked', true);
-    }
-    else {
-      $('.list_facilities').find('input').prop('checked', false);
-    }
   },
   render: function(){
     this.$el.html(this.template({resources: this.collection.toJSON()}));
