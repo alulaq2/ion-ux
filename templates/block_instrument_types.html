@@ -52,15 +52,11 @@
                     delete instrumentTypeParamSettings[resource_id];
                 }
             });
-            console.log('--*.*-- Sites section changed...');
+            console.log('--*.*-- Instrument Types section changed...');
             console.log(instrumentTypeParamSettings);
             console.log('--^.^-- Complete param settings:');
             console.log(IONUX2.Models.searchParametersInstance);
         });
 
-       
-        $('.checkAllInstrumentTypes').on('click', function(){
-            $('.listInstrumentTypes').find('input').prop("checked", $('.checkAllInstrumentTypes').prop("checked"));
-        });
     });
 </script>
