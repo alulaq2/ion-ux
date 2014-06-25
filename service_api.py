@@ -284,7 +284,8 @@ class ServiceApi(object):
 
     @staticmethod
     def test_query_post_passthrough(query):
-        query_json = json.loads(query)
+        #query_json = json.loads(query)
+        query_json = query
         url, data = build_post_request('discovery', 'query', {'query': query_json})
         resp = requests.post(url, data)
         resp_json = json.loads(resp.content)
