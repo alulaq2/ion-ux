@@ -3,33 +3,64 @@
 </div>
 <div class="listInstrumentTypes">
     <form action="">
-            <input class="resource_id" type="checkbox"/> Conductivity, Temperature, Depth (CTD)<br/>
-            <input class="resource_id" type="checkbox"/> Dissolved Oxygen<br/>
-            <input class="resource_id" type="checkbox"/> Fluorometer<br/>
-            <input class="resource_id" type="checkbox"/> Hydrophone<br/>
-            <input class="resource_id" type="checkbox"/> Ocean Bottom Seismometer<br/>
-            <input class="resource_id" type="checkbox"/> Optical Properties<br/>
-            <input class="resource_id" type="checkbox"/> pH<br/>
-            <input class="resource_id" type="checkbox"/> Seafloor Pressure<br/>
-            <input class="resource_id" type="checkbox"/> Seafloor Properties<br/>
-            <input class="resource_id" type="checkbox"/> Water Velocity<br/>
-            <input class="resource_id" type="checkbox"/> Zooplankton Sonar<br/>
+            <input class="resource_id" type="checkbox" instrumentType="conductivityTemperatureDepth" /> Conductivity, Temperature, Depth (CTD)<br/>
+            <input class="resource_id" type="checkbox" instrumentType="dissolvedOxygen" /> Dissolved Oxygen<br/>
+            <input class="resource_id" type="checkbox" instrumentType="fluorometer" /> Fluorometer<br/>
+            <input class="resource_id" type="checkbox" instrumentType="hydrophone" /> Hydrophone<br/>
+            <input class="resource_id" type="checkbox" instrumentType="oceanBottomSeismometer" /> Ocean Bottom Seismometer<br/>
+            <input class="resource_id" type="checkbox" instrumentType="opticalProperties" /> Optical Properties<br/>
+            <input class="resource_id" type="checkbox" instrumentType="pH" /> pH<br/>
+            <input class="resource_id" type="checkbox" instrumentType="seafloorPressure" /> Seafloor Pressure<br/>
+            <input class="resource_id" type="checkbox" instrumentType="seafloorProperties" /> Seafloor Properties<br/>
+            <input class="resource_id" type="checkbox" instrumentType="waterVelocity" /> Water Velocity<br/>
+            <input class="resource_id" type="checkbox" instrumentType="zooplanktonSonar" /> Zooplankton Sonar<br/>
     </form>
 </div>
 
 <script>
-    $('.checkAllInstrumentTypes').on('click', function(){
-        $('.listInstrumentTypes').find('input').prop("checked", $('.checkAllInstrumentTypes').prop("checked"));
-    });
-</script>
-<!-- Dont forget to modify the below to match platformTypes -->
-<!-- <script>
     $(function(){
-        $(".list_sites .resourceLink").click(function(){
-            var resource_id = $(this).attr('data-id');
-            var url = "/Observatory/face/"+resource_id+"/";
-            IONUX.ROUTER.navigate(url, {trigger:true});
-            $('#mapButtonHidden').click();
+      // initialize a section for this accordion checkbox section.
+        IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['instrumentTypes'] = {};
+        var instrumentTypeParamSettings = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['instrumentTypes'];
+
+        // add click event handlers to update the model.
+        $(".listInstrumentTypes input[type=checkbox]").click(function(e){
+            var $checkbox = $(e.currentTarget);
+            var resource_id = $checkbox.attr('instrumentType');
+            if($checkbox.is(':checked')){
+                instrumentTypeParamSettings[resource_id] = true;
+            } else {
+                delete instrumentTypeParamSettings[resource_id];
+            }
+            console.log('--*.*-- Instrument Types section changed...');
+            console.log(instrumentTypeParamSettings);
+            console.log('--^.^-- Complete param settings:');
+            console.log(IONUX2.Models.searchParametersInstance);
+        });
+
+        $("input.checkAllInstrumentTypes").click(function(e){
+            var $checkbox_all = $(e.currentTarget);
+            select_all = $checkbox_all.is(':checked');
+            $('.listInstrumentTypes input[type=checkbox]').each(function(index){
+                var $checkbox = $(this);
+                var resource_id = $checkbox.attr('instrumentType');
+                if(select_all){
+                    $checkbox.prop('checked', true);
+                    instrumentTypeParamSettings[resource_id] = true;
+                } else {
+                    $checkbox.prop('checked', false);
+                    delete instrumentTypeParamSettings[resource_id];
+                }
+            });
+            console.log('--*.*-- Sites section changed...');
+            console.log(instrumentTypeParamSettings);
+            console.log('--^.^-- Complete param settings:');
+            console.log(IONUX2.Models.searchParametersInstance);
+        });
+
+       
+        $('.checkAllInstrumentTypes').on('click', function(){
+            $('.listInstrumentTypes').find('input').prop("checked", $('.checkAllInstrumentTypes').prop("checked"));
         });
     });
-</script> -->
+</script>
