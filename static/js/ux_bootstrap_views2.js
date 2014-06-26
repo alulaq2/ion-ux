@@ -293,6 +293,18 @@ IONUX2.Views.Instruments = Backbone.View.extend({
   }
 });
 
+IONUX2.Views.DataTypesList = Backbone.View.extend({
+  el: '#dataTypesList',
+  template: _.template(IONUX2.getTemplate('templates/block_data_type_list2.html')), 
+  initialize: function() {
+    this.model.on('change:data', this.render, this);
+  },
+  render: function() {
+    this.$el.html(this.template({resources: this.model.data}));
+    return this;
+  }
+}); 
+
 IONUX2.Views.Region = Backbone.View.extend({
   el: '#region',
   template: _.template(IONUX2.getTemplate('templates/regions.html')),
