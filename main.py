@@ -176,8 +176,9 @@ def user_configuration(user_id):
 @app.route('/test_query/', methods=['POST'])
 def test_query_post_passthrough():
     # query_string = request.form['payload']
-    query_string = request.json['payload']
-    results = ServiceApi.test_query_post_passthrough(query_string)
+    # query = json.loads(query_string)
+    query = request.json['payload']
+    results = ServiceApi.test_query_post_passthrough(query)
     return render_json_response(results)
 
 

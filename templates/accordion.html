@@ -279,6 +279,16 @@
 
       }
 
+      function BD(criteria, depth) {
+        if(depth == 0){
+          return criteria;
+        }
+        depth--;
+        var criteria_json = ["assop:associated", [ null,null, ["hasSite", "hasDevice", "hasDeployment", "hasPrimaryDeployment", "withinDeployment", "hasNetworkParent", "hasDataProducer"], "O", BD(criteria, depth)]];
+
+        return criteria_json;
+      }
+
         function search_clicked() {
 
           IONUX2.clearSearchResults();
@@ -289,7 +299,7 @@
 
           var facilities = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Facilities'];
 
-          if(facilities){
+          if((facilities) && (Object.keys(facilities).length > 0)){
             search_sections++;
             var facilityList = [];
             _.each(facilities, function(bool, name){
@@ -300,27 +310,57 @@
 
           var observatories = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Observatories'];
 
-          if(observatories){
+          if((observatories) && (Object.keys(observatories).length > 0)){
             search_sections++;
-            var observatoryList = [];
+            var OL = [];
+            var ONL = [];
+            var FNL = [];
             _.each(observatories, function(val, name){
               if(typeof val === 'boolean'){
-                observatoryList.push(name);
+                OL.push(name);
+              } else {
+                FNL.push(val.facility);
+                console.log("spatial area names:" + val.excludingSpatialAreaNames);
+                excludingSpatialAreaNames = val.excludingSpatialAreaNames.split(',');
+                _.each(excludingSpatialAreaNames, function(spatialAreaName){
+                  ONL.push(spatialAreaName.trim());
+                });
               }
             });
-            observatories_criteria = ["xop:in", ["spatial_area_name", [observatoryList]]];
-            observatories_json = ["exp:or", [["assop:associated", [null, null, "hasSite", "O", observatories_criteria]], ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]], ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]], ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]], ["assop:associated", [null, null, "hasSource", "S", ["assop:associated", [null, null, "hasDevice", "O", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]]]], ["assop:associated", [null, null, "hasSource", "S", ["assop:associated", [null, null, "hasSite", "O", ["assop:associated", [null, null, "hasSite", "O", observatories_criteria]]]]]], ["exp:and", [["op:eq", ["type_", "Observatory"]], observatories_criteria]]]];
+
+            var OJ = [];
+
+            if(OL.length > 0){
+              var OC = ["xop:in", ["spatial_area_name", [OL]]];
+
+              OJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "S", OC]], BD(OC, 1), BD(OC, 2), BD(OC, 3), BD(OC, 4), ["assop:associated", [null, null, "hasSource", "S", BD(OC, 1)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 2)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 3)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], OC]]]];
+            } else {
+              OJ = [];
+            }
+
+            if(FNL.length > 0){
+              console.log(ONL);
+              FNC = ["exp:and",[["op:eq",["type_", "Org"]], ["xop:in", ["name", [FNL]]]]];
+              ONC = ["xop:in", ["spatial_area_name", [ONL]]];
+              ONJ = ["exp:and", [["exp:or", [["assop:associated", [null, null, "hasResource", "O", FNC]], ["exp:and", [["op:eq", ["type_", "Org"]], FNC]]]], ["exp:not", [["exp:or", [ BD(ONC, 1), BD(ONC, 2), BD(ONC, 3), BD(ONC, 4), ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 1)]], ["assop:associated", [null,null, ["hasSource"], "S", BD(ONC, 2)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 3)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], ONC]]]]]]]];
+
+              if(OL.length > 0){
+                OJ = ["exp:or",[ONJ, OJ]];
+              } else {
+                OJ = ONJ;
+              }
+            }
           }
 
           var query_json = {};
 
           if(search_sections > 1){
-            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",[facilities_json,observatories_json]], "order_by": {}};
+            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",[facilities_json,OJ]], "order_by": {}};
           } else {
-            if(facilities){
+            if((facilities) && (Object.keys(facilities).length > 0)){
               query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":facilities_json, "order_by": {}};
-            } else {
-              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":observatories_json, "order_by": {}};
+            } else if((observatories) && (Object.keys(observatories).length > 0)){
+              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":OJ, "order_by": {}};
             }
           }
 
