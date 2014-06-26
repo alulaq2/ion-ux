@@ -408,7 +408,7 @@ IONUX2.Views.Map = Backbone.View.extend({
           $('#southFm').val(s);
           $('#westFm').val(w);
           // convert meters to degrees
-          $("#radiusFm").val(r/111325);
+          $("#radiusFm").val(r + "m");// /111325);
             
           this.create_circle(s, w, r);
         }
