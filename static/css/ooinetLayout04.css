@@ -735,21 +735,53 @@ ul.dropdown-menu li:hover {
   margin: 0 0 10px 15px;
 }
 
+#site .select_all .expandBtn {
+	cursor: pointer;
+	width: 14px;
+	height: 14px;
+	line-height:11px;
+	vertical-align: middle;
+	margin: 0px 0px 1px 3px;
+	padding: 0px;
+	background-image:url(../img/eyeShow.png);
+	display: inline-block;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	border:none;
+	color:none;
+	font-size:0px;
+	}
+#site .select_all .hideBtn {
+	cursor: pointer;
+	width: 14px;
+	height: 14px;
+	line-height:11px;
+	vertical-align: middle;
+	margin: 0px 0px 1px 3px;
+	padding: 0px;
+	background-image:url(../img/eyeHide.png);
+	display: inline-block;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	border:none;
+	color:none;
+	font-size:0px;
+	}
+
 .expandBtn,
 .hideBtn {
   cursor: pointer;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   line-height: 10px;
-  text-align: center;
+  text-align: left;
   vertical-align: middle;
   font-family: Courier;
-  padding: 0px;
-  margin: 0px;
-  margin-bottom: 4px;
-  background: #fff;
-  color: #384d68;
-  border: 1px solid #384d68;
+  padding: 0em 0em 0em 0.1em;
+  margin: 0px 4px 4px;
+  background: none;
+  color: #FFF;
+  border: 1px solid #FFF;
   display: inline-block;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
@@ -960,6 +992,10 @@ select.dateMenu.hour {width:56px;}
   margin: 0px;
   font-family: Arial;
   font-size: 11px; 
+}
+
+.accordionContainer input[type="checkbox"] {
+margin: 0px 0px 0px 3px;
 }
 
 .accordionContainer select {
