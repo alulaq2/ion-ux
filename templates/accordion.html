@@ -264,11 +264,22 @@
         return criteria_json;
       }
 
+      function BU(criteria, depth) {
+        if(depth == 0){
+          return criteria;
+        }
+        depth--;
+        var criteria_json = ["assop:associated", [ null,null, ["hasSite", "hasDevice", "hasDataProducer"], "S", BU(criteria, depth)]];
+
+        return criteria_json;
+      }
+
         function search_clicked() {
 
           IONUX2.clearSearchResults();
 
           var search_sections = 0;
+          var where_list = [];
 
           var full_url = '/test_query/';
 
@@ -280,7 +291,8 @@
             _.each(facilities, function(bool, name){
               facilityList.push(name);
             });
-            facilities_json = ["exp:or", [["assop:associated", [null, null, "hasResource", "O", ["xop:in", ["id", facilityList]]]], ["exp:and", [["op:eq", ["type_", "Org"]], ["xop:in", ["id", facilityList]]]]]];
+            FJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "O", ["xop:in", ["id", facilityList]]]], ["exp:and", [["op:eq", ["type_", "Org"]], ["xop:in", ["id", facilityList]]]]]];
+            where_list.push(FJ);
           }
 
           var observatories = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Observatories'];
@@ -324,19 +336,59 @@
               } else {
                 OJ = ONJ;
               }
+              where_list.push(OJ);
             }
+          }
+
+          var sites = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Sites'];
+
+          if((sites) && (Object.keys(sites).length > 0)){
+            search_sections++;
+            var SL = [];
+            _.each(sites, function(val, name){
+              SL.push(name);
+            });
+
+            var SJ = [];
+
+            if(SL.length > 0){
+              var SC = ["xop:in", ["id", [SL]]];
+
+              SJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "S", SC]], BD(SC, 1), BD(SC, 2), BD(SC, 3), BD(SC, 4), ["assop:associated", [null, null, "hasSource", "S", BD(SC, 1)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 2)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 3)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], SC]]]];
+            } else {
+              SJ = [];
+            }
+            where_list.push(SJ);
+          }
+
+          var dataTypes = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Data Types'];
+
+          if((dataTypes) && (Object.keys(dataTypes).length > 0)){
+            search_sections++;
+            var DL = [];
+            _.each(dataTypes, function(val, name){
+              DL.push(name);
+            });
+
+            var DJ = [];
+
+            if(DL.length > 0){
+              var DC = ["exp:and",[["op:eq", ["type_", "DataProduct"]],["xop:in", ["ooi_product_name", DL]]]];
+              var DCS = ["assop:associated",[null,null,["hasSite", "hasDevice", "hasDeployment", "hasPrimaryDeployment", "withinDeployment", "hasNetworkParent", "hasDataProducer", "hasSource"],"O",DC]];
+              
+              DJ = ["exp:or",[DC,["assop:associated",[null,null,"hasResource","S",DC]],["exp:or",[DCS, BU(DCS, 1), BU(DCS, 2), BU(DCS, 3),["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",DCS]]]]]];
+            } else {
+              DJ = [];
+            }
+            where_list.push(DJ);
           }
 
           var query_json = {};
 
           if(search_sections > 1){
-            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",[facilities_json,OJ]], "order_by": {}};
+            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",where_list], "order_by": {}};
           } else {
-            if((facilities) && (Object.keys(facilities).length > 0)){
-              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":facilities_json, "order_by": {}};
-            } else if((observatories) && (Object.keys(observatories).length > 0)){
-              query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":OJ, "order_by": {}};
-            }
+            query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":where_list[0], "order_by": {}};
           }
 
           $.ajax({
