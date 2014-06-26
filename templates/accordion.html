@@ -278,10 +278,41 @@
 
           IONUX2.clearSearchResults();
 
+          set_temporal_form();
+
+          var form_values = $('#searchForm').serializeArray();
+          form_values.splice(0, 0, {name:'adv', value:1});
+          console.log("checking form values");
+          if (form_values[form_values.length-1].value == 0) {
+            form_values[form_values.length - 1].value = "";
+          }
+          console.log(form_values);
+          var form_values_bool = $('#booleanForm').serializeArray();
+
+          // switch into an object - much easier to access directly
+          var formObj = _.object(_.map(form_values, function(v) {
+            return [v.name, v.value];
+          }));
+
+          console.log(formObj);
+          
           var search_sections = 0;
           var where_list = [];
 
           var full_url = '/test_query/';
+
+          if(formObj['south'] != ''){
+            search_sections++;
+            if(formObj['radius'] != ''){
+              // do point radius search
+              GC = ["gop:within_geom", ["geom", "POINT(" + formObj['west'] + " " + formObj['south'] + ")", formObj['radius']]];
+            } else {
+              // do bbox search
+              GC = ["gop:within", ["geom_loc", formObj['west'], formObj['north'], formObj['east'], formObj['south'],]];
+            }
+            GJ = ["exp:or",[GC,["assop:associated",[null,null,"hasResource","S",GC]]]];
+            where_list.push(GJ);
+          }
 
           var facilities = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Facilities'];
 
@@ -399,28 +430,13 @@
               url: '/test_query/',
               global: false,
               success: function(response) {
+                  make_iso_timestamps(response);
                   IONUX2.parseSearchResults(response.data);
               }
           });
 
           return;
 
-          set_temporal_form();
-
-          var form_values = $('#searchForm').serializeArray();
-          form_values.splice(0, 0, {name:'adv', value:1});
-          console.log("checking form values");
-          if (form_values[form_values.length-1].value == 0) {
-            form_values[form_values.length - 1].value = "";
-          }
-          console.log(form_values);
-          var form_values_bool = $('#booleanForm').serializeArray();
-
-          // switch into an object - much easier to access directly
-          var formObj = _.object(_.map(form_values, function(v) {
-            return [v.name, v.value];
-          }));
-          
           // normalize into "down" facing vertical if switched to up
           if (this.$('.vertical-bounds-positive').hasClass('toggle_sealevel_passive')) {
             if (formObj['vertical-lower-bound']) {
