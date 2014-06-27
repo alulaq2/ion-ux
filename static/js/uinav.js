@@ -130,35 +130,59 @@ var UINAV = {
     },
     loadFacilities: function(facilitiesModel) {       
         $('.list_facilities input').each(function(index) {
-            $(this).prop('checked', facilitiesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(facilitiesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
 
     loadObservatories: function(observatoriesModel) {       
         $('.listObservatories input').each(function(index) {
-            $(this).prop('checked', observatoriesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(observatoriesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
 
     loadInstrumentTypes: function(instrumentTypesModel) {
         $('.listInstrumentTypes input').each(function(index) {
-            $(this).prop('checked', instrumentTypesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(instrumentTypesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
     
     loadSites: function(sitesModel) {
         $('.listSites input').each(function(index) {
-            $(this).prop('checked', sitesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(sitesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
     loadPlatformTypes: function(platformTypesModel) {
         $('.listPlatformTypes input').each(function(index) {
-            $(this).prop('checked', platformTypesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(platformTypesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
     loadDataTypes: function(dataTypesModel) {
         $('.listDataTypes input').each(function(index) {
-            $(this).prop('checked', dataTypesModel[index].is_checked);
+            if(!$(this).hasClass('selectAll')){
+                if(dataTypesModel[index].is_checked){
+                    $(this).click();
+                }
+            }
         });
     },
     loadBooleanExpression: function(booleanExpressionCollection) {
@@ -415,6 +439,8 @@ var UINAV = {
       }
       var time = d.getTime();
 
+      var keyword = $('#keywordIn').val();
+
       // store spatial input values and set to model
       var spatial_dropdown = $('.latLongMenu option:selected').attr('value'),
         from_latitude = $('#south').val(),
@@ -500,34 +526,17 @@ var UINAV = {
 
     var $facilityInput = $('.list_facilities input');
     var $observatoryInput = $('.listObservatories input');
+    var $sitesInput = $('.listSites input');
+    var $platformTypesInput = $('.listPlatformTypes input'); 
     var $instrumentTypesInput = $('.listInstrumentTypes input');
     var $dataTypesInput = $('.listDataTypes input');
 
     dynamicAccordions($facilityInput, IONUX2.Collections.saveFacilitySearch);
     dynamicAccordions($observatoryInput, IONUX2.Collections.saveObservatorySearch);
+    dynamicAccordions($sitesInput, IONUX2.Collections.saveSiteSearch);
+    dynamicAccordions($platformTypesInput, IONUX2.Collections.savePlatformSearch);
     dynamicAccordions($instrumentTypesInput, IONUX2.Collections.saveInstrumentTypeSearch);
     dynamicAccordions($dataTypesInput, IONUX2.Collections.saveDataTypeSearch);
-
-    (function() {
-      // get sites checkbox values and add to collection
-      var sites_checked = [];
-      $('.listSites input').each(function(data) {
-        var site_id = $(this).data('id');
-        var is_checked = $(this).prop('checked');
-        sites_checked.push({ 'id' : site_id, 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.saveSiteSearch.set(sites_checked);
-    })();
-
-    (function() {
-      // get platform types checkbox values and add to collection
-      var platform_checked = [];
-      $('.listPlatformTypes input').each(function(data) {
-        var is_checked = $(this).prop('checked');
-        platform_checked.push({ 'is_checked' : is_checked });
-      });
-      IONUX2.Collections.savePlatformSearch.set(platform_checked);
-    })();
 
     (function() {
       // get boolean expression input values and add to collection
@@ -580,6 +589,7 @@ var UINAV = {
 
       var values = {
         'searchName': searchName,
+        'keyword' : keyword,
         'spatial' : spatial,
         'temporal': temporal,
         'facilities' : facilities,

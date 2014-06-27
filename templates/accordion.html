@@ -182,8 +182,8 @@
             'saved_searches': IONUX2.Collections.saveNames.toJSON()
           });
         });
-
-        $('#resetBtn').on('click', function(){
+        
+        IONUX2.resetSearch = function(){
           UINAV.disableMapEventHandling = true;
           IONUX2.clearSearchResults();
           IONUX2.Models.searchParametersInstance.reset();
@@ -220,14 +220,16 @@
 
           // clear boolean
           IONUX2.Views.boolean.render();
-          UINAV.disableMapEventHandling = false;
+          UINAV.disableMapEventHandling = false;       
+        }
+
+        $('#resetBtn').on('click', function(){
+          IONUX2.resetSearch();
         });
         
       });
 
       UINAV.disableMapEventHandling = false;
-
-
 
       IONUX2.openSpatialAccordion = function() {
         if(!UINAV.disableMapEventHandling){

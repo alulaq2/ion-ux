@@ -348,6 +348,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
               $(this).on('click', function(e) {
                 e.preventDefault();
                 //reset search results
+                IONUX2.resetSearch();
+                /*
                 disableMapEventHandling = true;
                 IONUX2.clearSearchResults();
 
@@ -380,6 +382,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 // clear boolean
                 IONUX2.Views.boolean.render();
                 disableMapEventHandling = false;
+                */
+                UINAV.disableMapEventHandling = true;
                 
                 var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
 
@@ -410,6 +414,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     });
 
                 });
+                UINAV.disableMapEventHandling = false;
             });
 
             $('.recentSearch').each(function(index) {
