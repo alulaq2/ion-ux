@@ -493,7 +493,10 @@ ul.nav {margin-top: 15px;}
 }
 
 #login a.btn-navigation:hover {
-  text-decoration:underline;
+  color:#ABCEEA;
+  cursor:pointer;
+  cursor:hand;
+  /* text-decoration:underline; */
 }
 
 /* Add margin to Bootstrap span btn group */
@@ -737,8 +740,8 @@ ul.dropdown-menu li:hover {
 .expandBtn,
 .hideBtn {
   cursor: pointer;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   line-height: 10px;
   text-align: center;
   vertical-align: middle;
@@ -748,7 +751,8 @@ ul.dropdown-menu li:hover {
   margin-bottom: 4px;
   background: #fff;
   color: #384d68;
-  border: 1px solid #384d68;
+  /* border: 1px solid #384d68; */
+  border: none;
   display: inline-block;
   box-sizing:border-box;
   -moz-box-sizing:border-box;
@@ -831,24 +835,66 @@ background-color: #7B99B5;
 }
 
 #saveConfiguration {
-  margin-top: 2px;
   position: absolute;
   display: none;
-  left: 80px;
+  top:32px;
+  right: 12px;
 }
 
-#saveConfigBtn, #resetConfigBtn {
-  height: 18px;
+#saveConfigBtn {
+  position: absolute;
+  top: 0px;
+  right: 84px;
+  height: 16px;
+  width: 84px;
+  z-index: 0;
   line-height: 12px;
-  margin: 5px 7px 5px auto;
-  background-color: #7b99b5;
+  /* margin: 5px 7px 5px auto; */
+  padding: 0px;
+  margin: 0px;
   color: #fff;
   font-family: Arial;
   font-size: 12px;
-  overflow: none;
-  float: right;
+  font-weight: 300;
+  text-align: right;
+  background-color:transparent;
+  /*
+  background-color: #7b99b5;
   border-radius: 5px;
   border: 1px solid #9DDFF2;
+  */
+}
+
+#resetConfigBtn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 16px;
+  width: 84px;
+  z-index: 0;
+  line-height: 12px;
+  /* margin: 5px 7px 5px auto; */
+  padding: 0px;
+  margin: 0px;
+  color: #fff;
+  font-family: Arial;
+  font-size: 12px;
+  font-weight: 300;
+  text-align: right;
+  background-color:transparent;
+  /*
+  background-color: #7b99b5;
+  border-radius: 5px;
+  border: 1px solid #9DDFF2;*/
+}
+
+#saveConfigBtn:hover,
+#resetConfigBtn:hover {
+  color:#ABCEEA;
+  cursor:pointer;
+  cursor:hand;
+  /* text-decoration:underline; */
+  /* border: 1px solid #fff; */
 }
 
 .leftAccordion {
