@@ -132,8 +132,6 @@
         $(".accordionContainer" ).on( "sortupdate", function( event, ui ) {
           var sortable_order = $(this).sortable( "toArray" );
           IONUX2.Models.sortModelInstance.set({'sort_order': sortable_order});
-          console.log("sort order model");
-          console.log(IONUX2.Models.sortModelInstance);
         });
 
 
@@ -156,7 +154,6 @@
           if (parsed_collection.length != 0) {
             var collection_length = parsed_collection.length;
             var search_length = parsed_collection[0].saved_searches.length;
-            console.log("search collection length is " + search_length);
             if (search_length == maxLength) {
                IONUX2.Collections.recentSearches.models[0].attributes.saved_searches.shift();
             }
@@ -285,23 +282,17 @@
 
           IONUX2.clearSearchResults();
 
-          set_temporal_form();
-
           var form_values = $('#searchForm').serializeArray();
           form_values.splice(0, 0, {name:'adv', value:1});
-          console.log("checking form values");
           if (form_values[form_values.length-1].value == 0) {
             form_values[form_values.length - 1].value = "";
           }
-          console.log(form_values);
           var form_values_bool = $('#booleanForm').serializeArray();
 
           // switch into an object - much easier to access directly
           var formObj = _.object(_.map(form_values, function(v) {
             return [v.name, v.value];
           }));
-
-          console.log(formObj);
           
           var search_sections = 0;
           var where_list = [];
@@ -331,6 +322,28 @@
             where_list.push(VJ);
           }
 
+          // add temporal query json
+          var tYear = $("#tempFromYear").val();
+          var tMonth = $("#tempFromMonth").val();
+          var tDay = $("#tempFromDay").val();
+          var tHour = $('#tempFromHour').val();
+
+          var tYear2 = $("#tempToYear").val();
+          var tMonth2 = $("#tempToMonth").val();
+          var tDay2 = $("#tempToDay").val();
+          var tHour2 = $('#tempToHour').val();
+
+          if((tYear.length > 0 && tMonth.length > 0 && tDay.length > 0 && tHour.length > 0) && 
+             (tYear2.length > 0 && tMonth2.length > 0 && tDay2.length > 0 && tHour2.length > 0)){
+            var temporalFromTime = new Date(tYear, tMonth, tDay, tHour).getTime() / 1000;
+            var temporalToTime = new Date(tYear2, tMonth2, tDay2, tHour2).getTime() / 1000;
+
+            console.log('*** From time: ' + temporalFromTime);
+            console.log('*** To time: ' + temporalToTime);
+            TJ = ["rop:overlaps", ["temporal_range", temporalFromTime, temporalToTime]];
+            where_list.push(TJ);
+          }
+
           // add facilities query json
           var facilities = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Facilities'];
 
@@ -357,7 +370,6 @@
                 OL.push(name);
               } else {
                 FNL.push(val.facility);
-                console.log("spatial area names:" + val.excludingSpatialAreaNames);
                 excludingSpatialAreaNames = val.excludingSpatialAreaNames.split(',');
                 _.each(excludingSpatialAreaNames, function(spatialAreaName){
                   ONL.push(spatialAreaName.trim());
@@ -374,7 +386,6 @@
             }
 
             if(FNL.length > 0){
-              console.log(ONL);
               FNC = ["exp:and",[["op:eq",["type_", "Org"]], ["xop:in", ["name", [FNL]]]]];
               ONC = ["xop:in", ["spatial_area_name", [ONL]]];
               ONJ = ["exp:and", [["exp:or", [["assop:associated", [null, null, "hasResource", "O", FNC]], ["exp:and", [["op:eq", ["type_", "Org"]], FNC]]]], ["exp:not", [["exp:or", [ BD(ONC, 1), BD(ONC, 2), BD(ONC, 3), BD(ONC, 4), ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 1)]], ["assop:associated", [null,null, ["hasSource"], "S", BD(ONC, 2)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 3)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], ONC]]]]]]]];
@@ -424,6 +435,25 @@
               var PC = ["assop:associated",[null,null,"hasModel","S",["xop:in",["platform_type",PL]]]];
               PJ = ["exp:or",[PC,["assop:associated",[null,null,"hasResource","S",PC]],["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]],["assop:associated",[null,null,"hasSource","S",["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]]]],["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]]]]]];
               where_list.push(PJ);
+            }
+          }
+
+          // add instrument types query json
+          var instrumentTypes = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['instrumentTypes'];
+
+          if((instrumentTypes) && (Object.keys(instrumentTypes).length > 0)){
+            var IL = [];
+            _.each(instrumentTypes, function(val, name){
+              subList = name.split('|');
+              IL = IL.concat(subList);
+            });
+
+            var IJ = [];
+
+            if(IL.length > 0){
+              var IC = ["assop:associated",[null,null,"hasModel","S",["xop:in",["instrument_family",IL]]]];
+              IJ = ["exp:or",[IC,["assop:associated",[null,null,"hasResource","S",IC]],["exp:or",[BU(IC,1),BU(IC,2),BU(IC,3),BU(IC,4)]],["assop:associated",[null,null,"hasSource","S",["exp:or",[BU(IC,1),BU(IC,2),BU(IC,3),BU(IC,4)]]]],["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",["exp:or",[BU(IC,1),BU(IC,2),BU(IC,3),BU(IC,4)]]]]]];
+              where_list.push(IJ);
             }
           }
 
@@ -589,8 +619,6 @@
           var search_term2 = $.param(form_values_bool);
 
           search_term = search_term + '&' + search_term2;
-
-          console.log('SEARCH CLICKED...' + search_term);
 
           IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
 
