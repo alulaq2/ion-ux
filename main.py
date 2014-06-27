@@ -173,12 +173,14 @@ def user_configuration(user_id):
 
         return render_json_response("{data:{status:'ok'}}")
 
-@app.route('/test_query/', methods=['POST'])
-def test_query_post_passthrough():
+@app.route('/search_query/', methods=['POST'])
+def search_query_post_passthrough():
+    # ENABLE THESE LINES FOR WEB FORM POST.  DISABLE FOR UI POST
     # query_string = request.form['payload']
     # query = json.loads(query_string)
+    # ENABLE THIS LINE FOR UI POST.  DISABLE FOR WEB FORM POST.
     query = request.json['payload']
-    results = ServiceApi.test_query_post_passthrough(query)
+    results = ServiceApi.search_query_post_passthrough(query)
     return render_json_response(results)
 
 

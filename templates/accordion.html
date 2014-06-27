@@ -304,8 +304,6 @@
           var search_sections = 0;
           var where_list = [];
 
-          var full_url = '/test_query/';
-
           // add geospatial query json
           if(formObj['south'] != ''){
             if(formObj['radius'] != ''){
@@ -460,7 +458,7 @@
               contentType: 'application/json',
               data: JSON.stringify({payload: query_json}),
               dataType: 'json',
-              url: '/test_query/',
+              url: '/search_query/',
               global: false,
               success: function(response) {
                   make_iso_timestamps(response);
@@ -496,6 +494,8 @@
           });
 
           return;
+
+          // ************* OLD SEARCH CODE HERE! ******************
 
           // normalize into "down" facing vertical if switched to up
           if (this.$('.vertical-bounds-positive').hasClass('toggle_sealevel_passive')) {
