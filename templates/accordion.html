@@ -186,6 +186,7 @@
         $('#resetBtn').on('click', function(){
           UINAV.disableMapEventHandling = true;
           IONUX2.clearSearchResults();
+          IONUX2.Models.searchParametersInstance.reset();
 
           // clear keyword
           $('#keywordIn').val("");
@@ -209,6 +210,10 @@
           $("#radiusFm").val("");
           $('#radius').val("");
           $('#lower').val("");
+          $('#upper').val("");
+          $('#tempFromFm').val("");
+          $('#tempToFm').val("");
+          $('#temporal-field-ctrlFm').val("");
 
           // clear all checkboxes
           $('#searchTabContent').find('input').prop("checked", false);
@@ -463,18 +468,23 @@
                   // add keyword post process
                   var keyword = $('#keywordIn').val();
                   if(keyword != ''){
+                    var found = false;
                     function checkRow(obj, val, row) {
                         _.each(obj, function(property, key){
                             if (typeof property == 'object') {
                                 return checkRow(property, val, row);
                             } else if ((typeof property == 'string') && (property.toLowerCase().indexOf(val) >= 0)) {
-                                results.push(row);
+                                if(found == false){
+                                  results.push(row);
+                                  found = true;
+                                }
                                 return true;
                             }
                         });
-                        return false;
+                        return found;
                     }
                     _.each(response.data, function(row){
+                      found = false;
                       checkRow(row, keyword.toLowerCase(), row);
                     });
                   } else {
