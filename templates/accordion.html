@@ -301,35 +301,49 @@
 
           var full_url = '/test_query/';
 
+          // add geospatial query json
           if(formObj['south'] != ''){
-            search_sections++;
             if(formObj['radius'] != ''){
               // do point radius search
               GC = ["gop:within_geom", ["geom", "POINT(" + formObj['west'] + " " + formObj['south'] + ")", formObj['radius']]];
             } else {
               // do bbox search
-              GC = ["gop:within", ["geom_loc", formObj['west'], formObj['north'], formObj['east'], formObj['south'],]];
+              GC = ["gop:within", ["geom_loc", formObj['west'], formObj['north'], formObj['east'], formObj['south']]];
             }
             GJ = ["exp:or",[GC,["assop:associated",[null,null,"hasResource","S",GC]]]];
             where_list.push(GJ);
           }
 
+          // add vertical query json
+          var upper = $('#upper').val();
+          var lower = $('#lower').val();
+          if((upper != '') && (lower != '')){
+            if(lower > upper){
+              upper = $('#lower').val();
+              lower = $('#upper').val();
+            }
+            VJ = ["rop:within", ["vertical_range", lower, upper]];
+            where_list.push(VJ);
+          }
+
+          // add facilities query json
           var facilities = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Facilities'];
 
           if((facilities) && (Object.keys(facilities).length > 0)){
-            search_sections++;
-            var facilityList = [];
+            var FL = [];
             _.each(facilities, function(bool, name){
-              facilityList.push(name);
+              FL.push(name);
             });
-            FJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "O", ["xop:in", ["id", facilityList]]]], ["exp:and", [["op:eq", ["type_", "Org"]], ["xop:in", ["id", facilityList]]]]]];
-            where_list.push(FJ);
+            if(FL.length > 0){
+              FJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "O", ["xop:in", ["id", FL]]]], ["exp:and", [["op:eq", ["type_", "Org"]], ["xop:in", ["id", FL]]]]]];
+              where_list.push(FJ);
+            }
           }
 
+          // add observatories query json
           var observatories = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Observatories'];
 
           if((observatories) && (Object.keys(observatories).length > 0)){
-            search_sections++;
             var OL = [];
             var ONL = [];
             var FNL = [];
@@ -352,8 +366,6 @@
               var OC = ["xop:in", ["spatial_area_name", [OL]]];
 
               OJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "S", OC]], BD(OC, 1), BD(OC, 2), BD(OC, 3), BD(OC, 4), ["assop:associated", [null, null, "hasSource", "S", BD(OC, 1)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 2)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 3)]], ["assop:associated", [null, null, "hasSource", "S", BD(OC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], OC]]]];
-            } else {
-              OJ = [];
             }
 
             if(FNL.length > 0){
@@ -361,67 +373,83 @@
               FNC = ["exp:and",[["op:eq",["type_", "Org"]], ["xop:in", ["name", [FNL]]]]];
               ONC = ["xop:in", ["spatial_area_name", [ONL]]];
               ONJ = ["exp:and", [["exp:or", [["assop:associated", [null, null, "hasResource", "O", FNC]], ["exp:and", [["op:eq", ["type_", "Org"]], FNC]]]], ["exp:not", [["exp:or", [ BD(ONC, 1), BD(ONC, 2), BD(ONC, 3), BD(ONC, 4), ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 1)]], ["assop:associated", [null,null, ["hasSource"], "S", BD(ONC, 2)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 3)]], ["assop:associated", [null, null, ["hasSource"], "S", BD(ONC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], ONC]]]]]]]];
-
+              
               if(OL.length > 0){
                 OJ = ["exp:or",[ONJ, OJ]];
               } else {
                 OJ = ONJ;
               }
+
+            }
+
+            if(OJ.length > 0){
               where_list.push(OJ);
             }
           }
 
+          // add sites query json
           var sites = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Sites'];
 
           if((sites) && (Object.keys(sites).length > 0)){
-            search_sections++;
             var SL = [];
             _.each(sites, function(val, name){
               SL.push(name);
             });
 
-            var SJ = [];
-
             if(SL.length > 0){
               var SC = ["xop:in", ["id", [SL]]];
 
               SJ = ["exp:or", [["assop:associated", [null, null, "hasResource", "S", SC]], BD(SC, 1), BD(SC, 2), BD(SC, 3), BD(SC, 4), ["assop:associated", [null, null, "hasSource", "S", BD(SC, 1)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 2)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 3)]], ["assop:associated", [null, null, "hasSource", "S", BD(SC, 4)]], ["exp:and", [["op:eq", ["type_", "Observatory"]], SC]]]];
-            } else {
-              SJ = [];
+              where_list.push(SJ);
             }
-            where_list.push(SJ);
           }
 
+          // add platform types query json
+          var platformTypes = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['platformTypes'];
+
+          if((platformTypes) && (Object.keys(platformTypes).length > 0)){
+            var PL = [];
+            _.each(platformTypes, function(val, name){
+              PL.push(name);
+            });
+
+            var PJ = [];
+
+            if(PL.length > 0){
+              var PC = ["assop:associated",[null,null,"hasModel","S",["xop:in",["platform_type",PL]]]];
+              PJ = ["exp:or",[PC,["assop:associated",[null,null,"hasResource","S",PC]],["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]],["assop:associated",[null,null,"hasSource","S",["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]]]],["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",["exp:or",[BU(PC,1),BU(PC,2),BU(PC,3),BD(PC,1),BD(PC,2)]]]]]];
+              where_list.push(PJ);
+            }
+          }
+
+          // add data types query json
           var dataTypes = IONUX2.Models.searchParametersInstance.attributes.checkbox_sections['Data Types'];
 
           if((dataTypes) && (Object.keys(dataTypes).length > 0)){
-            search_sections++;
             var DL = [];
             _.each(dataTypes, function(val, name){
               DL.push(name);
             });
-
-            var DJ = [];
 
             if(DL.length > 0){
               var DC = ["exp:and",[["op:eq", ["type_", "DataProduct"]],["xop:in", ["ooi_product_name", DL]]]];
               var DCS = ["assop:associated",[null,null,["hasSite", "hasDevice", "hasDeployment", "hasPrimaryDeployment", "withinDeployment", "hasNetworkParent", "hasDataProducer", "hasSource"],"O",DC]];
               
               DJ = ["exp:or",[DC,["assop:associated",[null,null,"hasResource","S",DC]],["exp:or",[DCS, BU(DCS, 1), BU(DCS, 2), BU(DCS, 3),["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",DCS]]]]]];
-            } else {
-              DJ = [];
-            }
-            where_list.push(DJ);
+              where_list.push(DJ);
+            }            
           }
 
+          // combine accordions query json
           var query_json = {};
 
-          if(search_sections > 1){
+          if(where_list.length > 1){
             query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":["exp:and",where_list], "order_by": {}};
           } else {
             query_json = {"QUERYEXP": "qexp_v1.0", "query_args":{"datastore": "resources", "id_only": false, "limit": 0, "profile": "RESOURCES", "skip": 0}, "where":where_list[0], "order_by": {}};
           }
 
+          // execute query
           $.ajax({
               type: 'POST',
               contentType: 'application/json',
@@ -431,7 +459,29 @@
               global: false,
               success: function(response) {
                   make_iso_timestamps(response);
-                  IONUX2.parseSearchResults(response.data);
+                  results = [];
+                  // add keyword post process
+                  var keyword = $('#keywordIn').val();
+                  if(keyword != ''){
+                    function checkRow(obj, val, row) {
+                        _.each(obj, function(property, key){
+                            if (typeof property == 'object') {
+                                return checkRow(property, val, row);
+                            } else if ((typeof property == 'string') && (property.toLowerCase().indexOf(val) >= 0)) {
+                                results.push(row);
+                                return true;
+                            }
+                        });
+                        return false;
+                    }
+                    _.each(response.data, function(row){
+                      checkRow(row, keyword.toLowerCase(), row);
+                    });
+                  } else {
+                    results = response.data;
+                  }
+
+                  IONUX2.parseSearchResults(results);
               }
           });
 
