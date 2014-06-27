@@ -468,6 +468,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             // when the hide/show button is clicked, some jquery animation is triggered
             // to slide several page sections around.
             $('#navLeftMinimizeArrow').click(function(e){
+                var center = IONUX2.Dashboard.MapView.map.getCenter();
+                var zoom = IONUX2.Dashboard.MapView.map.getZoom();
                 if ($(this).hasClass('collapsed')) {
                     $(this).animate({
                        left: '275px'
@@ -481,19 +483,31 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                         }
                     });
                     $('#left2').animate({
-                       left: '0px'
-                    }, { duration: 200, queue: false });
+                       left: '0px',
+                    }, { duration: 200, 
+                        queue: false,
+                        complete: function(){
+                            $("#main").css({left:'275px', width:'calc(100% - 275px)'});
+                            $("#mainSubheader").css({left:'275px', width:'calc(100% - 275px)'});
+                            $(window).trigger('resize');
+                            google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
+                            IONUX2.Dashboard.MapView.map.setCenter(center);
+                            IONUX2.Dashboard.MapView.map.setZoom(zoom);
+                        }
+                    });
                     $("#leftSubheader").animate({
                        left: '0px'
                     }, { duration: 200, queue: false });
-                    $("#main").animate({
+                    
+                    /*$("#main").animate({
                        left: '275px',
                        width: '-=275px'
-                    }, { duration: 200, queue: false });
-                    $("#mainSubheader").animate({
+                    }, { duration: 200, queue: false });*/
+                    
+                    /*$("#mainSubheader").animate({
                        left: '275px',
                        width: '-=275px'
-                    }, { duration: 200, queue: false });
+                    }, { duration: 200, queue: false });*/
                 } else {
                     $(this).addClass('collapsed');
                     $(this).attr('style', 'left:275px');
@@ -503,20 +517,27 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                        left: '0px'
                     }, { duration: 200, queue: false });
                     $('#left2').animate({
-                       left: '-275px'
+                       left: '-275px',
                     }, { duration: 200, queue: false });
                     $("#leftSubheader").animate({
                        left: '-275px'
                     }, { duration: 200, queue: false });
-                    $("#main").animate({
+                    $("#main").css({left:'0px', width:'100%'});
+                    /*$("#main").animate({
                        left: '0px',
                        width: '100%'
-                    }, { duration: 200, queue: false });
-                    $("#mainSubheader").animate({
+                    }, { duration: 200, queue: false });*/
+                    $("#mainSubheader").css({left:'0px', width:'100%'});
+                    /*$("#mainSubheader").animate({
                        left: '0px',
                        width: '100%'
-                    }, { duration: 200, queue: false });
+                    }, { duration: 200, queue: false });*/
+                    $(window).trigger('resize');
+                    google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
+                    IONUX2.Dashboard.MapView.map.setCenter(center);
+                    IONUX2.Dashboard.MapView.map.setZoom(zoom);
                 }
+                
             });
             
             // ************ Save UI state. *************

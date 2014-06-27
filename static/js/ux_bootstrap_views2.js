@@ -64,6 +64,12 @@ IONUX2.Views.Login = Backbone.View.extend({
     this.model.on('change:html', this.setTemplate, this);
     this.model.on('change:session', this.render, this);
   },
+  userprofile: function(e){
+    e.preventDefault();
+    user_info_url = '/UserInfo/face/'+IONUX2.Models.SessionInstance.get('user_id')+'/';
+    IONUX.ROUTER.navigate(user_info_url, {trigger: true});
+    return false;
+  },
   setTemplate: function(){
     console.log('setting login template');
     this.template = _.template(this.model.html);
