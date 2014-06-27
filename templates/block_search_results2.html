@@ -113,6 +113,7 @@
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
 			accordionLabel.html(resourceType.name);
 			accordionLabel.append('<div class="expandHide arrowRight blue">');
+			$(accordion_contents).hide();
 		});
 
 		_.each(IONUX2.assetTypesList, function(resourceType) {
@@ -121,6 +122,7 @@
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
 			accordionLabel.html(resourceType.name);
 			accordionLabel.append('<div class="expandHide arrowRight blue">');
+			$(accordion_contents).hide();
 		});
 
 		_.each(IONUX2.siteTypesList, function(resourceType) {
@@ -129,6 +131,7 @@
 			var accordionLabel = accordion.find('.accordionWhiteLabel');
 			accordionLabel.html(resourceType.name);
 			accordionLabel.append('<div class="expandHide arrowRight blue">');
+			$(accordion_contents).hide();
 		});
 
 	}

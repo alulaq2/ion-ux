@@ -40,7 +40,8 @@ var UINAV = {
     },
 
     loadLeftNav: function(searchModel, index) {
-        var spatialModel = searchModel.saved_searches[index].spatial,
+        var keyword = searchModel.saved_searches[index].keyword,
+            spatialModel = searchModel.saved_searches[index].spatial,
             temporalModel = searchModel.saved_searches[index].temporal,
             facilitiesModel = searchModel.saved_searches[index].facilities,
             observatoriesModel = searchModel.saved_searches[index].observatories,
@@ -54,6 +55,7 @@ var UINAV = {
             console.log("bottom config model");
             console.log(bottomConfigModel);
 
+            $('#keywordIn').val(keyword);
             // populate accordion modules with saved data
             this.loadSpatial(spatialModel);
             this.loadTemporal(temporalModel);
