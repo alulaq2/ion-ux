@@ -121,10 +121,13 @@ IONUX2 = {
 	    IONUX2.Models.LoginInstance.fetch();
 
 	    IONUX2.Models.SessionInstance.fetch({
-      		async: false
+      		async: false,
+			success: function(resp) {
+				new IONUX.Views.HelpMenu({model: IONUX2.Models.SessionInstance}).render().el;
+			    IONUX2.Models.SessionInstance.set_polling();
+			}
     	});
 
-	    IONUX2.Models.SessionInstance.set_polling();
 
       	this.dashboard_map();
 	},

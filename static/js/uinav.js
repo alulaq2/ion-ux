@@ -52,75 +52,41 @@ var UINAV = {
             booleanExpressionModel = searchModel.saved_searches[index].booleanExpression,
             configurationModel = searchModel.configuration,
             bottomConfigModel = searchModel.bottom_config;
-            console.log("bottom config model");
-            console.log(bottomConfigModel);
+            // console.log("bottom config model");
+            // console.log(bottomConfigModel);
 
-            $('#keywordIn').val(keyword);
-            // populate accordion modules with saved data
-            this.loadSpatial(spatialModel);
-            this.loadTemporal(temporalModel);
-            this.loadFacilities(facilitiesModel);
-            this.loadObservatories(observatoriesModel);
-            this.loadInstrumentTypes(instrumentTypesModel);
-            this.loadSites(sitesModel);
-            this.loadPlatformTypes(platformTypesModel);
-            this.loadDataTypes(dataTypesModel);
-            this.loadBooleanExpression(booleanExpressionModel);
-            this.loadVisibility(configurationModel);
+        $('#keywordIn').val(keyword);
+        // populate accordion modules with saved data
+        this.loadSpatial(spatialModel);
+        this.loadTemporal(temporalModel);
+        this.loadFacilities(facilitiesModel);
+        this.loadObservatories(observatoriesModel);
+        this.loadInstrumentTypes(instrumentTypesModel);
+        this.loadSites(sitesModel);
+        this.loadPlatformTypes(platformTypesModel);
+        this.loadDataTypes(dataTypesModel);
+        this.loadBooleanExpression(booleanExpressionModel);
+        this.loadVisibility(configurationModel);
 
-            var dataTypesList = [];
-            for (var item in IONUX2.dataTypesList) {
-                dataTypesList.push(IONUX2.dataTypesList[item].id);
-            }
-            
-            var assetTypesList = [];
-            for (var item in IONUX2.assetTypesList) {
-                assetTypesList.push(IONUX2.assetTypesList[item].id);
-            }
-
-            var siteTypesList = [];
-            for (var item in IONUX2.siteTypesList) {
-                siteTypesList.push(IONUX2.siteTypesList[item].id);
-            }
-
-            console.log("asset types list");
-            console.log(assetTypesList);
-            console.log("site types list");
-            console.log(siteTypesList);
-
-            var gotKey = function(dataList) {
-                for (var key in dataList) {
-                    for (item in bottomConfigModel) {
-                        if (dataList[key] == $('#'+bottomConfigModel[item].id).parent().attr('id')) {
-                            return true
-                        }
-                    }
-                }   
-            };
-
-        if (gotKey(dataTypesList)) {
-            console.log("got data");
-            $('#dataSearchResultsTab').click();
-            var $bottom_accordion = $('#dataSearchResultsAccordion .accordionContainerWhite');
-            console.log("bottom accordion is");
-            console.log($bottom_accordion);
+        var dataTypesList = [];
+        for (var item in IONUX2.dataTypesList) {
+            dataTypesList.push(IONUX2.dataTypesList[item].id);
         }
-    
-        if (gotKey(assetTypesList)) {
-            console.log("got asset tab");
-            $('#assetsSearchResultsTab').click();
-            var $bottom_accordion = $('#assetsSearchResultsAccordion .accordionContainerWhite');
-            console.log($bottom_accordion);
+        
+        var assetTypesList = [];
+        for (var item in IONUX2.assetTypesList) {
+            assetTypesList.push(IONUX2.assetTypesList[item].id);
         }
 
-        if (gotKey(siteTypesList)) {
-            console.log("got site tab");
-            $('#sitesSearchResultsTab').click();
-            var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
-            console.log($bottom_accordion);
+        var siteTypesList = [];
+        for (var item in IONUX2.siteTypesList) {
+            siteTypesList.push(IONUX2.siteTypesList[item].id);
         }
 
-        this.loadAccordionVisibility(bottomConfigModel);
+        // console.log("asset types list");
+        // console.log(assetTypesList);
+        // console.log("site types list");
+        // console.log(siteTypesList);
     },
 
     loadSpatial: function(spatialModel) {
@@ -188,11 +154,11 @@ var UINAV = {
         });
     },
     loadBooleanExpression: function(booleanExpressionCollection) {
-        console.log("boolean expression collection");
-        console.log(booleanExpressionCollection);
+        // console.log("boolean expression collection");
+        // console.log(booleanExpressionCollection);
         $('select[name="filter_arg"]').each(function(index) {
-            console.log("got filter arg " + index);
-                $(this).remove();
+            // console.log("got filter arg " + index);
+            $(this).remove();
         });
         $('.filter-item').each(function(index) {
             if (index != 0) {
@@ -206,7 +172,7 @@ var UINAV = {
             }
         }
         _.each(booleanExpressionCollection, function(booleanModel, key) {
-            console.log("index is " + key);
+            // console.log("index is " + key);
             
             $('.filter-item').eq(key).find('select[name="filter_var"] option[data-name="' + booleanModel.boolean_main_filter + '"]').attr('selected', 'selected');
 
@@ -235,13 +201,13 @@ var UINAV = {
                 ['Subscription','NotificationRequest'], ['User','UserInfo']
                 ];
                 var elementLength = $('.filter-item').eq(key).find('select[name="filter_arg"]:visible').length;
-                console.log("element lenght is " + elementLength);
+                // console.log("element length is " + elementLength);
                 if (elementLength == 0) {
                     $('.filter-add').before('<select class="booleanSelectContainer" name="filter_arg"></select>');
                 }
                 $('.filter-item').eq(key).find('select[name="filter_arg"]').empty();
                 if (booleanModel.boolean_main_filter == "lcstate") {
-                    console.log()
+                    // console.log()
                     for (val in lcstateValues) {
                         $('.filter-item').eq(key).find('select[name="filter_arg"]').append('<option value="' + lcstateValues[val] + '">' + lcstateValues[val] + '</option');
                     }
@@ -277,8 +243,8 @@ var UINAV = {
             }
             else {
                 var argument = $('.filter-item').eq(key).find('.argument').length;
-                console.log("argument");
-                console.log("key is " + key + " and argument is " + argument);
+                // console.log("argument");
+                // console.log("key is " + key + " and argument is " + argument);
                 if (argument == 1) {
                     $('.filter-add').eq(key).before('<select class="booleanSelectContainer" name="filter_operator"><option value="contains">contains</option><option value="like">like</option><option value="matches">matches</option><option value="starts with">starts with</option><option value="ends with">ends with</option></select><input type="text" class="booleanInput" name="filter_arg" value="">');
                     $('.filter-item').eq(key).find('.argument').remove();
@@ -300,7 +266,7 @@ var UINAV = {
             url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '/',
             data: {data: userProfile},
             success: function(data) {
-                console.log(data);
+                // console.log(data);
             },
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded'
@@ -313,7 +279,7 @@ var UINAV = {
             url: '/profile/' + IONUX2.Models.SessionInstance.attributes.user_id + '_ui/',
             data: {data: userConfiguration},
             success: function(data) {
-                console.log(data);
+                // console.log(data);
             },
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded'
@@ -350,7 +316,7 @@ var UINAV = {
     },
 
     loadSavedSearches: function(savedSearch) {
-        console.log("loading saved searches");
+        // console.log("loading saved searches");
         var savedSearchList = JSON.parse(savedSearch.data);
         //console.log("savedSearchList");
 
@@ -367,62 +333,25 @@ var UINAV = {
         console.log("loading configuration");
         var configurationModel = JSON.parse(configuration.data);
         var sortableOrder = configurationModel[0].sortable_order;
-        var bottom_sortable = configurationModel[0].bottom_sortable;
+        var searchResultSortables = configurationModel[0].searchResultSortables;
        
         var configurationList = configurationModel[0].configuration;
-        var bottomConfigList = configurationModel[0].bottom_config;
-         console.log("bottom configuration list");
-        console.log(bottomConfigList);
+
+        var self = this;
         
         // trigger saved jquery sort order
         var $accordion_container = $('.accordionContainer');
-        this.reorder(sortableOrder, configurationList, $accordion_container);
+        self.reorder(sortableOrder, configurationList, $accordion_container);
 
-        var dataTypesList = [];
-            for (var item in IONUX2.dataTypesList) {
-                dataTypesList.push(IONUX2.dataTypesList[item].id);
-            }
-            
-            var assetTypesList = [];
-            for (var item in IONUX2.assetTypesList) {
-                assetTypesList.push(IONUX2.assetTypesList[item].id);
-            }
+        $.each(searchResultSortables, function(accordionParent, order){
+            console.log(accordionParent);
+            console.log(order);
+            var $accordion_container = $("#" + accordionParent).find('.accordionContainerWhite');
+            console.log($accordion_container);
+            self.reorder_bottom(order, null, $accordion_container);
+        });
 
-            var siteTypesList = [];
-            for (var item in IONUX2.siteTypesList) {
-                siteTypesList.push(IONUX2.siteTypesList[item].id);
-            }
-
-                var gotKey = function(dataList) {
-                    for (var key in dataList) {
-                        for (item in bottomConfigList) {
-                            if (dataList[key] == $('#'+bottomConfigList[item].id).parent().attr('id')) {
-                                return true
-                            }
-                        }
-                    }   
-                };
-
-        if (gotKey(dataTypesList)) {
-            console.log("got data");
-            var $bottom_accordion = $('#dataSearchResultsAccordion .accordionContainerWhite');
-            console.log("bottom accordion is");
-            console.log($bottom_accordion);
-        }
-    
-        if (gotKey(assetTypesList)) {
-            console.log("got asset tab");
-            var $bottom_accordion = $('#assetsSearchResultsAccordion .accordionContainerWhite');
-            console.log($bottom_accordion);
-        }
-
-        if (gotKey(siteTypesList)) {
-            console.log("got site tab");
-            var $bottom_accordion = $('#siteSearchResultsAccordion .accordionContainerWhite');
-            console.log($bottom_accordion);
-        }
-
-        this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
+        // this.reorder_bottom(bottom_sortable, bottomConfigList, $bottom_accordion);
     },
 
     saveEntireSearch: function(customName) {
@@ -552,16 +481,16 @@ var UINAV = {
           var boolean_input;
           if ((boolean_main_filter == "lcstate") || (boolean_main_filter == "processing_level_code") || (boolean_main_filter == "quality_control_level") || (boolean_main_filter == "site") || (boolean_main_filter == "aggregated_status") || (boolean_main_filter == "type_")) {
             boolean_input = $(this).find('.booleanSelectContainer[name="filter_arg"] option:selected').attr('value');
-          console.log("boolean input is " + boolean_input);
+            //console.log("boolean input is " + boolean_input);
           }
           else {
             boolean_input = $(this).find('.booleanInput').val();
-            console.log("boolean input is " + boolean_input);
+            // console.log("boolean input is " + boolean_input);
           }
        
         boolean_expression_list.push({ 'boolean_main_filter' : boolean_main_filter, 'boolean_sub_filter' : boolean_sub_filter, 'boolean_input': boolean_input });
-        console.log("boolean expression list");
-        console.log(boolean_expression_list);
+        // console.log("boolean expression list");
+        // console.log(boolean_expression_list);
       });
       IONUX2.Collections.saveBooleanExpression.set(boolean_expression_list);
     })();
@@ -577,8 +506,8 @@ var UINAV = {
           accordion_list.push({'id' : accordion_id, 'is_visible' : $accordion_contents});
         });
         IONUX2.Collections.saveAccordionConfig.set(accordion_list);
-        console.log("accordion config is");
-        console.log(IONUX2.Collections.saveAccordionConfig);
+        // console.log("accordion config is");
+        // console.log(IONUX2.Collections.saveAccordionConfig);
     })();
 
       var facilities = IONUX2.Collections.saveFacilitySearch.toJSON();
