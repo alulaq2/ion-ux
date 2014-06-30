@@ -318,6 +318,11 @@
               upper = $('#lower').val();
               lower = $('#upper').val();
             }
+            if($('#feetMeters').val() == 2){
+              // convert feet to meters if ft is selected next to vertical extents.
+              upper = upper * 0.3048;
+              lower = lower * 0.3048;
+            }
             VJ = ["rop:within", ["vertical_range", lower, upper]];
             where_list.push(VJ);
           }
@@ -335,13 +340,27 @@
 
           if((tYear.length > 0 && tMonth.length > 0 && tDay.length > 0 && tHour.length > 0) && 
              (tYear2.length > 0 && tMonth2.length > 0 && tDay2.length > 0 && tHour2.length > 0)){
-            var temporalFromTime = new Date(tYear, tMonth, tDay, tHour).getTime() / 1000;
-            var temporalToTime = new Date(tYear2, tMonth2, tDay2, tHour2).getTime() / 1000;
+            var temporalFromTime = Date.UTC(tYear, tMonth, tDay, tHour) / 1000;
+            var temporalToTime = Date.UTC(tYear2, tMonth2, tDay2, tHour2) / 1000;
 
             console.log('*** From time: ' + temporalFromTime);
             console.log('*** To time: ' + temporalToTime);
-            TJ = ["rop:overlaps", ["temporal_range", temporalFromTime, temporalToTime]];
-            where_list.push(TJ);
+            if(temporalFromTime > temporalToTime){
+              tempTime = temporalToTime;
+              temporalToTime = temporalFromTime;
+              temporalFromTime = tempTime;
+            }
+
+            if($('#tempSelect').val() == 'temporalRange'){
+              TJ = ["rop:overlaps", ["temporal_range", temporalFromTime, temporalToTime]];
+              where_list.push(TJ);
+            } else if ($('#tempSelect').val() == 'tsCreated'){
+              TJ = ["exp:and", [["op:gte",["ts_created", temporalFromTime.toString()]],["op:lte",["ts_created", temporalToTime.toString()]]]];
+              where_list.push(TJ);
+            } else if ($('#tempSelect').val() == 'tsUpdated'){
+              TJ = ["exp:and", [["op:gte",["ts_updated", temporalFromTime.toString()]],["op:lte",["ts_updated", temporalToTime.toString()]]]];
+              where_list.push(TJ);
+            }
           }
 
           // add facilities query json
@@ -473,6 +492,15 @@
               DJ = ["exp:or",[DC,["assop:associated",[null,null,"hasResource","S",DC]],["exp:or",[DCS, BU(DCS, 1), BU(DCS, 2), BU(DCS, 3),["assop:associated",[null,null,["hasDeployment", "hasPrimaryDeployment", "withinDeployment"],"O",DCS]]]]]];
               where_list.push(DJ);
             }            
+          }
+
+          // add query json for keyword if no other search has been applied.
+          if(where_list.length == 0){
+            var keyword = $('#keywordIn').val();
+            if(keyword != ''){
+              KJ = ["xop:in",["type_", ["Org", "Observatory", "PlatformComponentSite", "PlatformSite", "StationSite", "InstrumentSite", "Deployment", "PlatformDevice", "InstrumentDevice", "PlatformModel", "InstrumentModel", "DataProduct"]]];
+              where_list.push(KJ);
+            }
           }
 
           // combine accordions query json

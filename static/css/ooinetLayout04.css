@@ -1061,6 +1061,18 @@ display: inline-block;
   width: 40px;
 }
 
+.tempSelect {
+  width: 120px;
+}
+
+.tempSelect .temporalMenu {
+  width: 120px;
+}
+
+.tempSelect .leftNaviSelectArrow {
+  width: 120px;
+}
+
 .leftNaviSelectArrow {
    width: 160px;
 }

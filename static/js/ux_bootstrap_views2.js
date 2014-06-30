@@ -405,7 +405,7 @@ IONUX2.Views.Spatial = Backbone.View.extend({
     $('.milesKilosMenu').val(spatialModel.miles_kilos);
     $('[data-verticalfrom]').val(spatialModel.vertical_from);
     $('[data-verticalto]').val(spatialModel.vertical_to);
-    $('.feet_miles option[value="' + spatialModel.feet_miles + '"]').attr('selected', 'selected');
+    $('.feetMeters option[value="' + spatialModel.feetMeters + '"]').attr('selected', 'selected');
     $('#radius').val(spatialModel.radius);
   },
   render: function() {
@@ -426,7 +426,7 @@ IONUX2.Views.Temporal = Backbone.View.extend({
   },
   updateData: function() {
     var temporalModel = IONUX2.Models.temporalModelInstance.attributes;
-    $('.temporal_menu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
+    $('.temporalMenu option[value="' + temporalModel.temporal_dropdown + '"]').attr('selected', 'selected');
     $('.from_date_menu .year option[value="' + temporalModel.from_year + '"]').attr('selected', 'selected');
     $('.from_date_menu .month option[value="' + temporalModel.from_month + '"]').attr('selected', 'selected');
     $('.from_date_menu .day option[value="' + temporalModel.from_day + '"]').attr('selected', 'selected');

@@ -457,11 +457,11 @@ var UINAV = {
         miles_kilos = $('.milesKilosMenu').val(),
         vertical_from = $('[data-verticalfrom]').val(),
         vertical_to = $('[data-verticalto]').val(),
-        feet_miles = $('.feet_miles option:selected').val(),
+        feetMeters = $('.feetMeters option:selected').val(),
         center = IONUX2.Dashboard.MapView.map.getCenter();
 
     // save temporal input values and set to model
-    var temporal_dropdown = $('.temporal_menu option:selected').attr('value'),
+    var temporal_dropdown = $('.temporalMenu option:selected').attr('value'),
       from_year = $('.from_date_menu .year').val(),
       from_month = $('.from_date_menu .month').val(),
       from_day = $('.from_date_menu .day').val(),
@@ -495,7 +495,7 @@ var UINAV = {
       'miles_kilos': miles_kilos,
       'vertical_from': vertical_from,
       'vertical_to': vertical_to,
-      'feet_miles': feet_miles,
+      'feetMeters': feetMeters,
       'center': center
     };
 
