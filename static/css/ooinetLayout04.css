@@ -694,6 +694,18 @@ ul.dropdown-menu li:hover {
   overflow: auto;
 }
 
+.nsf-ol {
+  height: 160px;
+  padding: 5px;
+  border-top: 1px solid #7B99B5;
+}
+
+.logos {
+  margin-left: auto;
+  margin-right: auto;
+  width: 151px;
+}
+
 .spatialDetails .accordionContainer {
   height: 272px;
 }

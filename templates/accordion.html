@@ -96,6 +96,19 @@
           IONUX2.Views.leftAccordion.addAccordion(accordions[accordion].title, accordions[accordion].id);
         }
 
+        $('#boolean_expressionElem').hide();
+
+        $('.accordionContainer').append('<div class="nsf-ol">\
+            <div class="logos">\
+              <div class="nsf"> </div>\
+              <div class="ol"> </div>\
+            </div>\
+            <div class="about">\
+              Funding for the <a href="http://www.oceanobservatories.org/" target="OOI">Ocean Observatories Initiative</a> is provided by the <a href="http://www.nsf.gov" target="NSF">National Science Foundation</a> through a Cooperative Agreement with the <a href="http://www.oceanleadership.org/" target="COL">Consortium for Ocean Leadership</a>.\
+            </div>\
+          </div>\
+        ');
+
         IONUX2.Views.spatial = new IONUX2.Views.Spatial({model: IONUX2.Models.spatialModelInstance});
         IONUX2.Views.temporal = new IONUX2.Views.Temporal({model: IONUX2.Models.temporalModelInstance});
         /* IONUX2.Views.RegionList = new IONUX2.Views.Region({collection: IONUX2.Dashboard.Observatories }); */ /*DELETE THIS */
