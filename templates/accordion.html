@@ -147,37 +147,19 @@
 
           //save recent searches
           var name = "";
-          UINAV.saveEntireSearch(name);
+          searchParams = UINAV.saveEntireSearch(name);
           var maxLength = 5;
           var parsed_collection = IONUX2.Collections.recentSearches.toJSON();
 
           if (parsed_collection.length != 0) {
             var collection_length = parsed_collection.length;
-            var search_length = parsed_collection[0].saved_searches.length;
-            if (search_length == maxLength) {
-               IONUX2.Collections.recentSearches.models[0].attributes.saved_searches.shift();
+            if (collection_length == maxLength) {
+               IONUX2.Collections.recentSearches.shift();
             }
-            var parsed_obj = parsed_collection[0].saved_searches.reverse();
-            var concat_obj = parsed_obj.concat(IONUX2.Collections.saveNames.toJSON()).reverse();
-            IONUX2.Collections.saveNames.set(concat_obj);
           }
-          IONUX2.Collections.recentSearches.set({
-            'userId': IONUX2.Models.SessionInstance.attributes.user_id,
-            'name':  name,
-            'validUntil': IONUX2.Models.SessionInstance.attributes.valid_until,
-            'configuration': {
-              'spatialElem': $('#spatial').is(':visible'),
-              'temporalElem': $('#temporal').is(':visible'),
-              'orgSelectorElem': $('#orgSelector').is(':visible'),
-              'siteElem': $('#site').is(':visible'),
-              'platformTypesListElem': $('#platformTypesList').is(':visible'),
-              'dataTypesListElem': $('#dataTypesList').is(':visible'),
-              'boolean_expressionElem': $('#boolean_expression').is(':visible'),
-              'instrumentElem': $('#instrument').is(':visible')
-            },
-            'bottom_config': IONUX2.Collections.saveAccordionConfig.toJSON(),
-            'saved_searches': IONUX2.Collections.saveNames.toJSON()
-          });
+
+          IONUX2.Collections.recentSearches.add(searchParams);
+
         });
         
         IONUX2.resetSearch = function(){
@@ -302,6 +284,8 @@
             if(formObj['radius'] != ''){
               // do point radius search
               GC = ["gop:within_geom", ["geom", "POINT(" + formObj['west'] + " " + formObj['south'] + ")", formObj['radius']]];
+              // compensate for point radius not finding devices.  Also deployments associated.
+              GC = ["exp:or", [GC, BD(GC, 1)]];
             } else {
               // do bbox search
               GC = ["gop:within", ["geom_loc", formObj['west'], formObj['north'], formObj['east'], formObj['south']]];
@@ -650,6 +634,7 @@
 
           IONUX.ROUTER.navigate('/search/?'+ search_term, {trigger:true});
 
+          // ************* END OLD SEARCH CODE ******************
         }
 
     </script>

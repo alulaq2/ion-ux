@@ -209,9 +209,18 @@ IONUX2 = {
 
     facilityLabels: {
     	'Bench Test Facility' : 'Bench Test Facility',
-    	'CGSN Facility' : 'Coastal/Global Scale Nodes (CGSN)',
+    	'CGSN Facility' : 'CGSN',
     	'EA Facility' : 'Endurance Array (EA)',
     	'RSN Facility' : 'Regional Scale Nodes (RSN)'
+    },
+
+    dataTypeLabels: {
+    	'Fluorometric CDOM Concentration' : 'Fluorometric CDOM Conc.',
+    	'Fluorometric Chlorophyll-a Concentration' : 'Fluorometric Chlorophyll-a Conc.',
+    	'Optical Absorbance Signal Intensity at 434nm' : 'Optical Absorbance at 434nm',
+    	'Optical Absorbance Signal Intensity at 578nm' : 'Optical Absorbance at 578nm',
+    	'Optical Backscatter (Red Wavelengths)' : 'Optical Backscatter (Red)',
+    	'Oxygen Concentration from Stable DO Instrument' : 'Oxygen Concentration, DO Instr.'
     }
 };
 

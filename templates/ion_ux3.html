@@ -332,6 +332,30 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
         IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
 
+        IONUX2.executeSearchFromModel = function(searchModel, index){
+            //reset search results
+            IONUX2.resetSearch();
+
+            UINAV.disableMapEventHandling = true;
+
+            console.log('Executing search at list index:');
+            console.log(index);
+
+            var reverseIndex = searchModel.length - index - 1;
+            console.log('Model index:');
+            console.log(reverseIndex);
+            console.log('Model length:');
+            console.log(searchModel.length);
+            
+            UINAV.loadLeftNav(searchModel.models[reverseIndex].toJSON(), 0);
+                
+            // open Search tab
+            $('#searchTab').trigger('click');
+            // execute search
+            $('#searchBtn').click();
+
+            UINAV.disableMapEventHandling = false;
+        }
 
         var disableMapEventHandling = false;
         $('#mySearchesTab').on('click', function(e) {
@@ -339,97 +363,27 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
             IONUX2.Views.loadSearchCollection.render();
             IONUX2.Views.loadRecentSearches.render();
-
-           
             
             // loop through list of saved searches
             $('.savedSearch').each(function(index) {
                 
-              $(this).on('click', function(e) {
-                e.preventDefault();
-                //reset search results
-                IONUX2.resetSearch();
-                /*
-                disableMapEventHandling = true;
-                IONUX2.clearSearchResults();
+                $(this).on('click', function(e) {
+                    e.preventDefault();
 
-                // clear keyword
-                $('#keywordIn').val("");
+                    var searchModel = IONUX2.Collections.userProfileInstance;
 
-                // clear temporal
-                $('#temporal select').val("0");
-
-                // clear spatial
-                var attribute = {};
-                attribute["from_longitude"] = "";
-                attribute["from_latitude"] = "";
-                attribute["to_longitude"] = "";
-                attribute["to_latitude"] = "";
-                attribute["radius"] = "";
-                IONUX2.Models.spatialModelInstance.updateAttributes(attribute);
-
-                $("#southFm").val("");
-                $("#westFm").val("");
-                $("#northFm").val("");
-                $("#eastFm").val("");
-                $("#radiusFm").val("");
-                $('#radius').val("");
-                $('#lower').val("");
-
-                // clear all checkboxes
-                $('#searchTabContent').find('input').prop("checked", false);
-
-                // clear boolean
-                IONUX2.Views.boolean.render();
-                disableMapEventHandling = false;
-                */
-                UINAV.disableMapEventHandling = true;
-                
-                var searchModel = IONUX2.Collections.userProfileInstance.models[0].attributes;
-
-                // convert search model into string to pass to ajax call
-                var body = JSON.stringify(searchModel);
-
-                UINAV.loadLeftNav(searchModel, index);
-                    
-                    // open Search tab
-                    $('#searchTab').trigger('click');
-                    $('#searchBtn').click();
-
-                    $('#booleanForm .filter-item').each(function(index) {
-                        var selectArray = $(this).find('select[name="filter_arg"]').get();
-                        var uniqueSelect = $.unique(selectArray);
-                        console.log("select menu");
-                        console.log(uniqueSelect);
-                        $(this).find('select[name="filter_arg"]').each(function(item) {
-                            if (item != 0) {
-                                $(this).remove();
-                            }
-                        });
-
-                        if ($(this).find('input').next().attr('name') == "filter_arg") {
-                            console.log('found filter arg');
-                            $(this).find('input').next().remove();
-                        }
-                    });
+                    IONUX2.executeSearchFromModel(searchModel, index);
 
                 });
-                UINAV.disableMapEventHandling = false;
             });
 
             $('.recentSearch').each(function(index) {
                 $(this).on('click', function(e) {
                     e.preventDefault();
-                    var searchModel = IONUX2.Collections.recentSearches.models[0].attributes;
+                    var searchModel = IONUX2.Collections.recentSearches;
 
-                    UINAV.loadLeftNav(searchModel, index);
+                    IONUX2.executeSearchFromModel(searchModel, index);
 
-                    $('#searchTab').trigger('click');
-                    $('#booleanForm .filter-item').each(function(index) {
-                        if ($(this).find('input').next().attr('name') == "filter_arg") {
-                            $(this).find('input').next().remove();
-                        }
-                    });
                 });
             });
             
@@ -448,8 +402,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     // remove model from the view
                     $(this).parent().remove();
                     // post main collection to server
-                    var userProfile = JSON.stringify(IONUX2.Collections.userProfileInstance);
-                    UINAV.postUserProfile(userProfile);
+                    var savedSearches = JSON.stringify(IONUX2.Collections.userProfileInstance);
+                    UINAV.postSavedSearches(savedSearches);
                 });
             });
         });

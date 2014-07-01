@@ -5,7 +5,12 @@
 	<form action="">
         <% _.each(resources, function(name) { %>
             <input type="checkbox" dataTypeId="<%= name %>"/>
-            <div class="leftNavListItem"> <%= name %>
+            <div class="leftNavListItem" title="<%= name %>">
+                    <% if (!(name in IONUX2.dataTypeLabels)) { %>
+                        <%= name %>
+                    <% } else { %>
+                        <%= IONUX2.dataTypeLabels[name] %>
+                    <% } %>
             </div><br/>
         <% }); %>
     </form>
