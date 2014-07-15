@@ -6,11 +6,16 @@ var UINAV = {
             elementContainer.append($("#"+val));
         });
 
+        elementContainer.append($(".nsf-ol"));
+
         for (item in configurationList) {
             if (configurationList[item]) {
                 this.disableMapEventHandling = true;
                 $('#'+item + ' .leftAccordionContents').show();
                 $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+            } else {
+                $('#'+item + ' .leftAccordionContents').hide();
+                $('#'+item).find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
             }
         }
     },
@@ -75,7 +80,7 @@ var UINAV = {
 
     loadSpatial: function(spatialModel) {
         IONUX2.Models.spatialModelInstance.updateAttributes(spatialModel);
-        IONUX2.Dashboard.MapView.map.setCenter(new google.maps.LatLng(spatialModel.center["k"], spatialModel.center["A"]));
+        IONUX2.Dashboard.MapView.map.setCenter(spatialModel.center);
     },
     loadTemporal: function(temporalModel) {
         IONUX2.Models.temporalModelInstance.updateAttributes(temporalModel);
@@ -306,7 +311,7 @@ var UINAV = {
         var configurationModel = JSON.parse(configuration.data);
         var self = this;
         
-        if(('sortableOrder' in configurationModel[0]) && ('configurationList' in configurationModel[0])){
+        if(('sortable_order' in configurationModel[0]) && ('configuration' in configurationModel[0])){
             var sortableOrder = configurationModel[0].sortable_order;       
             var configurationList = configurationModel[0].configuration;
             // trigger saved jquery sort order
