@@ -12,10 +12,10 @@ var UINAV = {
             if (configurationList[item]) {
                 this.disableMapEventHandling = true;
                 $('#'+item + ' .leftAccordionContents').show();
-                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+                $('#'+item).find('.accordionTitle').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             } else {
                 $('#'+item + ' .leftAccordionContents').hide();
-                $('#'+item).find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+                $('#'+item).find('.accordionTitle').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
             }
         }
     },
