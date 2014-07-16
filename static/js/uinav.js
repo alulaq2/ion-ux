@@ -361,6 +361,8 @@ var UINAV = {
                 'seconds': seconds
             }
 
+        var center = IONUX2.Dashboard.MapView.map.getCenter();
+
         var spatial = {
                 'spatial_dropdown': $('.latLongMenu option:selected').attr('value'),
                 'from_latitude': $('#south').val(),
@@ -376,7 +378,7 @@ var UINAV = {
                 'vertical_from': $('[data-verticalfrom]').val(),
                 'vertical_to': $('[data-verticalto]').val(),
                 'feetMeters': $('.feetMeters option:selected').val(),
-                'center': IONUX2.Dashboard.MapView.map.getCenter()
+                'center': {'lat':center.lat(), 'lng':center.lng()}
             }
 
         var temporal = {
