@@ -127,7 +127,10 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
         
     <script>
         function buildAdminMenu(){
+            // clear admin menu links.
             $('#adminMenu').html('');
+
+            // add search results link.  Available for all users.
             $('#adminMenu').append('<div id="myDashboard" class="adminMenuTab" style="display:inline-block;">Search Results</div>');
             $('#myDashboard').click(function(e) {
                 IONUX2.setPageView("searchResults");
@@ -156,6 +159,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 });
             }
 
+            // Adding menu items for operators and managers
             if(IONUX2.has_permission(['INSTRUMENT_OPERATOR','DATA_OPERATOR','OBSERVATORY_OPERATOR','ORG_MANAGER','ION_MANAGER'])){
 
                 $('#adminMenu').append('<div id="assetTracking" class="adminMenuTab" style="display:inline-block;">Asset Tracking</div>');
@@ -215,16 +219,11 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             }
         };
 
-        /* page view states are searchResults, resourceManagement */
-
         IONUX2.setPageView = function(viewState, tab) {
 
             tab = typeof tab !== 'undefined' ? tab : "";
-            console.log(viewState);
-            console.log(viewStates[viewState]);
             landing_id = viewStates[viewState].landingPageId;
-            // console.log(landingPages[viewState]);
-            // landing_id = landingPages[viewState].id;
+
             if($('#'+landing_id).length == 0){
                 var newDiv = $('<div/>', {
                     id : landing_id
@@ -279,7 +278,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 $('#mapToolbar').attr('state', state);
                 var center = IONUX2.Dashboard.MapView.map.getCenter();
                 var zoom = IONUX2.Dashboard.MapView.map.getZoom();
-                console.log('** STATE **' + state);
                 switch(state){
                     case "mapFull": $("#upperMain").css("height", "100%");
                                     $("#lowerMain").css("height", "0%");
@@ -314,8 +312,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
 
             IONUX2.setPageView('searchResults');
 
-            //Backbone.history.start(/*{pushState:true, hashChange: false}*/);
-
             $(".mapButtonFull").click(function(){
                 IONUX2.setMapState('mapFull');
             });
@@ -329,84 +325,47 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
             });
 
            
-        IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
-        IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
+            IONUX2.Views.loadSearchCollection = new IONUX2.Views.LoadSearchCollection({collection: IONUX2.Collections.userProfileInstance});
+            IONUX2.Views.loadRecentSearches = new IONUX2.Views.LoadRecentSearches({collection: IONUX2.Collections.recentSearches});
 
-        IONUX2.executeSearchFromModel = function(searchModel, index){
-            //reset search results
-            IONUX2.resetSearch();
+            IONUX2.executeSearchFromModel = function(searchModel, index){
+                //reset search results
+                IONUX2.resetSearch();
 
-            UINAV.disableMapEventHandling = true;
+                UINAV.disableMapEventHandling = true;
 
-            console.log('Executing search at list index:');
-            console.log(index);
-
-            var reverseIndex = searchModel.length - index - 1;
-            console.log('Model index:');
-            console.log(reverseIndex);
-            console.log('Model length:');
-            console.log(searchModel.length);
-            
-            UINAV.loadLeftNav(searchModel.models[reverseIndex].toJSON(), 0);
+                var reverseIndex = searchModel.length - index - 1;
                 
-            // open Search tab
-            $('#searchTab').trigger('click');
-            // execute search
-            $('#searchBtn').click();
+                UINAV.loadLeftNav(searchModel.models[reverseIndex].toJSON(), 0);
+                    
+                // open Search tab
+                $('#searchTab').trigger('click');
+                // execute search
+                $('#searchBtn').click();
 
-            UINAV.disableMapEventHandling = false;
-        }
+                UINAV.disableMapEventHandling = false;
+            }
 
-        var disableMapEventHandling = false;
-        $('#mySearchesTab').on('click', function(e) {
-            e.preventDefault();
+            IONUX2.deleteSearchFromModel = function(searchModel, index){
+                var reverseIndex = searchModel.length - index - 1;
 
-            IONUX2.Views.loadSearchCollection.render();
-            IONUX2.Views.loadRecentSearches.render();
-            
-            // loop through list of saved searches
-            $('.savedSearch').each(function(index) {
+                var modelToDelete = searchModel.models[reverseIndex];
+
+                searchModel.remove(modelToDelete);
+
+                var savedSearches = JSON.stringify(searchModel);
+
+                UINAV.postSavedSearches(savedSearches);
+                IONUX2.Views.loadSearchCollection.render();
+            }
+
+            $('#mySearchesTab').on('click', function(e) {
+                e.preventDefault();
+
+                IONUX2.Views.loadSearchCollection.render();
+                IONUX2.Views.loadRecentSearches.render();
                 
-                $(this).on('click', function(e) {
-                    e.preventDefault();
-
-                    var searchModel = IONUX2.Collections.userProfileInstance;
-
-                    IONUX2.executeSearchFromModel(searchModel, index);
-
-                });
             });
-
-            $('.recentSearch').each(function(index) {
-                $(this).on('click', function(e) {
-                    e.preventDefault();
-                    var searchModel = IONUX2.Collections.recentSearches;
-
-                    IONUX2.executeSearchFromModel(searchModel, index);
-
-                });
-            });
-            
-            // delete saved search
-            $('.list_mysearches li').each(function(index) {
-                $(this).find('.deleteSearch').on('click', function(e) {
-                    e.preventDefault();
-                    // store saved search in temp collection
-                    IONUX2.Collections.deleteSearch.set(IONUX2.Collections.userProfileInstance.models[0].attributes.saved_searches);
-                    // get model to delete
-                    var deleteModel = IONUX2.Collections.deleteSearch.at(index);
-                    // remove model from temp collection
-                    IONUX2.Collections.deleteSearch.remove(deleteModel);
-                    // set temp collection to main collection
-                    IONUX2.Collections.userProfileInstance.models[0].set({saved_searches: IONUX2.Collections.deleteSearch.toJSON()});
-                    // remove model from the view
-                    $(this).parent().remove();
-                    // post main collection to server
-                    var savedSearches = JSON.stringify(IONUX2.Collections.userProfileInstance);
-                    UINAV.postSavedSearches(savedSearches);
-                });
-            });
-        });
 
             // ********** Nav Tabs support **************
             // tab support for the nav section.
@@ -452,16 +411,6 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                     $("#leftSubheader").animate({
                        left: '0px'
                     }, { duration: 200, queue: false });
-                    
-                    /*$("#main").animate({
-                       left: '275px',
-                       width: '-=275px'
-                    }, { duration: 200, queue: false });*/
-                    
-                    /*$("#mainSubheader").animate({
-                       left: '275px',
-                       width: '-=275px'
-                    }, { duration: 200, queue: false });*/
                 } else {
                     $(this).addClass('collapsed');
                     $(this).attr('style', 'left:275px');
@@ -477,15 +426,7 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                        left: '-275px'
                     }, { duration: 200, queue: false });
                     $("#main").css({left:'0px', width:'100%'});
-                    /*$("#main").animate({
-                       left: '0px',
-                       width: '100%'
-                    }, { duration: 200, queue: false });*/
                     $("#mainSubheader").css({left:'0px', width:'100%'});
-                    /*$("#mainSubheader").animate({
-                       left: '0px',
-                       width: '100%'
-                    }, { duration: 200, queue: false });*/
                     $(window).trigger('resize');
                     google.maps.event.trigger(IONUX2.Dashboard.MapView.map,'resize');
                     IONUX2.Dashboard.MapView.map.setCenter(center);
@@ -501,19 +442,13 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 e.preventDefault();
 
                 var sortable_order = $( "#searchTabContent" ).children('.accordionContainer').sortable( "toArray" );
-                // var tabs = $('#searchResultsTabContainer .twoNavTab.active').attr('tabcontent');
 
                 var accordions = $(".accordionContainerWhite");
-                console.log("****  Accordions ****");
-                console.log(accordions);
 
                 var searchResultSortables = {};
                 accordions.each(function(index) {
-                    console.log(index);
-                    console.log($(this)); // accordion
                     var accordion = $(this);
                     var id = accordion.parent().attr("id");
-                    console.log(id);
                     searchResultSortables[id] = accordion.sortable("toArray");
                 });
 
@@ -536,9 +471,8 @@ last edited 05-15 05-11 04-13 04-09 03-05 2014-03-02
                 UINAV.postUserConfiguration(userConfiguration);
             });
             
-            // ************ Load UI state. *************
-            // !! Intended to be temporary for testing!!!
-            // Load server JSON of UI state (and saved searches) and then set UI to match.
+            // ************ Reset configuration. *************
+            // clear the user profile on server and refresh the browser.
             $('#resetConfigBtn').on('click', function(e) {
                 e.preventDefault();
                 UINAV.postUserConfiguration("");

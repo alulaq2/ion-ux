@@ -19,12 +19,36 @@ IONUX2.Views.LoadSearchCollection = Backbone.View.extend({
   },
   render: function() {
     console.log('rendering load collection searches view');
-    console.log(this.collection.toJSON());
     var searches = this.collection.toJSON().reverse();
-    if(searches.length > 0){
-      console.log(searches);
-      this.$el.html(this.template({'searches':searches}));
-    }
+    
+    this.$el.html(this.template({'searches':searches}));
+
+    // loop through list of saved searches
+    this.$el.find('.savedSearch').each(function(index) {
+        
+        $(this).on('click', function(e) {
+            e.preventDefault();
+
+            var searchModel = IONUX2.Collections.userProfileInstance;
+
+            IONUX2.executeSearchFromModel(searchModel, index);
+
+        });
+    });
+
+    // delete saved search
+    $('.list_mysearches li').each(function(index) {
+        $(this).find('.deleteSearch').on('click', function(e) {
+            e.preventDefault();
+
+            var searchModel = IONUX2.Collections.userProfileInstance;
+
+            IONUX2.deleteSearchFromModel(searchModel, index);
+
+            return;
+        });
+    });
+
     return this;
   }
 });
@@ -55,7 +79,19 @@ IONUX2.Views.LoadRecentSearches = Backbone.View.extend({
     if(searches.length > 0){
       console.log(searches);
       this.$el.html(this.template({'searches':searches}));
+
+      this.$el.find('.recentSearch').each(function(index) {
+          $(this).on('click', function(e) {
+              e.preventDefault();
+              var searchModel = IONUX2.Collections.recentSearches;
+
+              IONUX2.executeSearchFromModel(searchModel, index);
+
+          });
+      });
+                
     }
+    
     return this;
   }
 });

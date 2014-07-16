@@ -12,10 +12,10 @@ var UINAV = {
             if (configurationList[item]) {
                 this.disableMapEventHandling = true;
                 $('#'+item + ' .leftAccordionContents').show();
-                $('#'+item).find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
+                $('#'+item).find('.accordionTitle').find('.expandHide').removeClass('arrowRight').addClass('arrowDown');
             } else {
                 $('#'+item + ' .leftAccordionContents').hide();
-                $('#'+item).find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
+                $('#'+item).find('.accordionTitle').find('.expandHide').removeClass('arrowDown').addClass('arrowRight');
             }
         }
     },
@@ -361,6 +361,8 @@ var UINAV = {
                 'seconds': seconds
             }
 
+        var center = IONUX2.Dashboard.MapView.map.getCenter();
+
         var spatial = {
                 'spatial_dropdown': $('.latLongMenu option:selected').attr('value'),
                 'from_latitude': $('#south').val(),
@@ -376,7 +378,7 @@ var UINAV = {
                 'vertical_from': $('[data-verticalfrom]').val(),
                 'vertical_to': $('[data-verticalto]').val(),
                 'feetMeters': $('.feetMeters option:selected').val(),
-                'center': IONUX2.Dashboard.MapView.map.getCenter()
+                'center': {'lat':center.lat(), 'lng':center.lng()}
             }
 
         var temporal = {
